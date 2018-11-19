@@ -1,11 +1,14 @@
-#include "../../headers/character/character.h"
+#include "character.h"
 
 namespace character
 {
-	character::character(std::string name) : m_name(name) {};
+	character::character(std::string name) : _name(name)
+	{
+
+	};
 
 	std::string character::getName() const
 	{
-		return m_name;
+		return _name;
 	}
 }

@@ -3,6 +3,9 @@
 #
 cmake_minimum_required (VERSION 3.8)
 
+include_directories("headers"
+"headers/character" "headers/character/attributes"
+"headers/utilities")
 
 set(CHARACTER_SOURCES "headers/character/character.h" "src/character/character.cpp")
 

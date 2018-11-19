@@ -2,7 +2,7 @@
 //
 
 #include "exalteredpp.h"
-#include "headers/character/character.h"
+#include "character.h"
 
 using namespace std;
 

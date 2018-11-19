@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include "attributes.h"
 
 namespace character
 {
@@ -11,8 +12,11 @@ namespace character
 
 		std::string getName() const;
 
+		attributes getAttributes() const;
+
 	private:
-		std::string m_name;
+		std::string _name;
+		attributes _attributes;
 
 	};
 }
