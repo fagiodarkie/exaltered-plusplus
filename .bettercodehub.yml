@@ -1,0 +1,12 @@
+exclude:
+- /exalteredpp/thirdparty/.*
+
+languages:
+- name: cpp
+  production:
+    exclude:
+      - /exalteredpp/test-case/.*\.cpp
+  test:
+    include:
+      - /exalteredpp/test-case/.*\.cpp
+

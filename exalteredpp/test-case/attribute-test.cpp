@@ -1,4 +1,4 @@
-#include "../catch/catch.hpp"
+#include "../thirdparty/catch/catch.hpp"
 #include "attributes.h"
 
 #define TEST_ATTRIBUTE_NAME "test-attribute"

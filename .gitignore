@@ -32,4 +32,4 @@
 *.app
 
 # Visual Studio files
-exalteredpp/.vs/*
+.vs/*
