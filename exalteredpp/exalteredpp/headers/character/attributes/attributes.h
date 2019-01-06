@@ -10,9 +10,8 @@ namespace character {
 	class attribute {
 	public:
 		operator int() const;
-		operator int&();
-
-		operator string();
+		
+		operator string() const;
 
 		attribute(string name);
 

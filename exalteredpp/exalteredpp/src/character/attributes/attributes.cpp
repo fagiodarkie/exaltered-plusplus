@@ -9,7 +9,7 @@ namespace character {
 		return _value;
 	}
 
-	attribute::operator int &() {
-		return _value;
+	attribute::operator string() const {
+		return _name;
 	}
 }

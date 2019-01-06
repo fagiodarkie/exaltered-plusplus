@@ -1,17 +1,40 @@
-﻿# CMakeList.txt: progetto CMake per exalteredpp. Includere l'origine e definire
-# qui la logica specifica del progetto.
-#
-cmake_minimum_required (VERSION 3.8)
+﻿cmake_minimum_required (VERSION 3.8)
 
-include_directories("headers"
-"headers/character" "headers/character/attributes"
-"headers/utilities")
+# header folders
+set(HEADER_FOLDERS "headers"
+	"headers/character" "headers/character/attributes"
+	)
 
-set(CHARACTER_SOURCES "headers/character/character.h" "src/character/character.cpp")
+include_directories(${HEADER_FOLDERS})
 
-set(SOURCES "exalteredpp.h" ${CHARACTER_SOURCES})
+#test header folders
+#set(TEST_HEADER_FILES "")
+set(TEST_HEADERS "catch/catch.hpp"
+	#${TEST_HEADER_FILES
+	)
 
-# Aggiungere l'origine all'eseguibile di questo progetto.
-add_executable (exalteredpp "exalteredpp.cpp" ${SOURCES})
+# character classes
+set(ATTRIBUTE_SOURCES "headers/character/attributes/attributes.h" "headers/character/attributes/attributeNames.h" "src/character/attributes/attributes.cpp")
+set(CHARACTER_SOURCES "headers/character/character.h" "src/character/character.cpp" ${ATTRIBUTE_SOURCES})
 
-# TODO: Aggiungere i test e, se necessario, installare le destinazioni.
+# main project sources
+set(PROJECT_SOURCES ${CHARACTER_SOURCES})
+
+# application sources
+set(APP_SOURCES "exalteredpp.cpp" "exalteredpp.h"
+	${PROJECT_SOURCES}
+	)
+
+# test cases
+set(TEST_CASE_SOURCES "test-case/attribute-test.cpp")
+
+# test application sources
+set(TEST_SOURCES "exaltered-test.cpp"
+	${TEST_CASE_SOURCES}
+	${PROJECT_SOURCES}
+	)
+
+# targets
+add_executable (exalteredpp ${APP_SOURCES})
+
+add_executable (tests ${TEST_SOURCES})
