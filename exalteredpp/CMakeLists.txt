@@ -2,7 +2,7 @@
 
 # header folders
 set(HEADER_FOLDERS "headers"
-	"headers/character" "headers/character/attributes"
+#	"headers/character" "headers/character/attributes"
 	)
 
 include_directories(${HEADER_FOLDERS})

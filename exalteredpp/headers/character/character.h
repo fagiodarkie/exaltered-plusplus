@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "attributes.h"
+#include "character/attributes/attributes.h"
 
 namespace character
 {
