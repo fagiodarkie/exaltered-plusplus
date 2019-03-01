@@ -1,9 +1,9 @@
 ﻿cmake_minimum_required (VERSION 3.8)
 
+project(test)
+
 # header folders
-set(HEADER_FOLDERS "headers"
-#	"headers/character" "headers/character/attributes"
-	)
+set(HEADER_FOLDERS "headers")
 
 include_directories(${HEADER_FOLDERS})
 
@@ -20,11 +20,6 @@ set(CHARACTER_SOURCES "headers/character/character.h" "src/character/character.c
 # main project sources
 set(PROJECT_SOURCES ${CHARACTER_SOURCES})
 
-# application sources
-set(APP_SOURCES "exalteredpp.cpp" "exalteredpp.h"
-	${PROJECT_SOURCES}
-	)
-
 # test cases
 set(TEST_CASE_SOURCES "test-case/attribute-test.cpp")
 
@@ -35,6 +30,4 @@ set(TEST_SOURCES "exaltered-test.cpp"
 	)
 
 # targets
-add_executable (exalteredpp ${APP_SOURCES})
-
 add_executable (tests ${TEST_SOURCES})
