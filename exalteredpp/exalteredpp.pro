@@ -35,11 +35,9 @@ SOURCES += \
     src/main.cpp
 
 HEADERS += \
-        headers/exalteredapp.h \
     headers/character/attributes/attributeNames.h \
     headers/character/attributes/attributes.h \
-    headers/character/character.h \
-    headers/exalteredapp.h
+    headers/character/character.h
 
 CONFIG += mobility
 MOBILITY = 
