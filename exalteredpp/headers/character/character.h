@@ -2,21 +2,26 @@
 
 #include <string>
 #include "character/attributes/attributes.h"
+#include "serialisation/serialisable.h"
 
 namespace character
 {
-	class character
-	{
-	public:
-		character(std::string name);
+  class character : public serialisable
+  {
+    public:
+      // character fields
+      character(QString name);
 
-		std::string getName() const;
+      QString getName() const;
+      attributes getAttributes() const;
 
-		attributes getAttributes() const;
+      // serialisable fields
+      void read(QJsonObject& object) override;
+      void write(QJsonObject& object) const override;
 
-	private:
-		std::string _name;
-		attributes _attributes;
+    private:
+      QString _name;
+      attributes _attributes;
 
-	};
+    };
 }

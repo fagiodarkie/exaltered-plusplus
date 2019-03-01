@@ -37,7 +37,8 @@ SOURCES += \
 HEADERS += \
     headers/character/attributes/attributeNames.h \
     headers/character/attributes/attributes.h \
-    headers/character/character.h
+    headers/character/character.h \
+    headers/serialisation/serialisable.h
 
 CONFIG += mobility
 MOBILITY = 
