@@ -33,4 +33,5 @@ HEADERS += \
     ../headers/character/attributes/attributeNames.h \
     ../headers/character/attributes/attributes.h \
     ../headers/character/character.h \
+    ../headers/serialisation/serialisable.h \
     ../thirdparty/catch/catch.hpp
