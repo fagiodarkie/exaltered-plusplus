@@ -2,7 +2,7 @@
 
 namespace character
 {
-  character::character(QString name) : _name(name) {  };
+  character::character(QString name) : _name(name) { };
 
   QString character::getName() const
   {

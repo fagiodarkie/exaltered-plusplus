@@ -19,6 +19,9 @@ namespace character
       void read(QJsonObject& object) override;
       void write(QJsonObject& object) const override;
 
+  protected:
+      //virtual ~character() override = default;
+
     private:
       QString _name;
       attributes _attributes;
