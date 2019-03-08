@@ -1,0 +1,4 @@
+#ifndef JSON_CONSTANTS_H
+#define JSON_CONSTANTS_H
+
+#endif // JSON_CONSTANTS_H

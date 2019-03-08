@@ -31,17 +31,19 @@ INCLUDEPATH += ../../headers \
     ../../headers/qt
 
 SOURCES += \
-    ../../src/model/character/attributes/attributes.cpp \
     ../../src/model/character/character.cpp \
     ../../src/qt/exalteredapp.cpp \
-    ../../src/qt/main.cpp
+    ../../src/qt/main.cpp \
+    ../../src/model/character/attributes/attribute.cpp \
+    ../../src/model/character/attributes/attributes.cpp
 
 HEADERS += \
     ../../headers/model/character/attributes/attributeNames.h \
-    ../../headers/model/character/attributes/attributes.h \
     ../../headers/model/character/character.h \
     ../../headers/qt/exalteredapp.h \
-    ../../headers/serialisation/serialisable.h
+    ../../headers/serialisation/serialisable.h \
+    ../../headers/model/character/attributes/attribute.h \
+    ../../headers/model/character/attributes/attributes.h
 
 CONFIG += mobility
 MOBILITY = 

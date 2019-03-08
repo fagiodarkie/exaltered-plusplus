@@ -1,26 +1,13 @@
 #pragma once
 
-#include <string>
 #include <map>
 #include "attributeNames.h"
-
-using std::string;
+#include "attribute.h"
 
 namespace character {
-  class attribute {
-  public:
-    operator int() const;
+  class attributes : public std::map<attributeName, attribute>
+  {
 
-    operator string() const;
-
-    attribute(string name);
-
-    attribute(string name, int value);
-
-  private:
-    int _value;
-    string _name;
   };
-
-  typedef std::map<attributeName, attribute> attributes;
 }
+
