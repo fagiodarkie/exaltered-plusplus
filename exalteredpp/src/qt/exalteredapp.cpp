@@ -1,4 +1,4 @@
-#include "exalteredapp.h"
+#include "qt/exalteredapp.h"
 
 ExalteredApp::ExalteredApp(QWidget *parent)
     : QMainWindow(parent)

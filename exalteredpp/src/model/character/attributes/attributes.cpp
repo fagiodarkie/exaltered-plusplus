@@ -1,4 +1,4 @@
-#include "character/attributes/attributes.h"
+#include "attributes/attributes.h"
 
 namespace character {
 	attribute::attribute(string name) : _value(0), _name(name) {}

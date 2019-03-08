@@ -9,18 +9,16 @@ namespace character
   class character : public serialisable
   {
     public:
-      // character fields
+      // constructors
       character(QString name);
 
+      // character fields
       QString getName() const;
       attributes getAttributes() const;
 
       // serialisable fields
       void read(QJsonObject& object) override;
       void write(QJsonObject& object) const override;
-
-  protected:
-      //virtual ~character() override = default;
 
     private:
       QString _name;

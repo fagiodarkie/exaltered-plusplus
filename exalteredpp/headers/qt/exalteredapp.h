@@ -5,9 +5,9 @@
 
 class ExalteredApp : public QMainWindow
 {
-    Q_OBJECT
+  Q_OBJECT
 
-public:
+  public:
     ExalteredApp(QWidget *parent = nullptr);
     ~ExalteredApp();
 };

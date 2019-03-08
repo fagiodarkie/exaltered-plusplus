@@ -24,21 +24,24 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 CONFIG += c++11
 
-INCLUDEPATH += headers
+INCLUDEPATH += ../../headers \
+    ../../headers/model \
+    ../../headers/model/character \
+    ../../headers/serialisation \
+    ../../headers/qt
 
 SOURCES += \
-        src/main.cpp \
-        src/exalteredapp.cpp \
-    src/character/attributes/attributes.cpp \
-    src/character/character.cpp \
-    src/exalteredapp.cpp \
-    src/main.cpp
+    ../../src/model/character/attributes/attributes.cpp \
+    ../../src/model/character/character.cpp \
+    ../../src/qt/exalteredapp.cpp \
+    ../../src/qt/main.cpp
 
 HEADERS += \
-    headers/character/attributes/attributeNames.h \
-    headers/character/attributes/attributes.h \
-    headers/character/character.h \
-    headers/serialisation/serialisable.h
+    ../../headers/model/character/attributes/attributeNames.h \
+    ../../headers/model/character/attributes/attributes.h \
+    ../../headers/model/character/character.h \
+    ../../headers/qt/exalteredapp.h \
+    ../../headers/serialisation/serialisable.h
 
 CONFIG += mobility
 MOBILITY = 

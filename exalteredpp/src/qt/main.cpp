@@ -1,4 +1,4 @@
-#include "exalteredapp.h"
+#include "qt/exalteredapp.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
