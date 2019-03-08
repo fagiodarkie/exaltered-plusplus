@@ -11,13 +11,14 @@ namespace character
     public:
       // constructors
       character(QString name);
+      character(const QJsonObject& object);
 
       // character fields
       QString getName() const;
       attributes getAttributes() const;
 
       // serialisable fields
-      void read(QJsonObject& object) override;
+      void read(const QJsonObject& object) override;
       void write(QJsonObject& object) const override;
 
     private:

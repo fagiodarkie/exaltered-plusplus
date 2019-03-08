@@ -1,4 +1,9 @@
-#ifndef JSON_CONSTANTS_H
-#define JSON_CONSTANTS_H
+#pragma once
 
-#endif // JSON_CONSTANTS_H
+#include <QString>
+
+namespace serialisation {
+  struct json_constants {
+    static const QString SLOT_NAME;
+  };
+}

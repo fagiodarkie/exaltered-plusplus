@@ -1,24 +1,23 @@
 #include "../thirdparty/catch/catch.hpp"
-#include "character/attributes/attribute.h"
+#include "character/character.h"
+#include "serialisation/json_constants.h"
 
-#define TEST_ATTRIBUTE_NAME "test-attribute"
-#define TEST_ATTRIBUTE_VALUE 1
-
-using character::attribute;
+#define CHARACTER_NAME "test-name"
 
 TEST_CASE("Character")
 {
-	SECTION("should create new attribute correctly (name constructor)")
-	{
-		attribute sut(TEST_ATTRIBUTE_NAME);
-	REQUIRE(QString(TEST_ATTRIBUTE_NAME) == QString(sut));
-	REQUIRE(0 == int(sut));
-    }
+  SECTION("should create new character correctly (name constructor)")
+  {
+    character::character sut(CHARACTER_NAME);
+    REQUIRE(QString(CHARACTER_NAME) == sut.getName());
+  }
 
-	SECTION("should create new attribute correctly (name and value constructor)")
-	{
-		attribute sut(TEST_ATTRIBUTE_NAME, TEST_ATTRIBUTE_VALUE);
-	REQUIRE(QString(TEST_ATTRIBUTE_NAME) == QString(sut));
-	REQUIRE(TEST_ATTRIBUTE_VALUE == int(sut));
-	}
+  SECTION("should create new character correctly (JSON object constructor)")
+  {
+    QJsonObject object;
+    object.insert(serialisation::json_constants::SLOT_NAME, QJsonValue(CHARACTER_NAME));
+
+    character::character sut(object);
+    REQUIRE(QString(CHARACTER_NAME) == sut.getName());
+  }
 }

@@ -42,5 +42,6 @@ SOURCES += \
     ../../src/model/character/character.cpp \
     ../../src/qt-test/main.cpp \
     ../../src/test-case/attribute-test.cpp \
-    ../../src/test-case/character-test.cpp
+    ../../src/test-case/character-test.cpp \
+    ../../src/serialisation/json_constants.cpp
 

@@ -35,7 +35,8 @@ SOURCES += \
     ../../src/qt/exalteredapp.cpp \
     ../../src/qt/main.cpp \
     ../../src/model/character/attributes/attribute.cpp \
-    ../../src/model/character/attributes/attributes.cpp
+    ../../src/model/character/attributes/attributes.cpp \
+    ../../src/serialisation/json_constants.cpp
 
 HEADERS += \
     ../../headers/model/character/attributes/attributeNames.h \
@@ -43,7 +44,8 @@ HEADERS += \
     ../../headers/qt/exalteredapp.h \
     ../../headers/serialisation/serialisable.h \
     ../../headers/model/character/attributes/attribute.h \
-    ../../headers/model/character/attributes/attributes.h
+    ../../headers/model/character/attributes/attributes.h \
+    ../../headers/serialisation/json_constants.h
 
 CONFIG += mobility
 MOBILITY = 
