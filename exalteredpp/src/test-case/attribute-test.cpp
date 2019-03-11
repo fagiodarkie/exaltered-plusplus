@@ -4,21 +4,19 @@
 #define TEST_ATTRIBUTE_NAME "test-attribute"
 #define TEST_ATTRIBUTE_VALUE 1
 
-using character::attribute;
-
 TEST_CASE("Attributes")
 {
-	SECTION("should create new attribute correctly (name constructor)")
-	{
-		attribute sut(TEST_ATTRIBUTE_NAME);
-	REQUIRE(QString(TEST_ATTRIBUTE_NAME) == QString(sut));
-        REQUIRE(0 == int(sut));
-    }
+  SECTION("should create new attribute correctly (name constructor)")
+  {
+    character::attribute sut(TEST_ATTRIBUTE_NAME);
+    REQUIRE(QString(TEST_ATTRIBUTE_NAME) == QString(sut));
+    REQUIRE(0 == int(sut));
+  }
 
-	SECTION("should create new attribute correctly (name and value constructor)")
-	{
-		attribute sut(TEST_ATTRIBUTE_NAME, TEST_ATTRIBUTE_VALUE);
-	REQUIRE(QString(TEST_ATTRIBUTE_NAME) == QString(sut));
-        REQUIRE(TEST_ATTRIBUTE_VALUE == int(sut));
-	}
+  SECTION("should create new attribute correctly (name and value constructor)")
+  {
+    character::attribute sut(TEST_ATTRIBUTE_NAME, TEST_ATTRIBUTE_VALUE);
+    REQUIRE(QString(TEST_ATTRIBUTE_NAME) == QString(sut));
+    REQUIRE(TEST_ATTRIBUTE_VALUE == int(sut));
+  }
 }
