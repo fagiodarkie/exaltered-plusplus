@@ -2,8 +2,10 @@
 
 #include <QString>
 
-namespace serialisation {
-  struct json_constants {
+namespace serialisation
+{
+  struct json_constants
+  {
     static const QString SLOT_NAME;
   };
 }

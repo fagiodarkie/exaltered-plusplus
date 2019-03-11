@@ -2,8 +2,10 @@
 
 #include <QString>
 
-namespace character {
-  class attribute {
+namespace character
+{
+  class attribute
+  {
   public:
     operator int() const;
 

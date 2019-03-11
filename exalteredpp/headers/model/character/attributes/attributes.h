@@ -4,7 +4,8 @@
 #include "attributeNames.h"
 #include "attribute.h"
 
-namespace character {
+namespace character
+{
   class attributes : public std::map<attributeName, attribute>
   {
 

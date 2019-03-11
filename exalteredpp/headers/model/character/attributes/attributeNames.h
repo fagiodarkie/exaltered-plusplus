@@ -1,11 +1,7 @@
 #pragma once
 
-#include <string>
-
-using std::string;
-
-namespace character {
-
+namespace character
+{
   enum attributeName
   {
     STRENGTH, DEXTERITY, CONSTITUTION,
