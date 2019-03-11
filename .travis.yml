@@ -4,7 +4,9 @@ compiler: g++
 sudo: required
 
 notifications:
-  email: false
+  email:
+    on_success: change
+    on_failure: change
 
 before_install:
   - sudo add-apt-repository ppa:beineri/opt-qt58-trusty -y
