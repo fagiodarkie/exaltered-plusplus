@@ -20,4 +20,13 @@ TEST_CASE("Character")
     character::character sut(object);
     REQUIRE(QString(CHARACTER_NAME) == sut.getName());
   }
+
+  SECTION("should save character correctly to JSON object")
+  {
+    character::character sut(CHARACTER_NAME);
+    QJsonObject object;
+    sut.write(object);
+
+    REQUIRE(object[serialisation::json_constants::SLOT_NAME] == sut.getName());
+  }
 }
