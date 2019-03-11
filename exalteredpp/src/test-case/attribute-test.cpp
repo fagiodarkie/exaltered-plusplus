@@ -4,7 +4,7 @@
 #define TEST_ATTRIBUTE_NAME "test-attribute"
 #define TEST_ATTRIBUTE_VALUE 1
 
-TEST_CASE("Attributes")
+TEST_CASE("Attribute")
 {
   SECTION("should create new attribute correctly (name constructor)")
   {

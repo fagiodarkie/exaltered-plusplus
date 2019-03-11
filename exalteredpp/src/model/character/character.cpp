@@ -17,6 +17,16 @@ namespace character
     return _name;
   }
 
+  attribute character::getAttribute(attribute_name name) const
+  {
+    return _attributes.at(name);
+  }
+
+  void character::setAttribute(attribute_name name, attribute attribute)
+  {
+    _attributes.emplace(name, attribute);
+  }
+
   void character::read(const QJsonObject &object)
   {
     _name = object[json_constants::SLOT_NAME].toString();

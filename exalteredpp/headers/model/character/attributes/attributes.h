@@ -1,12 +1,12 @@
 #pragma once
 
 #include <map>
-#include "attributeNames.h"
+#include "attribute_names.h"
 #include "attribute.h"
 
 namespace character
 {
-  class attributes : public std::map<attributeName, attribute>
+  class attributes : public std::map<attribute_name, attribute>
   {
 
   };

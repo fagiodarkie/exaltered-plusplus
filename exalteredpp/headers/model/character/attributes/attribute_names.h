@@ -2,7 +2,7 @@
 
 namespace character
 {
-  enum attributeName
+  enum attribute_name
   {
     STRENGTH, DEXTERITY, CONSTITUTION,
     CHARISMA, MANIPULATION, APPEARANCE,

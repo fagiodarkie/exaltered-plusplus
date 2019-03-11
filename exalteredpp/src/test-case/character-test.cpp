@@ -3,6 +3,7 @@
 #include "serialisation/json_constants.h"
 
 #define CHARACTER_NAME "test-name"
+#define TEST_ATTRIBUTE_NAME "test-attribute"
 
 TEST_CASE("Character")
 {
@@ -28,5 +29,13 @@ TEST_CASE("Character")
     sut.write(object);
 
     REQUIRE(object[serialisation::json_constants::SLOT_NAME] == sut.getName());
+  }
+
+  SECTION("should accept a new attribute")
+  {
+    character::character sut(CHARACTER_NAME);
+    sut.setAttribute(character::attribute_name::STRENGTH, character::attribute(TEST_ATTRIBUTE_NAME));
+    character::attribute saved_attribute = sut.getAttribute(character::attribute_name::STRENGTH);
+    REQUIRE(QString(saved_attribute) == QString(TEST_ATTRIBUTE_NAME));
   }
 }

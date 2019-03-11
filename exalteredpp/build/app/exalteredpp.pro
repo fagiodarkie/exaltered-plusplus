@@ -36,7 +36,8 @@ SOURCES += \
     ../../src/qt/main.cpp \
     ../../src/model/character/attributes/attribute.cpp \
     ../../src/model/character/attributes/attributes.cpp \
-    ../../src/serialisation/json_constants.cpp
+    ../../src/serialisation/json_constants.cpp \
+    ../../src/test-case/attributes-test.cpp
 
 HEADERS += \
     ../../headers/model/character/attributes/attributeNames.h \
@@ -45,7 +46,8 @@ HEADERS += \
     ../../headers/serialisation/serialisable.h \
     ../../headers/model/character/attributes/attribute.h \
     ../../headers/model/character/attributes/attributes.h \
-    ../../headers/serialisation/json_constants.h
+    ../../headers/serialisation/json_constants.h \
+    ../../headers/model/character/attributes/attribute_names.h
 
 CONFIG += mobility
 MOBILITY = 

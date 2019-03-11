@@ -15,7 +15,8 @@ namespace character
 
       // character fields
       QString getName() const;
-      attributes getAttributes() const;
+      attribute getAttribute(attribute_name name) const;
+      void setAttribute(attribute_name name, attribute attribute);
 
       // serialisable fields
       void read(const QJsonObject& object) override;

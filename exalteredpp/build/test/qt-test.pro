@@ -29,12 +29,12 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     ../../headers/model/character/attributes/attribute.h \
-    ../../headers/model/character/attributes/attributeNames.h \
     ../../headers/model/character/attributes/attributes.h \
     ../../headers/model/character/character.h \
     ../../headers/serialisation/json_constants.h \
     ../../headers/serialisation/serialisable.h \
-    ../../thirdparty/catch/catch.hpp
+    ../../thirdparty/catch/catch.hpp \
+    ../../headers/model/character/attributes/attribute_names.h
 
 SOURCES += \
     ../../src/model/character/attributes/attribute.cpp \
@@ -43,5 +43,6 @@ SOURCES += \
     ../../src/qt-test/main.cpp \
     ../../src/test-case/attribute-test.cpp \
     ../../src/test-case/character-test.cpp \
-    ../../src/serialisation/json_constants.cpp
+    ../../src/serialisation/json_constants.cpp \
+    ../../src/test-case/attributes-test.cpp
 
