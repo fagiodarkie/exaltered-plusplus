@@ -12,6 +12,9 @@ C++ version of Exaltered, an interactive Character sheet for a heavily altered v
 ### Continuous Integration Service
 Exaltered++ is developed under Continuous Integration provided by `buddy.works` and `Travis CI`.
 
+### Unit Testing
+Unit testing is based on the single-include version of `Catch`.
+
 ### Test Coverage
 Test Coverage is checked by `Codecov` based on the `Travis` build.
 
