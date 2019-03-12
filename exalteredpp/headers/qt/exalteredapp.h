@@ -1,5 +1,4 @@
-#ifndef EXALTEREDAPP_H
-#define EXALTEREDAPP_H
+#pragma once
 
 #include <QMainWindow>
 
@@ -11,5 +10,3 @@ class ExalteredApp : public QMainWindow
     ExalteredApp(QWidget *parent = nullptr);
     ~ExalteredApp();
 };
-
-#endif // EXALTEREDAPP_H
