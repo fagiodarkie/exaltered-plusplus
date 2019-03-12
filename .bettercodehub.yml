@@ -1,5 +1,7 @@
 exclude:
 - /exalteredpp/thirdparty/.*
+- /exalteredpp/src/qt/.*
+- /exalteredpp/headers/qt/.*
 
 languages:
 - name: cpp
