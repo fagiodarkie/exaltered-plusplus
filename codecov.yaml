@@ -2,4 +2,4 @@ ignore:
   - "exalteredpp/thirdparty"
   - "exalteredpp/src/qt"
   - "exalteredpp/src/qt-test"
-  - "exalteredpp/headers/qt"
+  - "exalteredpp/headers"
