@@ -13,7 +13,7 @@ namespace qt {
         QLoadCharacterScreen(QWidget* parent);
 
     private slots:
-//        void loadCharacter();
+        void loadCharacter();
 
     private:
         void paint();

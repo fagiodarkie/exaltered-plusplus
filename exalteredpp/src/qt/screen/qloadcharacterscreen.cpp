@@ -20,6 +20,12 @@ namespace qt {
     {
       loadButton = new QPushButton(this);
       loadButton->setText(LOAD_CHARACTER);
+      connect(loadButton, &QPushButton::clicked, this, &QLoadCharacterScreen::loadCharacter);
+    }
+
+    void QLoadCharacterScreen::loadCharacter()
+    {
+      qDebug("Load character");
     }
 
     void QLoadCharacterScreen::paint()
