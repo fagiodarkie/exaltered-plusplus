@@ -39,7 +39,8 @@ SOURCES += \
     ../../src/serialisation/json_constants.cpp \
     ../../src/test-case/attributes-test.cpp \
     ../../src/qt/qloadcharacterscreen.cpp \
-    ../../src/qt/screen/qloadcharacterscreen.cpp
+    ../../src/qt/screen/qloadcharacterscreen.cpp \
+    ../../src/serialisation/filesystem_db.cpp
 
 HEADERS += \
     ../../headers/model/character/attributes/attributeNames.h \
@@ -50,7 +51,9 @@ HEADERS += \
     ../../headers/model/character/attributes/attributes.h \
     ../../headers/serialisation/json_constants.h \
     ../../headers/model/character/attributes/attribute_names.h \
-    ../../headers/qt/screen/qloadcharacterscreen.h
+    ../../headers/qt/screen/qloadcharacterscreen.h \
+    ../../headers/serialisation/db_abstraction.h \
+    ../../headers/serialisation/filesystem_db.h
 
 CONFIG += mobility
 MOBILITY = 
