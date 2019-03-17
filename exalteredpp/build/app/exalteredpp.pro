@@ -38,7 +38,12 @@ SOURCES += \
     ../../src/model/character/attributes/attributes.cpp \
     ../../src/serialisation/json_constants.cpp \
     ../../src/qt/screen/qloadcharacterscreen.cpp \
-    ../../src/qt/layout/qborderlayout.cpp
+    ../../src/qt/layout/qborderlayout.cpp \
+    ../../src/qt/screen/qmainscreen.cpp \
+    ../../src/serialisation/filesystem_db.cpp \
+    ../../src/serialisation/json_constants.cpp \
+    ../../src/qt/navigation/main_screen_navigation_logic.cpp \
+    ../../src/qt/widget/changeable_value_label.cpp
 
 HEADERS += \
     ../../headers/model/character/attributes/attributeNames.h \
@@ -52,7 +57,14 @@ HEADERS += \
     ../../headers/qt/screen/qloadcharacterscreen.h \
     ../../headers/serialisation/db_abstraction.h \
     ../../headers/qt/layout/qborderlayout.h \
-    ../../headers/qt/label/interfacelabels.h
+    ../../headers/qt/label/interfacelabels.h \
+    ../../headers/qt/screen/qmainscreen.h \
+    ../../headers/serialisation/db_abstraction.h \
+    ../../headers/serialisation/filesystem_db.h \
+    ../../headers/serialisation/json_constants.h \
+    ../../headers/serialisation/serialisable.h \
+    ../../headers/qt/navigation/main_screen_navigation_logic.h \
+    ../../headers/qt/widget/changeable_value_label.h
 
 CONFIG += mobility
 MOBILITY = 

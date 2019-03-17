@@ -3,10 +3,11 @@
 #include <QMainWindow>
 
 #include "screen/qloadcharacterscreen.h"
+#include "navigation/main_screen_navigation_logic.h"
 
 using namespace qt::screen;
 
-class ExalteredApp : public QWidget
+class ExalteredApp : public qt::main_screen_navigation_logic
 {
   Q_OBJECT
 
@@ -14,7 +15,4 @@ class ExalteredApp : public QWidget
     ExalteredApp(QWidget *parent = nullptr);
     ~ExalteredApp();
 
-private:
-    void initLoadScreen();
-    QLoadCharacterScreen* loadCharacterScreen;
 };

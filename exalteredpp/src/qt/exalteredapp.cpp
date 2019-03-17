@@ -6,18 +6,10 @@
 using namespace qt;
 
 ExalteredApp::ExalteredApp(QWidget *parent)
-    : QWidget(parent)
+    : qt::main_screen_navigation_logic(parent, this)
 {
-  initLoadScreen();
+  init_load_character_screen();
   setWindowTitle(labels::APP_TITLE);
-}
-
-void ExalteredApp::initLoadScreen()
-{
-  loadCharacterScreen = new screen::QLoadCharacterScreen(this);
-  QGridLayout *grid = new QGridLayout();
-  grid->addWidget(loadCharacterScreen);
-  setLayout(grid);
 }
 
 ExalteredApp::~ExalteredApp()
