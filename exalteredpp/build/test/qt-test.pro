@@ -47,5 +47,6 @@ SOURCES += \
     ../../src/test-case/character-test.cpp \
     ../../src/serialisation/json_constants.cpp \
     ../../src/test-case/attributes-test.cpp \
-    ../../src/serialisation/filesystem_db.cpp
+    ../../src/serialisation/filesystem_db.cpp \
+    ../../src/test-case/filesystem_db-test.cpp
 
