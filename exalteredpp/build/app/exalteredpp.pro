@@ -42,8 +42,8 @@ SOURCES += \
     ../../src/qt/screen/qmainscreen.cpp \
     ../../src/serialisation/filesystem_db.cpp \
     ../../src/serialisation/json_constants.cpp \
-    ../../src/qt/navigation/main_screen_navigation_logic.cpp \
-    ../../src/qt/widget/changeable_value_label.cpp
+    ../../src/qt/widget/changeable_value_label.cpp \
+    ../../src/qt/navigation/exalteredapp_navigation_logic.cpp
 
 HEADERS += \
     ../../headers/model/character/attributes/attributeNames.h \
@@ -63,7 +63,6 @@ HEADERS += \
     ../../headers/serialisation/filesystem_db.h \
     ../../headers/serialisation/json_constants.h \
     ../../headers/serialisation/serialisable.h \
-    ../../headers/qt/navigation/main_screen_navigation_logic.h \
     ../../headers/qt/widget/changeable_value_label.h
 
 CONFIG += mobility

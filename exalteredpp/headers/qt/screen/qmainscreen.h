@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QLabel>
 #include <QWidget>
 #include <character.h>
 
@@ -19,6 +20,7 @@ namespace qt
 
     private:
       QSharedPointer<character::character> character;
+      QLabel character_name_widget;
     };
 
   }

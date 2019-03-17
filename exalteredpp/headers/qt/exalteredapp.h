@@ -1,13 +1,13 @@
 #pragma once
 
-#include <QMainWindow>
+#include <QWidget>
 
 #include "screen/qloadcharacterscreen.h"
-#include "navigation/main_screen_navigation_logic.h"
+#include "screen/qmainscreen.h"
 
 using namespace qt::screen;
 
-class ExalteredApp : public qt::main_screen_navigation_logic
+class ExalteredApp : public QWidget
 {
   Q_OBJECT
 
@@ -15,4 +15,15 @@ class ExalteredApp : public qt::main_screen_navigation_logic
     ExalteredApp(QWidget *parent = nullptr);
     ~ExalteredApp();
 
+  public slots:
+    void load_character_screen(QSharedPointer<character::character> character);
+
+  protected:
+    void init_load_character_screen();
+
+  private:
+    QLayout* create_layout_for_widget(QWidget* content) const;
+    void clear_layout(QWidget* current_layout);
+    qloadcharacterscreen* load_character_screen_widget;
+    qmainscreen* character_screen_widget;
 };

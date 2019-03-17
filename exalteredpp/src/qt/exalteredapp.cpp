@@ -6,7 +6,7 @@
 using namespace qt;
 
 ExalteredApp::ExalteredApp(QWidget *parent)
-    : qt::main_screen_navigation_logic(parent, this)
+    : QWidget(parent)
 {
   init_load_character_screen();
   setWindowTitle(labels::APP_TITLE);
