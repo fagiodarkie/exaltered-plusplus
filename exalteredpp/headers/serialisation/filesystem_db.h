@@ -6,12 +6,12 @@ namespace serialisation {
   class filesystem_db : public db_abstraction
   {
   public:
-    filesystem_db();
+    filesystem_db() = default;
 
     // db_abstraction interface
-    character::character load_character(const QString &character_name);
-    void save_character(const QString &character_name, const character::character &character);
-    QList<character::character> get_character_list();
+    QSharedPointer<character::character> load_character(const QString &character_name) override;
+    void save_character(const QSharedPointer<character::character> character) override;
+    QList<QString> get_character_names_list() override;
 
   private:
     static QString FILE_EXT;

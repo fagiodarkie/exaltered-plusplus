@@ -33,39 +33,44 @@ INCLUDEPATH += ../../headers \
 
 SOURCES += \
     ../../src/model/character/character.cpp \
-    ../../src/qt/exalteredapp.cpp \
-    ../../src/qt/main.cpp \
     ../../src/model/character/attributes/attribute.cpp \
     ../../src/model/character/attributes/attributes.cpp \
     ../../src/serialisation/json_constants.cpp \
-    ../../src/qt/screen/qloadcharacterscreen.cpp \
-    ../../src/qt/layout/qborderlayout.cpp \
     ../../src/serialisation/filesystem_db.cpp \
+    ../../src/qt/exalteredapp.cpp \
+    ../../src/qt/main.cpp \
+    ../../src/qt/screen/qloadcharacterscreen.cpp \
+    ../../src/qt/screen/qmainscreen.cpp \
+    ../../src/qt/layout/qborderlayout.cpp \
+    ../../src/qt/widget/changeable_value_label.cpp \
+    ../../src/qt/navigation/exalteredapp_navigation_logic.cpp \
     ../../src/errors/characternotfoundexception.cpp
 
 HEADERS += \
-    ../../headers/model/character/attributes/attributeNames.h \
+    ../../headers/model/character/attributes/attribute_names.h \
     ../../headers/model/character/character.h \
-    ../../headers/qt/exalteredapp.h \
-    ../../headers/serialisation/serialisable.h \
     ../../headers/model/character/attributes/attribute.h \
     ../../headers/model/character/attributes/attributes.h \
+    ../../headers/serialisation/serialisable.h \
     ../../headers/serialisation/json_constants.h \
-    ../../headers/model/character/attributes/attribute_names.h \
-    ../../headers/qt/screen/qloadcharacterscreen.h \
-    ../../headers/serialisation/db_abstraction.h \
-    ../../headers/qt/layout/qborderlayout.h \
-    ../../headers/qt/label/interfacelabels.h \
     ../../headers/serialisation/db_abstraction.h \
     ../../headers/serialisation/filesystem_db.h \
+    ../../headers/qt/exalteredapp.h \
+    ../../headers/qt/screen/qloadcharacterscreen.h \
+    ../../headers/qt/layout/qborderlayout.h \
+    ../../headers/qt/label/interfacelabels.h \
+    ../../headers/qt/screen/qmainscreen.h \
+    ../../headers/qt/widget/changeable_value_label.h \
     ../../headers/errors/characternotfoundexception.h \
     ../../headers/errors/error_codes.h
 
 CONFIG += mobility
 MOBILITY = 
 
-QMAKE_CXXFLAGS += --coverage -O0
-QMAKE_LFLAGS += --coverage
+debug {
+    QMAKE_CXXFLAGS += --coverage -O0
+    QMAKE_LFLAGS += --coverage
+}
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

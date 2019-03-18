@@ -1,6 +1,7 @@
 #include "screen/qloadcharacterscreen.h"
 #include "layout/qborderlayout.h"
 #include "label/interfacelabels.h"
+#include "filesystem_db.h"
 
 #include <QLabel>
 
@@ -9,26 +10,29 @@ using namespace qt::labels;
 
 namespace qt {
   namespace screen {
-    QLoadCharacterScreen::QLoadCharacterScreen(QWidget* parent)
+    qloadcharacterscreen::qloadcharacterscreen(QWidget* parent)
       : QWidget (parent)
     {
-      initLoadButton();
+      init_load_button();
       paint();
     }
 
-    void QLoadCharacterScreen::initLoadButton()
+    void qloadcharacterscreen::init_load_button()
     {
       loadButton = new QPushButton(this);
       loadButton->setText(LOAD_CHARACTER);
-      connect(loadButton, &QPushButton::clicked, this, &QLoadCharacterScreen::loadCharacter);
+      connect(loadButton, &QPushButton::clicked, this, &qloadcharacterscreen::load_character);
     }
 
-    void QLoadCharacterScreen::loadCharacter()
+    void qloadcharacterscreen::load_character()
     {
+      serialisation::filesystem_db fsdb;
       qDebug("Load character");
+      QSharedPointer<character::character> loaded_character = fsdb.load_character("test");
+      emit character_loaded(loaded_character);
     }
 
-    void QLoadCharacterScreen::paint()
+    void qloadcharacterscreen::paint()
     {
       QBorderLayout* layout = new QBorderLayout();
       layout->addWidget(loadButton, QBorderLayout::South);

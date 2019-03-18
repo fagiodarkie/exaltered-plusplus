@@ -32,13 +32,11 @@ HEADERS += \
     ../../headers/model/character/attributes/attributes.h \
     ../../headers/model/character/character.h \
     ../../headers/serialisation/json_constants.h \
-    ../../headers/serialisation/serialisable.h \
     ../../thirdparty/catch/catch.hpp \
     ../../headers/model/character/attributes/attribute_names.h \
-    ../../headers/serialisation/filesystem_db.h \
-    ../../headers/serialisation/serialisable.h \
     ../../headers/serialisation/db_abstraction.h \
-    ../../headers/serialisation/filesystem_db.h
+    ../../headers/serialisation/filesystem_db.h \
+    ../../headers/serialisation/serialisable.h
 
 SOURCES += \
     ../../src/model/character/attributes/attribute.cpp \

@@ -3,25 +3,30 @@
 #include <QWidget>
 #include <QPushButton>
 
-namespace qt {
-  namespace screen {
-    class QLoadCharacterScreen : public QWidget
+#include <character.h>
+
+namespace qt
+{
+  namespace screen
+  {
+    class qloadcharacterscreen : public QWidget
     {
       Q_OBJECT
 
     public:
-        QLoadCharacterScreen(QWidget* parent);
+        qloadcharacterscreen(QWidget* parent);
 
     private slots:
-        void loadCharacter();
+        void load_character();
+
+    signals:
+        void character_loaded(QSharedPointer<character::character> character);
 
     private:
         void paint();
-        void initLoadButton();
+        void init_load_button();
 
         QPushButton* loadButton;
     };
   }
-
-
 }
