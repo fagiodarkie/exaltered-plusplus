@@ -9,7 +9,7 @@ namespace exception {
     throw this;
   }
 
-  const char* character_not_found_exception::what() const
+  const char* character_not_found_exception::what() const noexcept (true)
   {
     return error_code::serialisation::CHARACTER_NOT_FOUND;
   }

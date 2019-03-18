@@ -7,7 +7,7 @@ namespace exception {
   {
   public:
 
-    const char* what() const override;
+    const char* what() const noexcept (true) override;
     void raise() const override;
     character_not_found_exception *clone() const override;
   };
