@@ -34,7 +34,11 @@ HEADERS += \
     ../../headers/serialisation/json_constants.h \
     ../../headers/serialisation/serialisable.h \
     ../../thirdparty/catch/catch.hpp \
-    ../../headers/model/character/attributes/attribute_names.h
+    ../../headers/model/character/attributes/attribute_names.h \
+    ../../headers/serialisation/filesystem_db.h \
+    ../../headers/serialisation/serialisable.h \
+    ../../headers/serialisation/db_abstraction.h \
+    ../../headers/serialisation/filesystem_db.h
 
 SOURCES += \
     ../../src/model/character/attributes/attribute.cpp \
@@ -44,5 +48,7 @@ SOURCES += \
     ../../src/test-case/attribute-test.cpp \
     ../../src/test-case/character-test.cpp \
     ../../src/serialisation/json_constants.cpp \
-    ../../src/test-case/attributes-test.cpp
+    ../../src/test-case/attributes-test.cpp \
+    ../../src/serialisation/filesystem_db.cpp \
+    ../../src/test-case/filesystemdb-test.cpp
 
