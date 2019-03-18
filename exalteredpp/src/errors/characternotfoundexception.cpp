@@ -11,7 +11,7 @@ namespace exception {
 
   const char* character_not_found_exception::what() const
   {
-    return error_code::serialisation::CHARACTER_NOT_FOUND.toStdString().c_str();
+    return error_code::serialisation::CHARACTER_NOT_FOUND;
   }
 
   character_not_found_exception* character_not_found_exception::clone() const
