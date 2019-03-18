@@ -19,7 +19,8 @@ INCLUDEPATH += ../../headers \
     ../../headers/model \
     ../../headers/model/character \
     ../../headers/serialisation \
-    ../../headers/qt
+    ../../headers/qt \
+    ../../headers/errors
 
 
 # Default rules for deployment.
@@ -28,25 +29,28 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    ../../thirdparty/catch/catch.hpp \
     ../../headers/model/character/attributes/attribute.h \
     ../../headers/model/character/attributes/attributes.h \
     ../../headers/model/character/character.h \
-    ../../headers/serialisation/json_constants.h \
-    ../../thirdparty/catch/catch.hpp \
     ../../headers/model/character/attributes/attribute_names.h \
+    ../../headers/serialisation/json_constants.h \
     ../../headers/serialisation/db_abstraction.h \
     ../../headers/serialisation/filesystem_db.h \
-    ../../headers/serialisation/serialisable.h
+    ../../headers/serialisation/serialisable.h \
+    ../../headers/errors/characternotfoundexception.h \
+    ../../headers/errors/error_codes.h
 
 SOURCES += \
+    ../../src/qt-test/main.cpp \
     ../../src/model/character/attributes/attribute.cpp \
     ../../src/model/character/attributes/attributes.cpp \
     ../../src/model/character/character.cpp \
-    ../../src/qt-test/main.cpp \
     ../../src/test-case/attribute-test.cpp \
     ../../src/test-case/character-test.cpp \
-    ../../src/serialisation/json_constants.cpp \
     ../../src/test-case/attributes-test.cpp \
+    ../../src/test-case/filesystem_db-test.cpp \
     ../../src/serialisation/filesystem_db.cpp \
-    ../../src/test-case/filesystemdb-test.cpp
+    ../../src/serialisation/json_constants.cpp \
+    ../../src/errors/characternotfoundexception.cpp
 

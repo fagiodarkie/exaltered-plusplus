@@ -3,7 +3,8 @@
 #include <QDirIterator>
 #include <QFile>
 #include <QJsonDocument>
-#include <characternotfoundexception.h>
+
+#include "characternotfoundexception.h"
 
 namespace serialisation {
 
@@ -66,7 +67,7 @@ namespace serialisation {
 
     QFile expectedFile(normalise_name(character->getName()) + FILE_EXT);
     expectedFile.open(QFile::WriteOnly);
-    expectedFile.write(document.toBinaryData());
+    expectedFile.write(document.toJson());
     expectedFile.close();
   }
 }
