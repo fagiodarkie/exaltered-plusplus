@@ -10,7 +10,7 @@ TEST_CASE("Character")
   SECTION("should create new character correctly (name constructor)")
   {
     character::character sut(CHARACTER_NAME);
-    REQUIRE(QString(CHARACTER_NAME) == sut.getName());
+    REQUIRE(QString(CHARACTER_NAME) == sut.get_name());
   }
 
   SECTION("should create new character correctly (JSON object constructor)")
@@ -19,7 +19,7 @@ TEST_CASE("Character")
     object.insert(serialisation::json_constants::SLOT_NAME, QJsonValue(CHARACTER_NAME));
 
     character::character sut(object);
-    REQUIRE(QString(CHARACTER_NAME) == sut.getName());
+    REQUIRE(QString(CHARACTER_NAME) == sut.get_name());
   }
 
   SECTION("should save character correctly to JSON object")
@@ -28,14 +28,14 @@ TEST_CASE("Character")
     QJsonObject object;
     sut.write(object);
 
-    REQUIRE(object[serialisation::json_constants::SLOT_NAME] == sut.getName());
+    REQUIRE(object[serialisation::json_constants::SLOT_NAME] == sut.get_name());
   }
 
   SECTION("should accept a new attribute")
   {
     character::character sut(CHARACTER_NAME);
-    sut.setAttribute(character::attribute_name::STRENGTH, character::attribute(TEST_ATTRIBUTE_NAME));
-    character::attribute saved_attribute = sut.getAttribute(character::attribute_name::STRENGTH);
+    sut.set_attribute(character::attribute_name::STRENGTH, character::attribute(TEST_ATTRIBUTE_NAME));
+    character::attribute saved_attribute = sut.get_attribute(character::attribute_name::STRENGTH);
     REQUIRE(QString(saved_attribute) == QString(TEST_ATTRIBUTE_NAME));
   }
 }

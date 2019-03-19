@@ -3,6 +3,7 @@
 #include <QWidget>
 #include <QPushButton>
 
+#include "managers/character_manager.h"
 #include <character.h>
 
 namespace qt
@@ -14,7 +15,7 @@ namespace qt
       Q_OBJECT
 
     public:
-        qloadcharacterscreen(QWidget* parent);
+        qloadcharacterscreen(QSharedPointer<manager::character_manager> char_manager, QWidget* parent);
 
     private slots:
         void load_character();
@@ -26,6 +27,7 @@ namespace qt
         void paint();
         void init_load_button();
 
+        QSharedPointer<manager::character_manager> character_manager;
         QPushButton* loadButton;
     };
   }

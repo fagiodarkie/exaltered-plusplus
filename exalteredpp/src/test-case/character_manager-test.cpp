@@ -40,7 +40,7 @@ TEST_CASE("character_manager")
     mock->mock_has_character(true);
     manager::character_manager sut = manager::character_manager(mock);
     QSharedPointer<character::character> result = sut.load_character();
-    REQUIRE(result->getName() == "CHARACTER_NAME");
+    REQUIRE(result->get_name() == "CHARACTER_NAME");
   }
 
   SECTION("should load character when it is not present")
@@ -49,6 +49,6 @@ TEST_CASE("character_manager")
     mock->mock_has_character(false);
     manager::character_manager sut = manager::character_manager(mock);
     QSharedPointer<character::character> result = sut.load_character();
-    REQUIRE(result->getName() != "CHARACTER_NAME");
+    REQUIRE(result->get_name() != "CHARACTER_NAME");
   }
 }

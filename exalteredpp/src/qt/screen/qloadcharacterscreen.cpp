@@ -2,7 +2,6 @@
 #include "layout/qborderlayout.h"
 #include "label/interfacelabels.h"
 #include "filesystem_db.h"
-#include "managers/character_manager.h"
 #include "characternotfoundexception.h"
 
 #include <QLabel>
@@ -12,8 +11,9 @@ using namespace qt::labels;
 
 namespace qt {
   namespace screen {
-    qloadcharacterscreen::qloadcharacterscreen(QWidget* parent)
-      : QWidget (parent)
+    qloadcharacterscreen::qloadcharacterscreen(QSharedPointer<manager::character_manager> char_manager, QWidget* parent)
+      : QWidget (parent),
+        character_manager(char_manager)
     {
       init_load_button();
       paint();
@@ -22,16 +22,14 @@ namespace qt {
     void qloadcharacterscreen::init_load_button()
     {
       loadButton = new QPushButton(this);
-      loadButton->setText(LOAD_CHARACTER);
+      loadButton->setText(LOAD_LABEL);
       connect(loadButton, &QPushButton::clicked, this, &qloadcharacterscreen::load_character);
     }
 
     void qloadcharacterscreen::load_character()
     {
-      manager::character_manager char_manager(QSharedPointer<serialisation::db_abstraction>(new serialisation::filesystem_db()));
-
       qDebug("Load character");
-      emit character_loaded(char_manager.load_character());
+      emit character_loaded(character_manager->load_character());
     }
 
     void qloadcharacterscreen::paint()

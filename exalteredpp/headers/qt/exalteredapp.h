@@ -25,7 +25,12 @@ class ExalteredApp : public QWidget
   private:
     QLayout* create_layout_for_widget(QWidget* content) const;
     void clear_layout(QWidget* current_layout);
+
+    // screens
     qloadcharacterscreen* load_character_screen_widget;
     qmainscreen* character_screen_widget;
     QStackedLayout* stacked_layout;
+
+    // managers
+    QSharedPointer<manager::character_manager> character_manager;
 };

@@ -21,7 +21,7 @@ TEST_CASE("filesystem_db")
     QSharedPointer<character::character> stub_character(new character::character(CHARACTER_NAME));
     sut.save_character(stub_character);
     QSharedPointer<character::character> result = sut.load_character();
-    REQUIRE(result->getName() == CHARACTER_NAME);
+    REQUIRE(result->get_name() == CHARACTER_NAME);
   }
 
   SECTION("should throw an exception if the file isn't there")

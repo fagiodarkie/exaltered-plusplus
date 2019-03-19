@@ -23,4 +23,9 @@ namespace manager {
     }
   }
 
+  void character_manager::save_character(QSharedPointer<character::character> character) const
+  {
+    return character_repository->save_character(character);
+  }
+
 }

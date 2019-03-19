@@ -1,8 +1,10 @@
 #pragma once
 
-#include <QLabel>
+#include <QLineEdit>
+#include <QPushButton>
 #include <QWidget>
 #include <character.h>
+#include "managers/character_manager.h"
 
 namespace qt
 {
@@ -12,15 +14,22 @@ namespace qt
     {
         Q_OBJECT
     public:
-        explicit qmainscreen(QSharedPointer<character::character> character, QWidget *parent = nullptr);
+        explicit qmainscreen(QSharedPointer<character::character> character,
+                             QSharedPointer<manager::character_manager> ch_manager,
+                             QWidget *parent = nullptr);
 
     signals:
 
     public slots:
 
     private:
+      void save_character();
+
       QSharedPointer<character::character> character;
-      QLabel character_name_widget;
+      QSharedPointer<manager::character_manager> character_manager;
+      QLineEdit character_name_widget;
+      QPushButton save_button;
+
     };
 
   }

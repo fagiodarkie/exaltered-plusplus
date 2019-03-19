@@ -9,7 +9,7 @@ using namespace qt::screen;
 
 void ExalteredApp::load_character_screen(QSharedPointer<character::character> character)
 {
-  character_screen_widget = new qmainscreen(character, this);
+  character_screen_widget = new qmainscreen(character, character_manager, this);
   stacked_layout->addWidget(character_screen_widget);
   stacked_layout->setCurrentIndex(1);
 }
@@ -23,7 +23,7 @@ QLayout* ExalteredApp::create_layout_for_widget(QWidget *content) const
 
 void ExalteredApp::init_load_character_screen()
 {
-  load_character_screen_widget = new qloadcharacterscreen(this);
+  load_character_screen_widget = new qloadcharacterscreen(character_manager, this);
   stacked_layout = new QStackedLayout();
   stacked_layout->addWidget(load_character_screen_widget);
   stacked_layout->setCurrentIndex(0);
