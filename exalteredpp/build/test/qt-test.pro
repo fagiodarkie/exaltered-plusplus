@@ -52,5 +52,6 @@ SOURCES += \
     ../../src/test-case/filesystem_db-test.cpp \
     ../../src/serialisation/filesystem_db.cpp \
     ../../src/serialisation/json_constants.cpp \
-    ../../src/errors/characternotfoundexception.cpp
+    ../../src/errors/characternotfoundexception.cpp \
+    ../../src/test-case/exceptions-test.cpp
 

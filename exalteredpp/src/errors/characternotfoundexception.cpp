@@ -6,7 +6,7 @@ namespace exception {
 
   void character_not_found_exception::raise() const
   {
-    throw this;
+    throw *this;
   }
 
   const char* character_not_found_exception::what() const noexcept (true)

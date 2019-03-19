@@ -5,7 +5,7 @@
 
 TEST_CASE("filesystem_db")
 {
-  SECTION("should load test character")
+  SECTION("should save and load a character")
   {
     serialisation::filesystem_db sut;
     QSharedPointer<character::character> stub_character(new character::character(CHARACTER_NAME));

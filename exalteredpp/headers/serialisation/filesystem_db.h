@@ -11,7 +11,6 @@ namespace serialisation {
     // db_abstraction interface
     QSharedPointer<character::character> load_character(const QString &character_name) override;
     void save_character(const QSharedPointer<character::character> character) override;
-    QList<QString> get_character_names_list() override;
 
   private:
     static QString FILE_EXT;
