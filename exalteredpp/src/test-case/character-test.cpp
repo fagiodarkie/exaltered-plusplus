@@ -38,4 +38,11 @@ TEST_CASE("Character")
     character::attribute saved_attribute = sut.get_attribute(character::attribute_name::STRENGTH);
     REQUIRE(QString(saved_attribute) == QString(TEST_ATTRIBUTE_NAME));
   }
+
+  SECTION("should change name when change is issued")
+  {
+    character::character sut(CHARACTER_NAME);
+    sut.set_name(QString(CHARACTER_NAME) + " - edit");
+    REQUIRE(sut.get_name() == QString(CHARACTER_NAME) + " - edit");
+  }
 }

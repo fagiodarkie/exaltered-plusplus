@@ -12,7 +12,9 @@ public:
   QSharedPointer<character::character> load_character()
   {
     if (has_character)
-      return QSharedPointer<character::character>(new character::character("CHARACTER_NAME"));
+      return cached_character.isNull()
+          ? QSharedPointer<character::character>(new character::character("CHARACTER_NAME"))
+          : cached_character;
     throw exception::character_not_found_exception();
   }
 
@@ -21,7 +23,10 @@ public:
     return has_character;
   }
 
-  void save_character(const QSharedPointer<character::character> character) {}
+  void save_character(const QSharedPointer<character::character> character)
+  {
+    cached_character = character;
+  }
 
   void mock_has_character(bool has_it)
   {
@@ -30,13 +35,15 @@ public:
 
 private:
   bool has_character;
+  QSharedPointer<character::character> cached_character;
 };
 
 TEST_CASE("character_manager")
 {
+  QSharedPointer<mock_db_abstraction> mock = QSharedPointer<mock_db_abstraction>(new mock_db_abstraction());
+
   SECTION("should load character when it is present")
   {
-    QSharedPointer<mock_db_abstraction> mock = QSharedPointer<mock_db_abstraction>(new mock_db_abstraction());
     mock->mock_has_character(true);
     manager::character_manager sut = manager::character_manager(mock);
     QSharedPointer<character::character> result = sut.load_character();
@@ -45,10 +52,25 @@ TEST_CASE("character_manager")
 
   SECTION("should load character when it is not present")
   {
-    QSharedPointer<mock_db_abstraction> mock = QSharedPointer<mock_db_abstraction>(new mock_db_abstraction());
     mock->mock_has_character(false);
     manager::character_manager sut = manager::character_manager(mock);
     QSharedPointer<character::character> result = sut.load_character();
     REQUIRE(result->get_name() != "CHARACTER_NAME");
+  }
+
+  SECTION("should save character without errors")
+  {
+    manager::character_manager sut = manager::character_manager(mock);
+    try
+    {
+      QSharedPointer<character::character> to_save = QSharedPointer<character::character>(new character::character("CHARACTER_NAME"));
+      sut.save_character(to_save);
+      QSharedPointer<character::character> loaded = sut.load_character();
+      REQUIRE(to_save->get_name() == loaded->get_name());
+    }
+    catch(...)
+    {
+      FAIL("Something went wrong while retrieving saved character");
+    }
   }
 }
