@@ -10,20 +10,21 @@ namespace serialisation {
 
   QString filesystem_db::FILE_EXT = ".dgc";
 
-  QString filesystem_db::normalise_name(const QString &name)
+  bool filesystem_db::has_characters() const
   {
-    return name.toUtf8().simplified().replace(" ", "");
+    QFile expectedFile("character" + FILE_EXT);
+    return expectedFile.exists();
   }
 
   QSharedPointer<character::character> filesystem_db::load_character()
   {
-    QFile expectedFile("character" + FILE_EXT);
-    if (!expectedFile.exists())
+    if (!has_characters())
     {
       qDebug("expected file doesn't exist!");
       throw exception::character_not_found_exception();
     }
 
+    QFile expectedFile("character" + FILE_EXT);
     expectedFile.open(QFile::ReadOnly);
     QString serialised_character = expectedFile.readAll();
     expectedFile.close();

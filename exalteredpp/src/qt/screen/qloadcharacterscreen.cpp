@@ -2,6 +2,7 @@
 #include "layout/qborderlayout.h"
 #include "label/interfacelabels.h"
 #include "filesystem_db.h"
+#include "managers/character_manager.h"
 #include "characternotfoundexception.h"
 
 #include <QLabel>
@@ -27,19 +28,10 @@ namespace qt {
 
     void qloadcharacterscreen::load_character()
     {
-      serialisation::filesystem_db fsdb;
+      manager::character_manager char_manager(QSharedPointer<serialisation::db_abstraction>(new serialisation::filesystem_db()));
+
       qDebug("Load character");
-      try
-      {
-        QSharedPointer<character::character> loaded_character = fsdb.load_character("test");
-        emit character_loaded(loaded_character);
-      }
-      catch (exception::character_not_found_exception* e)
-      {
-        qDebug(e->what());
-        QSharedPointer<character::character> loaded_character(new character::character("test"));
-        emit character_loaded(loaded_character);
-      }
+      emit character_loaded(char_manager.load_character());
     }
 
     void qloadcharacterscreen::paint()

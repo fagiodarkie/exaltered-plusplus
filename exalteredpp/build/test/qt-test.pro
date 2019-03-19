@@ -39,7 +39,9 @@ HEADERS += \
     ../../headers/serialisation/filesystem_db.h \
     ../../headers/serialisation/serialisable.h \
     ../../headers/errors/characternotfoundexception.h \
-    ../../headers/errors/error_codes.h
+    ../../headers/errors/error_codes.h \
+    ../../headers/model/text/character_text_constants.h \
+    ../../headers/model/managers/character_manager.h
 
 SOURCES += \
     ../../src/qt-test/main.cpp \
@@ -53,5 +55,7 @@ SOURCES += \
     ../../src/serialisation/filesystem_db.cpp \
     ../../src/serialisation/json_constants.cpp \
     ../../src/errors/characternotfoundexception.cpp \
-    ../../src/test-case/exceptions-test.cpp
+    ../../src/test-case/exceptions-test.cpp \
+    ../../src/test-case/character_manager-test.cpp \
+    ../../src/model/managers/character_manager.cpp
 

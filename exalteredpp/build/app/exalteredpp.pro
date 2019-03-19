@@ -35,6 +35,7 @@ SOURCES += \
     ../../src/model/character/character.cpp \
     ../../src/model/character/attributes/attribute.cpp \
     ../../src/model/character/attributes/attributes.cpp \
+    ../../src/model/managers/character_manager.cpp \
     ../../src/serialisation/json_constants.cpp \
     ../../src/serialisation/filesystem_db.cpp \
     ../../src/qt/exalteredapp.cpp \
@@ -51,6 +52,8 @@ HEADERS += \
     ../../headers/model/character/character.h \
     ../../headers/model/character/attributes/attribute.h \
     ../../headers/model/character/attributes/attributes.h \
+    ../../headers/model/managers/character_manager.h \
+    ../../headers/model/text/character_text_constants.h \
     ../../headers/serialisation/serialisable.h \
     ../../headers/serialisation/json_constants.h \
     ../../headers/serialisation/db_abstraction.h \

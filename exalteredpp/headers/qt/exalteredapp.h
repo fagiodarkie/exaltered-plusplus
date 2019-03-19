@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QStackedLayout>
 #include <QWidget>
 
 #include "screen/qloadcharacterscreen.h"
@@ -26,4 +27,5 @@ class ExalteredApp : public QWidget
     void clear_layout(QWidget* current_layout);
     qloadcharacterscreen* load_character_screen_widget;
     qmainscreen* character_screen_widget;
+    QStackedLayout* stacked_layout;
 };

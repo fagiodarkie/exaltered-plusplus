@@ -10,10 +10,10 @@ namespace serialisation {
 
     // db_abstraction interface
     QSharedPointer<character::character> load_character() override;
+    bool has_characters() const override;
     void save_character(const QSharedPointer<character::character> character) override;
 
   private:
     static QString FILE_EXT;
-    static QString normalise_name(const QString& name);
   };
 }
