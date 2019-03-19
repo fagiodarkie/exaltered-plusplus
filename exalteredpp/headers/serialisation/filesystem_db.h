@@ -9,7 +9,7 @@ namespace serialisation {
     filesystem_db() = default;
 
     // db_abstraction interface
-    QSharedPointer<character::character> load_character(const QString &character_name) override;
+    QSharedPointer<character::character> load_character() override;
     void save_character(const QSharedPointer<character::character> character) override;
 
   private:

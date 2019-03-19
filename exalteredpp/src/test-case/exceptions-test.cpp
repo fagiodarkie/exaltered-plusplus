@@ -14,11 +14,8 @@ TEST_CASE("Exceptions")
 
     try {
       sut.raise();
-    } catch (exception::character_not_found_exception& e) {
-      REQUIRE(strcmp(e.what(), sut.what()) == 0);
-    } catch (std::exception& ex)
-    {
-      FAIL(ex.what());
+    } catch (QException& e) {
+      REQUIRE(strcmp(e.what(), error_code::serialisation::CHARACTER_NOT_FOUND) == 0);
     }
   }
 }

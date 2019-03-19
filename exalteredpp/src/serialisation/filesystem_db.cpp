@@ -15,13 +15,13 @@ namespace serialisation {
     return name.toUtf8().simplified().replace(" ", "");
   }
 
-  QSharedPointer<character::character> filesystem_db::load_character(const QString& character_name)
+  QSharedPointer<character::character> filesystem_db::load_character()
   {
     QFile expectedFile("character" + FILE_EXT);
     if (!expectedFile.exists())
     {
       qDebug("expected file doesn't exist!");
-      throw new exception::character_not_found_exception();
+      throw exception::character_not_found_exception();
     }
 
     expectedFile.open(QFile::ReadOnly);

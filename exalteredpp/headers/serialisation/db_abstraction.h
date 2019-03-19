@@ -7,7 +7,7 @@ namespace serialisation {
   class db_abstraction
   {
   public:
-    virtual QSharedPointer<character::character> load_character(const QString &character_name) = 0;
+    virtual QSharedPointer<character::character> load_character() = 0;
     virtual void save_character(const QSharedPointer<character::character> character) = 0;
 
     virtual ~db_abstraction() {}
