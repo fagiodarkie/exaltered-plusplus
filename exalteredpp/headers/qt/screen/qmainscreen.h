@@ -30,6 +30,7 @@ namespace qt
       QLineEdit character_name_widget;
       QPushButton save_button;
 
+      void on_text_change(const QString& );
     };
 
   }
