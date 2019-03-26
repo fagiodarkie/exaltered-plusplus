@@ -30,7 +30,4 @@ class ExalteredApp : public QWidget
     qloadcharacterscreen* load_character_screen_widget;
     qmainscreen* character_screen_widget;
     QStackedLayout* stacked_layout;
-
-    // managers
-    QSharedPointer<manager::character_manager> character_manager;
 };

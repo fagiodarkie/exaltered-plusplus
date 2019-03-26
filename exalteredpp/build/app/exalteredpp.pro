@@ -67,7 +67,8 @@ HEADERS += \
     ../../headers/qt/widget/changeable_value_label.h \
     ../../headers/errors/characternotfoundexception.h \
     ../../headers/errors/error_codes.h \
-    ../../headers/model/character_list.h
+    ../../headers/model/character_list.h \
+    ../../headers/qt/objects_factory.h
 
 CONFIG += mobility
 MOBILITY = 
