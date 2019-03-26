@@ -48,7 +48,9 @@ SOURCES += \
     ../../src/errors/characternotfoundexception.cpp \
     ../../src/qt/screen/qcharacterinfoscreen.cpp \
     ../../src/qt/screen/qcharacterattributes.cpp \
-    ../../src/qt/widget/name_value_widget.cpp
+    ../../src/qt/widget/name_value_widget.cpp \
+    ../../src/model/character/abilities/ability.cpp \
+    ../../src/model/character/abilities/abilities.cpp
 
 HEADERS += \
     ../../headers/model/character/attributes/attribute_names.h \
@@ -74,7 +76,10 @@ HEADERS += \
     ../../headers/qt/screen/qcharacterinfoscreen.h \
     ../../headers/model/behavioral/name_value_pair.h \
     ../../headers/qt/widget/name_value_widget.h \
-    ../../headers/qt/screen/qcharacterattributes.h
+    ../../headers/qt/screen/qcharacterattributes.h \
+    ../../headers/model/character/abilities/ability.h \
+    ../../headers/model/character/abilities/ability_names.h \
+    ../../headers/model/character/abilities/abilities.h
 
 CONFIG += mobility
 MOBILITY = 

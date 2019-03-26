@@ -3,6 +3,7 @@
 #include <string>
 #include <QObject>
 #include "character/attributes/attributes.h"
+#include "character/abilities/abilities.h"
 #include "serialisation/serialisable.h"
 
 namespace character
@@ -23,6 +24,9 @@ namespace character
       attribute get_attribute(attribute_name name) const;
       void set_attribute(attribute_name name, attribute attribute);
 
+      ability get_ability(ability_name name) const;
+      void set_ability(ability_name name, ability ability);
+
       // serialisable fields
       void read(const QJsonObject& object) override;
       void write(QJsonObject& object) const override;
@@ -33,6 +37,6 @@ namespace character
     private:
       QString _name;
       attributes _attributes;
-
+      abilities _abilities;
     };
 }
