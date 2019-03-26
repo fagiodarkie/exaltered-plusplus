@@ -5,6 +5,7 @@
 
 #include "screen/qloadcharacterscreen.h"
 #include "screen/qcharacterinfoscreen.h"
+#include "screen/qcharacterattributes.h"
 #include "screen/qmainscreen.h"
 
 using namespace qt::screen;
@@ -20,6 +21,7 @@ class ExalteredApp : public QMainWindow
   public slots:
     void        load_main_screen(QSharedPointer<character::character> character);
     void        load_character_screen();
+    void        load_attributes_screen();
 
   protected:
     void        init_load_character_screen();
@@ -33,6 +35,7 @@ class ExalteredApp : public QMainWindow
     qloadcharacterscreen*                       load_character_screen_widget;
     qmainscreen*                                main_screen_widget;
     qcharacterinfoscreen*                       character_info_screen_widget;
+    qcharacterattributes*                       character_attributes_widget;
     QSharedPointer<manager::character_manager>  character_manager;
     QSharedPointer<character::character>        current_character;
 };

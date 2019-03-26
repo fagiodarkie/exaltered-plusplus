@@ -11,7 +11,17 @@ namespace character
     return _value;
   }
 
+  QString attribute::get_value() const
+  {
+    return QString::number(_value);
+  }
+
   attribute::operator QString() const
+  {
+    return _name;
+  }
+
+  QString attribute::get_name() const
   {
     return _name;
   }
