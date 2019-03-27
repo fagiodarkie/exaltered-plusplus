@@ -12,4 +12,4 @@ languages:
     include:
       - /exalteredpp/src/test-case/.*\.cpp
 
-component_depth: 6
+component_depth: 5
