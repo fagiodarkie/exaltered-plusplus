@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QWidget>
-#include <QPushButton>
 
 #include "managers/character_manager.h"
 #include <character.h>
@@ -28,7 +27,6 @@ namespace qt
         void init_load_button();
 
         QSharedPointer<manager::character_manager> character_manager;
-        QPushButton* loadButton;
     };
   }
 }

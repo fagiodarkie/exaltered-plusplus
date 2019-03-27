@@ -3,51 +3,62 @@
 #include "errors/characternotfoundexception.h"
 #include "managers/character_manager.h"
 
-class mock_db_abstraction: public serialisation::db_abstraction
-{
-  // db_abstraction interface
-public:
-  mock_db_abstraction() : has_character(true) {}
+#define CHAR_MAN_TEST_CHAR_NAME "CHARACTER_NAME"
 
-  QSharedPointer<character::character> load_character()
+namespace character_manager_tests {
+
+  class mock_db_abstraction: public serialisation::db_abstraction
   {
-    if (has_character)
-      return cached_character.isNull()
-          ? QSharedPointer<character::character>(new character::character("CHARACTER_NAME"))
-          : cached_character;
-    throw exception::character_not_found_exception();
-  }
+    // db_abstraction interface
+  public:
+    mock_db_abstraction() : has_character(true) {}
 
-  bool has_characters() const
-  {
-    return has_character;
-  }
+    QSharedPointer<character::character> load_character()
+    {
+      if (has_character)
+        return cached_character.isNull()
+            ? QSharedPointer<character::character>(new character::character(CHAR_MAN_TEST_CHAR_NAME))
+            : cached_character;
+      throw exception::character_not_found_exception();
+    }
 
-  void save_character(const QSharedPointer<character::character> character)
-  {
-    cached_character = character;
-  }
+    bool has_characters() const
+    {
+      return has_character;
+    }
 
-  void mock_has_character(bool has_it)
-  {
-    has_character = has_it;
-  }
+    QList<QSharedPointer<character::character>> character_list()
+    {
+      return {};
+    }
 
-private:
-  bool has_character;
-  QSharedPointer<character::character> cached_character;
-};
+    void save_character(const QSharedPointer<character::character> character)
+    {
+      cached_character = character;
+    }
+
+    void mock_has_character(bool has_it)
+    {
+      has_character = has_it;
+    }
+
+  private:
+    bool has_character;
+    QSharedPointer<character::character> cached_character;
+  };
+
+}
 
 TEST_CASE("character_manager")
 {
-  QSharedPointer<mock_db_abstraction> mock = QSharedPointer<mock_db_abstraction>(new mock_db_abstraction());
+  QSharedPointer<character_manager_tests::mock_db_abstraction> mock = QSharedPointer<character_manager_tests::mock_db_abstraction>(new character_manager_tests::mock_db_abstraction());
 
   SECTION("should load character when it is present")
   {
     mock->mock_has_character(true);
     manager::character_manager sut = manager::character_manager(mock);
     QSharedPointer<character::character> result = sut.load_character();
-    REQUIRE(result->get_name() == "CHARACTER_NAME");
+    REQUIRE(result->get_name() == CHAR_MAN_TEST_CHAR_NAME);
   }
 
   SECTION("should load character when it is not present")
@@ -55,7 +66,7 @@ TEST_CASE("character_manager")
     mock->mock_has_character(false);
     manager::character_manager sut = manager::character_manager(mock);
     QSharedPointer<character::character> result = sut.load_character();
-    REQUIRE(result->get_name() != "CHARACTER_NAME");
+    REQUIRE(result->get_name() != CHAR_MAN_TEST_CHAR_NAME);
   }
 
   SECTION("should save character without errors")
@@ -63,7 +74,7 @@ TEST_CASE("character_manager")
     manager::character_manager sut = manager::character_manager(mock);
     try
     {
-      QSharedPointer<character::character> to_save = QSharedPointer<character::character>(new character::character("CHARACTER_NAME"));
+      QSharedPointer<character::character> to_save = QSharedPointer<character::character>(new character::character(CHAR_MAN_TEST_CHAR_NAME));
       sut.save_character(to_save);
       QSharedPointer<character::character> loaded = sut.load_character();
       REQUIRE(to_save->get_name() == loaded->get_name());

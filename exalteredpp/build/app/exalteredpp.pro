@@ -45,7 +45,14 @@ SOURCES += \
     ../../src/qt/layout/qborderlayout.cpp \
     ../../src/qt/widget/changeable_value_label.cpp \
     ../../src/qt/navigation/exalteredapp_navigation_logic.cpp \
-    ../../src/errors/characternotfoundexception.cpp
+    ../../src/errors/characternotfoundexception.cpp \
+    ../../src/qt/screen/qcharacterinfoscreen.cpp \
+    ../../src/qt/screen/qcharacterattributes.cpp \
+    ../../src/qt/widget/name_value_widget.cpp \
+    ../../src/model/character/abilities/ability.cpp \
+    ../../src/model/character/abilities/abilities.cpp \
+    ../../src/qt/screen/qcharacterabilities.cpp \
+    ../../src/qt/navigation/exalteredapp_load_screen_logic.cpp
 
 HEADERS += \
     ../../headers/model/character/attributes/attribute_names.h \
@@ -65,7 +72,17 @@ HEADERS += \
     ../../headers/qt/screen/qmainscreen.h \
     ../../headers/qt/widget/changeable_value_label.h \
     ../../headers/errors/characternotfoundexception.h \
-    ../../headers/errors/error_codes.h
+    ../../headers/errors/error_codes.h \
+    ../../headers/qt/objects_factory.h \
+    ../../src/qt/screen/qcharacterinfoscreen \
+    ../../headers/qt/screen/qcharacterinfoscreen.h \
+    ../../headers/model/behavioral/name_value_pair.h \
+    ../../headers/qt/widget/name_value_widget.h \
+    ../../headers/qt/screen/qcharacterattributes.h \
+    ../../headers/model/character/abilities/ability.h \
+    ../../headers/model/character/abilities/ability_names.h \
+    ../../headers/model/character/abilities/abilities.h \
+    ../../headers/qt/screen/qcharacterabilities.h
 
 CONFIG += mobility
 MOBILITY = 

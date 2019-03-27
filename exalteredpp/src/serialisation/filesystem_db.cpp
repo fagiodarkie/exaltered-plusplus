@@ -33,10 +33,15 @@ namespace serialisation {
     return QSharedPointer<character::character>(new character::character(json_character.object()));
   }
 
+  QList<QSharedPointer<character::character>> filesystem_db::character_list()
+  {
+    return { load_character() };
+  }
+
   void filesystem_db::save_character(const QSharedPointer<character::character> character)
   {
     QJsonObject character_object;
-    character->write(character_object);
+    character->write_to_json(character_object);
     QJsonDocument document(character_object);
 
     QFile expectedFile("character" + FILE_EXT);

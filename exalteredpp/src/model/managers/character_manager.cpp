@@ -19,13 +19,15 @@ namespace manager {
     catch (exception::character_not_found_exception& e)
     {
       qDebug(e.what());
-      return QSharedPointer<character::character>(new character::character(model::text::character::DEFAULT_CHARACTER_NAME));
+      QSharedPointer<character::character> new_character(new character::character(model::text::character::DEFAULT_CHARACTER_NAME));
+      save_character(new_character);
+      return new_character;
     }
   }
 
   void character_manager::save_character(QSharedPointer<character::character> character) const
   {
-    return character_repository->save_character(character);
+    character_repository->save_character(character);
   }
 
 }

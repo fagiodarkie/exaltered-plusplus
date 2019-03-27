@@ -5,6 +5,7 @@
 #include "characternotfoundexception.h"
 
 #include <QLabel>
+#include <QPushButton>
 
 using qt::layout::QBorderLayout;
 using namespace qt::labels;
@@ -16,27 +17,22 @@ namespace qt {
         character_manager(char_manager)
     {
       init_load_button();
-      paint();
     }
 
     void qloadcharacterscreen::init_load_button()
     {
-      loadButton = new QPushButton(this);
+      QPushButton* loadButton = new QPushButton(this);
       loadButton->setText(LOAD_LABEL);
       connect(loadButton, &QPushButton::clicked, this, &qloadcharacterscreen::load_character);
+      QBorderLayout* layout = new QBorderLayout();
+      layout->addWidget(loadButton, QBorderLayout::South);
+      this->setLayout(layout);
     }
 
     void qloadcharacterscreen::load_character()
     {
       qDebug("Load character");
       emit character_loaded(character_manager->load_character());
-    }
-
-    void qloadcharacterscreen::paint()
-    {
-      QBorderLayout* layout = new QBorderLayout();
-      layout->addWidget(loadButton, QBorderLayout::South);
-      this->setLayout(layout);
     }
   }
 }
