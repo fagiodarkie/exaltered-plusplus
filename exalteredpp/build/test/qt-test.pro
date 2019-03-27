@@ -41,7 +41,23 @@ HEADERS += \
     ../../headers/errors/characternotfoundexception.h \
     ../../headers/errors/error_codes.h \
     ../../headers/model/text/character_text_constants.h \
-    ../../headers/model/managers/character_manager.h
+    ../../headers/model/managers/character_manager.h \
+    ../../headers/errors/characternotfoundexception.h \
+    ../../headers/errors/error_codes.h \
+    ../../headers/model/behavioral/name_value_pair.h \
+    ../../headers/model/character/abilities/abilities.h \
+    ../../headers/model/character/abilities/ability.h \
+    ../../headers/model/character/abilities/ability_names.h \
+    ../../headers/model/character/attributes/attribute.h \
+    ../../headers/model/character/attributes/attribute_names.h \
+    ../../headers/model/character/attributes/attributes.h \
+    ../../headers/model/character/character.h \
+    ../../headers/model/managers/character_manager.h \
+    ../../headers/model/text/character_text_constants.h \
+    ../../headers/serialisation/db_abstraction.h \
+    ../../headers/serialisation/filesystem_db.h \
+    ../../headers/serialisation/json_constants.h \
+    ../../headers/serialisation/serialisable.h
 
 SOURCES += \
     ../../src/qt-test/main.cpp \
@@ -57,5 +73,21 @@ SOURCES += \
     ../../src/errors/characternotfoundexception.cpp \
     ../../src/test-case/exceptions-test.cpp \
     ../../src/test-case/character_manager-test.cpp \
-    ../../src/model/managers/character_manager.cpp
+    ../../src/model/managers/character_manager.cpp \
+    ../../src/errors/characternotfoundexception.cpp \
+    ../../src/model/character/abilities/abilities.cpp \
+    ../../src/model/character/abilities/ability.cpp \
+    ../../src/model/character/attributes/attribute.cpp \
+    ../../src/model/character/attributes/attributes.cpp \
+    ../../src/model/character/character.cpp \
+    ../../src/model/managers/character_manager.cpp \
+    ../../src/qt-test/main.cpp \
+    ../../src/serialisation/filesystem_db.cpp \
+    ../../src/serialisation/json_constants.cpp \
+    ../../src/test-case/attribute-test.cpp \
+    ../../src/test-case/attributes-test.cpp \
+    ../../src/test-case/character-test.cpp \
+    ../../src/test-case/character_manager-test.cpp \
+    ../../src/test-case/exceptions-test.cpp \
+    ../../src/test-case/filesystem_db-test.cpp
 

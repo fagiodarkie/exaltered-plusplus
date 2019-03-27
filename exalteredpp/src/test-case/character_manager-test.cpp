@@ -3,44 +3,53 @@
 #include "errors/characternotfoundexception.h"
 #include "managers/character_manager.h"
 
-class mock_db_abstraction: public serialisation::db_abstraction
-{
-  // db_abstraction interface
-public:
-  mock_db_abstraction() : has_character(true) {}
+namespace character_manager_tests {
 
-  QSharedPointer<character::character> load_character()
+  class mock_db_abstraction: public serialisation::db_abstraction
   {
-    if (has_character)
-      return cached_character.isNull()
-          ? QSharedPointer<character::character>(new character::character("CHARACTER_NAME"))
-          : cached_character;
-    throw exception::character_not_found_exception();
-  }
+    // db_abstraction interface
+  public:
+    mock_db_abstraction() : has_character(true) {}
 
-  bool has_characters() const
-  {
-    return has_character;
-  }
+    QSharedPointer<character::character> load_character()
+    {
+      if (has_character)
+        return cached_character.isNull()
+            ? QSharedPointer<character::character>(new character::character("CHARACTER_NAME"))
+            : cached_character;
+      throw exception::character_not_found_exception();
+    }
 
-  void save_character(const QSharedPointer<character::character> character)
-  {
-    cached_character = character;
-  }
+    bool has_characters() const
+    {
+      return has_character;
+    }
 
-  void mock_has_character(bool has_it)
-  {
-    has_character = has_it;
-  }
+    QList<QSharedPointer<character::character>> character_list()
+    {
+      return {};
+    }
 
-private:
-  bool has_character;
-  QSharedPointer<character::character> cached_character;
-};
+    void save_character(const QSharedPointer<character::character> character)
+    {
+      cached_character = character;
+    }
+
+    void mock_has_character(bool has_it)
+    {
+      has_character = has_it;
+    }
+
+  private:
+    bool has_character;
+    QSharedPointer<character::character> cached_character;
+  };
+
+}
 
 TEST_CASE("character_manager")
 {
-  QSharedPointer<mock_db_abstraction> mock = QSharedPointer<mock_db_abstraction>(new mock_db_abstraction());
+  QSharedPointer<character_manager_tests::mock_db_abstraction> mock = QSharedPointer<character_manager_tests::mock_db_abstraction>(new character_manager_tests::mock_db_abstraction());
 
   SECTION("should load character when it is present")
   {
