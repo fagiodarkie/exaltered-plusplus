@@ -1,6 +1,6 @@
 #include "../thirdparty/catch/catch.hpp"
-#include "character/attributes/attributes.h"
-#include "character/attributes/attribute_names.h"
+#include "attributes/attributes.h"
+#include "attributes/attribute_names.h"
 
 #define TEST_ATTRIBUTE_NAME "test-attribute"
 #define TEST_ATTRIBUTE_VALUE 1

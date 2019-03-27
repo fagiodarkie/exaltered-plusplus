@@ -89,5 +89,7 @@ SOURCES += \
     ../../src/test-case/character-test.cpp \
     ../../src/test-case/character_manager-test.cpp \
     ../../src/test-case/exceptions-test.cpp \
-    ../../src/test-case/filesystem_db-test.cpp
+    ../../src/test-case/filesystem_db-test.cpp \
+    ../../src/test-case/ability-test.cpp \
+    ../../src/test-case/abilities-test.cpp
 

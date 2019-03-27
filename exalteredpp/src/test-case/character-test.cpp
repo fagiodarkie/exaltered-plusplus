@@ -22,6 +22,24 @@ TEST_CASE("Character")
     REQUIRE(QString(CHARACTER_NAME) == sut.get_name());
   }
 
+  SECTION("newly created character should have all attributes set")
+  {
+    character::character sut(CHARACTER_NAME);
+    for (character::attribute_name att_name: character::ATTRIBUTE_NAME.keys() )
+      {
+        REQUIRE(sut.get_attribute(att_name).get_name() == character::ATTRIBUTE_NAME.value(att_name));
+      }
+  }
+
+  SECTION("newly created character should have all abilities set")
+  {
+    character::character sut(CHARACTER_NAME);
+    for (character::ability_name ab_name: character::ABILITY_NAME.keys() )
+      {
+        REQUIRE(sut.get_ability(ab_name).get_name() == character::ABILITY_NAME.value(ab_name));
+      }
+  }
+
   SECTION("should save character correctly to JSON object")
   {
     character::character sut(CHARACTER_NAME);
@@ -36,7 +54,15 @@ TEST_CASE("Character")
     character::character sut(CHARACTER_NAME);
     sut.set_attribute(character::attribute_name::STRENGTH, character::attribute(TEST_ATTRIBUTE_NAME));
     character::attribute saved_attribute = sut.get_attribute(character::attribute_name::STRENGTH);
-    REQUIRE(QString(saved_attribute) == QString(TEST_ATTRIBUTE_NAME));
+    REQUIRE(saved_attribute.get_name() == TEST_ATTRIBUTE_NAME);
+  }
+
+  SECTION("should accept a new ability")
+  {
+    character::character sut(CHARACTER_NAME);
+    sut.set_ability(character::ability_name::WAR, character::ability(TEST_ATTRIBUTE_NAME));
+    character::ability saved_ability = sut.get_ability(character::ability_name::WAR);
+    REQUIRE(saved_ability.get_name() == TEST_ATTRIBUTE_NAME);
   }
 
   SECTION("should change name when change is issued")

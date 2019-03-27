@@ -3,6 +3,8 @@
 #include "errors/characternotfoundexception.h"
 #include "managers/character_manager.h"
 
+#define CHAR_MAN_TEST_CHAR_NAME "CHARACTER_NAME"
+
 namespace character_manager_tests {
 
   class mock_db_abstraction: public serialisation::db_abstraction
@@ -15,7 +17,7 @@ namespace character_manager_tests {
     {
       if (has_character)
         return cached_character.isNull()
-            ? QSharedPointer<character::character>(new character::character("CHARACTER_NAME"))
+            ? QSharedPointer<character::character>(new character::character(CHAR_MAN_TEST_CHAR_NAME))
             : cached_character;
       throw exception::character_not_found_exception();
     }
@@ -56,7 +58,7 @@ TEST_CASE("character_manager")
     mock->mock_has_character(true);
     manager::character_manager sut = manager::character_manager(mock);
     QSharedPointer<character::character> result = sut.load_character();
-    REQUIRE(result->get_name() == "CHARACTER_NAME");
+    REQUIRE(result->get_name() == CHAR_MAN_TEST_CHAR_NAME);
   }
 
   SECTION("should load character when it is not present")
@@ -64,7 +66,7 @@ TEST_CASE("character_manager")
     mock->mock_has_character(false);
     manager::character_manager sut = manager::character_manager(mock);
     QSharedPointer<character::character> result = sut.load_character();
-    REQUIRE(result->get_name() != "CHARACTER_NAME");
+    REQUIRE(result->get_name() != CHAR_MAN_TEST_CHAR_NAME);
   }
 
   SECTION("should save character without errors")
@@ -72,7 +74,7 @@ TEST_CASE("character_manager")
     manager::character_manager sut = manager::character_manager(mock);
     try
     {
-      QSharedPointer<character::character> to_save = QSharedPointer<character::character>(new character::character("CHARACTER_NAME"));
+      QSharedPointer<character::character> to_save = QSharedPointer<character::character>(new character::character(CHAR_MAN_TEST_CHAR_NAME));
       sut.save_character(to_save);
       QSharedPointer<character::character> loaded = sut.load_character();
       REQUIRE(to_save->get_name() == loaded->get_name());
