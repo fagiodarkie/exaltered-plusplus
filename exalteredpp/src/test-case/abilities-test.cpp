@@ -21,7 +21,7 @@ TEST_CASE("Abilities")
     QJsonObject from;
     from[character::ABILITY_NAME.value(character::ability_name::WAR)] = TEST_ABILITY_VALUE;
     character::abilities sut;
-    sut.read(from);
+    sut.read_from_json(from);
     REQUIRE(sut.value(character::ability_name::WAR) == TEST_ABILITY_VALUE);
   }
 
@@ -30,7 +30,7 @@ TEST_CASE("Abilities")
     character::abilities sut;
     sut.insert(character::ability_name::WAR, character::ability(character::ABILITY_NAME.value(character::ability_name::WAR), TEST_ABILITY_VALUE));
     QJsonObject from;
-    sut.write(from);
+    sut.write_to_json(from);
     REQUIRE(from[character::ABILITY_NAME.value(character::ability_name::WAR)].toInt() == TEST_ABILITY_VALUE);
   }
 }

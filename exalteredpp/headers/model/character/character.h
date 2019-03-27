@@ -28,8 +28,8 @@ namespace character
       void set_ability(ability_name name, ability ability);
 
       // serialisable fields
-      void read(const QJsonObject& object) override;
-      void write(QJsonObject& object) const override;
+      void read_from_json(const QJsonObject& object) override;
+      void write_to_json(QJsonObject& object) const override;
 
   signals:
       void data_changed();

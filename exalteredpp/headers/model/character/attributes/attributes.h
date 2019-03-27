@@ -11,8 +11,8 @@ namespace character
   {
 
   public:
-    void read(const QJsonObject &json) override;
-    void write(QJsonObject &json) const override;
+    void read_from_json(const QJsonObject &json) override;
+    void write_to_json(QJsonObject &json) const override;
 
     virtual ~attributes() = default;
   };

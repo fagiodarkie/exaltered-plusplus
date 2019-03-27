@@ -22,7 +22,7 @@ namespace character
 
   character::character(const QJsonObject& object)
   {
-    read(object);
+    read_from_json(object);
   }
 
   QString character::get_name() const
@@ -56,23 +56,23 @@ namespace character
     _abilities.insert(name, attribute);
   }
 
-  void character::read(const QJsonObject &object)
+  void character::read_from_json(const QJsonObject &object)
   {
     _name = object[json_constants::SLOT_NAME].toString();
-    _attributes.read(object[json_constants::SLOT_ATTRIBUTES].toObject());
-    _abilities.read(object[json_constants::SLOT_ABILITIES].toObject());
+    _attributes.read_from_json(object[json_constants::SLOT_ATTRIBUTES].toObject());
+    _abilities.read_from_json(object[json_constants::SLOT_ABILITIES].toObject());
   }
 
-  void character::write(QJsonObject &object) const
+  void character::write_to_json(QJsonObject &object) const
   {
     object[json_constants::SLOT_NAME] = _name;
 
     QJsonObject attributes_object;
-    _attributes.write(attributes_object);
+    _attributes.write_to_json(attributes_object);
     object[json_constants::SLOT_ATTRIBUTES] = attributes_object;
 
     QJsonObject abilities_object;
-    _abilities.write(abilities_object);
+    _abilities.write_to_json(abilities_object);
     object[json_constants::SLOT_ABILITIES] = abilities_object;
   }
 }

@@ -2,7 +2,7 @@
 #include "abilities/ability_names.h"
 
 namespace character {
-  void abilities::read(const QJsonObject& json)
+  void abilities::read_from_json(const QJsonObject& json)
   {
     clear();
     for (ability_name ability_type: ABILITY_NAME.keys())
@@ -14,7 +14,7 @@ namespace character {
       }
   }
 
-  void abilities::write(QJsonObject &json) const
+  void abilities::write_to_json(QJsonObject &json) const
   {
     for (ability_name ability_type: ABILITY_NAME.keys())
       {

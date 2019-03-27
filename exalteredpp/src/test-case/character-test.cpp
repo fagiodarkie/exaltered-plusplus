@@ -44,7 +44,7 @@ TEST_CASE("Character")
   {
     character::character sut(CHARACTER_NAME);
     QJsonObject object;
-    sut.write(object);
+    sut.write_to_json(object);
 
     REQUIRE(object[serialisation::json_constants::SLOT_NAME] == sut.get_name());
   }
