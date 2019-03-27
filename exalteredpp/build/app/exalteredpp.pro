@@ -50,7 +50,9 @@ SOURCES += \
     ../../src/qt/screen/qcharacterattributes.cpp \
     ../../src/qt/widget/name_value_widget.cpp \
     ../../src/model/character/abilities/ability.cpp \
-    ../../src/model/character/abilities/abilities.cpp
+    ../../src/model/character/abilities/abilities.cpp \
+    ../../src/qt/screen/qcharacterabilities.cpp \
+    ../../src/qt/navigation/exalteredapp_load_screen_logic.cpp
 
 HEADERS += \
     ../../headers/model/character/attributes/attribute_names.h \
@@ -79,7 +81,8 @@ HEADERS += \
     ../../headers/qt/screen/qcharacterattributes.h \
     ../../headers/model/character/abilities/ability.h \
     ../../headers/model/character/abilities/ability_names.h \
-    ../../headers/model/character/abilities/abilities.h
+    ../../headers/model/character/abilities/abilities.h \
+    ../../headers/qt/screen/qcharacterabilities.h
 
 CONFIG += mobility
 MOBILITY = 

@@ -8,5 +8,6 @@ namespace serialisation
   {
     static const QString SLOT_NAME;
     static const QString SLOT_ATTRIBUTES;
+    static const QString SLOT_ABILITIES;
   };
 }

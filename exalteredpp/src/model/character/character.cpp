@@ -9,12 +9,14 @@ namespace character
   {
     for (attribute_name att_name : ATTRIBUTE_NAME.keys())
       {
-        set_attribute(att_name, attribute(ATTRIBUTE_NAME.value(att_name), (qrand() % 5) + 1));
+        attribute attribute(ATTRIBUTE_NAME.value(att_name), (qrand() % 5) + 1);
+        set_attribute(att_name, attribute);
       }
 
     for (ability_name ab_name : ABILITY_NAME.keys())
       {
-        set_ability(ab_name, ability(ABILITY_NAME.value(ab_name), (qrand() % 5) + 1));
+        ability ability(ABILITY_NAME.value(ab_name), (qrand() % 5) + 1);
+        set_ability(ab_name, ability);
       }
   };
 
@@ -58,13 +60,19 @@ namespace character
   {
     _name = object[json_constants::SLOT_NAME].toString();
     _attributes.read(object[json_constants::SLOT_ATTRIBUTES].toObject());
+    _abilities.read(object[json_constants::SLOT_ABILITIES].toObject());
   }
 
   void character::write(QJsonObject &object) const
   {
     object[json_constants::SLOT_NAME] = _name;
+
     QJsonObject attributes_object;
     _attributes.write(attributes_object);
     object[json_constants::SLOT_ATTRIBUTES] = attributes_object;
+
+    QJsonObject abilities_object;
+    _abilities.write(abilities_object);
+    object[json_constants::SLOT_ABILITIES] = abilities_object;
   }
 }

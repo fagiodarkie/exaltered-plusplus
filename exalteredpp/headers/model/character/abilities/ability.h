@@ -8,6 +8,7 @@ namespace character
   class ability : public model::name_value_pair
   {
   public:
+    ability() = default;
     ability(const QString& name, int value = 0);
 
     operator int() const;

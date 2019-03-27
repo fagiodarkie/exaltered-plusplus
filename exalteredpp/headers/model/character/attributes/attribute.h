@@ -8,6 +8,7 @@ namespace character
   class attribute : public model::name_value_pair
   {
   public:
+    attribute() = default;
     attribute(QString name);
     attribute(QString name, int value);
 
