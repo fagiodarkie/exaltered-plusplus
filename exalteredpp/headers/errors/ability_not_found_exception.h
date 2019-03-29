@@ -3,13 +3,12 @@
 #include <QException>
 
 namespace exception {
-  class character_not_found_exception : public QException
+  class ability_not_found_exception : public QException
   {
   public:
     const char* what() const noexcept (true) override;
     void raise() const override;
-    character_not_found_exception *clone() const override;
+    ability_not_found_exception *clone() const override;
   };
-
 }
 

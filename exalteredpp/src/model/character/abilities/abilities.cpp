@@ -8,19 +8,19 @@ namespace character {
     for (ability_name ability_type: ABILITY_NAME.keys())
       {
         QString ability_name = ABILITY_NAME[ability_type];
-        int ability_value = json[ability_name].toInt();
-        ability ability(ability_name, ability_value);
-        insert(ability_type, ability);
+        ability_group ability_gr(ability_name);
+        ability_gr.read_from_json(json[ability_name].toObject());
+        insert(ability_type, ability_gr);
       }
   }
 
   void abilities::write_to_json(QJsonObject &json) const
   {
-    for (ability_name ability_type: ABILITY_NAME.keys())
+    for (ability_group ability: values())
       {
-        QString ability_name = ABILITY_NAME[ability_type];
-        int ability_value = int(value(ability_type));
-        json[ability_name] = ability_value;
+        QJsonObject ability_object;
+        ability.write_to_json(ability_object);
+        json[ability.get_name()] = ability_object;
       }
   }
 }

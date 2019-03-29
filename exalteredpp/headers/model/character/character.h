@@ -24,8 +24,9 @@ namespace character
       attribute get_attribute(attribute_name name) const;
       void set_attribute(attribute_name name, attribute attribute);
 
-      ability get_ability(ability_name name) const;
-      void set_ability(ability_name name, ability ability);
+      ability_group get_ability_group(ability_name name) const;
+      ability get_ability(ability_name name, const QString& ability_declination = ability_declination::NO_DECLINATION) const;
+      void set_ability(ability_name name, ability_group ability);
 
       // serialisable fields
       void read_from_json(const QJsonObject& object) override;

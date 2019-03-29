@@ -15,7 +15,7 @@ namespace character
 
     for (ability_name ab_name : ABILITY_NAME.keys())
       {
-        ability ability(ABILITY_NAME.value(ab_name), (qrand() % 5) + 1);
+        ability_group ability(ABILITY_NAME.value(ab_name));
         set_ability(ab_name, ability);
       }
   };
@@ -46,14 +46,19 @@ namespace character
     _attributes.insert(name, attribute);
   }
 
-  ability character::get_ability(ability_name name) const
+  ability character::get_ability(ability_name name, const QString& ability_declination) const
+  {
+    return _abilities.value(name).get_ability(ability_declination);
+  }
+
+  ability_group character::get_ability_group(ability_name name) const
   {
     return _abilities.value(name);
   }
 
-  void character::set_ability(ability_name name, ability attribute)
+  void character::set_ability(ability_name name, ability_group ability)
   {
-    _abilities.insert(name, attribute);
+    _abilities.insert(name, ability);
   }
 
   void character::read_from_json(const QJsonObject &object)

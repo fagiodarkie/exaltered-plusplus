@@ -14,6 +14,23 @@ namespace character
     MANEUVER, SOCIALISE, BUREAUCRACY, LANGUAGE
   };
 
+  namespace ability_declination {
+    static const QString
+    NO_DECLINATION = "NONE",
+
+    FIRE_CRAFT    = "Fire",
+    WATER_CRAFT   = "Water",
+    WOOD_CRAFT    = "Wood",
+    EARTH_CRAFT   = "Earth",
+    AIR_CRAFT     = "Air",
+    NECRO_CRAFT   = "Necrotech",
+
+    BEAST_MANEUVER    = "Beasts",
+    SHIP_MANEUVER     = "Ships",
+    CHART_MANEUVER    = "Charts",
+    FIRSTAGE_MANEUVER = "First Age";
+  }
+
   static const QMap<ability_name, QString> ABILITY_NAME {
     { MELEE,        "Melee" },
     { ARCHERY,      "Archery"},
