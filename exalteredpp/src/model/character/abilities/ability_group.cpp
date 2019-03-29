@@ -18,7 +18,16 @@ namespace character
 
     QList<ability> ability_group::get_abilities() const
     {
-      return actual_abilities;
+      if (!has_abilities())
+        return { ability(group_name, get_ability().get_ability_value()) };
+
+      QList<ability> mod_abilities;
+      for (ability a : actual_abilities)
+        {
+          mod_abilities.push_back(ability(QString("%1 (%2)").arg(group_name).arg(a.get_name()), a.get_ability_value()));
+        }
+
+      return mod_abilities;
     }
 
     QList<specialisation> ability_group::get_specialisations() const

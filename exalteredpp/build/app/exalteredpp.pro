@@ -56,7 +56,8 @@ SOURCES += \
     ../../src/model/character/abilities/ability_group.cpp \
     ../../src/model/character/abilities/specialisation.cpp \
     ../../src/errors/ability_not_found_exception.cpp \
-    ../../src/errors/invalid_parameter.cpp
+    ../../src/errors/invalid_parameter.cpp \
+    ../../src/model/character/abilities/default_ability_factory.cpp
 
 HEADERS += \
     ../../headers/model/character/attributes/attribute_names.h \
@@ -90,7 +91,9 @@ HEADERS += \
     ../../headers/model/character/abilities/ability_group.h \
     ../../headers/model/character/abilities/specialisation.h \
     ../../headers/errors/ability_not_found_exception.h \
-    ../../headers/errors/invalid_parameter.h
+    ../../headers/errors/invalid_parameter.h \
+    ../../headers/model/character/abilities/abstract_ability_factory.h \
+    ../../headers/model/character/abilities/default_ability_factory.h
 
 CONFIG += mobility
 MOBILITY = 

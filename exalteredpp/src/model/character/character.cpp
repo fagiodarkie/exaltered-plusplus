@@ -12,12 +12,6 @@ namespace character
         attribute attribute(ATTRIBUTE_NAME.value(att_name), (qrand() % 5) + 1);
         set_attribute(att_name, attribute);
       }
-
-    for (ability_name ab_name : ABILITY_NAME.keys())
-      {
-        ability_group ability(ABILITY_NAME.value(ab_name));
-        set_ability(ab_name, ability);
-      }
   };
 
   character::character(const QJsonObject& object)
