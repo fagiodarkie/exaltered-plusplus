@@ -19,7 +19,7 @@ INCLUDEPATH += ../../headers \
     ../../headers/model \
     ../../headers/model/character \
     ../../headers/serialisation \
-    ../../headers/qt \
+    ../../headers/test-case \
     ../../headers/errors
 
 
@@ -29,12 +29,18 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    ../../headers/errors/ability_not_found_exception.h \
     ../../headers/errors/characternotfoundexception.h \
     ../../headers/errors/error_codes.h \
+    ../../headers/errors/invalid_parameter.h \
     ../../headers/model/behavioral/name_value_pair.h \
     ../../headers/model/character/abilities/abilities.h \
     ../../headers/model/character/abilities/ability.h \
+    ../../headers/model/character/abilities/ability_group.h \
     ../../headers/model/character/abilities/ability_names.h \
+    ../../headers/model/character/abilities/abstract_ability_factory.h \
+    ../../headers/model/character/abilities/default_ability_factory.h \
+    ../../headers/model/character/abilities/specialisation.h \
     ../../headers/model/character/attributes/attribute.h \
     ../../headers/model/character/attributes/attribute_names.h \
     ../../headers/model/character/attributes/attributes.h \
@@ -45,12 +51,18 @@ HEADERS += \
     ../../headers/serialisation/filesystem_db.h \
     ../../headers/serialisation/json_constants.h \
     ../../headers/serialisation/serialisable.h \
-    ../../thirdparty/catch/catch.hpp
+    ../../headers/test-case/character_manager_mock.h \
+    ../../headers/test-case/ability_factory_mock.h
 
 SOURCES += \
+    ../../src/errors/ability_not_found_exception.cpp \
     ../../src/errors/characternotfoundexception.cpp \
+    ../../src/errors/invalid_parameter.cpp \
     ../../src/model/character/abilities/abilities.cpp \
     ../../src/model/character/abilities/ability.cpp \
+    ../../src/model/character/abilities/ability_group.cpp \
+    ../../src/model/character/abilities/default_ability_factory.cpp \
+    ../../src/model/character/abilities/specialisation.cpp \
     ../../src/model/character/attributes/attribute.cpp \
     ../../src/model/character/attributes/attributes.cpp \
     ../../src/model/character/character.cpp \
@@ -66,4 +78,5 @@ SOURCES += \
     ../../src/test-case/character_manager-test.cpp \
     ../../src/test-case/exceptions-test.cpp \
     ../../src/test-case/filesystem_db-test.cpp
+
 

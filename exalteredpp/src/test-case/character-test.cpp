@@ -57,11 +57,11 @@ TEST_CASE("Character")
     REQUIRE(saved_attribute.get_name() == TEST_ATTRIBUTE_NAME);
   }
 
-  SECTION("should accept a new ability")
+  SECTION("should accept a new ability group")
   {
     character::character sut(CHARACTER_NAME);
-    sut.set_ability(character::ability_name::WAR, character::ability(TEST_ATTRIBUTE_NAME));
-    character::ability saved_ability = sut.get_ability(character::ability_name::WAR);
+    sut.set_ability(character::ability_name::WAR, character::ability_group(TEST_ATTRIBUTE_NAME));
+    character::ability_group saved_ability = sut.get_ability_group(character::ability_name::WAR);
     REQUIRE(saved_ability.get_name() == TEST_ATTRIBUTE_NAME);
   }
 
