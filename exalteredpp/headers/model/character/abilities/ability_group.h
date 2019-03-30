@@ -13,7 +13,7 @@ namespace character
 
     ability_group() = default;
 
-    ability_group(const QString& name, QList<ability> abilities = {}, QList<specialisation> specialisations = {});
+    ability_group(const QString& name, QList<ability> abilities = { ability(ability_declination::NO_DECLINATION) }, QList<specialisation> specialisations = {});
 
     QString get_name() const;
     ability get_ability(const QString& name = ability_declination::NO_DECLINATION) const;

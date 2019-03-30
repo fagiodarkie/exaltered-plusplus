@@ -56,7 +56,7 @@ namespace character
     }
 
     bool ability_group::has_ability(const QString& ability_name) const
-    {
+    {      
       auto found_ability = std::find_if(actual_abilities.begin(), actual_abilities.end(),
         [ability_name] (ability ab)
         {
