@@ -4,7 +4,9 @@
 #include "character.h"
 #include "serialisation/db_abstraction.h"
 
-namespace character_manager_tests {
+#define CHAR_MAN_TEST_CHAR_NAME "CHARACTER_NAME"
+
+namespace mock_tests {
 
   class mock_db_abstraction: public serialisation::db_abstraction
   {

@@ -22,24 +22,6 @@ TEST_CASE("Character")
     REQUIRE(QString(CHARACTER_NAME) == sut.get_name());
   }
 
-  SECTION("newly created character should have all attributes set")
-  {
-    character::character sut(CHARACTER_NAME);
-    for (character::attribute_name att_name: character::ATTRIBUTE_NAME.keys() )
-      {
-        REQUIRE(sut.get_attribute(att_name).get_name() == character::ATTRIBUTE_NAME.value(att_name));
-      }
-  }
-
-  SECTION("newly created character should have all abilities set")
-  {
-    character::character sut(CHARACTER_NAME);
-    for (character::ability_name ab_name: character::ABILITY_NAME.keys() )
-      {
-        REQUIRE(sut.get_ability(ab_name).get_name() == character::ABILITY_NAME.value(ab_name));
-      }
-  }
-
   SECTION("should save character correctly to JSON object")
   {
     character::character sut(CHARACTER_NAME);
