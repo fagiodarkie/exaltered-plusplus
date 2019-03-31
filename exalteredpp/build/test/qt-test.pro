@@ -79,7 +79,8 @@ SOURCES += \
     ../../src/test-case/exceptions-test.cpp \
     ../../src/test-case/filesystem_db-test.cpp \
     ../../src/test-case/ability-group-test.cpp \
-    ../../src/test-case/ability-factory-test.cpp
+    ../../src/test-case/ability-factory-test.cpp \
+    ../../src/test-case/specialisation-test.cpp
 
 
 

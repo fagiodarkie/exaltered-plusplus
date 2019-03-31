@@ -53,4 +53,16 @@ TEST_CASE("Character")
     sut.set_name(QString(CHARACTER_NAME) + " - edit");
     REQUIRE(sut.get_name() == QString(CHARACTER_NAME) + " - edit");
   }
+
+  SECTION("should save and retrieve correct abilities")
+  {
+    character::character sut(CHARACTER_NAME);
+    sut.set_ability(character::ability_name::CRAFT, character::ability_group("craft", { character::ability("new_ability", 1) }));
+    sut.set_ability(character::ability_name::WAR, character::ability_group("war"));
+    REQUIRE(sut.get_ability_group(character::ability_name::WAR).get_name() == "war");
+    REQUIRE(sut.get_ability(character::ability_name::WAR).get_name() == character::ability_declination::NO_DECLINATION);
+    REQUIRE(sut.get_ability(character::ability_name::WAR).get_ability_value() == 0);
+    REQUIRE(sut.get_ability(character::ability_name::CRAFT, "new_ability").get_name() == "new_ability");
+    REQUIRE(sut.get_ability(character::ability_name::CRAFT, "new_ability").get_ability_value() == 1);
+  }
 }
