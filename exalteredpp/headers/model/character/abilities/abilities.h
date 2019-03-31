@@ -3,11 +3,11 @@
 #include <QMap>
 #include "serialisable.h"
 #include "ability_names.h"
-#include "ability.h"
+#include "ability_group.h"
 
 namespace character
 {
-  class abilities : public QMap<ability_name, ability>, serialisable
+  class abilities : public QMap<ability_name, ability_group>, serialisable
   {
 
   public:

@@ -52,7 +52,12 @@ SOURCES += \
     ../../src/model/character/abilities/ability.cpp \
     ../../src/model/character/abilities/abilities.cpp \
     ../../src/qt/screen/qcharacterabilities.cpp \
-    ../../src/qt/navigation/exalteredapp_load_screen_logic.cpp
+    ../../src/qt/navigation/exalteredapp_load_screen_logic.cpp \
+    ../../src/model/character/abilities/ability_group.cpp \
+    ../../src/model/character/abilities/specialisation.cpp \
+    ../../src/errors/ability_not_found_exception.cpp \
+    ../../src/errors/invalid_parameter.cpp \
+    ../../src/model/character/abilities/default_ability_factory.cpp
 
 HEADERS += \
     ../../headers/model/character/attributes/attribute_names.h \
@@ -82,7 +87,13 @@ HEADERS += \
     ../../headers/model/character/abilities/ability.h \
     ../../headers/model/character/abilities/ability_names.h \
     ../../headers/model/character/abilities/abilities.h \
-    ../../headers/qt/screen/qcharacterabilities.h
+    ../../headers/qt/screen/qcharacterabilities.h \
+    ../../headers/model/character/abilities/ability_group.h \
+    ../../headers/model/character/abilities/specialisation.h \
+    ../../headers/errors/ability_not_found_exception.h \
+    ../../headers/errors/invalid_parameter.h \
+    ../../headers/model/character/abilities/abstract_ability_factory.h \
+    ../../headers/model/character/abilities/default_ability_factory.h
 
 CONFIG += mobility
 MOBILITY = 

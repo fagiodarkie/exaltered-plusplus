@@ -5,8 +5,8 @@
 
 namespace manager {
 
-  character_manager::character_manager(QSharedPointer<serialisation::db_abstraction> db)
-    : character_repository(db)
+  character_manager::character_manager(QSharedPointer<serialisation::db_abstraction> db, QSharedPointer<character::abstract_ability_factory> abilities)
+    : character_repository(db), ability_factory(abilities)
   {
   }
 
@@ -20,6 +20,12 @@ namespace manager {
     {
       qDebug(e.what());
       QSharedPointer<character::character> new_character(new character::character(model::text::character::DEFAULT_CHARACTER_NAME));
+
+      for (character::ability_name ability : character::ABILITY_NAME.keys())
+        {
+          new_character->set_ability(ability, ability_factory->get_ability_group(ability));
+        }
+
       save_character(new_character);
       return new_character;
     }

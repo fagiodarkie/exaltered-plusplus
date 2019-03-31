@@ -22,24 +22,6 @@ TEST_CASE("Character")
     REQUIRE(QString(CHARACTER_NAME) == sut.get_name());
   }
 
-  SECTION("newly created character should have all attributes set")
-  {
-    character::character sut(CHARACTER_NAME);
-    for (character::attribute_name att_name: character::ATTRIBUTE_NAME.keys() )
-      {
-        REQUIRE(sut.get_attribute(att_name).get_name() == character::ATTRIBUTE_NAME.value(att_name));
-      }
-  }
-
-  SECTION("newly created character should have all abilities set")
-  {
-    character::character sut(CHARACTER_NAME);
-    for (character::ability_name ab_name: character::ABILITY_NAME.keys() )
-      {
-        REQUIRE(sut.get_ability(ab_name).get_name() == character::ABILITY_NAME.value(ab_name));
-      }
-  }
-
   SECTION("should save character correctly to JSON object")
   {
     character::character sut(CHARACTER_NAME);
@@ -57,11 +39,11 @@ TEST_CASE("Character")
     REQUIRE(saved_attribute.get_name() == TEST_ATTRIBUTE_NAME);
   }
 
-  SECTION("should accept a new ability")
+  SECTION("should accept a new ability group")
   {
     character::character sut(CHARACTER_NAME);
-    sut.set_ability(character::ability_name::WAR, character::ability(TEST_ATTRIBUTE_NAME));
-    character::ability saved_ability = sut.get_ability(character::ability_name::WAR);
+    sut.set_ability(character::ability_name::WAR, character::ability_group(TEST_ATTRIBUTE_NAME));
+    character::ability_group saved_ability = sut.get_ability_group(character::ability_name::WAR);
     REQUIRE(saved_ability.get_name() == TEST_ATTRIBUTE_NAME);
   }
 
@@ -70,5 +52,17 @@ TEST_CASE("Character")
     character::character sut(CHARACTER_NAME);
     sut.set_name(QString(CHARACTER_NAME) + " - edit");
     REQUIRE(sut.get_name() == QString(CHARACTER_NAME) + " - edit");
+  }
+
+  SECTION("should save and retrieve correct abilities")
+  {
+    character::character sut(CHARACTER_NAME);
+    sut.set_ability(character::ability_name::CRAFT, character::ability_group("craft", { character::ability("new_ability", 1) }));
+    sut.set_ability(character::ability_name::WAR, character::ability_group("war"));
+    REQUIRE(sut.get_ability_group(character::ability_name::WAR).get_name() == "war");
+    REQUIRE(sut.get_ability(character::ability_name::WAR).get_name() == character::ability_declination::NO_DECLINATION);
+    REQUIRE(sut.get_ability(character::ability_name::WAR).get_ability_value() == 0);
+    REQUIRE(sut.get_ability(character::ability_name::CRAFT, "new_ability").get_name() == "new_ability");
+    REQUIRE(sut.get_ability(character::ability_name::CRAFT, "new_ability").get_ability_value() == 1);
   }
 }

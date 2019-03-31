@@ -20,8 +20,11 @@ namespace qt
 
       for (character::ability_name ability_name: character::ABILITY_NAME.keys())
       {
-        QWidget* label_widget = new widget::name_value_widget(character->get_ability(ability_name), this);
-        inner_layout->addWidget(label_widget);
+        for (character::ability ability : character->get_ability_group(ability_name).get_abilities())
+          {
+            QWidget* label_widget = new widget::name_value_widget(ability, this);
+            inner_layout->addWidget(label_widget);
+          }
       }
 
       abilities_list->setLayout(inner_layout);
