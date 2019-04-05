@@ -1,6 +1,7 @@
 #include "../thirdparty/catch/catch.hpp"
 #include <filesystem_db.h>
 #include <QFile>
+#include <QJsonDocument>
 #include <QDirIterator>
 #include "characternotfoundexception.h"
 
@@ -48,6 +49,46 @@ TEST_CASE("filesystem_db")
     REQUIRE(sut.character_name(id1) == "name 1");
     REQUIRE(sut.character_name(id2) == "name 2");
   }
+
+  SECTION("should load characters list")
+  {
+    QJsonObject data;
+    data.insert("id", "name");
+    QJsonDocument document_data;
+    document_data.setObject(data);
+    QFile char_file("available_characters.json");
+    char_file.open(QFile::WriteOnly);
+    char_file.write(document_data.toJson());
+    char_file.close();
+
+    serialisation::filesystem_db new_sut;
+    REQUIRE(new_sut.character_list().size() == 1);
+    REQUIRE(new_sut.character_list().at(0) == "id");
+    REQUIRE(new_sut.character_name("id") == "name");
+  }
+
+  SECTION("should load characters list")
+  {
+    serialisation::filesystem_db new_sut;
+    new_sut.save_character(QSharedPointer<character::character>(new character::character("a")));
+    new_sut.save_character(QSharedPointer<character::character>(new character::character("b")));
+    new_sut.remove_character("a");
+    REQUIRE(new_sut.character_list().size() == 1);
+    REQUIRE_FALSE(new_sut.character_list().contains("a"));
+  }
+
+  SECTION("should not load if data file is corrupted")
+  {
+    QFile char_file("available_characters.json");
+    char_file.open(QFile::WriteOnly);
+    char_file.write("garbage");
+    char_file.close();
+
+    serialisation::filesystem_db new_sut;
+    REQUIRE(new_sut.character_list().size() == 0);
+    REQUIRE_FALSE(char_file.exists());
+  }
+
   // remove the filesystem_db character files
   QFile char_file("available_characters.json");
   if (char_file.exists())

@@ -15,7 +15,7 @@ namespace mock_tests {
   public:
     mock_db_abstraction() : has_character(true) {}
 
-    QSharedPointer<character::character> load_character(const QString& character_id)
+    QSharedPointer<character::character> load_character(const QString& /*character_id*/)
     {
       if (has_character)
         return cached_character.isNull()
@@ -27,6 +27,11 @@ namespace mock_tests {
     bool has_characters() const
     {
       return has_character;
+    }
+
+    void remove_character(const QString& /*character_id*/)
+    {
+
     }
 
     QList<QString> character_list()
