@@ -13,8 +13,7 @@ namespace serialisation {
 
   bool filesystem_db::has_characters() const
   {
-    QFile expectedFile("character" + FILE_EXT);
-    return expectedFile.exists();
+    return !id_to_name.empty();
   }
 
   QSharedPointer<character::character> filesystem_db::load_character(const QString& character_id)

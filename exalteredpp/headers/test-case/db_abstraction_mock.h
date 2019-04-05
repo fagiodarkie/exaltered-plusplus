@@ -19,7 +19,7 @@ namespace mock_tests {
     {
       if (has_character)
         return cached_character.isNull()
-            ? QSharedPointer<character::character>(new character::character(character_id))
+            ? QSharedPointer<character::character>(new character::character(CHAR_MAN_TEST_CHAR_NAME))
             : cached_character;
       throw exception::character_not_found_exception();
     }

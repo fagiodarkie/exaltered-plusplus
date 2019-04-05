@@ -10,11 +10,11 @@ namespace manager {
   {
   }
 
-  QSharedPointer<character::character> character_manager::load_character() const
+  QSharedPointer<character::character> character_manager::load_character(const QString& char_id) const
   {
     try
     {
-      return character_repository->load_character();
+      return character_repository->load_character(char_id);
     }
     catch (exception::character_not_found_exception& e)
     {
