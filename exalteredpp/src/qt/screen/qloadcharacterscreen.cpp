@@ -3,6 +3,7 @@
 #include "label/interfacelabels.h"
 #include "filesystem_db.h"
 #include "characternotfoundexception.h"
+#include "text/character_text_constants.h"
 
 #include <QGroupBox>
 #include <QLabel>
@@ -27,28 +28,53 @@ namespace qt {
 
     void qloadcharacterscreen::init()
     {
+      QWidget* south_widget = create_lower_buttons();
+      QBorderLayout* layout = new QBorderLayout();
+      layout->addWidget(south_widget, QBorderLayout::South);
+
+      QWidget* character_selection_group = load_character_buttons();
+      layout->addWidget(character_selection_group, QBorderLayout::Center);
+
+      this->setLayout(layout);
+    }
+
+    QWidget* qloadcharacterscreen::create_lower_buttons()
+    {
       load_character_button = new QPushButton(this);
       load_character_button->setText(LOAD_LABEL);
       load_character_button->setEnabled(false);
       connect(load_character_button, &QPushButton::clicked, this, &qloadcharacterscreen::load_character);
 
-      QBorderLayout* layout = new QBorderLayout();
-      layout->addWidget(load_character_button, QBorderLayout::South);
+      new_character_button = new QPushButton(this);
+      new_character_button->setText(NEW_LABEL);
+      new_character_button->setEnabled(true);
+      connect(new_character_button, &QPushButton::clicked, this, &qloadcharacterscreen::create_new_character);
 
+      QVBoxLayout *buttons_layout = new QVBoxLayout(this);
+      buttons_layout->addWidget(new_character_button);
+      buttons_layout->addWidget(load_character_button);
+      QWidget *south_widget = new QWidget(this);
+      south_widget->setLayout(buttons_layout);
+
+      return south_widget;
+    }
+
+    QWidget* qloadcharacterscreen::load_character_buttons()
+    {
       QGroupBox* character_selection_group = new QGroupBox(this);
       QVBoxLayout* vertical_layout = new QVBoxLayout;
       for (auto char_pair: character_manager->characters())
         {
           QRadioButton *character_name_button = new QRadioButton(this);
           character_name_button->setText(char_pair.second);
-          connect(character_name_button, &QRadioButton::click, this, &qloadcharacterscreen::enable_load_button);
+          connect(character_name_button, &QRadioButton::clicked, this, &qloadcharacterscreen::enable_load_button);
           vertical_layout->addWidget(character_name_button);
           character_buttons.push_back(QPair<QRadioButton*, QString>(character_name_button, char_pair.first));
         }
-      character_selection_group->setLayout(vertical_layout);
-      layout->addWidget(character_selection_group, QBorderLayout::Center);
 
-      this->setLayout(layout);
+      vertical_layout->setAlignment(Qt::AlignTop);
+      character_selection_group->setLayout(vertical_layout);
+      return character_selection_group;
     }
 
     QString qloadcharacterscreen::detect_selected_character_id() const
@@ -59,6 +85,12 @@ namespace qt {
             return char_button.second;
         }
       return "";
+    }
+
+    void qloadcharacterscreen::create_new_character()
+    {
+      QString new_character_name = model::text::character::DEFAULT_CHARACTER_NAME;
+      emit character_loaded(character_manager->load_character(new_character_name));
     }
 
     void qloadcharacterscreen::load_character()

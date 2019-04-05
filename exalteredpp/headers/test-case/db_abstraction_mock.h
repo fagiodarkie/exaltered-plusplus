@@ -31,12 +31,20 @@ namespace mock_tests {
 
     void remove_character(const QString& /*character_id*/)
     {
+    }
 
+    void remove_character(unsigned int /* character_id */) {}
+
+    QSharedPointer<character::character> create_character(const QString& /*character_id*/)
+    {
+      has_character = true;
+      return QSharedPointer<character::character>(new character::character(CHAR_MAN_TEST_CHAR_NAME));
     }
 
     QList<QString> character_list()
     {
-      return {CHAR_MAN_TEST_CHAR_NAME};
+      if (has_character) return {CHAR_MAN_TEST_CHAR_NAME} ;
+      return {};
     }
 
     QString character_name(const QString& char_id) const

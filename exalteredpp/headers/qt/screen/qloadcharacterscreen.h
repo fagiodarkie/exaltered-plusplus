@@ -20,6 +20,7 @@ namespace qt
     private slots:
         void load_character();
         void enable_load_button();
+        void create_new_character();
 
     signals:
         void character_loaded(QSharedPointer<character::character> character);
@@ -28,10 +29,12 @@ namespace qt
         void init();
 
         QList<QPair<QRadioButton*, QString>> character_buttons;
-        QPushButton* load_character_button;
+        QPushButton *load_character_button, *new_character_button;
         QSharedPointer<manager::character_manager> character_manager;
 
         QString detect_selected_character_id() const;
+        QWidget* create_lower_buttons();
+        QWidget* load_character_buttons();
     };
   }
 }

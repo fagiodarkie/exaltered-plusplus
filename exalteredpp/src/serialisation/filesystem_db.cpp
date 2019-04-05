@@ -43,6 +43,11 @@ namespace serialisation {
     save_character_map();
   }
 
+  void filesystem_db::remove_character(unsigned int character_id)
+  {
+    remove_character(QString("character_") + QString::number(character_id));
+  }
+
   bool filesystem_db::has_characters() const
   {
     return !id_to_name.empty();
@@ -63,6 +68,22 @@ namespace serialisation {
     QJsonDocument json_character = QJsonDocument::fromJson(serialised_character.toUtf8());
 
     return QSharedPointer<character::character>(new character::character(json_character.object()));
+  }
+
+  QSharedPointer<character::character> filesystem_db::create_character(const QString& character_name)
+  {
+    unsigned int id = 0;
+
+    int start_size = QString("character_").size();
+    for (auto char_id: id_to_name.keys())
+      {
+        unsigned int new_id = static_cast<unsigned int>(char_id.mid(start_size, char_id.size() - start_size).toInt());
+        if (new_id > id)
+          id = new_id;
+      }
+
+    QSharedPointer<character::character> result(new character::character(character_name, id + 1));
+    return result;
   }
 
   QList<QString> filesystem_db::character_list()
@@ -89,14 +110,11 @@ namespace serialisation {
   {
     QJsonObject character_object;
     character->write_to_json(character_object);
-    QString char_id = character->get_name().simplified();
+    QString char_id = "character_" + QString::number(character->id());
     save_json_to_file(character_object, char_id + FILE_EXT);
 
-    if (!character_list().contains(char_id))
-      {
-        id_to_name.insert(char_id, character->get_name());
-        save_character_map();
-      }
+    id_to_name.insert(char_id, character->get_name());
+    save_character_map();
   }
 
   void filesystem_db::save_json_to_file(QJsonObject json, const QString& filename) const

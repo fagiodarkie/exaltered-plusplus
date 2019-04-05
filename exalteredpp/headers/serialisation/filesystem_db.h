@@ -15,7 +15,9 @@ namespace serialisation {
     QList<QString> character_list() override;
     void save_character(const QSharedPointer<character::character> character) override;
     void remove_character(const QString& character_id) override;
+    void remove_character(unsigned int character_id) override;
     QString character_name(const QString& character_id) const override;
+    QSharedPointer<character::character> create_character(const QString& character_name) override;
 
   private:
     static QString FILE_EXT, AVAILABLE_CHARACTERS_FILE;

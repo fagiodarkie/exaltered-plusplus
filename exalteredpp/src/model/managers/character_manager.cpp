@@ -28,7 +28,8 @@ namespace manager {
     catch (exception::character_not_found_exception& e)
     {
       qDebug(e.what());
-      QSharedPointer<character::character> new_character(new character::character(model::text::character::DEFAULT_CHARACTER_NAME));
+
+      QSharedPointer<character::character> new_character = character_repository->create_character(char_id);
 
       for (character::ability_name ability : character::ABILITY_NAME.keys())
         {
