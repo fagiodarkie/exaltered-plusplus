@@ -112,6 +112,8 @@ TEST_CASE("Ability group")
     REQUIRE(sut.get_ability("a1") == 1);
     sut.increase_ability_value("a1", 2);
     REQUIRE(sut.get_ability("a1") == 3);
+    sut.add_ability(ability("a1", 4));
+    REQUIRE(sut.get_ability("a1") == 4);
     sut.add_ability(ability("a3", 4));
     REQUIRE(sut.get_ability("a3") == 4);
   }

@@ -10,6 +10,15 @@ namespace manager {
   {
   }
 
+  QList<QPair<QString, QString>> character_manager::characters() const
+  {
+    QList<QPair<QString, QString>> result;
+    for (QString character_id : character_repository->character_list())
+      result.push_back(QPair<QString, QString>(character_id, character_repository->character_name(character_id)));
+
+    return result;
+  }
+
   QSharedPointer<character::character> character_manager::load_character(const QString& char_id) const
   {
     try
