@@ -9,6 +9,7 @@
 namespace serialisation {
 
   QString filesystem_db::FILE_EXT = ".dgc";
+  QString filesystem_db::AVAILABLE_CHARACTERS_FILE = "available_characters.json";
 
   bool filesystem_db::has_characters() const
   {
@@ -16,7 +17,7 @@ namespace serialisation {
     return expectedFile.exists();
   }
 
-  QSharedPointer<character::character> filesystem_db::load_character()
+  QSharedPointer<character::character> filesystem_db::load_character(const QString& character_id)
   {
     if (!has_characters())
     {
@@ -24,7 +25,7 @@ namespace serialisation {
       throw exception::character_not_found_exception();
     }
 
-    QFile expectedFile("character" + FILE_EXT);
+    QFile expectedFile(character_id + FILE_EXT);
     expectedFile.open(QFile::ReadOnly);
     QString serialised_character = expectedFile.readAll();
     expectedFile.close();
@@ -33,18 +34,39 @@ namespace serialisation {
     return QSharedPointer<character::character>(new character::character(json_character.object()));
   }
 
-  QList<QSharedPointer<character::character>> filesystem_db::character_list()
+  QList<QString> filesystem_db::character_list()
   {
-    return { load_character() };
+    return id_to_name.keys();
+  }
+
+  QString filesystem_db::character_name(const QString& character_id) const
+  {
+    return id_to_name.value(character_id);
   }
 
   void filesystem_db::save_character(const QSharedPointer<character::character> character)
   {
     QJsonObject character_object;
     character->write_to_json(character_object);
-    QJsonDocument document(character_object);
+    QString char_id = character->get_name().simplified();
+    save_json_to_file(character_object, char_id + FILE_EXT);
 
-    QFile expectedFile("character" + FILE_EXT);
+    if (!character_list().contains(char_id))
+      {
+        id_to_name.insert(char_id, character->get_name());
+        QJsonObject character_list_object;
+        for (QString id : character_list())
+          {
+            character_list_object.insert(id, id_to_name.value(id));
+          }
+        save_json_to_file(character_list_object, AVAILABLE_CHARACTERS_FILE);
+      }
+  }
+
+  void filesystem_db::save_json_to_file(QJsonObject json, const QString& filename) const
+  {
+    QJsonDocument document(json);
+    QFile expectedFile(filename);
     expectedFile.open(QFile::WriteOnly);
     expectedFile.write(document.toJson());
     expectedFile.close();
