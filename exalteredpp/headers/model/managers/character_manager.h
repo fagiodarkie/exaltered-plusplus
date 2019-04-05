@@ -12,7 +12,7 @@ namespace manager {
 
     QList<QPair<QString, QString>> characters() const;
 
-    QSharedPointer<character::character> load_character(const QString& char_id) const;
+    QSharedPointer<character::character> load_character(const QString& char_id = nullptr) const;
     void save_character(QSharedPointer<character::character> character) const;
 
   private:

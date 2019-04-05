@@ -3,7 +3,6 @@
 #include "label/interfacelabels.h"
 #include "filesystem_db.h"
 #include "characternotfoundexception.h"
-#include "text/character_text_constants.h"
 
 #include <QGroupBox>
 #include <QLabel>
@@ -89,8 +88,7 @@ namespace qt {
 
     void qloadcharacterscreen::create_new_character()
     {
-      QString new_character_name = model::text::character::DEFAULT_CHARACTER_NAME;
-      emit character_loaded(character_manager->load_character(new_character_name));
+      emit character_loaded(character_manager->load_character());
     }
 
     void qloadcharacterscreen::load_character()

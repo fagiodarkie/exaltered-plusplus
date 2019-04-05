@@ -21,24 +21,18 @@ namespace manager {
 
   QSharedPointer<character::character> character_manager::load_character(const QString& char_id) const
   {
-    try
-    {
-      return character_repository->load_character(char_id);
-    }
-    catch (exception::character_not_found_exception& e)
-    {
-      qDebug(e.what());
+    if (char_id != nullptr && character_repository->character_list().contains(char_id))
+        return character_repository->load_character(char_id);
 
-      QSharedPointer<character::character> new_character = character_repository->create_character(char_id);
+    QSharedPointer<character::character> new_character = character_repository->create_character(model::text::character::DEFAULT_CHARACTER_NAME);
 
-      for (character::ability_name ability : character::ABILITY_NAME.keys())
-        {
-          new_character->set_ability(ability, ability_factory->get_ability_group(ability));
-        }
+    for (character::ability_name ability : character::ABILITY_NAME.keys())
+      {
+        new_character->set_ability(ability, ability_factory->get_ability_group(ability));
+      }
 
-      save_character(new_character);
-      return new_character;
-    }
+    save_character(new_character);
+    return new_character;
   }
 
   void character_manager::save_character(QSharedPointer<character::character> character) const
