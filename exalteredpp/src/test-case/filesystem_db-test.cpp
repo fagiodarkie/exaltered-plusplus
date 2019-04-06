@@ -100,6 +100,20 @@ TEST_CASE("filesystem_db")
     REQUIRE(sut.character_list().at(0) == "character_1");
   }
 
+  SECTION("should create a new character with a new id")
+  {
+    auto new_char = sut.create_character("name");
+    sut.save_character(new_char);
+    auto new_char_with_strange_id = sut.create_character("name");
+    auto new_char_2 = sut.create_character("name");
+    CHECK(new_char_2->id() == new_char_with_strange_id->id());
+    sut.save_character(new_char_2);
+    REQUIRE(sut.character_list().size() == 2);
+    REQUIRE(new_char->id() < new_char_2->id());
+    sut.save_character(new_char_with_strange_id);
+    REQUIRE(sut.character_list().size() == 2);
+  }
+
   // remove the filesystem_db character files
   QFile char_file("available_characters.json");
   if (char_file.exists())
