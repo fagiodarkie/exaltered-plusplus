@@ -9,7 +9,15 @@
 namespace character
 {
     ability_group::ability_group(const QString& name, QList<ability> abilities, QList<specialisation> existing_specialisations)
-      : group_name(name), actual_abilities(abilities), specialisations(existing_specialisations) {}
+      : group_name(name), actual_abilities(abilities), specialisations(existing_specialisations)
+    {
+      for (auto ability_name: ABILITY_CATEGORY.keys())
+        if (ABILITY_NAME.value(ability_name) == name)
+          {
+            category = ABILITY_CATEGORY.value(ability_name);
+            break;
+          }
+    }
 
     QString ability_group::get_name() const
     {
@@ -33,6 +41,11 @@ namespace character
     QList<specialisation> ability_group::get_specialisations() const
     {
       return specialisations;
+    }
+
+    ability_category ability_group::get_category() const
+    {
+      return category;
     }
 
     ability ability_group::get_ability(const QString& name) const

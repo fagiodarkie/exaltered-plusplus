@@ -133,4 +133,13 @@ TEST_CASE("Ability group")
     REQUIRE_NOTHROW(sut.remove_specialisation("s1"));
     REQUIRE(sut.get_specialisations().count() == 0);
   }
+
+  SECTION("should initialise ability category with just the name")
+  {
+    for (auto ability_name: ABILITY_NAME.keys())
+      {
+        ability_group sut(ABILITY_NAME.value(ability_name));
+        REQUIRE(sut.get_category() == ABILITY_CATEGORY.value(ability_name));
+      }
+  }
 }
