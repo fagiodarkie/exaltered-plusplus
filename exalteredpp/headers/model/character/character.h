@@ -14,7 +14,7 @@ namespace character
 
     public:
       // constructors
-      character(QString name);
+      character(QString name, unsigned int id = 0);
       character(const QJsonObject& object);
 
       // character fields
@@ -32,11 +32,14 @@ namespace character
       void read_from_json(const QJsonObject& object) override;
       void write_to_json(QJsonObject& object) const override;
 
+      unsigned int id() const;
+
   signals:
       void data_changed();
 
     private:
       QString _name;
+      unsigned int _id;
       attributes _attributes;
       abilities _abilities;
     };
