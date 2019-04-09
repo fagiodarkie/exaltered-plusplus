@@ -90,8 +90,6 @@ namespace qt {
 
     void qloadcharacterscreen::create_new_character()
     {
-      wizard::character_creation_wizard* wizard = new wizard::character_creation_wizard(this);
-      wizard->show();
       emit character_loaded(character_manager->load_character());
     }
 

@@ -16,14 +16,11 @@ namespace qt {
 
     using namespace character::creation;
 
-    class character_creation_wizard : public QWizard
+    class character_creation_wizard : public QWidget
     {
       Q_OBJECT
-
     public:
       character_creation_wizard(QWidget* parent = nullptr);
-
-      void accept() override;
 
     signals:
       void character_created(QSharedPointer<character::character> new_character);

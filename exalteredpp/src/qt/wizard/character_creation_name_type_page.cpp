@@ -8,7 +8,7 @@
 namespace qt {
   namespace wizard {
     character_creation_name_type_page::character_creation_name_type_page(QWidget *parent)
-      : QWizardPage (parent)
+      : QWidget (parent)
     {
       QFormLayout* form = new QFormLayout;
 

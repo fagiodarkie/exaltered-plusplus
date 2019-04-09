@@ -23,6 +23,7 @@ namespace qt
         void create_new_character();
 
     signals:
+        void character_create_issued();
         void character_loaded(QSharedPointer<character::character> character);
 
     private:
