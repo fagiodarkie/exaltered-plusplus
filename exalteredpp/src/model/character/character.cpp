@@ -5,14 +5,7 @@ using serialisation::json_constants;
 
 namespace character
 {
-  character::character(QString name, unsigned int id) : _name(name), _id(id)
-  {
-    for (attribute_name att_name : ATTRIBUTE_NAME.keys())
-      {
-        attribute attribute(ATTRIBUTE_NAME.value(att_name), (qrand() % 5) + 1);
-        set_attribute(att_name, attribute);
-      }
-  };
+  character::character(QString name, unsigned int id) : _name(name), _id(id) { };
 
   character::character(const QJsonObject& object)
   {

@@ -15,6 +15,15 @@ namespace character {
       INFERNAL_EXALT
     };
 
+    const QMap<character_type, QString> CHARACTER_TYPE_NAMES =
+      { { MORTAL_EXTRA,         "Mortal Extra"    },
+        { MORTAL_HERO,          "Mortal Hero"     },
+        { TERRESTRIAL_EXALT,    "Terrestrial Exalt"  },
+        { SOLAR_EXALT,          "Solar Exalt"        },
+        { ABYSSAL_EXALT,        "Abyssal Exalt"      },
+        { INFERNAL_EXALT,       "Infernal Exalt"     }
+      };
+
     class character_type_model
     {
     public:
@@ -26,6 +35,7 @@ namespace character {
                            unsigned int max_std_ability_points_on_creation,
                            unsigned int max_ability_points_on_creation,
                            unsigned int min_ability_points_on_favorite_abilities,
+                           unsigned int caste_abilities,
 
                            unsigned int starting_specialisations,
                            unsigned int starting_permanent_essence,
@@ -39,9 +49,12 @@ namespace character {
                            unsigned int starting_bonus_points,
                            unsigned int starting_charms,
 
-                           bool has_caste_abilities);
+                           bool is_supernatural,
+                           enum character_type character_type,
+                           const QString& character_type_name = nullptr);
 
-      static const character_type_model MORTAL_EXTRA, MORTAL_HERO, TERRESTRIAL_EXALT, SOLAR_EXALT;
+      static const character_type_model MORTAL_EXTRA, MORTAL_HERO, TERRESTRIAL_EXALT,
+        SOLAR_EXALT, ABYSSAL_EXALT, INFERNAL_EXALT;
 
       const unsigned int primary_category_attribute_value,
         secondary_category_attribute_value,
@@ -50,6 +63,7 @@ namespace character {
         max_std_ability_points_on_creation,
         max_ability_points_on_creation,
         min_ability_points_on_favorite_abilities,
+        caste_abilities,
         starting_specialisations,
         starting_permanent_essence,
         starting_darkana,
@@ -60,10 +74,14 @@ namespace character {
         starting_bonus_points,
         starting_charms
       ;
+      const bool is_supernatural;
+      character_type character_type;
+      QString character_type_name;
 
-      static const character_type_model get_by_character_type(character_type character_type);
+      bool is_supernal() const;
 
-      const bool has_caste_abilities;
+      static const character_type_model get_by_character_type(enum character_type character_type);
+
     };
   }
 }

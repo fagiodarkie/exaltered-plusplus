@@ -84,7 +84,8 @@ SOURCES += \
     ../../src/test-case/ability-factory-test.cpp \
     ../../src/test-case/specialisation-test.cpp \
     ../../src/model/character/creation/character_creation_configuration.cpp \
-    ../../src/model/character/creation/character_type_model.cpp
+    ../../src/model/character/creation/character_type_model.cpp \
+    ../../src/test-case/character_type_model-test.cpp
 
 
 
