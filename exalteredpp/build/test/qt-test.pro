@@ -52,7 +52,9 @@ HEADERS += \
     ../../headers/serialisation/json_constants.h \
     ../../headers/serialisation/serialisable.h \
     ../../headers/test-case/character_manager_mock.h \
-    ../../headers/test-case/ability_factory_mock.h
+    ../../headers/test-case/ability_factory_mock.h \
+    ../../headers/model/character/creation/character_creation_configuration.h \
+    ../../headers/model/character/creation/character_type_model.h
 
 SOURCES += \
     ../../src/errors/ability_not_found_exception.cpp \
@@ -80,7 +82,9 @@ SOURCES += \
     ../../src/test-case/filesystem_db-test.cpp \
     ../../src/test-case/ability-group-test.cpp \
     ../../src/test-case/ability-factory-test.cpp \
-    ../../src/test-case/specialisation-test.cpp
+    ../../src/test-case/specialisation-test.cpp \
+    ../../src/model/character/creation/character_creation_configuration.cpp \
+    ../../src/model/character/creation/character_type_model.cpp
 
 
 
