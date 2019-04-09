@@ -5,7 +5,7 @@ using serialisation::json_constants;
 
 namespace character
 {
-  character::character(QString name) : _name(name)
+  character::character(QString name, unsigned int id) : _name(name), _id(id)
   {
     for (attribute_name att_name : ATTRIBUTE_NAME.keys())
       {
@@ -58,6 +58,7 @@ namespace character
   void character::read_from_json(const QJsonObject &object)
   {
     _name = object[json_constants::SLOT_NAME].toString();
+    _id = static_cast<unsigned int>(object[json_constants::SLOT_ID].toInt());
     _attributes.read_from_json(object[json_constants::SLOT_ATTRIBUTES].toObject());
     _abilities.read_from_json(object[json_constants::SLOT_ABILITIES].toObject());
   }
@@ -65,6 +66,7 @@ namespace character
   void character::write_to_json(QJsonObject &object) const
   {
     object[json_constants::SLOT_NAME] = _name;
+    object[json_constants::SLOT_ID] = QString::number(_id);
 
     QJsonObject attributes_object;
     _attributes.write_to_json(attributes_object);
@@ -73,5 +75,10 @@ namespace character
     QJsonObject abilities_object;
     _abilities.write_to_json(abilities_object);
     object[json_constants::SLOT_ABILITIES] = abilities_object;
+  }
+
+  unsigned int character::id() const
+  {
+    return _id;
   }
 }

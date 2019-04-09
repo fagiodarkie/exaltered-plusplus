@@ -112,6 +112,16 @@ TEST_CASE("Ability group")
     REQUIRE(sut.get_ability("a1") == 1);
     sut.increase_ability_value("a1", 2);
     REQUIRE(sut.get_ability("a1") == 3);
+    sut.add_ability(ability("a1", 4));
+    REQUIRE(sut.get_ability("a1") == 4);
+    sut.add_ability(ability("a3", 4));
+    REQUIRE(sut.get_ability("a3") == 4);
+  }
+
+  SECTION("should throw if trying to update a non-existing ability")
+  {
+    ability_group sut(ABILITYNAME, { ability("a1", 1), ability("a2", 2) }, {specialisation("s1", 3)});
+    REQUIRE_THROWS(sut.set_ability_value("a3", 4));
   }
 
   SECTION("should allow to modify specialisation values")

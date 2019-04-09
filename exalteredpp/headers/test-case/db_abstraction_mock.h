@@ -3,6 +3,7 @@
 #include <QSharedPointer>
 #include "character.h"
 #include "serialisation/db_abstraction.h"
+#include "characternotfoundexception.h"
 
 #define CHAR_MAN_TEST_CHAR_NAME "CHARACTER_NAME"
 
@@ -14,7 +15,7 @@ namespace mock_tests {
   public:
     mock_db_abstraction() : has_character(true) {}
 
-    QSharedPointer<character::character> load_character()
+    QSharedPointer<character::character> load_character(const QString& /*character_id*/)
     {
       if (has_character)
         return cached_character.isNull()
@@ -28,9 +29,27 @@ namespace mock_tests {
       return has_character;
     }
 
-    QList<QSharedPointer<character::character>> character_list()
+    void remove_character(const QString& /*character_id*/)
     {
+    }
+
+    void remove_character(unsigned int /* character_id */) {}
+
+    QSharedPointer<character::character> create_character(const QString& /*character_id*/)
+    {
+      has_character = true;
+      return QSharedPointer<character::character>(new character::character(CHAR_MAN_TEST_CHAR_NAME));
+    }
+
+    QList<QString> character_list()
+    {
+      if (has_character) return {CHAR_MAN_TEST_CHAR_NAME} ;
       return {};
+    }
+
+    QString character_name(const QString& char_id) const
+    {
+      return char_id;
     }
 
     void save_character(const QSharedPointer<character::character> character)

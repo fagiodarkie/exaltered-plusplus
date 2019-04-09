@@ -2,7 +2,7 @@
 
 #include "errors/characternotfoundexception.h"
 #include "managers/character_manager.h"
-#include "character_manager_mock.h"
+#include "db_abstraction_mock.h"
 #include "ability_factory_mock.h"
 
 TEST_CASE("character_manager")
@@ -15,15 +15,17 @@ TEST_CASE("character_manager")
   SECTION("should load character when it is present")
   {
     manager_mock->mock_has_character(true);
-    QSharedPointer<character::character> result = sut.load_character();
+    QSharedPointer<character::character> result = sut.load_character("name");
     REQUIRE(result->get_name() == CHAR_MAN_TEST_CHAR_NAME);
   }
 
-  SECTION("should load character when it is not present")
+  SECTION("should create new character when it is not present")
   {
     manager_mock->mock_has_character(false);
-    QSharedPointer<character::character> result = sut.load_character();
-    REQUIRE(result->get_name() != CHAR_MAN_TEST_CHAR_NAME);
+    REQUIRE(sut.characters().empty());
+    QSharedPointer<character::character> result = sut.load_character("name");
+    REQUIRE_FALSE(sut.characters().empty());
+    REQUIRE(result->get_name() == CHAR_MAN_TEST_CHAR_NAME);
   }
 
   SECTION("should save character without errors")
@@ -32,7 +34,7 @@ TEST_CASE("character_manager")
     {
       QSharedPointer<character::character> to_save = QSharedPointer<character::character>(new character::character(CHAR_MAN_TEST_CHAR_NAME));
       sut.save_character(to_save);
-      QSharedPointer<character::character> loaded = sut.load_character();
+      QSharedPointer<character::character> loaded = sut.load_character("name");
       REQUIRE(to_save->get_name() == loaded->get_name());
     }
     catch(...)

@@ -51,10 +51,10 @@ HEADERS += \
     ../../headers/serialisation/filesystem_db.h \
     ../../headers/serialisation/json_constants.h \
     ../../headers/serialisation/serialisable.h \
-    ../../headers/test-case/character_manager_mock.h \
-    ../../headers/test-case/ability_factory_mock.h \
     ../../headers/model/character/creation/character_creation_configuration.h \
-    ../../headers/model/character/creation/character_type_model.h
+    ../../headers/model/character/creation/character_type_model.h \
+    ../../headers/test-case/ability_factory_mock.h \
+    ../../headers/test-case/db_abstraction_mock.h
 
 SOURCES += \
     ../../src/errors/ability_not_found_exception.cpp \
