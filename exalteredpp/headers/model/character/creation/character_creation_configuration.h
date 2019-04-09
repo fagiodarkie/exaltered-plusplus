@@ -13,7 +13,6 @@ namespace character {
     {
     public:
       character_type character_type;
-      character_type_model character_type_model;
       QList<attribute_name> primary_attributes, secondary_attributes, tertiary_attributes;
       QList<ability_name> caste_abilities, favorite_abilities;
 

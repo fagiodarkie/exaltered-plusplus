@@ -60,7 +60,8 @@ SOURCES += \
     ../../src/model/character/abilities/default_ability_factory.cpp \
     ../../src/model/character/creation/character_type_model.cpp \
     ../../src/model/character/creation/character_creation_configuration.cpp \
-    ../../src/qt/wizard/character_creation_wizard.cpp
+    ../../src/qt/wizard/character_creation_wizard.cpp \
+    ../../src/qt/wizard/character_creation_name_type_page.cpp
 
 HEADERS += \
     ../../headers/model/character/attributes/attribute_names.h \
@@ -99,7 +100,8 @@ HEADERS += \
     ../../headers/model/character/abilities/default_ability_factory.h \
     ../../headers/model/character/creation/character_type_model.h \
     ../../headers/model/character/creation/character_creation_configuration.h \
-    ../../headers/qt/wizard/character_creation_wizard.h
+    ../../headers/qt/wizard/character_creation_wizard.h \
+    ../../headers/qt/wizard/character_creation_name_type_page.h
 
 CONFIG += mobility
 MOBILITY = 

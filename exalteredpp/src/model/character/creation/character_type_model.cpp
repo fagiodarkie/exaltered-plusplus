@@ -22,7 +22,6 @@ namespace character {
                          unsigned int starting_background_points,
                          unsigned int starting_bonus_points,
                          unsigned int starting_charms,
-                         bool has_caste_abilities,
                          bool is_supernatural,
                          enum character_type character_type,
                          const QString& character_type_name)
