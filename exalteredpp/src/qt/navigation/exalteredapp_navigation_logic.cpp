@@ -19,7 +19,6 @@ QLayout* ExalteredApp::create_layout_for_widget(QWidget *content) const
 void ExalteredApp::load_menu()
 {
   QToolBar *charMenu = addToolBar("Character");
-      //menuBar()->addMenu("Character");
 
   {
     QAction *load_character_screen = new QAction(charMenu);
