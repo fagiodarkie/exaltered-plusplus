@@ -12,7 +12,7 @@ namespace character {
     struct character_creation_configuration
     {
     public:
-      character_type character_type;
+      character_type type;
       QList<attribute_name> primary_attributes, secondary_attributes, tertiary_attributes;
       QList<ability_name> caste_abilities, favorite_abilities;
 
