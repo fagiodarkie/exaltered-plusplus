@@ -50,7 +50,7 @@ namespace character {
                            unsigned int starting_charms,
 
                            bool is_supernatural,
-                           character_type character_type,
+                           character_type type,
                            const QString& character_type_name = nullptr);
 
       static const character_type_model MORTAL_EXTRA, MORTAL_HERO, TERRESTRIAL_EXALT,
@@ -75,12 +75,12 @@ namespace character {
         starting_charms
       ;
       const bool is_supernatural;
-      character_type character_type;
+      character_type type;
       QString character_type_name;
 
       bool is_supernal() const;
 
-      static const character_type_model get_by_character_type(enum character_type character_type);
+      static const character_type_model get_by_character_type(character_type type);
 
     };
   }

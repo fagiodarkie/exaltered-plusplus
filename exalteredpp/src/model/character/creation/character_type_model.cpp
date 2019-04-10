@@ -23,7 +23,7 @@ namespace character {
                          unsigned int starting_bonus_points,
                          unsigned int starting_charms,
                          bool is_supernatural,
-                         enum character_type character_type,
+                         character_type type,
                          const QString& character_type_name)
       : primary_category_attribute_value(primary_category_attribute_value),
         secondary_category_attribute_value(secondary_category_attribute_value),
@@ -43,11 +43,11 @@ namespace character {
         starting_bonus_points(starting_bonus_points),
         starting_charms(starting_charms),
         is_supernatural(is_supernatural),
-        character_type(character_type),
+        type(type),
         character_type_name(character_type_name)
     {
       if (character_type_name == nullptr)
-        this->character_type_name = CHARACTER_TYPE_NAMES.value(character_type);
+        this->character_type_name = CHARACTER_TYPE_NAMES.value(type);
     }
 
     const character_type_model character_type_model::MORTAL_EXTRA = character_type_model(5, 4, 3,
@@ -86,9 +86,9 @@ namespace character {
                                                              7, 4, 5,
                                                              7, 10, 10, true, character_type::SOLAR_EXALT);
 
-    const character_type_model character_type_model::get_by_character_type(enum character_type character_type)
+    const character_type_model character_type_model::get_by_character_type(character_type type)
     {
-      switch(character_type)
+      switch(type)
         {
         case character_type::MORTAL_EXTRA:
           return MORTAL_EXTRA;
