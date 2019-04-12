@@ -23,6 +23,16 @@ namespace character
     emit data_changed();
   }
 
+  character_type character::get_type() const
+  {
+    return _type;
+  }
+
+  void character::set_type(character_type type)
+  {
+    _type = type;
+  }
+
   attribute character::get_attribute(attribute_name name) const
   {
     return _attributes.value(name);

@@ -5,9 +5,12 @@
 #include "character/attributes/attributes.h"
 #include "character/abilities/abilities.h"
 #include "serialisation/serialisable.h"
+#include "creation/character_type_model.h"
 
 namespace character
 {
+  using creation::character_type;
+
   class character : public QObject, public serialisable
   {
     Q_OBJECT
@@ -20,6 +23,9 @@ namespace character
       // character fields
       QString get_name() const;
       void set_name(const QString& new_name);
+
+      character_type get_type() const;
+      void set_type(character_type type);
 
       attribute get_attribute(attribute_name name) const;
       void set_attribute(attribute_name name, attribute attribute);
@@ -39,6 +45,7 @@ namespace character
 
     private:
       QString _name;
+      character_type _type;
       unsigned int _id;
       attributes _attributes;
       abilities _abilities;

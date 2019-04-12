@@ -1,17 +1,13 @@
+#include <QWidget>
+
 #pragma once
 
-#include <QWizardPage>
-#include <QLineEdit>
-#include <QComboBox>
 
-#include "creation/character_type_model.h"
 
 namespace qt {
   namespace wizard {
 
-    using namespace character::creation;
-
-    class character_creation_name_type_page : public QWidget
+    class attributes_priority_page : public QWidget
     {
       Q_OBJECT
 

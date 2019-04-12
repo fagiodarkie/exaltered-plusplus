@@ -7,21 +7,21 @@ namespace character {
   namespace creation {
 
     enum character_type {
-      MORTAL_EXTRA,
-      MORTAL_HERO,
-      TERRESTRIAL_EXALT,
-      SOLAR_EXALT,
-      ABYSSAL_EXALT,
-      INFERNAL_EXALT
+      TYPE_MORTAL_EXTRA,
+      TYPE_MORTAL_HERO,
+      TYPE_TERRESTRIAL_EXALT,
+      TYPE_SOLAR_EXALT,
+      TYPE_ABYSSAL_EXALT,
+      TYPE_INFERNAL_EXALT
     };
 
     const QMap<character_type, QString> CHARACTER_TYPE_NAMES =
-      { { MORTAL_EXTRA,         "Mortal Extra"    },
-        { MORTAL_HERO,          "Mortal Hero"     },
-        { TERRESTRIAL_EXALT,    "Terrestrial Exalt"  },
-        { SOLAR_EXALT,          "Solar Exalt"        },
-        { ABYSSAL_EXALT,        "Abyssal Exalt"      },
-        { INFERNAL_EXALT,       "Infernal Exalt"     }
+      { { TYPE_MORTAL_EXTRA,         "Mortal Extra"    },
+        { TYPE_MORTAL_HERO,          "Mortal Hero"     },
+        { TYPE_TERRESTRIAL_EXALT,    "Terrestrial Exalt"  },
+        { TYPE_SOLAR_EXALT,          "Solar Exalt"        },
+        { TYPE_ABYSSAL_EXALT,        "Abyssal Exalt"      },
+        { TYPE_INFERNAL_EXALT,       "Infernal Exalt"     }
       };
 
     class character_type_model
@@ -53,10 +53,14 @@ namespace character {
                            character_type type,
                            const QString& character_type_name = nullptr);
 
+      character_type_model(const character_type_model& other);
+
+      character_type_model operator=(const character_type_model& o);
+
       static const character_type_model MORTAL_EXTRA, MORTAL_HERO, TERRESTRIAL_EXALT,
         SOLAR_EXALT, ABYSSAL_EXALT, INFERNAL_EXALT;
 
-      const unsigned int primary_category_attribute_value,
+      unsigned int primary_category_attribute_value,
         secondary_category_attribute_value,
         tertiary_category_attribute_value,
         starting_ability_points,
@@ -74,13 +78,11 @@ namespace character {
         starting_bonus_points,
         starting_charms
       ;
-      const bool is_supernatural;
+      bool is_supernatural;
       character_type type;
       QString character_type_name;
 
-      bool is_supernal() const;
-
-      static const character_type_model get_by_character_type(character_type type);
+      static const character_type_model& get_by_character_type(character_type type);
 
     };
   }
