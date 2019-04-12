@@ -7,6 +7,7 @@
 #include "screen/qcharacterinfoscreen.h"
 #include "screen/qcharacterattributes.h"
 #include "screen/qcharacterabilities.h"
+#include "wizard/character_creation_wizard.h"
 #include "screen/qmainscreen.h"
 
 using namespace qt::screen;
@@ -24,6 +25,7 @@ class ExalteredApp : public QMainWindow
     void        load_character_screen();
     void        load_attributes_screen();
     void        load_abilities_screen();
+    void        load_creation_wizard_screen();
 
   protected:
     void        init_load_character_screen();
@@ -39,6 +41,7 @@ class ExalteredApp : public QMainWindow
     qcharacterinfoscreen*                       character_info_screen_widget;
     qcharacterattributes*                       character_attributes_widget;
     qcharacterabilities*                        character_abilities_widget;
+    qt::wizard::character_creation_wizard*      character_creation_wizard;
 
     QSharedPointer<manager::character_manager>  character_manager;
     QSharedPointer<character::character>        current_character;

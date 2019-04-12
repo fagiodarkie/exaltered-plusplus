@@ -5,8 +5,9 @@
 
 namespace qt {
   namespace wizard {
-    character_creation_wizard::character_creation_wizard(QWidget* parent)
-      : QWidget (parent)
+    character_creation_wizard::character_creation_wizard(QSharedPointer<character::character> newly_created_character,
+                                                         QWidget* parent)
+      : final_character(newly_created_character), QWidget (parent)
     {
       QStackedLayout *stacked_layout = new QStackedLayout;
       stacked_layout->addWidget(new character_creation_name_type_page(this));

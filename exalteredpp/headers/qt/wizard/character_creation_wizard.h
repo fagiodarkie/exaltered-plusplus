@@ -20,7 +20,8 @@ namespace qt {
     {
       Q_OBJECT
     public:
-      character_creation_wizard(QWidget* parent = nullptr);
+      character_creation_wizard(QSharedPointer<character::character> newly_created_character,
+                                QWidget* parent = nullptr);
 
     signals:
       void character_created(QSharedPointer<character::character> new_character);
@@ -31,9 +32,6 @@ namespace qt {
       character::attributes attributes;
       character::abilities abilities;
       QSharedPointer<character::character> final_character;
-
-      QSharedPointer<character::abstract_ability_factory> ability_factory;
-      QSharedPointer<serialisation::db_abstraction> db;
     };
   }
 }
