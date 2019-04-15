@@ -1,6 +1,8 @@
 #include "attributes/attributes.h"
 
 namespace character {
+  using namespace attribute_names;
+
   void attributes::read_from_json(const QJsonObject& json)
   {
     clear();

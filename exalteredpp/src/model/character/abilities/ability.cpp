@@ -5,7 +5,7 @@
 
 namespace character {
 
-  ability::ability() : _name(ability_declination::NO_DECLINATION), _value(0) {};
+  ability::ability() : _name(ability_names::ability_declination::NO_DECLINATION), _value(0) {};
 
   ability::ability(const QString& name, unsigned int value) : _name(name), _value(value) {}
 

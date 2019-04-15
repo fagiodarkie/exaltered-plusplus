@@ -18,7 +18,7 @@ namespace qt
 
       v_layout->addWidget(new QLabel("Attributes of " + character->get_name()));
 
-      for (character::attribute_name attribute_name: character::ATTRIBUTE_NAME.keys())
+      for (character::attribute_names::attribute_name attribute_name: character::attribute_names::ATTRIBUTE_NAME.keys())
       {
         inner_layout->addWidget(new widget::name_value_widget(character->get_attribute(attribute_name), this));
       }

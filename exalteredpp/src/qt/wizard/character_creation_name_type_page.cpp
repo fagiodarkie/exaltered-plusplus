@@ -33,7 +33,9 @@ namespace qt {
 
       QHBoxLayout* buttons_layout = new QHBoxLayout;
 
-      next_page = new QPushButton(NEXT_LABEL), cancel = new QPushButton(CANCEL_LABEL);
+      next_page = new QPushButton(NEXT_LABEL);
+      cancel = new QPushButton(CANCEL_LABEL);
+
       next_page->setEnabled(false);
       connect(next_page, &QPushButton::clicked, this, &character_creation_name_type_page::chose_all);
       connect(cancel, &QPushButton::clicked, this, &character_creation_name_type_page::back_issued);

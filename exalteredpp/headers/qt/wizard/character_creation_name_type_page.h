@@ -9,7 +9,7 @@
 namespace qt {
   namespace wizard {
 
-    using namespace character::creation;
+    using character::creation::character_type;
 
     class character_creation_name_type_page : public QWidget
     {

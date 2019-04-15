@@ -33,27 +33,27 @@ namespace character
     _type = type;
   }
 
-  attribute character::get_attribute(attribute_name name) const
+  attribute character::get_attribute(attribute_names::attribute_name name) const
   {
     return _attributes.value(name);
   }
 
-  void character::set_attribute(attribute_name name, attribute attribute)
+  void character::set_attribute(attribute_names::attribute_name name, attribute attribute)
   {
     _attributes.insert(name, attribute);
   }
 
-  ability character::get_ability(ability_name name, const QString& ability_declination) const
+  ability character::get_ability(ability_names::ability_name name, const QString& ability_declination) const
   {
     return _abilities.value(name).get_ability(ability_declination);
   }
 
-  ability_group character::get_ability_group(ability_name name) const
+  ability_group character::get_ability_group(ability_names::ability_name name) const
   {
     return _abilities.value(name);
   }
 
-  void character::set_ability(ability_name name, ability_group ability)
+  void character::set_ability(ability_names::ability_name name, ability_group ability)
   {
     _abilities.insert(name, ability);
   }

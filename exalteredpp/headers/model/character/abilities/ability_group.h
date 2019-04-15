@@ -13,12 +13,14 @@ namespace character
 
     ability_group() = default;
 
-    ability_group(const QString& name, QList<ability> abilities = { ability(ability_declination::NO_DECLINATION) }, QList<specialisation> specialisations = {});
+    ability_group(const QString& name, ability_names::ability_category category,
+                  QList<ability> abilities = { ability(ability_names::ability_declination::NO_DECLINATION) },
+                  QList<specialisation> specialisations = {});
 
     QString get_name() const;
-    ability get_ability(const QString& name = ability_declination::NO_DECLINATION) const;
+    ability get_ability(const QString& name = ability_names::ability_declination::NO_DECLINATION) const;
     specialisation get_specialisation(const QString& name) const;
-    ability_category get_category() const;
+    ability_names::ability_category get_category() const;
 
     QList<ability> get_abilities() const;
     QList<specialisation> get_specialisations() const;
@@ -49,7 +51,7 @@ namespace character
     QString group_name;
     QList<ability> actual_abilities;
     QList<specialisation> specialisations;
-    ability_category category;
+    ability_names::ability_category category;
 
     bool can_manage_ability(const QString& ability_name) const;
     QList<ability>::iterator get_ability_reference(const QString& name);

@@ -26,7 +26,7 @@ namespace manager {
 
     QSharedPointer<character::character> new_character = character_repository->create_character(model::text::character::DEFAULT_CHARACTER_NAME);
 
-    for (character::ability_name ability : character::ABILITY_NAME.keys())
+    for (character::ability_names::ability_name ability : character::ability_names::ABILITY_NAME.keys())
       {
         new_character->set_ability(ability, ability_factory->get_ability_group(ability));
       }

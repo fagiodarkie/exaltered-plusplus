@@ -8,16 +8,9 @@
 
 namespace character
 {
-    ability_group::ability_group(const QString& name, QList<ability> abilities, QList<specialisation> existing_specialisations)
-      : group_name(name), actual_abilities(abilities), specialisations(existing_specialisations)
-    {
-      for (auto ability_name: ABILITY_CATEGORY.keys())
-        if (ABILITY_NAME.value(ability_name) == name)
-          {
-            category = ABILITY_CATEGORY.value(ability_name);
-            break;
-          }
-    }
+    ability_group::ability_group(const QString& name, ability_names::ability_category category, QList<ability> abilities, QList<specialisation> existing_specialisations)
+      : group_name(name), category(category), actual_abilities(abilities), specialisations(existing_specialisations)
+    { }
 
     QString ability_group::get_name() const
     {
@@ -43,7 +36,7 @@ namespace character
       return specialisations;
     }
 
-    ability_category ability_group::get_category() const
+    ability_names::ability_category ability_group::get_category() const
     {
       return category;
     }
@@ -159,12 +152,12 @@ namespace character
     bool ability_group::has_abilities() const
     {
       return (actual_abilities.count() > 1)
-          || (actual_abilities.at(0).get_name() != ability_declination::NO_DECLINATION);
+          || (actual_abilities.at(0).get_name() != ability_names::ability_declination::NO_DECLINATION);
     }
 
     bool ability_group::can_manage_ability(const QString& ability_name) const
     {
-      return has_abilities() || ability_name == ability_declination::NO_DECLINATION;
+      return has_abilities() || ability_name == ability_names::ability_declination::NO_DECLINATION;
     }
 
     QList<ability>::iterator ability_group::get_ability_reference(const QString &name)

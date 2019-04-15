@@ -9,6 +9,6 @@ namespace character {
     default_ability_factory() = default;
     virtual ~default_ability_factory() override = default;
 
-    ability_group get_ability_group(ability_name ability) const override;
+    ability_group get_ability_group(ability_names::ability_name ability) const override;
   };
 }
