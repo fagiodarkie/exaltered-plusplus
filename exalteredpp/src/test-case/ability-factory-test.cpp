@@ -6,11 +6,11 @@
 TEST_CASE("Default Ability Factory")
 {
   character::default_ability_factory sut;
-  QList<character::ability_name> abilities_with_variations = { character::CRAFT, character::MANEUVER };
+  QList<character::ability_names::ability_name> abilities_with_variations = { character::ability_names::CRAFT, character::ability_names::MANEUVER };
 
   SECTION("should retrieve all abilities")
   {
-    for (character::ability_name abilityname : character::ABILITY_NAME.keys())
+    for (character::ability_names::ability_name abilityname : character::ability_names::ABILITY_NAME.keys())
       {
         REQUIRE_NOTHROW(sut.get_ability_group(abilityname));
       }
@@ -18,7 +18,7 @@ TEST_CASE("Default Ability Factory")
 
   SECTION("all abilities should have names")
   {
-    for (character::ability_name abilityname : character::ABILITY_NAME.keys())
+    for (character::ability_names::ability_name abilityname : character::ability_names::ABILITY_NAME.keys())
       {
         REQUIRE_FALSE(sut.get_ability_group(abilityname).get_name().isEmpty());
       }
@@ -26,7 +26,7 @@ TEST_CASE("Default Ability Factory")
 
   SECTION("simple abilities should not have variations")
   {
-    for (character::ability_name abilityname : character::ABILITY_NAME.keys())
+    for (character::ability_names::ability_name abilityname : character::ability_names::ABILITY_NAME.keys())
       {
         if (abilities_with_variations.contains(abilityname))
           continue;
@@ -34,18 +34,18 @@ TEST_CASE("Default Ability Factory")
         character::ability_group gut = sut.get_ability_group(abilityname);
         REQUIRE(gut.get_abilities().size() == 1);
         REQUIRE_NOTHROW(gut.get_ability());
-        REQUIRE_NOTHROW(gut.get_ability(character::ability_declination::NO_DECLINATION));
+        REQUIRE_NOTHROW(gut.get_ability(character::ability_names::ability_declination::NO_DECLINATION));
       }
   }
 
   SECTION("simple abilities should not have variations")
   {
-    for (character::ability_name abilityname : abilities_with_variations)
+    for (character::ability_names::ability_name abilityname : abilities_with_variations)
       {
         character::ability_group gut = sut.get_ability_group(abilityname);
         REQUIRE(gut.get_abilities().size() > 1);
         REQUIRE_THROWS(gut.get_ability());
-        REQUIRE_THROWS(gut.get_ability(character::ability_declination::NO_DECLINATION));
+        REQUIRE_THROWS(gut.get_ability(character::ability_names::ability_declination::NO_DECLINATION));
       }
   }
 }

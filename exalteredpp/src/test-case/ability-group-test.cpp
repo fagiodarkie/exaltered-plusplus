@@ -10,22 +10,22 @@ TEST_CASE("Ability group")
 {
   SECTION("should create simple ability by default")
   {
-    ability_group sut(ABILITYNAME);
-    REQUIRE(sut.has_ability(ability_declination::NO_DECLINATION));
+    ability_group sut(ABILITYNAME, character::ability_names::COMBAT);
+    REQUIRE(sut.has_ability(character::ability_names::ability_declination::NO_DECLINATION));
     REQUIRE_FALSE(sut.has_abilities());
   }
 
   SECTION("if created with default declination, should be seen as simple")
   {
-    ability_group sut(ABILITYNAME, {ability(ability_declination::NO_DECLINATION)});
-    REQUIRE(sut.has_ability(ability_declination::NO_DECLINATION));
+    ability_group sut(ABILITYNAME, character::ability_names::COMBAT, {ability(character::ability_names::ability_declination::NO_DECLINATION)});
+    REQUIRE(sut.has_ability(character::ability_names::ability_declination::NO_DECLINATION));
     REQUIRE_FALSE(sut.has_abilities());
   }
 
   SECTION("should consider ability declinations and specialisations if requested")
   {
-    ability_group sut(ABILITYNAME, { ability("a1", 1), ability("a2", 2) }, {specialisation("s1", 3)});
-    REQUIRE_FALSE(sut.has_ability(ability_declination::NO_DECLINATION));
+    ability_group sut(ABILITYNAME, character::ability_names::COMBAT, { ability("a1", 1), ability("a2", 2) }, {specialisation("s1", 3)});
+    REQUIRE_FALSE(sut.has_ability(character::ability_names::ability_declination::NO_DECLINATION));
     REQUIRE(sut.has_abilities());
 
     REQUIRE_THROWS(sut.get_ability());

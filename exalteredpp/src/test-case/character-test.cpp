@@ -34,16 +34,16 @@ TEST_CASE("Character")
   SECTION("should accept a new attribute")
   {
     character::character sut(CHARACTER_NAME);
-    sut.set_attribute(character::attribute_name::STRENGTH, character::attribute(TEST_ATTRIBUTE_NAME));
-    character::attribute saved_attribute = sut.get_attribute(character::attribute_name::STRENGTH);
+    sut.set_attribute(character::attribute_names::attribute_name::STRENGTH, character::attribute(TEST_ATTRIBUTE_NAME));
+    character::attribute saved_attribute = sut.get_attribute(character::attribute_names::attribute_name::STRENGTH);
     REQUIRE(saved_attribute.get_name() == TEST_ATTRIBUTE_NAME);
   }
 
   SECTION("should accept a new ability group")
   {
     character::character sut(CHARACTER_NAME);
-    sut.set_ability(character::ability_name::WAR, character::ability_group(TEST_ATTRIBUTE_NAME));
-    character::ability_group saved_ability = sut.get_ability_group(character::ability_name::WAR);
+    sut.set_ability(character::ability_names::ability_name::WAR, character::ability_group(TEST_ATTRIBUTE_NAME, character::ability_names::COMBAT));
+    character::ability_group saved_ability = sut.get_ability_group(character::ability_names::ability_name::WAR);
     REQUIRE(saved_ability.get_name() == TEST_ATTRIBUTE_NAME);
   }
 
@@ -57,12 +57,12 @@ TEST_CASE("Character")
   SECTION("should save and retrieve correct abilities")
   {
     character::character sut(CHARACTER_NAME);
-    sut.set_ability(character::ability_name::CRAFT, character::ability_group("craft", { character::ability("new_ability", 1) }));
-    sut.set_ability(character::ability_name::WAR, character::ability_group("war"));
-    REQUIRE(sut.get_ability_group(character::ability_name::WAR).get_name() == "war");
-    REQUIRE(sut.get_ability(character::ability_name::WAR).get_name() == character::ability_declination::NO_DECLINATION);
-    REQUIRE(sut.get_ability(character::ability_name::WAR).get_ability_value() == 0);
-    REQUIRE(sut.get_ability(character::ability_name::CRAFT, "new_ability").get_name() == "new_ability");
-    REQUIRE(sut.get_ability(character::ability_name::CRAFT, "new_ability").get_ability_value() == 1);
+    sut.set_ability(character::ability_names::ability_name::CRAFT, character::ability_group("craft", character::ability_names::NARRATIVE, { character::ability("new_ability", 1) }));
+    sut.set_ability(character::ability_names::ability_name::WAR, character::ability_group("war", character::ability_names::COMBAT));
+    REQUIRE(sut.get_ability_group(character::ability_names::ability_name::WAR).get_name() == "war");
+    REQUIRE(sut.get_ability(character::ability_names::ability_name::WAR).get_name() == character::ability_names::ability_declination::NO_DECLINATION);
+    REQUIRE(sut.get_ability(character::ability_names::ability_name::WAR).get_ability_value() == 0);
+    REQUIRE(sut.get_ability(character::ability_names::ability_name::CRAFT, "new_ability").get_name() == "new_ability");
+    REQUIRE(sut.get_ability(character::ability_names::ability_name::CRAFT, "new_ability").get_ability_value() == 1);
   }
 }
