@@ -14,6 +14,10 @@ namespace qt {
     namespace creation_wizard {
       static QString CHARACTER_NAME_LABEL = "Character name:";
       static QString CHARACTER_TYPE_LABEL = "Character type:";
+
+      static QString PRIMARY_ATTRIBUTE    = "Primary Attribute";
+      static QString SECONDARY_ATTRIBUTE  = "Secondary Attribute";
+      static QString TERTIARY_ATTRIBUTE   = "Tertiary Attribute";
     }
   }
 }

@@ -38,8 +38,8 @@ void ExalteredApp::load_creation_wizard_screen()
 {
   auto new_character = character_manager->load_character();
   character_creation_wizard = new qt::wizard::character_creation_wizard(new_character, this);
-  setCentralWidget(character_creation_wizard);
   connect(character_creation_wizard, &qt::wizard::character_creation_wizard::character_created, this, &ExalteredApp::load_main_screen);
+  setCentralWidget(character_creation_wizard);
 }
 
 void ExalteredApp::init_load_character_screen()
