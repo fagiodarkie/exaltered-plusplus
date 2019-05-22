@@ -62,7 +62,8 @@ SOURCES += \
     ../../src/model/character/creation/character_creation_configuration.cpp \
     ../../src/qt/wizard/character_creation_wizard.cpp \
     ../../src/qt/wizard/character_creation_name_type_page.cpp \
-    ../../src/qt/wizard/attributes_priority_page.cpp
+    ../../src/qt/wizard/attributes_priority_page.cpp \
+    ../../src/qt/wizard/character_creation_attribute_points_page.cpp
 
 HEADERS += \
     ../../headers/model/character/attributes/attribute_names.h \
@@ -84,7 +85,6 @@ HEADERS += \
     ../../headers/errors/characternotfoundexception.h \
     ../../headers/errors/error_codes.h \
     ../../headers/qt/objects_factory.h \
-    ../../src/qt/screen/qcharacterinfoscreen \
     ../../headers/qt/screen/qcharacterinfoscreen.h \
     ../../headers/model/behavioral/name_value_pair.h \
     ../../headers/qt/widget/name_value_widget.h \
@@ -103,7 +103,8 @@ HEADERS += \
     ../../headers/model/character/creation/character_creation_configuration.h \
     ../../headers/qt/wizard/character_creation_wizard.h \
     ../../headers/qt/wizard/character_creation_name_type_page.h \
-    ../../headers/qt/wizard/attributes_priority_page.h
+    ../../headers/qt/wizard/attributes_priority_page.h \
+    ../../headers/qt/wizard/character_creation_attribute_points_page.h
 
 CONFIG += mobility
 MOBILITY = 

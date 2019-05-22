@@ -12,6 +12,8 @@ namespace qt {
     attributes_priority_page::attributes_priority_page(QWidget* parent)
       : QWidget(parent)
     {
+      primary = secondary = tertiary = 0;
+
       attributes_form = new QFormLayout;
       create_attributes();
       QWidget* central_widget = new QWidget;
@@ -38,22 +40,36 @@ namespace qt {
     void attributes_priority_page::create_attributes()
     {
       primary_select = new QComboBox;
+      primary_label = new QLabel(PRIMARY_ATTRIBUTE);
+      attributes_form->addRow(primary_label, primary_select);
+      connect(primary_select, &QComboBox::currentTextChanged, this, &attributes_priority_page::first_attribute_change);
+
+      secondary_select = new QComboBox;
+      secondary_label = new QLabel(SECONDARY_ATTRIBUTE);
+      attributes_form->addRow(secondary_label, secondary_select);
+      connect(secondary_select, &QComboBox::currentTextChanged, this, &attributes_priority_page::second_attribute_change);
+
+      third_attribute = new QLabel("");
+      tertiary_label = new QLabel(TERTIARY_ATTRIBUTE);
+      attributes_form->addRow(tertiary_label, third_attribute);
+
+      populate_primary();
+      first_attribute_change();
+    }
+
+    void attributes_priority_page::populate_primary()
+    {
       for (auto category: ATTRIBUTE_CATEGORY_NAME.keys())
         {
           primary_select->addItem(ATTRIBUTE_CATEGORY_NAME[category]);
         }
-      attributes_form->addRow(new QLabel(PRIMARY_ATTRIBUTE), primary_select);
+    }
 
-      connect(primary_select, &QComboBox::currentTextChanged, this, &attributes_priority_page::first_attribute_change);
-
-      secondary_select = new QComboBox;
-      attributes_form->addRow(new QLabel(SECONDARY_ATTRIBUTE), secondary_select);
-      connect(secondary_select, &QComboBox::currentTextChanged, this, &attributes_priority_page::second_attribute_change);
-
-      third_attribute = new QLabel("");
-      attributes_form->addRow(new QLabel(TERTIARY_ATTRIBUTE), third_attribute);
-
-      first_attribute_change();
+    void attributes_priority_page::set_attribute_values(int primary_value, int secondary_value, int tertiary_value)
+    {
+      primary_label->setText(PRIMARY_ATTRIBUTE + " (" + QString::number(primary_value) + ")");
+      secondary_label->setText(SECONDARY_ATTRIBUTE + " (" + QString::number(secondary_value) + ")");
+      tertiary_label->setText(TERTIARY_ATTRIBUTE + " (" + QString::number(tertiary_value) + ")");
     }
 
     void attributes_priority_page::first_attribute_change()

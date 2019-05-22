@@ -32,6 +32,9 @@ namespace qt {
       final_character->set_name(char_name);
       final_character->set_type(type);
       character_model = character::creation::character_type_model::get_by_character_type(type);
+      attribute_priority_page->set_attribute_values(static_cast<int>(character_model.primary_category_attribute_value),
+                                                    static_cast<int>(character_model.secondary_category_attribute_value),
+                                                    static_cast<int>(character_model.tertiary_category_attribute_value));
 
       advance();
     }

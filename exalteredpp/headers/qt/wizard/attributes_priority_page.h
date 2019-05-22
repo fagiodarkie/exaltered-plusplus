@@ -16,6 +16,7 @@ namespace qt {
 
     public:
       attributes_priority_page(QWidget *parent = nullptr);
+      void set_attribute_values(int primary_value, int secondary_value, int tertiary_value);
 
     signals:
       void attributes_chosen(QString primary_attribute, QString secondary_attribute, QString tertiary_attribute);
@@ -25,6 +26,7 @@ namespace qt {
       void check_form();
       void chose_all();
 
+      void populate_primary();
       void create_attributes();
       void first_attribute_change();
       void second_attribute_change();
@@ -32,9 +34,11 @@ namespace qt {
       QString second_attribute_value();
 
       QComboBox *primary_select, *secondary_select;
-      QLabel *third_attribute;
+      QLabel *third_attribute, *primary_label, *secondary_label, *tertiary_label;
       QPushButton *next_page, *cancel;
       QFormLayout *attributes_form;
+
+      int primary, secondary, tertiary;
     };
   }
 }
