@@ -31,6 +31,7 @@ namespace qt {
 
     private:
       void advance();
+      void fallback();
       void load_attributes_priority(QString char_name, character_type type);
       void load_attributes_values(QString primary_attribute, QString secondary_attribute, QString tertiary_attribute);
 

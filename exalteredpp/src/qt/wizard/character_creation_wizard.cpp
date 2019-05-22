@@ -12,11 +12,11 @@ namespace qt {
         final_character(newly_created_character)
     {
       name_page = new character_creation_name_type_page(this);
-      connect(name_page, &character_creation_name_type_page::back_issued, this, &character_creation_wizard::back_issued);
+      connect(name_page, &character_creation_name_type_page::back_issued, this, &character_creation_wizard::fallback);
       connect(name_page, &character_creation_name_type_page::character_type_chosen, this, &character_creation_wizard::load_attributes_priority);
 
       attribute_priority_page = new attributes_priority_page(this);
-      connect(attribute_priority_page, &attributes_priority_page::back_issued, this, &character_creation_wizard::back_issued);
+      connect(attribute_priority_page, &attributes_priority_page::back_issued, this, &character_creation_wizard::fallback);
       connect(attribute_priority_page, &attributes_priority_page::attributes_chosen, this, &character_creation_wizard::load_attributes_values);
 
       layout = new QStackedLayout;
@@ -47,6 +47,14 @@ namespace qt {
     void character_creation_wizard::advance()
     {
       layout->setCurrentIndex(layout->currentIndex() + 1);
+    }
+
+    void character_creation_wizard::fallback()
+    {
+      if (layout->currentIndex() > 0)
+        layout->setCurrentIndex(layout->currentIndex() -1);
+      else
+        emit back_issued();
     }
   }
 }
