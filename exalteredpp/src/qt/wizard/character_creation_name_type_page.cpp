@@ -19,7 +19,9 @@ namespace qt {
     {
       QFormLayout* form = new QFormLayout;
 
-      form->addRow(new QLabel(CHARACTER_NAME_LABEL), new QLineEdit);
+      character_name = new QLineEdit;
+      form->addRow(new QLabel(CHARACTER_NAME_LABEL), character_name);
+      connect(character_name, &QLineEdit::textChanged, this, &character_creation_name_type_page::check_form);
 
       combo_box = new QComboBox;
       for (auto type: character::creation::CHARACTER_TYPE_NAMES.keys())
@@ -32,9 +34,10 @@ namespace qt {
       central_widget->setLayout(form);
 
       QHBoxLayout* buttons_layout = new QHBoxLayout;
-
       next_page = new QPushButton(NEXT_LABEL);
       cancel = new QPushButton(CANCEL_LABEL);
+      buttons_layout->addWidget(cancel);
+      buttons_layout->addWidget(next_page);
 
       next_page->setEnabled(false);
       connect(next_page, &QPushButton::clicked, this, &character_creation_name_type_page::chose_all);
@@ -43,10 +46,12 @@ namespace qt {
       QWidget* buttons = new QWidget;
       buttons->setLayout(buttons_layout);
 
-      layout::QBorderLayout *outer_layout = new layout::QBorderLayout(this);
+      layout::QBorderLayout *outer_layout = new layout::QBorderLayout;
       outer_layout->addWidget(central_widget, layout::QBorderLayout::Center);
       outer_layout->addWidget(buttons, layout::QBorderLayout::South);
+
       setLayout(outer_layout);
+
     }
 
     void character_creation_name_type_page::chose_all()

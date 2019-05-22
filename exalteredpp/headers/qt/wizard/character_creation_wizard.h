@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QStackedLayout>
 #include <QWizard>
 
 #include "creation/character_creation_configuration.h"
@@ -8,7 +9,9 @@
 #include "abilities/abilities.h"
 #include "character.h"
 
+#include "qt/layout/qborderlayout.h"
 #include "wizard/character_creation_name_type_page.h"
+#include "wizard/attributes_priority_page.h"
 
 namespace qt {
   namespace wizard {
@@ -27,7 +30,9 @@ namespace qt {
       void back_issued();
 
     private:
+      void advance();
       void load_attributes_priority(QString char_name, character_type type);
+      void load_attributes_values(QString primary_attribute, QString secondary_attribute, QString tertiary_attribute);
 
 
       character_type new_character_type;
@@ -38,7 +43,9 @@ namespace qt {
       QSharedPointer<character::character> final_character;
 
       character_creation_name_type_page* name_page;
+      attributes_priority_page* attribute_priority_page;
 
+      QStackedLayout *layout;
     };
   }
 }

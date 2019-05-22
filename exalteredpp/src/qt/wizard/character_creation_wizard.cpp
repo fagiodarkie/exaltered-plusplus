@@ -1,6 +1,7 @@
 #include "wizard/character_creation_wizard.h"
 
-#include <QStackedLayout>
+#include <QLabel>
+#include <QStackedWidget>
 
 namespace qt {
   namespace wizard {
@@ -14,10 +15,15 @@ namespace qt {
       connect(name_page, &character_creation_name_type_page::back_issued, this, &character_creation_wizard::back_issued);
       connect(name_page, &character_creation_name_type_page::character_type_chosen, this, &character_creation_wizard::load_attributes_priority);
 
-      QStackedLayout *stacked_layout = new QStackedLayout;
-      stacked_layout->addWidget(name_page);
+      attribute_priority_page = new attributes_priority_page(this);
+      connect(attribute_priority_page, &attributes_priority_page::back_issued, this, &character_creation_wizard::back_issued);
+      connect(attribute_priority_page, &attributes_priority_page::attributes_chosen, this, &character_creation_wizard::load_attributes_values);
 
-      setLayout(stacked_layout);
+      layout = new QStackedLayout;
+      layout->addWidget(name_page);
+      layout->addWidget(attribute_priority_page);
+
+      setLayout(layout);
     }
 
     void character_creation_wizard::load_attributes_priority(QString char_name, character::creation::character_type type)
@@ -27,8 +33,17 @@ namespace qt {
       final_character->set_type(type);
       character_model = character::creation::character_type_model::get_by_character_type(type);
 
-      // load next screen;
+      advance();
+    }
 
+    void character_creation_wizard::load_attributes_values(QString primary_attribute, QString secondary_attribute, QString tertiary_attribute)
+    {
+
+    }
+
+    void character_creation_wizard::advance()
+    {
+      layout->setCurrentIndex(layout->currentIndex() + 1);
     }
   }
 }
