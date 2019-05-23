@@ -34,8 +34,8 @@ TEST_CASE("Character")
   SECTION("should accept a new attribute")
   {
     character::character sut(CHARACTER_NAME);
-    sut.set_attribute(character::attribute_names::attribute_name::STRENGTH, character::attribute(TEST_ATTRIBUTE_NAME));
-    character::attribute saved_attribute = sut.get_attribute(character::attribute_names::attribute_name::STRENGTH);
+    sut.set_attribute(character::attribute_names::attribute::STRENGTH, character::attribute(TEST_ATTRIBUTE_NAME));
+    character::attribute saved_attribute = sut.get_attribute(character::attribute_names::attribute::STRENGTH);
     REQUIRE(saved_attribute.get_name() == TEST_ATTRIBUTE_NAME);
   }
 

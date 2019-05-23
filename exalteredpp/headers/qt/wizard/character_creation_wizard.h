@@ -6,17 +6,18 @@
 #include "creation/character_creation_configuration.h"
 #include "creation/character_type_model.h"
 #include "attributes/attributes.h"
+#include "attributes/attribute_names.h"
 #include "abilities/abilities.h"
 #include "character.h"
 
 #include "qt/layout/qborderlayout.h"
+
 #include "wizard/character_creation_name_type_page.h"
 #include "wizard/attributes_priority_page.h"
+#include "wizard/character_creation_attribute_points_page.h"
 
 namespace qt {
   namespace wizard {
-
-    using namespace character::creation;
 
     class character_creation_wizard : public QWidget
     {
@@ -32,19 +33,22 @@ namespace qt {
     private:
       void advance();
       void fallback();
-      void load_attributes_priority(QString char_name, character_type type);
-      void load_attributes_values(QString primary_attribute, QString secondary_attribute, QString tertiary_attribute);
+      void load_attributes_priority(const QString&  char_name, character_type type);
+      void load_attributes_values(const QString& primary_attribute, const QString& secondary_attribute, const QString& tertiary_attribute);
+      void load_attribute_points(const character::attributes& points);
 
 
       character_type new_character_type;
-      character_type_model character_model;
-      character_creation_configuration configuration;
+      character::creation::character_type_model character_model;
+      character::creation::character_creation_configuration configuration;
       character::attributes attributes;
       character::abilities abilities;
       QSharedPointer<character::character> final_character;
+      QMap<character::attribute_names::attribute_category, unsigned int> points_per_category;
 
       character_creation_name_type_page* name_page;
       attributes_priority_page* attribute_priority_page;
+      character_creation_attribute_points_page* attribute_points_page;
 
       QStackedLayout *layout;
     };

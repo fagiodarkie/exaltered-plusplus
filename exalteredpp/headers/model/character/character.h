@@ -27,8 +27,8 @@ namespace character
       character_type get_type() const;
       void set_type(character_type type);
 
-      attribute get_attribute(attribute_names::attribute_name name) const;
-      void set_attribute(attribute_names::attribute_name name, attribute attribute);
+      attribute get_attribute(attribute_names::attribute name) const;
+      void set_attribute(attribute_names::attribute name, attribute attribute);
 
       ability_group get_ability_group(ability_names::ability_name name) const;
       ability get_ability(ability_names::ability_name name, const QString& ability_declination = ability_names::ability_declination::NO_DECLINATION) const;

@@ -7,7 +7,7 @@
 
 namespace character
 {
-  class attributes : public QMap<attribute_names::attribute_name, attribute>, serialisable
+  class attributes : public QMap<attribute_names::attribute, attribute>, serialisable
   {
 
   public:

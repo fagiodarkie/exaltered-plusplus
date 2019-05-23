@@ -13,11 +13,11 @@ namespace character {
     {
     public:
       character_type type;
-      QList<attribute_names::attribute_name> primary_attributes, secondary_attributes, tertiary_attributes;
+      QList<attribute_names::attribute> primary_attributes, secondary_attributes, tertiary_attributes;
       QList<ability_names::ability_name> caste_abilities, favorite_abilities;
 
       QMap<ability_names::ability_name, ability_group> ability_values;
-      QMap<attribute_names::attribute_name, unsigned int> attribute_values;
+      QMap<attribute_names::attribute, unsigned int> attribute_values;
 
       bool is_valid() const;
       QList<QString> errors;

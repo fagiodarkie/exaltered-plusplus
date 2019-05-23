@@ -13,26 +13,26 @@ TEST_CASE("Attributes")
   {
     character::attribute attribute(TEST_ATTRIBUTE_NAME, TEST_ATTRIBUTE_VALUE);
     character::attributes sut;
-    sut.insert(attribute_name::STRENGTH, attribute);
-    REQUIRE(int(sut.value(attribute_name::STRENGTH)) == TEST_ATTRIBUTE_VALUE);
-    REQUIRE(QString(sut.value(attribute_name::STRENGTH)) == QString(TEST_ATTRIBUTE_NAME));
+    sut.insert(attribute::STRENGTH, attribute);
+    REQUIRE(int(sut.value(attribute::STRENGTH)) == TEST_ATTRIBUTE_VALUE);
+    REQUIRE(QString(sut.value(attribute::STRENGTH)) == QString(TEST_ATTRIBUTE_NAME));
   }
 
   SECTION("should create correctly from JSON")
   {
     QJsonObject from;
-    from[ATTRIBUTE_NAME.value(attribute_name::STRENGTH)] = TEST_ATTRIBUTE_VALUE;
+    from[ATTRIBUTE_NAME.value(attribute::STRENGTH)] = TEST_ATTRIBUTE_VALUE;
     character::attributes sut;
     sut.read_from_json(from);
-    REQUIRE(sut.value(attribute_name::STRENGTH) == TEST_ATTRIBUTE_VALUE);
+    REQUIRE(sut.value(attribute::STRENGTH) == TEST_ATTRIBUTE_VALUE);
   }
 
   SECTION("should write correctly to JSON")
   {
     character::attributes sut;
-    sut.insert(attribute_name::STRENGTH, character::attribute(ATTRIBUTE_NAME.value(attribute_name::STRENGTH), TEST_ATTRIBUTE_VALUE));
+    sut.insert(attribute::STRENGTH, character::attribute(ATTRIBUTE_NAME.value(attribute::STRENGTH), TEST_ATTRIBUTE_VALUE));
     QJsonObject from;
     sut.write_to_json(from);
-    REQUIRE(from[ATTRIBUTE_NAME.value(attribute_name::STRENGTH)].toInt() == TEST_ATTRIBUTE_VALUE);
+    REQUIRE(from[ATTRIBUTE_NAME.value(attribute::STRENGTH)].toInt() == TEST_ATTRIBUTE_VALUE);
   }
 }

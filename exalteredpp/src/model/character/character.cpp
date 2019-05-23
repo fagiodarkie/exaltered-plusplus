@@ -33,12 +33,12 @@ namespace character
     _type = type;
   }
 
-  attribute character::get_attribute(attribute_names::attribute_name name) const
+  attribute character::get_attribute(attribute_names::attribute name) const
   {
     return _attributes.value(name);
   }
 
-  void character::set_attribute(attribute_names::attribute_name name, attribute attribute)
+  void character::set_attribute(attribute_names::attribute name, attribute attribute)
   {
     _attributes.insert(name, attribute);
   }
