@@ -9,6 +9,15 @@ namespace character {
 
     using character::ability_names::ability;
 
+    enum class caste
+    {
+      NO_CASTE,
+      DAWN, ZENITH, TWILIGHT, NIGHT, ECLIPSE,   // SOLAR
+      DUSK, MIDNIGHT, DAYBREAK, DAY, MOONSHADOW,    // ABYSSAL
+      SLAYER, MALEFACTOR, DEFILER, SCOURGE, FIEND,  // INFERNAL
+      FIRE, WATER, EARTH, AIR, WOOD                 // TERRESTRIAL
+    };
+
     class exalt_caste
     {
     private:
@@ -19,13 +28,7 @@ namespace character {
       _DIPLOMAT_CASTE;
 
     public:
-      enum caste
-      {
-        DAWN, ZENITH, TWILIGHT, NIGHT, ECLIPSE,       // SOLAR
-        DUSK, MIDNIGHT, DAYBREAK, DAY, MOONSHADOW,    // ABYSSAL
-        SLAYER, MALEFACTOR, DEFILER, SCOURGE, FIEND,  // INFERNAL
-        FIRE, WATER, EARTH, AIR, WOOD                 // TERRESTRIAL
-      };
+      static exalt_caste get_caste(caste caste_type);
 
       static const QMap<character::creation::character_type, QList<caste>>  CASTES_OF_EXALT_TYPE;
       static const QMap<caste, QString>                                     NAME_OF_CASTE;

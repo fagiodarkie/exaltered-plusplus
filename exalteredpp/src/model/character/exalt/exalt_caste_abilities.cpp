@@ -5,56 +5,59 @@ namespace character {
 
     using character::creation::character_type;
 
-    const QMap<exalt_caste::caste, QList<ability>> exalt_caste::ABILITIES_OF_CASTE = {
-      { exalt_caste::DAWN,        _WARRIOR_CASTE },
-      { exalt_caste::DUSK,        _WARRIOR_CASTE },
-      { exalt_caste::SLAYER,      _WARRIOR_CASTE },
+    const QMap<caste, QList<ability>> exalt_caste::ABILITIES_OF_CASTE = {
 
-      { exalt_caste::ZENITH,      _PRIEST_CASTE },
-      { exalt_caste::MIDNIGHT,    _PRIEST_CASTE },
-      { exalt_caste::MALEFACTOR,  _PRIEST_CASTE },
+      { caste::NO_CASTE,    { }},
 
-      { exalt_caste::TWILIGHT,    _SCIENTIST_CASTE },
-      { exalt_caste::DAYBREAK,    _SCIENTIST_CASTE },
-      { exalt_caste::DEFILER,     _SCIENTIST_CASTE },
+      { caste::DAWN,        _WARRIOR_CASTE },
+      { caste::DUSK,        _WARRIOR_CASTE },
+      { caste::SLAYER,      _WARRIOR_CASTE },
 
-      { exalt_caste::NIGHT,       _STEALTH_CASTE },
-      { exalt_caste::DAY,         _STEALTH_CASTE },
-      { exalt_caste::SCOURGE,     _STEALTH_CASTE },
+      { caste::ZENITH,      _PRIEST_CASTE },
+      { caste::MIDNIGHT,    _PRIEST_CASTE },
+      { caste::MALEFACTOR,  _PRIEST_CASTE },
 
-      { exalt_caste::ECLIPSE,     _DIPLOMAT_CASTE },
-      { exalt_caste::MOONSHADOW,  _DIPLOMAT_CASTE },
-      { exalt_caste::FIEND,       _DIPLOMAT_CASTE },
+      { caste::TWILIGHT,    _SCIENTIST_CASTE },
+      { caste::DAYBREAK,    _SCIENTIST_CASTE },
+      { caste::DEFILER,     _SCIENTIST_CASTE },
 
-      { exalt_caste::WATER,       { ability::BUREAUCRACY,
-                                    ability::INVESTIGATION,
-                                    ability::LARCENY,
-                                    ability::MARTIAL_ARTS,
-                                    ability::MANEUVER } },
+      { caste::NIGHT,       _STEALTH_CASTE },
+      { caste::DAY,         _STEALTH_CASTE },
+      { caste::SCOURGE,     _STEALTH_CASTE },
 
-      { exalt_caste::EARTH,       { ability::AWARENESS,
-                                    ability::CRAFT,
-                                    ability::INTEGRITY,
-                                    ability::RESISTANCE,
-                                    ability::WAR } },
+      { caste::ECLIPSE,     _DIPLOMAT_CASTE },
+      { caste::MOONSHADOW,  _DIPLOMAT_CASTE },
+      { caste::FIEND,       _DIPLOMAT_CASTE },
 
-      { exalt_caste::AIR,         { ability::ACADEMICS,
-                                    ability::MEDITATION,
-                                    ability::STEALTH,
-                                    ability::THROWN,
-                                    ability::TEACHING } },
+      { caste::WATER,       { ability::BUREAUCRACY,
+                              ability::INVESTIGATION,
+                              ability::LARCENY,
+                              ability::MARTIAL_ARTS,
+                              ability::MANEUVER } },
 
-      { exalt_caste::WOOD,        { ability::ARCHERY,
-                                    ability::MEDICINE,
-                                    ability::PERFORMANCE,
-                                    ability::MANEUVER,
-                                    ability::SURVIVAL } },
+      { caste::EARTH,       { ability::AWARENESS,
+                              ability::CRAFT,
+                              ability::INTEGRITY,
+                              ability::RESISTANCE,
+                              ability::WAR } },
 
-      { exalt_caste::FIRE,        { ability::ATHLETICS,
-                                    ability::DODGE,
-                                    ability::MELEE,
-                                    ability::PRESENCE,
-                                    ability::SOCIALISE } }
+      { caste::AIR,         { ability::ACADEMICS,
+                              ability::MEDITATION,
+                              ability::STEALTH,
+                              ability::THROWN,
+                              ability::TEACHING } },
+
+      { caste::WOOD,        { ability::ARCHERY,
+                              ability::MEDICINE,
+                              ability::PERFORMANCE,
+                              ability::MANEUVER,
+                              ability::SURVIVAL } },
+
+      { caste::FIRE,        { ability::ATHLETICS,
+                              ability::DODGE,
+                              ability::MELEE,
+                              ability::PRESENCE,
+                              ability::SOCIALISE } }
     };
 
     QList<ability> exalt_caste::_WARRIOR_CASTE = { ability::WAR,
@@ -87,14 +90,18 @@ namespace character {
                                      ability::ACADEMICS,
                                      ability::TEACHING };
 
-    const QMap<character_type, QList<exalt_caste::caste>> exalt_caste::CASTES_OF_EXALT_TYPE = {
-      { character_type::TYPE_TERRESTRIAL_EXALT, { AIR, WATER, FIRE, WOOD, EARTH               } },
-      { character_type::TYPE_SOLAR_EXALT,       { DAWN, ZENITH, TWILIGHT, NIGHT, ECLIPSE      } },
-      { character_type::TYPE_ABYSSAL_EXALT,     { DUSK, MIDNIGHT, DAYBREAK, DAY, MOONSHADOW   } },
-      { character_type::TYPE_INFERNAL_EXALT,    { SLAYER, MALEFACTOR, DEFILER, SCOURGE, FIEND } },
+    const QMap<character_type, QList<caste>> exalt_caste::CASTES_OF_EXALT_TYPE = {
+      { character_type::TYPE_MORTAL_HERO,       { caste::NO_CASTE } },
+      { character_type::TYPE_MORTAL_EXTRA,      { caste::NO_CASTE } },
+      { character_type::TYPE_TERRESTRIAL_EXALT, { caste::AIR,     caste::WATER, caste::FIRE, caste::WOOD, caste::EARTH               } },
+      { character_type::TYPE_SOLAR_EXALT,       { caste::DAWN,    caste::ZENITH, caste::TWILIGHT, caste::NIGHT, caste::ECLIPSE      } },
+      { character_type::TYPE_ABYSSAL_EXALT,     { caste::DUSK,    caste::MIDNIGHT, caste::DAYBREAK, caste::DAY, caste::MOONSHADOW   } },
+      { character_type::TYPE_INFERNAL_EXALT,    { caste::SLAYER,  caste::MALEFACTOR, caste::DEFILER, caste::SCOURGE, caste::FIEND } },
     };
 
-    const QMap<exalt_caste::caste, QString> exalt_caste::NAME_OF_CASTE = {
+    const QMap<caste, QString> exalt_caste::NAME_OF_CASTE = {
+      { caste::NO_CASTE    , "None"       },
+
       { caste::DAWN        , "Dawn"       },
       { caste::ZENITH      , "Zenith"     },
       { caste::TWILIGHT    , "Twilight"   },

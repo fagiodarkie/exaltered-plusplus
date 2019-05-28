@@ -12,5 +12,7 @@ namespace serialisation
     static const QString SLOT_ATTRIBUTES;
     static const QString SLOT_ABILITIES;
     static const QString SLOT_SPECIALISATIONS;
+    static const QString SLOT_CASTE;
+    static const QString SLOT_FAVOURITE;
   };
 }

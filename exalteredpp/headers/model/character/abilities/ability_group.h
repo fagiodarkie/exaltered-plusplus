@@ -27,6 +27,7 @@ namespace character
 
     bool has_ability(const QString& ability_name) const;
     bool has_specialisation(const QString& specialisation_name) const;
+    bool is_favourite() const;
 
     void add_ability(ability new_ability);
     void add_ability(const QString& new_ability_name, unsigned int new_ability_value = 0);
@@ -38,6 +39,8 @@ namespace character
     void set_specialisation_value(const QString& specialisation_name, unsigned int new_value);
     void increase_specialisation_value(const QString& specialisation_name, unsigned int add_value = 1);
     void remove_specialisation(const QString& specialisation_to_remove);
+
+    void set_favourite(bool is_favourite);
 
     bool has_abilities() const;
 
@@ -52,6 +55,7 @@ namespace character
     QList<ability> actual_abilities;
     QList<specialisation> specialisations;
     ability_names::ability_category category;
+    bool is_favorite;
 
     bool can_manage_ability(const QString& ability_name) const;
     QList<ability>::iterator get_ability_reference(const QString& name);

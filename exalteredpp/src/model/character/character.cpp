@@ -62,6 +62,8 @@ namespace character
   {
     _name = object[json_constants::SLOT_NAME].toString();
     _id = static_cast<unsigned int>(object[json_constants::SLOT_ID].toInt());
+    _character_caste = static_cast<exalt::caste>(object[json_constants::SLOT_CASTE].toInt());
+
     _attributes.read_from_json(object[json_constants::SLOT_ATTRIBUTES].toObject());
     _abilities.read_from_json(object[json_constants::SLOT_ABILITIES].toObject());
   }
@@ -70,6 +72,7 @@ namespace character
   {
     object[json_constants::SLOT_NAME] = _name;
     object[json_constants::SLOT_ID] = QString::number(_id);
+    object[json_constants::SLOT_CASTE] = static_cast<int>(_character_caste);
 
     QJsonObject attributes_object;
     _attributes.write_to_json(attributes_object);
@@ -83,5 +86,10 @@ namespace character
   unsigned int character::id() const
   {
     return _id;
+  }
+
+  exalt::caste character::caste() const
+  {
+    return _character_caste;
   }
 }

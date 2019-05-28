@@ -6,6 +6,7 @@
 #include "character/abilities/abilities.h"
 #include "serialisation/serialisable.h"
 #include "creation/character_type_model.h"
+#include "exalt/exalt_caste.h"
 
 namespace character
 {
@@ -39,15 +40,18 @@ namespace character
       void write_to_json(QJsonObject& object) const override;
 
       unsigned int id() const;
+      exalt::caste caste() const;
 
   signals:
       void data_changed();
 
     private:
-      QString _name;
-      character_type _type;
-      unsigned int _id;
-      attributes _attributes;
-      abilities _abilities;
+      QString           _name;
+      character_type    _type;
+      exalt::caste      _character_caste;
+
+      unsigned int      _id;
+      attributes        _attributes;
+      abilities         _abilities;
     };
 }
