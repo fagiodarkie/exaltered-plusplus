@@ -35,6 +35,7 @@ SOURCES += \
     ../../src/model/character/character.cpp \
     ../../src/model/character/attributes/attribute.cpp \
     ../../src/model/character/attributes/attributes.cpp \
+    ../../src/model/character/exalt/exalt_caste_abilities.cpp \
     ../../src/model/managers/character_manager.cpp \
     ../../src/serialisation/json_constants.cpp \
     ../../src/serialisation/filesystem_db.cpp \
@@ -63,7 +64,9 @@ SOURCES += \
     ../../src/qt/wizard/character_creation_wizard.cpp \
     ../../src/qt/wizard/character_creation_name_type_page.cpp \
     ../../src/qt/wizard/attributes_priority_page.cpp \
-    ../../src/qt/wizard/character_creation_attribute_points_page.cpp
+    ../../src/qt/wizard/character_creation_attribute_points_page.cpp \
+    ../../src/qt/wizard/character_creation_favorite_abilities.cpp \
+    ../../src/model/character/exalt/exalt_caste.cpp
 
 HEADERS += \
     ../../headers/model/character/attributes/attribute_names.h \
@@ -104,7 +107,9 @@ HEADERS += \
     ../../headers/qt/wizard/character_creation_wizard.h \
     ../../headers/qt/wizard/character_creation_name_type_page.h \
     ../../headers/qt/wizard/attributes_priority_page.h \
-    ../../headers/qt/wizard/character_creation_attribute_points_page.h
+    ../../headers/qt/wizard/character_creation_attribute_points_page.h \
+    ../../headers/qt/wizard/character_creation_favorite_abilities.h \
+    ../../headers/model/character/exalt/exalt_caste.h
 
 CONFIG += mobility
 MOBILITY = 

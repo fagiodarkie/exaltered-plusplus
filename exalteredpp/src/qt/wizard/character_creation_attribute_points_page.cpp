@@ -49,7 +49,6 @@ namespace qt {
       outer_layout->addWidget(buttons, layout::QBorderLayout::South);
 
       setLayout(outer_layout);
-
     }
 
     void character_creation_attribute_points_page::set_total_points(QMap<attribute_category, unsigned int> points_per_category)

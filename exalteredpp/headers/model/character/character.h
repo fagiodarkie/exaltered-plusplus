@@ -30,9 +30,9 @@ namespace character
       attribute get_attribute(attribute_names::attribute name) const;
       void set_attribute(attribute_names::attribute name, attribute attribute);
 
-      ability_group get_ability_group(ability_names::ability_name name) const;
-      ability get_ability(ability_names::ability_name name, const QString& ability_declination = ability_names::ability_declination::NO_DECLINATION) const;
-      void set_ability(ability_names::ability_name name, ability_group ability);
+      ability_group get_ability_group(ability_names::ability name) const;
+      ability get_ability(ability_names::ability name, const QString& ability_declination = ability_names::ability_declination::NO_DECLINATION) const;
+      void set_ability(ability_names::ability name, ability_group ability);
 
       // serialisable fields
       void read_from_json(const QJsonObject& object) override;

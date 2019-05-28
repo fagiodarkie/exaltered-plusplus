@@ -6,13 +6,13 @@
 namespace character
 {
   namespace ability_names {
-    enum ability_name
+    enum ability
     {
       MELEE, ARCHERY, THROWN, MARTIAL_ARTS, WAR,
       SURVIVAL, PERFORMANCE, PRESENCE, RESISTANCE, INTEGRITY,
-      OCCULT, MEDICINE, INVESTIGATION, KNOWLEDGE, CRAFT,
+      MEDITATION, MEDICINE, INVESTIGATION, ACADEMICS, CRAFT,
       STEALTH, AWARENESS, DODGE, ATHLETICS, LARCENY,
-      MANEUVER, SOCIALISE, BUREAUCRACY, LANGUAGE
+      MANEUVER, SOCIALISE, BUREAUCRACY, TEACHING
     };
 
     enum ability_category
@@ -37,7 +37,7 @@ namespace character
       FIRSTAGE_MANEUVER = "First Age";
     }
 
-    static const QMap<ability_name, QString> ABILITY_NAME {
+    static const QMap<ability, QString> ABILITY_NAME {
       { MELEE,            "Melee"         },
       { ARCHERY,          "Archery"       },
       { THROWN,           "Thrown"        },
@@ -48,10 +48,10 @@ namespace character
       { PRESENCE,         "Presence"      },
       { RESISTANCE,       "Resistance"    },
       { INTEGRITY,        "Integrity"     },
-      { OCCULT,           "Occult"        },
+      { ACADEMICS,        "Academics"     },
       { MEDICINE,         "Medicine"      },
       { INVESTIGATION,    "Investigation" },
-      { KNOWLEDGE,        "Knowledge"     },
+      { TEACHING,         "Teaching"      },
       { CRAFT,            "Craft"         },
       { STEALTH,          "Stealth"       },
       { AWARENESS,        "Awareness"     },
@@ -60,14 +60,13 @@ namespace character
       { LARCENY,          "Larceny"       },
       { MANEUVER,         "Maneuver"      },
       { SOCIALISE,        "Socialise"     },
-      { BUREAUCRACY,      "Bureaucracy"   },
-      { LANGUAGE,         "Language"      }
+      { BUREAUCRACY,      "Bureaucracy"   }
     };
 
-    static const QMap<ability_category, QList<ability_name>> ABILITY_CATEGORY {
-      { COMBAT, { MELEE, ARCHERY, THROWN, MARTIAL_ARTS, WAR, RESISTANCE, AWARENESS, DODGE } },
-      { NARRATIVE, { SURVIVAL, OCCULT, MEDICINE, CRAFT, STEALTH, ATHLETICS, LARCENY, MANEUVER } },
-      { SOCIAL, { KNOWLEDGE, PERFORMANCE, PRESENCE, INTEGRITY, INVESTIGATION, SOCIALISE, BUREAUCRACY, LANGUAGE } }
+    static const QMap<ability_category, QList<ability>> ABILITY_CATEGORY {
+      { COMBAT,     { MELEE,      ARCHERY,      THROWN,   MARTIAL_ARTS, WAR,            RESISTANCE, AWARENESS,    DODGE } },
+      { NARRATIVE,  { SURVIVAL,   MEDITATION,   MEDICINE, CRAFT,        STEALTH,        ATHLETICS,  LARCENY,      MANEUVER } },
+      { SOCIAL,     { ACADEMICS,  PERFORMANCE,  PRESENCE, INTEGRITY,    INVESTIGATION,  SOCIALISE,  BUREAUCRACY,  TEACHING } }
     };
 
   }

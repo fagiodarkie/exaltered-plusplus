@@ -5,7 +5,7 @@ namespace character {
   void abilities::read_from_json(const QJsonObject& json)
   {
     clear();
-    for (ability_names::ability_name ability_type: ability_names::ABILITY_NAME.keys())
+    for (ability_names::ability ability_type: ability_names::ABILITY_NAME.keys())
       {
         QString ability_name = ability_names::ABILITY_NAME[ability_type];
 
