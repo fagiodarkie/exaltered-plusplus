@@ -101,7 +101,6 @@ namespace character {
 
     const QMap<caste, QString> exalt_caste::NAME_OF_CASTE = {
       { caste::NO_CASTE    , "None"       },
-
       { caste::DAWN        , "Dawn"       },
       { caste::ZENITH      , "Zenith"     },
       { caste::TWILIGHT    , "Twilight"   },
