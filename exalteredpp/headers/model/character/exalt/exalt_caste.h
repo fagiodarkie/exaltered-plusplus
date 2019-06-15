@@ -20,16 +20,14 @@ namespace character {
 
     class exalt_caste
     {
-    private:
-      static QList<ability> _WARRIOR_CASTE,
-      _PRIEST_CASTE,
-      _SCIENTIST_CASTE,
-      _STEALTH_CASTE,
-      _DIPLOMAT_CASTE;
-
     public:
       static exalt_caste get_caste(caste caste_type);
 
+      static QList<ability> _WARRIOR_CASTE,
+        _PRIEST_CASTE,
+        _SCIENTIST_CASTE,
+        _STEALTH_CASTE,
+        _DIPLOMAT_CASTE;
       static const QMap<character::creation::character_type, QList<caste>>  CASTES_OF_EXALT_TYPE;
       static const QMap<caste, QString>                                     NAME_OF_CASTE;
       static const QMap<caste, QList<ability>>                              ABILITIES_OF_CASTE;

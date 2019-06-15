@@ -5,9 +5,39 @@ namespace character {
 
     using character::creation::character_type;
 
+    QList<ability> exalt_caste::_WARRIOR_CASTE = { ability::WAR,
+                                                   ability::MELEE,
+                                                   ability::ARCHERY,
+                                                   ability::THROWN,
+                                                   ability::MARTIAL_ARTS },
+
+    exalt_caste::_PRIEST_CASTE = { ability::PRESENCE,
+                                   ability::INTEGRITY,
+                                   ability::PERFORMANCE,
+                                   ability::RESISTANCE,
+                                   ability::SURVIVAL },
+
+    exalt_caste::_SCIENTIST_CASTE = { ability::INVESTIGATION,
+                                      ability::ACADEMICS,
+                                      ability::MEDITATION,
+                                      ability::CRAFT,
+                                      ability::MEDICINE },
+
+    exalt_caste::_STEALTH_CASTE = { ability::LARCENY,
+                                    ability::ATHLETICS,
+                                    ability::DODGE,
+                                    ability::AWARENESS,
+                                    ability::STEALTH },
+
+    exalt_caste::_DIPLOMAT_CASTE = { ability::SOCIALISE,
+                                     ability::BUREAUCRACY,
+                                     ability::MANEUVER,
+                                     ability::ACADEMICS,
+                                     ability::TEACHING };
+
     const QMap<caste, QList<ability>> exalt_caste::ABILITIES_OF_CASTE = {
 
-      { caste::NO_CASTE,    { }},
+      { caste::NO_CASTE,    QList<ability>() },
 
       { caste::DAWN,        _WARRIOR_CASTE },
       { caste::DUSK,        _WARRIOR_CASTE },
@@ -59,36 +89,6 @@ namespace character {
                               ability::PRESENCE,
                               ability::SOCIALISE } }
     };
-
-    QList<ability> exalt_caste::_WARRIOR_CASTE = { ability::WAR,
-                                                   ability::MELEE,
-                                                   ability::ARCHERY,
-                                                   ability::THROWN,
-                                                   ability::MARTIAL_ARTS },
-
-    exalt_caste::_PRIEST_CASTE = { ability::PRESENCE,
-                                   ability::INTEGRITY,
-                                   ability::PERFORMANCE,
-                                   ability::RESISTANCE,
-                                   ability::SURVIVAL },
-
-    exalt_caste::_SCIENTIST_CASTE = { ability::INVESTIGATION,
-                                      ability::ACADEMICS,
-                                      ability::MEDITATION,
-                                      ability::CRAFT,
-                                      ability::MEDICINE },
-
-    exalt_caste::_STEALTH_CASTE = { ability::LARCENY,
-                                    ability::ATHLETICS,
-                                    ability::DODGE,
-                                    ability::AWARENESS,
-                                    ability::STEALTH },
-
-    exalt_caste::_DIPLOMAT_CASTE = { ability::SOCIALISE,
-                                     ability::BUREAUCRACY,
-                                     ability::MANEUVER,
-                                     ability::ACADEMICS,
-                                     ability::TEACHING };
 
     const QMap<character_type, QList<caste>> exalt_caste::CASTES_OF_EXALT_TYPE = {
       { character_type::TYPE_MORTAL_HERO,       { caste::NO_CASTE } },

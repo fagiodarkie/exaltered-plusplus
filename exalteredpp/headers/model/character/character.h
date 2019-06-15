@@ -53,5 +53,6 @@ namespace character
       unsigned int      _id;
       attributes        _attributes;
       abilities         _abilities;
+
     };
 }

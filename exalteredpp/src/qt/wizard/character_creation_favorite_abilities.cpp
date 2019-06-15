@@ -47,6 +47,8 @@ namespace qt {
       button->setCheckable(true);
 
       ability_of_button.insert(button, ability);
+
+      return button;
     }
 
   }
