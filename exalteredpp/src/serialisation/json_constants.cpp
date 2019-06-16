@@ -8,3 +8,4 @@ const QString serialisation::json_constants::SLOT_ABILITIES           = "abiliti
 const QString serialisation::json_constants::SLOT_SPECIALISATIONS     = "specialisations";
 const QString serialisation::json_constants::SLOT_CASTE               = "caste";
 const QString serialisation::json_constants::SLOT_FAVOURITE           = "favourite";
+const QString serialisation::json_constants::SLOT_RANK                = "rank";

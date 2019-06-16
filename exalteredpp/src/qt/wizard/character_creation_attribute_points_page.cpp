@@ -3,6 +3,7 @@
 #include "label/interfacelabels.h"
 #include "layout/qborderlayout.h"
 #include <QFormLayout>
+#include "invalid_parameter.h"
 
 namespace qt {
   namespace wizard {

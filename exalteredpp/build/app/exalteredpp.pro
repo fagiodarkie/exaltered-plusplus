@@ -67,8 +67,9 @@ SOURCES += \
     ../../src/qt/wizard/character_creation_attribute_points_page.cpp \
     ../../src/qt/wizard/character_creation_favorite_abilities.cpp \
     ../../src/model/character/exalt/exalt_caste.cpp \
-    ../../src/model/character/virtues/virtues.cpp \
-    ../../src/model/character/virtues/virtue.cpp
+    ../../src/model/character/virtues/virtue.cpp \
+    ../../src/model/character/power/willpower.cpp \
+    ../../src/model/character/virtues/virtues.cpp
 
 HEADERS += \
     ../../headers/model/character/attributes/attribute_names.h \
@@ -114,7 +115,9 @@ HEADERS += \
     ../../headers/model/character/exalt/exalt_caste.h \
     ../../headers/model/character/virtues/virtues.h \
     ../../headers/model/character/virtues/virtue.h \
-    ../../headers/model/character/virtues/virtue_names.h
+    ../../headers/model/character/virtues/virtue_names.h \
+    ../../headers/model/character/power/willpower.h \
+    ../../headers/common/reverse_search.h
 
 CONFIG += mobility
 MOBILITY = 

@@ -4,7 +4,7 @@
 #include <QString>
 
 #include "text/character_text_constants.h"
-#include "invalid_parameter.h"
+#include "common/reverse_search.h"
 
 namespace character
 {
@@ -56,21 +56,15 @@ namespace character
       { WITS,         ATTRIBUTE_WITS          }
     };
 
-    static attribute_category ATTRIBUTE_CATEGORY_BY_NAME(const QString& attribute_name)
+    static attribute_category ATTRIBUTE_CATEGORY_BY_NAME(const QString& attribute_category_name)
     {
-      auto found_category = std::find_if(ATTRIBUTE_CATEGORIES.begin(), ATTRIBUTE_CATEGORIES.end(),
-                                         [attribute_name](attribute_category category) -> bool { return ATTRIBUTE_CATEGORY_NAME[category] == attribute_name; });
-      if (found_category == ATTRIBUTE_CATEGORIES.end())
-        throw new exception::invalid_parameter();
-
-      return *found_category;
+      return commons::reverse_search_in_map(ATTRIBUTE_CATEGORIES, ATTRIBUTE_CATEGORY_NAME, attribute_category_name);
     }
 
     static attribute_category CATEGORY_OF_ATTRIBUTE(attribute att)
     {
-      auto found_category = std::find_if(ATTRIBUTE_CATEGORIES.begin(), ATTRIBUTE_CATEGORIES.end(),
-                                         [att](attribute_category category) -> bool { return ATTRIBUTES_BY_CATEGORY[category].contains(att); });
-      return *found_category;
+      return *std::find_if(ATTRIBUTE_CATEGORIES.begin(), ATTRIBUTE_CATEGORIES.end(),
+              [att](attribute_category category) -> bool { return ATTRIBUTES_BY_CATEGORY[category].contains(att); });
     }
   }
 }
