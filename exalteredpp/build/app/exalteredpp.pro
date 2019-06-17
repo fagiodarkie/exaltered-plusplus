@@ -69,7 +69,10 @@ SOURCES += \
     ../../src/model/character/exalt/exalt_caste.cpp \
     ../../src/model/character/virtues/virtue.cpp \
     ../../src/model/character/power/willpower.cpp \
-    ../../src/model/character/virtues/virtues.cpp
+    ../../src/model/character/virtues/virtues.cpp \
+    ../../src/model/character/power/power_container.cpp \
+    ../../src/model/character/power/essence.cpp \
+    ../../src/model/character/power/health.cpp
 
 HEADERS += \
     ../../headers/model/character/attributes/attribute_names.h \
@@ -117,7 +120,10 @@ HEADERS += \
     ../../headers/model/character/virtues/virtue.h \
     ../../headers/model/character/virtues/virtue_names.h \
     ../../headers/model/character/power/willpower.h \
-    ../../headers/common/reverse_search.h
+    ../../headers/common/reverse_search.h \
+    ../../headers/model/character/power/power_container.h \
+    ../../headers/model/character/power/essence.h \
+    ../../headers/model/character/power/health.h
 
 CONFIG += mobility
 MOBILITY = 

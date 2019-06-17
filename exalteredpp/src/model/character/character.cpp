@@ -66,6 +66,7 @@ namespace character
 
     _attributes.read_from_json(object[json_constants::SLOT_ATTRIBUTES].toObject());
     _abilities.read_from_json(object[json_constants::SLOT_ABILITIES].toObject());
+    _virtues.read_from_json(object[json_constants::SLOT_VIRTUES].toObject());
   }
 
   void character::write_to_json(QJsonObject &object) const
@@ -81,6 +82,10 @@ namespace character
     QJsonObject abilities_object;
     _abilities.write_to_json(abilities_object);
     object[json_constants::SLOT_ABILITIES] = abilities_object;
+
+    QJsonObject virtues_object;
+    _virtues.write_to_json(virtues_object);
+    object[json_constants::SLOT_VIRTUES] = virtues_object;
   }
 
   unsigned int character::id() const

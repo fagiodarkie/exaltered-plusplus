@@ -7,6 +7,7 @@
 #include "serialisation/serialisable.h"
 #include "creation/character_type_model.h"
 #include "exalt/exalt_caste.h"
+#include "virtues/virtues.h"
 
 namespace character
 {
@@ -53,6 +54,7 @@ namespace character
       unsigned int      _id;
       attributes        _attributes;
       abilities         _abilities;
+      virtues::virtues  _virtues;
 
     };
 }
