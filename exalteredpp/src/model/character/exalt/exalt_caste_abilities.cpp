@@ -31,7 +31,7 @@ namespace character {
 
       { caste::WATER,       { ability::BUREAUCRACY,
                               ability::INVESTIGATION,
-                              ability::LARCENY,
+                              ability::PRESTIDIGITATION,
                               ability::MARTIAL_ARTS,
                               ability::MANEUVER } },
 
@@ -51,7 +51,7 @@ namespace character {
                               ability::MEDICINE,
                               ability::PERFORMANCE,
                               ability::MANEUVER,
-                              ability::SURVIVAL } },
+                              ability::TECHNOLOGY } },
 
       { caste::FIRE,        { ability::ATHLETICS,
                               ability::DODGE,
@@ -70,7 +70,7 @@ namespace character {
                                    ability::INTEGRITY,
                                    ability::PERFORMANCE,
                                    ability::RESISTANCE,
-                                   ability::SURVIVAL },
+                                   ability::TECHNOLOGY },
 
     exalt_caste::_SCIENTIST_CASTE = { ability::INVESTIGATION,
                                       ability::ACADEMICS,
@@ -78,7 +78,7 @@ namespace character {
                                       ability::CRAFT,
                                       ability::MEDICINE },
 
-    exalt_caste::_STEALTH_CASTE = { ability::LARCENY,
+    exalt_caste::_STEALTH_CASTE = { ability::PRESTIDIGITATION,
                                     ability::ATHLETICS,
                                     ability::DODGE,
                                     ability::AWARENESS,
