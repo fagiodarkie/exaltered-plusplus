@@ -1,6 +1,8 @@
 #include "virtues/virtues.h"
 #include "virtues/virtue_names.h"
 
+#include "invalid_parameter.h"
+
 namespace character {
   namespace virtues {
     void virtues::write_to_json(QJsonObject &json) const
@@ -21,6 +23,19 @@ namespace character {
           virtue v = virtue(inner_json);
           insert(virtue_e, v);
         }
+    }
+
+    virtue virtues::value(virtue_enum virtue_name) const
+    {
+      auto found_virtue = std::find_if(begin(), end(), [virtue_name](virtue cur_virtue) -> bool {
+          return cur_virtue.virtue_enum() == virtue_name;
+        });
+      if (found_virtue != end())
+        {
+          return *found_virtue;
+        }
+
+      throw new exception::invalid_parameter();
     }
   }
 }

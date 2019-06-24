@@ -1,6 +1,6 @@
 #include "power/health.h"
 
-health::health()
-{
-
+namespace character {
+  namespace power {
+  }
 }

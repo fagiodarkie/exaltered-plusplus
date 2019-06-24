@@ -5,11 +5,13 @@
 
 namespace character {
   namespace virtues {
-    class virtues : public QMap<virtue_enum, virtue>, public serialisable
+    class virtues : public QList<virtue>, public serialisable
     {
     public:
       void read_from_json(const QJsonObject &json);
       void write_to_json(QJsonObject &json) const;
+
+      virtue value(virtue_enum virtue_name) const;
 
       virtual ~virtues();
     };
