@@ -37,5 +37,7 @@ namespace character {
 
       throw new exception::invalid_parameter();
     }
+
+    virtues::~virtues() {}
   }
 }
