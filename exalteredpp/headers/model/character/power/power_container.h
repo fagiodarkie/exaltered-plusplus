@@ -11,7 +11,8 @@ namespace character {
     class power_container : public serialisable
     {
     public:
-
+      power_container();
+      power_container(const essence& essence, const willpower& willpower, const health& health);
 
     private:
       essence     _essence;

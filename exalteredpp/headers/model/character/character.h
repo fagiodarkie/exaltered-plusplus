@@ -20,7 +20,14 @@ namespace character
 
     public:
       // constructors
-      character(QString name, unsigned int id = 0);
+      character(const QString name,
+                const character_type type,
+                const exalt::caste caste,
+                const attributes attributes,
+                const abilities abilities,
+                const virtues::virtues virtues,
+                const power::power_container power_container,
+                const unsigned int id = 0);
       character(const QJsonObject& object);
 
       // character fields
