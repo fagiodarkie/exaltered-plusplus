@@ -9,7 +9,7 @@ namespace character {
     };
 
     enum vice_enum {
-      LUST, GLUTTONY, WRATH, SLOTH, PRIDE, ENVY, GREED
+      LUST = 1, GLUTTONY, WRATH, SLOTH, PRIDE, ENVY, GREED
     };
 
     enum virtue_rank {

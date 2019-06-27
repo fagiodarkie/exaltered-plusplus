@@ -8,6 +8,7 @@
 #include "creation/character_type_model.h"
 #include "exalt/exalt_caste.h"
 #include "virtues/virtues.h"
+#include "power/power_container.h"
 
 namespace character
 {
@@ -47,14 +48,16 @@ namespace character
       void data_changed();
 
     private:
-      QString           _name;
-      character_type    _type;
-      exalt::caste      _character_caste;
+      QString                   _name;
+      character_type            _type;
+      unsigned int              _id;
 
-      unsigned int      _id;
-      attributes        _attributes;
-      abilities         _abilities;
-      virtues::virtues  _virtues;
+      exalt::caste              _character_caste;
+      attributes                _attributes;
+      abilities                 _abilities;
+      virtues::virtues          _virtues;
+      power::power_container    _power;
+
 
     };
 }

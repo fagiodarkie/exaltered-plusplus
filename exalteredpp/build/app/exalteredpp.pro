@@ -72,7 +72,9 @@ SOURCES += \
     ../../src/model/character/virtues/virtues.cpp \
     ../../src/model/character/power/power_container.cpp \
     ../../src/model/character/power/essence.cpp \
-    ../../src/model/character/power/health.cpp
+    ../../src/model/character/power/health.cpp \
+    ../../src/model/character/social/persona.cpp \
+    ../../src/model/character/narration/backgrounds.cpp
 
 HEADERS += \
     ../../headers/model/character/attributes/attribute_names.h \
@@ -123,7 +125,9 @@ HEADERS += \
     ../../headers/common/reverse_search.h \
     ../../headers/model/character/power/power_container.h \
     ../../headers/model/character/power/essence.h \
-    ../../headers/model/character/power/health.h
+    ../../headers/model/character/power/health.h \
+    ../../headers/model/character/social/persona.h \
+    ../../headers/model/character/narration/backgrounds.h
 
 CONFIG += mobility
 MOBILITY = 

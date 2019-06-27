@@ -15,8 +15,14 @@ namespace serialisation
     static const QString SLOT_CASTE;
     static const QString SLOT_FAVOURITE;
     static const QString SLOT_RANK;
+
     static const QString SLOT_VIRTUES;
+    static const QString SLOT_VICE_ID;
+    static const QString SLOT_VICE_VALUE;
+
     static const QString SLOT_WILLPOWER_TOTAL;
     static const QString SLOT_WILLPOWER_TEMP;
+    static const QString SLOT_HEALTH_TOTAL;
+    static const QString SLOT_HEALTH_TEMP;
   };
 }

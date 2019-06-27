@@ -13,7 +13,16 @@ namespace character {
 
       virtue value(virtue_enum virtue_name) const;
 
+      void set_vice(vice_enum vice_name, unsigned int vice_value = 1);
+
+      vice_enum vice() const;
+      unsigned int vice_value() const;
+
       virtual ~virtues();
+
+    private:
+      vice_enum _vice;
+      unsigned int _vice_value;
     };
   }
 }
