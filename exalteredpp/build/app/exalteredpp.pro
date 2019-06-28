@@ -36,6 +36,8 @@ SOURCES += \
     ../../src/model/character/attributes/attribute.cpp \
     ../../src/model/character/attributes/attributes.cpp \
     ../../src/model/character/exalt/exalt_caste_abilities.cpp \
+    ../../src/model/character/narrative/backgrounds.cpp \
+    ../../src/model/character/social/persona.cpp \
     ../../src/model/managers/character_manager.cpp \
     ../../src/serialisation/json_constants.cpp \
     ../../src/serialisation/filesystem_db.cpp \
@@ -74,13 +76,15 @@ SOURCES += \
     ../../src/model/character/power/essence.cpp \
     ../../src/model/character/power/health.cpp \
     ../../src/model/character/social/persona.cpp \
-    ../../src/model/character/narration/backgrounds.cpp
+    ../../src/model/character/narrative/backgrounds.cpp
 
 HEADERS += \
     ../../headers/model/character/attributes/attribute_names.h \
     ../../headers/model/character/character.h \
     ../../headers/model/character/attributes/attribute.h \
     ../../headers/model/character/attributes/attributes.h \
+    ../../headers/model/character/narrative/backgrounds.h \
+    ../../headers/model/character/social/persona.h \
     ../../headers/model/managers/character_manager.h \
     ../../headers/model/text/character_text_constants.h \
     ../../headers/serialisation/serialisable.h \
@@ -127,7 +131,7 @@ HEADERS += \
     ../../headers/model/character/power/essence.h \
     ../../headers/model/character/power/health.h \
     ../../headers/model/character/social/persona.h \
-    ../../headers/model/character/narration/backgrounds.h
+    ../../headers/model/character/narrative/backgrounds.h
 
 CONFIG += mobility
 MOBILITY = 
