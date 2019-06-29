@@ -54,7 +54,7 @@ SOURCES += \
     ../../src/model/character/power/power_container.cpp \
     ../../src/model/character/power/willpower.cpp \
     ../../src/model/character/social/persona.cpp \
-    ../../src/model/character/social/philosophy.cpp
+    ../../src/model/character/social/philosophy.cpp \
     ../../src/model/character/virtues/virtue.cpp \
     ../../src/model/character/virtues/virtues.cpp \
     ../../src/model/managers/character_manager.cpp \
@@ -76,10 +76,9 @@ SOURCES += \
     ../../src/qt/wizard/character_creation_name_type_page.cpp \
     ../../src/qt/wizard/character_creation_wizard.cpp \
     ../../src/serialisation/filesystem_db.cpp \
-    ../../src/serialisation/json_constants.cpp \
+    ../../src/serialisation/json_constants.cpp
 
 HEADERS += \
-
     ../../headers/common/reverse_search.h \
     ../../headers/errors/ability_not_found_exception.h \
     ../../headers/errors/characternotfoundexception.h \

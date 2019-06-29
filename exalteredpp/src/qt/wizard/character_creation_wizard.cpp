@@ -9,11 +9,9 @@ namespace qt {
     using character::character;
     using namespace character;
 
-    character_creation_wizard::character_creation_wizard(QSharedPointer<character> newly_created_character,
-                                                         QWidget* parent)
+    character_creation_wizard::character_creation_wizard(QWidget* parent)
       : QWidget (parent),
-        character_model(::character::creation::character_type_model::SOLAR_EXALT),
-        final_character(newly_created_character)
+        character_model(::character::creation::character_type_model::SOLAR_EXALT)
     {
       name_page = new character_creation_name_type_page(this);
       connect(name_page, &character_creation_name_type_page::back_issued, this, &character_creation_wizard::fallback);

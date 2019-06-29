@@ -23,8 +23,7 @@ namespace qt {
     {
       Q_OBJECT
     public:
-      character_creation_wizard(QSharedPointer<character::character> newly_created_character,
-                                QWidget* parent = nullptr);
+      character_creation_wizard(QWidget* parent = nullptr);
 
     signals:
       void character_created(QSharedPointer<character::character> new_character);
