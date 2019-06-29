@@ -15,7 +15,8 @@ namespace character {
       virtual ~logos();
 
     private:
-      unsigned int _logos, _qabbalah, _total_qabbalah, _absolute_principle_connection,
+      unsigned int _logos, _qabbalah, _total_qabbalah,
+        _absolute_principle_connection,
         _total_cyrcadian_rhytm, _spent_cyrcadian_points;
     };
   }
