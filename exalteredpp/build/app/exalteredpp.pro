@@ -32,112 +32,109 @@ INCLUDEPATH += ../../headers \
     ../../headers/errors
 
 SOURCES += \
-    ../../src/model/character/character.cpp \
+    ../../src/errors/ability_not_found_exception.cpp \
+    ../../src/errors/characternotfoundexception.cpp \
+    ../../src/errors/invalid_parameter.cpp \
+    ../../src/model/character/abilities/abilities.cpp \
+    ../../src/model/character/abilities/ability.cpp \
+    ../../src/model/character/abilities/ability_group.cpp \
+    ../../src/model/character/abilities/default_ability_factory.cpp \
+    ../../src/model/character/abilities/specialisation.cpp \
     ../../src/model/character/attributes/attribute.cpp \
     ../../src/model/character/attributes/attributes.cpp \
+    ../../src/model/character/character.cpp \
+    ../../src/model/character/creation/character_creation_configuration.cpp \
+    ../../src/model/character/creation/character_type_model.cpp \
+    ../../src/model/character/exalt/exalt_caste.cpp \
     ../../src/model/character/exalt/exalt_caste_abilities.cpp \
     ../../src/model/character/narrative/backgrounds.cpp \
-    ../../src/model/character/social/persona.cpp \
-    ../../src/model/managers/character_manager.cpp \
-    ../../src/serialisation/json_constants.cpp \
-    ../../src/serialisation/filesystem_db.cpp \
-    ../../src/qt/exalteredapp.cpp \
-    ../../src/qt/main.cpp \
-    ../../src/qt/screen/qloadcharacterscreen.cpp \
-    ../../src/qt/screen/qmainscreen.cpp \
-    ../../src/qt/layout/qborderlayout.cpp \
-    ../../src/qt/widget/changeable_value_label.cpp \
-    ../../src/qt/navigation/exalteredapp_navigation_logic.cpp \
-    ../../src/errors/characternotfoundexception.cpp \
-    ../../src/qt/screen/qcharacterinfoscreen.cpp \
-    ../../src/qt/screen/qcharacterattributes.cpp \
-    ../../src/qt/widget/name_value_widget.cpp \
-    ../../src/model/character/abilities/ability.cpp \
-    ../../src/model/character/abilities/abilities.cpp \
-    ../../src/qt/screen/qcharacterabilities.cpp \
-    ../../src/qt/navigation/exalteredapp_load_screen_logic.cpp \
-    ../../src/model/character/abilities/ability_group.cpp \
-    ../../src/model/character/abilities/specialisation.cpp \
-    ../../src/errors/ability_not_found_exception.cpp \
-    ../../src/errors/invalid_parameter.cpp \
-    ../../src/model/character/abilities/default_ability_factory.cpp \
-    ../../src/model/character/creation/character_type_model.cpp \
-    ../../src/model/character/creation/character_creation_configuration.cpp \
-    ../../src/qt/wizard/character_creation_wizard.cpp \
-    ../../src/qt/wizard/character_creation_name_type_page.cpp \
-    ../../src/qt/wizard/attributes_priority_page.cpp \
-    ../../src/qt/wizard/character_creation_attribute_points_page.cpp \
-    ../../src/qt/wizard/character_creation_favorite_abilities.cpp \
-    ../../src/model/character/exalt/exalt_caste.cpp \
-    ../../src/model/character/virtues/virtue.cpp \
-    ../../src/model/character/power/willpower.cpp \
-    ../../src/model/character/virtues/virtues.cpp \
-    ../../src/model/character/power/power_container.cpp \
     ../../src/model/character/power/essence.cpp \
     ../../src/model/character/power/health.cpp \
     ../../src/model/character/power/logos.cpp \
+    ../../src/model/character/power/power_container.cpp \
+    ../../src/model/character/power/willpower.cpp \
     ../../src/model/character/social/persona.cpp \
-    ../../src/model/character/narrative/backgrounds.cpp \
     ../../src/model/character/social/philosophy.cpp
+    ../../src/model/character/virtues/virtue.cpp \
+    ../../src/model/character/virtues/virtues.cpp \
+    ../../src/model/managers/character_manager.cpp \
+    ../../src/qt/exalteredapp.cpp \
+    ../../src/qt/layout/qborderlayout.cpp \
+    ../../src/qt/main.cpp \
+    ../../src/qt/navigation/exalteredapp_load_screen_logic.cpp \
+    ../../src/qt/navigation/exalteredapp_navigation_logic.cpp \
+    ../../src/qt/screen/qcharacterabilities.cpp \
+    ../../src/qt/screen/qcharacterattributes.cpp \
+    ../../src/qt/screen/qcharacterinfoscreen.cpp \
+    ../../src/qt/screen/qloadcharacterscreen.cpp \
+    ../../src/qt/screen/qmainscreen.cpp \
+    ../../src/qt/widget/changeable_value_label.cpp \
+    ../../src/qt/widget/name_value_widget.cpp \
+    ../../src/qt/wizard/attributes_priority_page.cpp \
+    ../../src/qt/wizard/character_creation_attribute_points_page.cpp \
+    ../../src/qt/wizard/character_creation_favorite_abilities.cpp \
+    ../../src/qt/wizard/character_creation_name_type_page.cpp \
+    ../../src/qt/wizard/character_creation_wizard.cpp \
+    ../../src/serialisation/filesystem_db.cpp \
+    ../../src/serialisation/json_constants.cpp \
 
 HEADERS += \
-    ../../headers/model/character/attributes/attribute_names.h \
-    ../../headers/model/character/character.h \
-    ../../headers/model/character/attributes/attribute.h \
-    ../../headers/model/character/attributes/attributes.h \
-    ../../headers/model/character/narrative/backgrounds.h \
-    ../../headers/model/character/social/persona.h \
-    ../../headers/model/managers/character_manager.h \
-    ../../headers/model/text/character_text_constants.h \
-    ../../headers/serialisation/serialisable.h \
-    ../../headers/serialisation/json_constants.h \
-    ../../headers/serialisation/db_abstraction.h \
-    ../../headers/serialisation/filesystem_db.h \
-    ../../headers/qt/exalteredapp.h \
-    ../../headers/qt/screen/qloadcharacterscreen.h \
-    ../../headers/qt/layout/qborderlayout.h \
-    ../../headers/qt/label/interfacelabels.h \
-    ../../headers/qt/screen/qmainscreen.h \
-    ../../headers/qt/widget/changeable_value_label.h \
+
+    ../../headers/common/reverse_search.h \
+    ../../headers/errors/ability_not_found_exception.h \
     ../../headers/errors/characternotfoundexception.h \
     ../../headers/errors/error_codes.h \
-    ../../headers/qt/objects_factory.h \
-    ../../headers/qt/screen/qcharacterinfoscreen.h \
-    ../../headers/model/behavioral/name_value_pair.h \
-    ../../headers/qt/widget/name_value_widget.h \
-    ../../headers/qt/screen/qcharacterattributes.h \
-    ../../headers/model/character/abilities/ability.h \
-    ../../headers/model/character/abilities/ability_names.h \
-    ../../headers/model/character/abilities/abilities.h \
-    ../../headers/qt/screen/qcharacterabilities.h \
-    ../../headers/model/character/abilities/ability_group.h \
-    ../../headers/model/character/abilities/specialisation.h \
-    ../../headers/errors/ability_not_found_exception.h \
     ../../headers/errors/invalid_parameter.h \
+    ../../headers/model/behavioral/name_value_pair.h \
+    ../../headers/model/character/abilities/abilities.h \
+    ../../headers/model/character/abilities/ability.h \
+    ../../headers/model/character/abilities/ability_group.h \
+    ../../headers/model/character/abilities/ability_names.h \
     ../../headers/model/character/abilities/abstract_ability_factory.h \
     ../../headers/model/character/abilities/default_ability_factory.h \
-    ../../headers/model/character/creation/character_type_model.h \
+    ../../headers/model/character/abilities/specialisation.h \
+    ../../headers/model/character/attributes/attribute.h \
+    ../../headers/model/character/attributes/attribute_names.h \
+    ../../headers/model/character/attributes/attributes.h \
+    ../../headers/model/character/character.h \
     ../../headers/model/character/creation/character_creation_configuration.h \
-    ../../headers/qt/wizard/character_creation_wizard.h \
-    ../../headers/qt/wizard/character_creation_name_type_page.h \
-    ../../headers/qt/wizard/attributes_priority_page.h \
-    ../../headers/qt/wizard/character_creation_attribute_points_page.h \
-    ../../headers/qt/wizard/character_creation_favorite_abilities.h \
+    ../../headers/model/character/creation/character_type_model.h \
     ../../headers/model/character/exalt/exalt_caste.h \
-    ../../headers/model/character/virtues/virtues.h \
-    ../../headers/model/character/virtues/virtue.h \
-    ../../headers/model/character/virtues/virtue_names.h \
-    ../../headers/model/character/power/willpower.h \
-    ../../headers/common/reverse_search.h \
-    ../../headers/model/character/power/power_container.h \
+    ../../headers/model/character/narrative/backgrounds.h \
     ../../headers/model/character/power/essence.h \
     ../../headers/model/character/power/health.h \
     ../../headers/model/character/power/logos.h \
+    ../../headers/model/character/power/power_container.h \
+    ../../headers/model/character/power/willpower.h \
+    ../../headers/model/character/social/emotions_names.h \
     ../../headers/model/character/social/persona.h \
     ../../headers/model/character/social/philosophy.h \
     ../../headers/model/character/social/social_specifics.h \
-    ../../headers/model/character/narrative/backgrounds.h \
-    ../../headers/model/character/social/emotions_names.h
+    ../../headers/model/character/virtues/virtue.h \
+    ../../headers/model/character/virtues/virtue_names.h \
+    ../../headers/model/character/virtues/virtues.h \
+    ../../headers/model/managers/character_manager.h \
+    ../../headers/model/text/character_text_constants.h \
+    ../../headers/qt/exalteredapp.h \
+    ../../headers/qt/label/interfacelabels.h \
+    ../../headers/qt/layout/qborderlayout.h \
+    ../../headers/qt/objects_factory.h \
+    ../../headers/qt/screen/qcharacterabilities.h \
+    ../../headers/qt/screen/qcharacterattributes.h \
+    ../../headers/qt/screen/qcharacterinfoscreen.h \
+    ../../headers/qt/screen/qloadcharacterscreen.h \
+    ../../headers/qt/screen/qmainscreen.h \
+    ../../headers/qt/widget/changeable_value_label.h \
+    ../../headers/qt/widget/name_value_widget.h \
+    ../../headers/qt/wizard/attributes_priority_page.h \
+    ../../headers/qt/wizard/character_creation_attribute_points_page.h \
+    ../../headers/qt/wizard/character_creation_favorite_abilities.h \
+    ../../headers/qt/wizard/character_creation_name_type_page.h \
+    ../../headers/qt/wizard/character_creation_wizard.h \
+    ../../headers/serialisation/db_abstraction.h \
+    ../../headers/serialisation/filesystem_db.h \
+    ../../headers/serialisation/json_constants.h \
+    ../../headers/serialisation/serialisable.h
 
 CONFIG += mobility
 MOBILITY = 
