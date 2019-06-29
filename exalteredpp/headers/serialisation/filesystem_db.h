@@ -4,20 +4,27 @@
 #include <QMap>
 
 namespace serialisation {
+
   class filesystem_db : public db_abstraction
   {
   public:
     filesystem_db();
 
     // db_abstraction interface
-    QSharedPointer<character::character> load_character(const QString& character_id) override;
+    QSharedPointer<character> load_character(const QString& character_id) override;
     bool has_characters() const override;
     QList<QString> character_list() override;
-    void save_character(const QSharedPointer<character::character> character) override;
+    void save_character(const QSharedPointer<character> character) override;
     void remove_character(const QString& character_id) override;
     void remove_character(unsigned int character_id) override;
     QString character_name(const QString& character_id) const override;
-    QSharedPointer<character::character> create_character(const QString& character_name) override;
+    QSharedPointer<character> create_character( const QString name,
+                                                const creation::character_type type,
+                                                const exalt::caste caste,
+                                                const attributes attributes,
+                                                const abilities abilities,
+                                                const virtues::virtues virtues,
+                                                const power::power_container power_container) override;
 
   private:
     static QString FILE_EXT, AVAILABLE_CHARACTERS_FILE;

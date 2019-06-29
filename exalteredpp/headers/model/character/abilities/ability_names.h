@@ -9,9 +9,9 @@ namespace character
     enum ability
     {
       MELEE, ARCHERY, THROWN, MARTIAL_ARTS, WAR,
-      SURVIVAL, PERFORMANCE, PRESENCE, RESISTANCE, INTEGRITY,
+      TECHNOLOGY, PERFORMANCE, PRESENCE, RESISTANCE, INTEGRITY,
       MEDITATION, MEDICINE, INVESTIGATION, ACADEMICS, CRAFT,
-      STEALTH, AWARENESS, DODGE, ATHLETICS, LARCENY,
+      STEALTH, AWARENESS, DODGE, ATHLETICS, PRESTIDIGITATION,
       MANEUVER, SOCIALISE, BUREAUCRACY, TEACHING
     };
 
@@ -38,35 +38,35 @@ namespace character
     }
 
     static const QMap<ability, QString> ABILITY_NAME {
-      { MELEE,            "Melee"         },
-      { ARCHERY,          "Archery"       },
-      { THROWN,           "Thrown"        },
-      { MARTIAL_ARTS,     "Martial Arts"  },
-      { WAR,              "War"           },
-      { SURVIVAL,         "Survival"      },
-      { PERFORMANCE,      "Performance"   },
-      { PRESENCE,         "Presence"      },
-      { RESISTANCE,       "Resistance"    },
-      { INTEGRITY,        "Integrity"     },
-      { ACADEMICS,        "Academics"     },
-      { MEDICINE,         "Medicine"      },
-      { INVESTIGATION,    "Investigation" },
-      { TEACHING,         "Teaching"      },
-      { CRAFT,            "Craft"         },
-      { STEALTH,          "Stealth"       },
-      { AWARENESS,        "Awareness"     },
-      { DODGE,            "Dodge"         },
-      { ATHLETICS,        "Athletics"     },
-      { LARCENY,          "Larceny"       },
-      { MANEUVER,         "Maneuver"      },
-      { SOCIALISE,        "Socialise"     },
-      { BUREAUCRACY,      "Bureaucracy"   }
+      { MELEE,            "Melee"           },
+      { ARCHERY,          "Archery"         },
+      { THROWN,           "Thrown"          },
+      { MARTIAL_ARTS,     "Martial Arts"    },
+      { WAR,              "War"             },
+      { TECHNOLOGY,       "Technology"      },
+      { PERFORMANCE,      "Performance"     },
+      { PRESENCE,         "Presence"        },
+      { RESISTANCE,       "Resistance"      },
+      { INTEGRITY,        "Integrity"       },
+      { ACADEMICS,        "Academics"       },
+      { MEDICINE,         "Medicine"        },
+      { INVESTIGATION,    "Investigation"   },
+      { TEACHING,         "Teaching"        },
+      { CRAFT,            "Craft"           },
+      { STEALTH,          "Stealth"         },
+      { AWARENESS,        "Awareness"       },
+      { DODGE,            "Dodge"           },
+      { ATHLETICS,        "Athletics"       },
+      { PRESTIDIGITATION, "Prestidigitation"},
+      { MANEUVER,         "Maneuver"        },
+      { SOCIALISE,        "Socialise"       },
+      { BUREAUCRACY,      "Bureaucracy"     }
     };
 
     static const QMap<ability_category, QList<ability>> ABILITY_CATEGORY {
-      { COMBAT,     { MELEE,      ARCHERY,      THROWN,   MARTIAL_ARTS, WAR,            RESISTANCE, AWARENESS,    DODGE } },
-      { NARRATIVE,  { SURVIVAL,   MEDITATION,   MEDICINE, CRAFT,        STEALTH,        ATHLETICS,  LARCENY,      MANEUVER } },
-      { SOCIAL,     { ACADEMICS,  PERFORMANCE,  PRESENCE, INTEGRITY,    INVESTIGATION,  SOCIALISE,  BUREAUCRACY,  TEACHING } }
+      { COMBAT,     { MELEE,      ARCHERY,      THROWN,   MARTIAL_ARTS, WAR,            RESISTANCE,   AWARENESS,        DODGE     } },
+      { NARRATIVE,  { TECHNOLOGY, MEDITATION,   MEDICINE, CRAFT,        STEALTH,        ATHLETICS,    PRESTIDIGITATION, MANEUVER  } },
+      { SOCIAL,     { ACADEMICS,  PERFORMANCE,  PRESENCE, INTEGRITY,    INVESTIGATION,  SOCIALISE,    BUREAUCRACY,      TEACHING  } }
     };
 
   }

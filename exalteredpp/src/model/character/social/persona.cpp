@@ -1,6 +1,6 @@
 #include "social/persona.h"
 
-persona::persona()
-{
-
+namespace character {
+  namespace social {
+  }
 }

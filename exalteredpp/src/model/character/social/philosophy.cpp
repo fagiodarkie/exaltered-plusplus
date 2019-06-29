@@ -1,6 +1,7 @@
 #include "social/philosophy.h"
 
-philosophy::philosophy()
-{
+namespace character {
+  namespace social {
 
+  }
 }

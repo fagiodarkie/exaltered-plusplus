@@ -5,7 +5,23 @@ using serialisation::json_constants;
 
 namespace character
 {
-  character::character(QString name, unsigned int id) : _name(name), _id(id) { };
+  character::character(const QString name,
+                       const character_type type,
+                       const exalt::caste caste,
+                       const attributes attributes,
+                       const abilities abilities,
+                       const virtues::virtues virtues,
+                       const power::power_container power_container,
+                       const unsigned int id)
+    : _name(name),
+      _type(type),
+      _id(id),
+      _character_caste(caste),
+      _attributes(attributes),
+      _abilities(abilities),
+      _virtues(virtues),
+      _power(power_container)
+  { };
 
   character::character(const QJsonObject& object)
   {
