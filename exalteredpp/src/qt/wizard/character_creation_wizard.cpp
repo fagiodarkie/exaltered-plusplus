@@ -9,9 +9,10 @@ namespace qt {
     using character::character;
     using namespace character;
 
-    character_creation_wizard::character_creation_wizard(QWidget* parent)
+    character_creation_wizard::character_creation_wizard(QSharedPointer<manager::character_manager> manager, QWidget* parent)
       : QWidget (parent),
-        character_model(::character::creation::character_type_model::SOLAR_EXALT)
+        character_model(::character::creation::character_type_model::SOLAR_EXALT),
+        char_manager(manager)
     {
       name_page = new character_creation_name_type_page(this);
       connect(name_page, &character_creation_name_type_page::back_issued, this, &character_creation_wizard::fallback);
@@ -36,8 +37,7 @@ namespace qt {
     void character_creation_wizard::load_attributes_priority(const QString&  char_name, creation::character_type type)
     {
       new_character_type = type;
-      final_character->set_name(char_name);
-      final_character->set_type(type);
+      character_name = char_name;
       character_model = creation::character_type_model::get_by_character_type(type);
       attribute_priority_page->set_attribute_values(static_cast<int>(character_model.primary_category_attribute_value),
                                                     static_cast<int>(character_model.secondary_category_attribute_value),
@@ -60,11 +60,7 @@ namespace qt {
 
     void character_creation_wizard::load_attribute_points(const class attributes &points)
     {
-      for (auto attribute_name: points.keys())
-        {
-          final_character->set_attribute(attribute_name, points[attribute_name]);
-        }
-
+      attributes = points;
       advance();
     }
 
@@ -73,7 +69,16 @@ namespace qt {
       if (layout->currentIndex() + 1 < layout->count() )
         layout->setCurrentIndex(layout->currentIndex() + 1);
       else
-        emit character_created(final_character);
+        {
+          QSharedPointer<character> final_character = char_manager->create_character(character_name,
+                              new_character_type,
+                              caste,
+                              attributes,
+                              abilities,
+                              character_virtues,
+                              power);
+          emit character_created(final_character);
+        }
     }
 
     void character_creation_wizard::fallback()
