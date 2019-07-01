@@ -88,7 +88,7 @@ namespace qt {
           char_type = combo_box->currentText();
 
       character_type type = commons::reverse_search_in_map(character::creation::CHARACTER_TYPE_LIST, character::creation::CHARACTER_TYPE_NAMES, char_type);
-      character::exalt::caste caste_type = caste_combo_box->isVisible() ? character::exalt::caste::NO_CASTE : commons::reverse_search_in_map(character::exalt::exalt_caste::CASTES_OF_EXALT_TYPE.value(type),
+      character::exalt::caste caste_type = caste_combo_box->isHidden() ? character::exalt::caste::NO_CASTE : commons::reverse_search_in_map(character::exalt::exalt_caste::CASTES_OF_EXALT_TYPE.value(type),
                                                                                                              character::exalt::exalt_caste::NAME_OF_CASTE,
                                                                                                              caste_combo_box->currentText());
       emit character_type_chosen(char_name, type, caste_type);

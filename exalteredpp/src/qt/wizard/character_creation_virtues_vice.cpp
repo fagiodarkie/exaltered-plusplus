@@ -15,9 +15,17 @@ namespace qt {
 
     const char* character_creation_virtues_vice::AFFECTED_VIRTUE_VICE_PROPERTY = "affected-virtue";
 
-    character_creation_virtues_vice::character_creation_virtues_vice(virtues virtues, unsigned int max_virtues, QWidget* parent)
-      : QWidget (parent), max_points_on_virtues(max_virtues), _virtues(virtues)
+    character_creation_virtues_vice::character_creation_virtues_vice(QWidget* parent)
+      : QWidget (parent)
     {
+    }
+
+    void character_creation_virtues_vice::update_virtues_limits(virtues virtues, unsigned int max_virtues, unsigned int max_virtue_value)
+    {
+      _virtues = virtues;
+      max_points_on_virtues = max_virtues;
+      this->max_virtue_value = max_virtue_value;
+
       QWidget *virtues_widget = new QWidget;
       QFormLayout *virtues_vice_form = new QFormLayout;
 
@@ -36,12 +44,12 @@ namespace qt {
           QPushButton *add = new QPushButton("+");
           add->setProperty(AFFECTED_VIRTUE_VICE_PROPERTY, v);
           connect(add, &QPushButton::clicked, this, &character_creation_virtues_vice::increase_issued);
-          add_to_virtues_or_vice.push_back(add);
+          add_to_virtues_or_vice[v] = add;
 
           QPushButton *remove = new QPushButton("-");
           remove->setProperty(AFFECTED_VIRTUE_VICE_PROPERTY, v);
           connect(remove, &QPushButton::clicked, this, &character_creation_virtues_vice::decrease_issued);
-          remove_from_virtues_or_vice.push_back(remove);
+          remove_from_virtues_or_vice[v] = remove;
 
           QHBoxLayout *row = new QHBoxLayout;
           row->addWidget(virtue_label.value(v));
@@ -62,21 +70,19 @@ namespace qt {
         connect(vice_selector, &QComboBox::currentTextChanged, this, &character_creation_virtues_vice::update_vice);
 
         // increase / decrease management
-        QPushButton *add = new QPushButton("+");
-        connect(add, &QPushButton::clicked, this, &character_creation_virtues_vice::increase_issued);
-        add_to_virtues_or_vice.push_back(add);
+        add_vice = new QPushButton("+");
+        connect(add_vice, &QPushButton::clicked, this, &character_creation_virtues_vice::increase_issued);
 
-        QPushButton *remove = new QPushButton("-");
-        connect(remove, &QPushButton::clicked, this, &character_creation_virtues_vice::decrease_issued);
-        remove_from_virtues_or_vice.push_back(remove);
+        remove_vice = new QPushButton("-");
+        connect(remove_vice, &QPushButton::clicked, this, &character_creation_virtues_vice::decrease_issued);
 
         vice_label = new QLabel;
         update_vice_label();
 
         QHBoxLayout *row = new QHBoxLayout;
         row->addWidget(vice_label);
-        row->addWidget(add);
-        row->addWidget(remove);
+        row->addWidget(add_vice);
+        row->addWidget(remove_vice);
         row->addWidget(vice_selector);
         virtues_vice_form->addRow(row);
       }
@@ -126,10 +132,20 @@ namespace qt {
 
       total_points_spent+=_virtues.vice_value();
 
-      if (total_points_spent == max_points_on_virtues)
+      bool add_disabled = (total_points_spent == max_points_on_virtues);
+      for (QPushButton* button: add_to_virtues_or_vice.values())
         {
-          // TODO remove
+          button->setDisabled(add_disabled);
         }
+      add_vice->setDisabled(add_disabled);
+
+      for (virtue_enum v: VIRTUE_LIST)
+        {
+          remove_from_virtues_or_vice[v]->setDisabled(_virtues[v].value() >= max_virtue_value);
+        }
+      remove_vice->setDisabled(_virtues.vice_value() >= max_virtue_value);
+
+      next_page->setDisabled(!add_disabled);
     }
 
     void character_creation_virtues_vice::update_label(virtue_enum virtue)

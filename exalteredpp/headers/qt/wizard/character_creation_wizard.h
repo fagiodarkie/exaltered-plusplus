@@ -13,6 +13,7 @@
 #include "wizard/character_creation_name_type_page.h"
 #include "wizard/attributes_priority_page.h"
 #include "wizard/character_creation_attribute_points_page.h"
+#include "wizard/character_creation_virtues_vice.h"
 
 namespace qt {
   namespace wizard {
@@ -33,6 +34,7 @@ namespace qt {
       void load_attributes_priority(const QString&  char_name, character_type type);
       void load_attributes_values(const QString& primary_attribute, const QString& secondary_attribute, const QString& tertiary_attribute);
       void load_attribute_points(const character::attributes& points);
+      void load_persona(const character::virtues::virtues& virtues);
 
 
       QString character_name;
@@ -51,6 +53,7 @@ namespace qt {
       character_creation_name_type_page* name_page;
       attributes_priority_page* attribute_priority_page;
       character_creation_attribute_points_page* attribute_points_page;
+      character_creation_virtues_vice* virtues_page;
 
       QStackedLayout *layout;
     };

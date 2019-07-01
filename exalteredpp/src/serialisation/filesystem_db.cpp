@@ -8,10 +8,8 @@
 
 namespace serialisation {
 
-  QString filesystem_db::FILE_EXT = ".dgc";
-  QString filesystem_db::AVAILABLE_CHARACTERS_FILE = "available_characters.json";
-
   filesystem_db::filesystem_db()
+    : AVAILABLE_CHARACTERS_FILE("available_characters.json"), FILE_EXT(".dcg")
   {
     QFile map_file(AVAILABLE_CHARACTERS_FILE);
     if (map_file.exists())

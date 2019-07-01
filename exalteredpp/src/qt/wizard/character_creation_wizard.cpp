@@ -13,7 +13,7 @@ namespace qt {
       : QWidget (parent),
         character_model(::character::creation::character_type_model::SOLAR_EXALT),
         char_manager(manager)
-    {
+    {      
       name_page = new character_creation_name_type_page(this);
       connect(name_page, &character_creation_name_type_page::back_issued, this, &character_creation_wizard::fallback);
       connect(name_page, &character_creation_name_type_page::character_type_chosen, this, &character_creation_wizard::load_attributes_priority);
@@ -26,10 +26,15 @@ namespace qt {
       connect(attribute_points_page, &character_creation_attribute_points_page::back_issued, this, &character_creation_wizard::fallback);
       connect(attribute_points_page, &character_creation_attribute_points_page::attribute_points_chosen, this, &character_creation_wizard::load_attribute_points);
 
+      virtues_page = new character_creation_virtues_vice(this);
+      connect(virtues_page, &character_creation_virtues_vice::back_issued, this, &character_creation_wizard::fallback);
+      connect(virtues_page, &character_creation_virtues_vice::virtues_chosen, this, &character_creation_wizard::load_persona);
+
       layout = new QStackedLayout;
       layout->addWidget(name_page);
       layout->addWidget(attribute_priority_page);
       layout->addWidget(attribute_points_page);
+      layout->addWidget(virtues_page);
 
       setLayout(layout);
     }
@@ -61,6 +66,17 @@ namespace qt {
     void character_creation_wizard::load_attribute_points(const class attributes &points)
     {
       attributes = points;
+
+      // these should go after all the yadda yadda of abilities
+      virtues_page->update_virtues_limits(character_virtues, character_model.starting_virtue_points, character_model.max_std_virtue_points);
+
+      advance();
+    }
+
+    void character_creation_wizard::load_persona(const ::character::virtues::virtues &virtues)
+    {
+      character_virtues = virtues;
+
       advance();
     }
 

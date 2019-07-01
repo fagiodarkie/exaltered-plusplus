@@ -18,7 +18,9 @@ namespace qt {
       Q_OBJECT
 
     public:
-      character_creation_virtues_vice(virtues virtues, unsigned int max_virtues, QWidget* parent = nullptr);
+      character_creation_virtues_vice(QWidget* parent = nullptr);
+      void update_virtues_limits(virtues virtues, unsigned int max_virtues, unsigned int max_virtue_value);
+
 
     signals:
       void back_issued();
@@ -33,14 +35,14 @@ namespace qt {
       static const char* AFFECTED_VIRTUE_VICE_PROPERTY;
       void next_issued();
 
-      unsigned int max_points_on_virtues;
-      QPushButton *next_page, *cancel;
+      unsigned int max_points_on_virtues, max_virtue_value;
+      QPushButton *next_page, *cancel, *add_vice, *remove_vice;
       virtues _virtues;
       QComboBox *vice_selector;
       QLabel *vice_label;
       QMap<virtue_enum, QComboBox*> virtue_type;
       QMap<virtue_enum, QLabel*> virtue_label;
-      QList<QPushButton*> add_to_virtues_or_vice, remove_from_virtues_or_vice;
+      QMap<virtue_enum, QPushButton*> add_to_virtues_or_vice, remove_from_virtues_or_vice;
 
       void choose_first_virtue_type();
       void choose_second_virtue_type();

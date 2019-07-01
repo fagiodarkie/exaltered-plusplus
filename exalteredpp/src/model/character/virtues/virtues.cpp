@@ -12,7 +12,7 @@ namespace character {
     {
       for (virtue_enum virtue_e: VIRTUE_LIST)
         {
-          operator[](virtue_e) = virtue(virtue_e, 1, ADULT);
+          push_back(virtue(virtue_e, 1, ADULT));
         }
     }
 
