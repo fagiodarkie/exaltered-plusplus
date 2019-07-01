@@ -2,6 +2,7 @@
 
 #include <QList>
 #include <QMap>
+#include "virtues/virtue_names.h"
 
 namespace character {
   namespace social {
@@ -17,7 +18,7 @@ namespace character {
       SERENITY,     JOY,          ECSTASY
     };
 
-    static const QList<emotion> BASE_EMOTION = {
+    static const QList<emotion> BASE_EMOTIONS = {
       APPROVAL,
       MELANCHOLY,
       NUISANCE,
@@ -28,7 +29,29 @@ namespace character {
       SERENITY
     };
 
-    static const QMap<emotion, emotion> MIDDLE_EMOTION = {
+    static const QList<emotion> MIDDLE_EMOTIONS = {
+      TRUST,
+      SADNESS,
+      ANGRINESS,
+      DISTASTE,
+      SURPRISE,
+      FEAR,
+      EXPECTATION,
+      JOY
+    };
+
+    static const QList<emotion> INTIMATE_EMOTIONS = {
+      ADMIRATION,
+      GRIEF,
+      RAGE,
+      REPULSE,
+      WONDER,
+      TERROR,
+      HYPE,
+      ECSTASY
+    };
+
+    static const QMap<emotion, emotion> MIDDLE_EMOTION_GRADES = {
       { APPROVAL,     TRUST       },
       { MELANCHOLY,   SADNESS     },
       { NUISANCE,     ANGRINESS   },
@@ -39,7 +62,7 @@ namespace character {
       { SERENITY,     JOY         }
     };
 
-    static const QMap<emotion, emotion> INTIMATE_EMOTION = {
+    static const QMap<emotion, emotion> INTIMATE_EMOTION_GRADES = {
       { APPROVAL,     ADMIRATION },
       { MELANCHOLY,   GRIEF      },
       { NUISANCE,     RAGE       },
@@ -49,6 +72,32 @@ namespace character {
       { INTEREST,     HYPE       },
       { SERENITY,     ECSTASY    }
     };
+
+    static const QMap<virtues::virtue_enum, QList<emotion>> EMOTION_UNDER_VIRTUE = {
+      { virtues::COMPASSION, { NUISANCE, CARELESSNESS } },
+      { virtues::CONVINCTION, { APPROVAL, MELANCHOLY } },
+      { virtues::VALOR, { DISTRACTION, FRIGHT } },
+      { virtues::TEMPERANCE, { INTEREST, SERENITY } }
+    };
+
+    virtues::virtue_enum VIRTUE_OF_EMOTION(enum emotion _emotion) {
+
+      emotion emotion_to_look_up = _emotion;
+      if (!BASE_EMOTIONS.contains(_emotion))
+        emotion_to_look_up = *std::find_if(BASE_EMOTIONS.begin(), BASE_EMOTIONS.end(),
+                              [_emotion](enum emotion lower_grade)
+        {
+          return (_emotion == MIDDLE_EMOTION_GRADES[lower_grade])
+            || (_emotion == INTIMATE_EMOTION_GRADES[lower_grade]);
+        });
+
+      return *std::find_if(virtues::VIRTUE_LIST.begin(), virtues::VIRTUE_LIST.end(),
+              [emotion_to_look_up](virtues::virtue_enum virtue)
+                {
+                  return EMOTION_UNDER_VIRTUE[virtue].contains(emotion_to_look_up);
+                });
+    }
+
 
   }
 }

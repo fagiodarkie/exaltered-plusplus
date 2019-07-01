@@ -6,6 +6,16 @@
 
 namespace character {
   namespace virtues {
+
+    virtues::virtues()
+      : _vice(LUST), _vice_value(1)
+    {
+      for (virtue_enum virtue_e: VIRTUE_LIST)
+        {
+          operator[](virtue_e) = virtue(virtue_e, 1, ADULT);
+        }
+    }
+
     void virtues::write_to_json(QJsonObject &json) const
     {
       for (virtue_enum virtue_e : VIRTUE_LIST)
@@ -45,10 +55,14 @@ namespace character {
       throw new exception::invalid_parameter();
     }
 
-    void virtues::set_vice(vice_enum vice_name, unsigned int vice_value)
+    void virtues::set_vice_type(vice_enum vice_name)
     {
       _vice = vice_name;
-      _vice_value = vice_value;
+    }
+
+    void virtues::set_vice_value(unsigned int value)
+    {
+      _vice_value = value;
     }
 
     vice_enum virtues::vice() const

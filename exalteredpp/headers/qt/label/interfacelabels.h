@@ -19,6 +19,8 @@ namespace qt {
       static QString SECONDARY_ATTRIBUTE  = "Secondary Attribute";
       static QString TERTIARY_ATTRIBUTE   = "Tertiary Attribute";
 
+      static QString VICE_SELECTOR = "Vice";
+
       static QString ATTRIBUTE_LABEL_WITH_TOTAL_POINTS(const QString& label, int points)
       {
         return QString("%1 (total points: %2)").arg(label, QString::number(points));
