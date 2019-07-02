@@ -109,21 +109,67 @@ namespace qt {
       outer_layout->addWidget(virtues_widget, layout::QBorderLayout::Center);
       outer_layout->addWidget(buttons, layout::QBorderLayout::South);
 
+      choose_first_virtue_type();
+      update_button_status();
       setLayout(outer_layout);
     }
 
     void character_creation_virtues_vice::choose_first_virtue_type()
     {
-
+      update_scrollers(0);
     }
 
     void character_creation_virtues_vice::choose_second_virtue_type()
     {
-
+       update_scrollers(1);
     }
 
     void character_creation_virtues_vice::choose_third_virtue_type()
     {
+      update_scrollers(2);
+    }
+
+    void character_creation_virtues_vice::update_scrollers(int virtue_chosen)
+    {
+      virtue_enum selected_virtue = VIRTUE_LIST[virtue_chosen];
+      QString selected_text = virtue_type[selected_virtue]->currentText();
+
+      if (selected_text.isEmpty())
+        return;
+
+      virtue_rank selected_rank = commons::reverse_search_in_map(VIRTUE_RANK_LIST, RANK_NAME, selected_text);
+      _virtues.value(selected_virtue).set_rank(selected_rank);
+
+      QList<QString> already_picked_ranks;
+      for (int i = 0; i <= virtue_chosen; ++i)
+        {
+          already_picked_ranks.append(RANK_NAME[_virtues[VIRTUE_LIST[i]].rank()]);
+        }
+
+      if (virtue_chosen + 1 == VIRTUE_LIST.size())
+        return;
+
+      // curtail next selector
+      virtue_enum next_virtue = VIRTUE_LIST[virtue_chosen + 1];
+      QString currently_selected_next_virtue = virtue_type[next_virtue]->currentText();
+      virtue_type[next_virtue]->setEnabled(false);
+      virtue_type[next_virtue]->clear();
+      bool should_reselect_rank = true;
+      QList<QString> new_values;
+      for (QString rank : RANK_NAME.values())
+        if (!already_picked_ranks.contains(rank))
+          {
+            new_values.append(rank);
+            // we are adding a new rank: is it the one that was previously selected?
+            should_reselect_rank &= (currently_selected_next_virtue != rank);
+          }
+
+      virtue_type[next_virtue]->addItems(new_values);
+      if (should_reselect_rank)
+        virtue_type[next_virtue]->setCurrentText(currently_selected_next_virtue);
+
+      virtue_type[next_virtue]->setEnabled(true);
+      update_scrollers(virtue_chosen + 1);
 
     }
 
@@ -136,11 +182,11 @@ namespace qt {
       total_points_spent += _virtues.vice_value() - 1;
 
       bool add_disabled = (total_points_spent == max_points_on_virtues);
-      for (QPushButton* button: add_to_virtues_or_vice.values())
+      for (auto virtue : VIRTUE_LIST)
         {
-          button->setDisabled(add_disabled);
+          add_to_virtues_or_vice[virtue]->setDisabled(add_disabled || _virtues.value(virtue).value() >= max_virtue_value);
         }
-      add_vice->setDisabled(add_disabled);
+      add_vice->setDisabled(add_disabled || _virtues.vice_value() >= max_virtue_value);
 
       for (virtue_enum v: VIRTUE_LIST)
         {

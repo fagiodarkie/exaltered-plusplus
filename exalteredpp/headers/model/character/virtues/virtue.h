@@ -14,6 +14,7 @@ namespace character {
       virtue_enum virtue_enum() const;
 
       virtue_rank rank() const;
+      void set_rank(virtue_rank rank);
 
       unsigned int value() const;
       void set_value(unsigned int value);

@@ -47,6 +47,7 @@ namespace qt {
       void choose_first_virtue_type();
       void choose_second_virtue_type();
       void choose_third_virtue_type();
+      void update_scrollers(int virtue_rank_chosen);
 
       bool is_virtue(QVariant variant) const;
       void update_label(virtue_enum virtue);
