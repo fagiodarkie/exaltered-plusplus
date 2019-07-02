@@ -42,6 +42,25 @@ namespace character {
       _vice_value = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_VICE_VALUE].toInt());
     }
 
+    virtue& virtues::value(virtue_enum virtue_name)
+    {
+      auto found_virtue = std::find_if(begin(), end(), [virtue_name](virtue cur_virtue) -> bool {
+          return cur_virtue.virtue_enum() == virtue_name;
+        });
+      if (found_virtue != end())
+        {
+          return *found_virtue;
+        }
+
+      throw new exception::invalid_parameter();
+    }
+
+    virtue& virtues::operator[](int index)
+    {
+      virtue_enum virtue_name = static_cast<virtue_enum>(index);
+      return value(virtue_name);
+    }
+
     virtue virtues::value(virtue_enum virtue_name) const
     {
       auto found_virtue = std::find_if(begin(), end(), [virtue_name](virtue cur_virtue) -> bool {
@@ -53,6 +72,12 @@ namespace character {
         }
 
       throw new exception::invalid_parameter();
+    }
+
+    virtue virtues::operator[](int index) const
+    {
+      virtue_enum virtue_name = static_cast<virtue_enum>(index);
+      return value(virtue_name);
     }
 
     void virtues::set_vice_type(vice_enum vice_name)

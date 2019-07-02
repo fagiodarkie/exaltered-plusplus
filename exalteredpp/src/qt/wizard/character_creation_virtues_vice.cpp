@@ -33,7 +33,10 @@ namespace qt {
         {
           // virtue types creation
           QComboBox *virtue_cbox = new QComboBox;
-          virtue_cbox->addItems(VIRTUE_NAME.values());
+          for (auto rank : VIRTUE_RANK_LIST)
+            {
+              virtue_cbox->addItem(RANK_NAME[rank], rank);
+            }
           virtue_type[v] = virtue_cbox;
 
           // label
@@ -128,9 +131,9 @@ namespace qt {
     {
       unsigned int total_points_spent = 0;
       for (virtue_enum virt: VIRTUE_LIST)
-        total_points_spent += _virtues[virt].value();
+        total_points_spent += _virtues[virt].value() - 1;
 
-      total_points_spent+=_virtues.vice_value();
+      total_points_spent += _virtues.vice_value() - 1;
 
       bool add_disabled = (total_points_spent == max_points_on_virtues);
       for (QPushButton* button: add_to_virtues_or_vice.values())
@@ -141,9 +144,9 @@ namespace qt {
 
       for (virtue_enum v: VIRTUE_LIST)
         {
-          remove_from_virtues_or_vice[v]->setDisabled(_virtues[v].value() >= max_virtue_value);
+          remove_from_virtues_or_vice[v]->setDisabled(_virtues[v].value() <= 1);
         }
-      remove_vice->setDisabled(_virtues.vice_value() >= max_virtue_value);
+      remove_vice->setDisabled(_virtues.vice_value() <= 1);
 
       next_page->setDisabled(!add_disabled);
     }
@@ -174,7 +177,7 @@ namespace qt {
 
       if (is_virtue(sender_variant))
         {
-          virtue_enum affected_virtue = *static_cast<virtue_enum*>(sender_variant.data());
+          virtue_enum affected_virtue = static_cast<virtue_enum>(sender_variant.toInt());
           _virtues.value(affected_virtue).set_value(_virtues.value(affected_virtue).value() + 1);
           update_label(affected_virtue);
         }
@@ -192,7 +195,7 @@ namespace qt {
 
       if (is_virtue(sender_variant))
         {
-          virtue_enum affected_virtue = *static_cast<virtue_enum*>(sender_variant.data());
+          virtue_enum affected_virtue = static_cast<virtue_enum>(sender_variant.toInt());
           _virtues.value(affected_virtue).set_value(_virtues.value(affected_virtue).value() - 1);
           update_label(affected_virtue);
         }
