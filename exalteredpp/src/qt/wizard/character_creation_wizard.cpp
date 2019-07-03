@@ -13,7 +13,12 @@ namespace qt {
       : QWidget (parent),
         character_model(::character::creation::character_type_model::SOLAR_EXALT),
         char_manager(manager)
-    {      
+    {
+      // initialise character specs
+      for (auto attribute_e : attribute_names::ATTRIBUTES)
+        attributes[attribute_e] = attribute(attribute_names::ATTRIBUTE_NAME[attribute_e], 1);
+
+
       name_page = new character_creation_name_type_page(this);
       connect(name_page, &character_creation_name_type_page::back_issued, this, &character_creation_wizard::fallback);
       connect(name_page, &character_creation_name_type_page::character_type_chosen, this, &character_creation_wizard::load_attributes_priority);
@@ -65,6 +70,7 @@ namespace qt {
       points_per_category.insert(attribute_names::ATTRIBUTE_CATEGORY_BY_NAME(tertiary_attribute), character_model.tertiary_category_attribute_value);
 
       attribute_points_page->set_total_points(points_per_category);
+      attribute_points_page->set_current_attributes(attributes);
 
       advance();
     }

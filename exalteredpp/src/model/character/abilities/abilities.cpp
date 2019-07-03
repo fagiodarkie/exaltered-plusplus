@@ -10,8 +10,8 @@ namespace character {
         QString ability_name = ability_names::ABILITY_NAME[ability_type];
 
         ability_names::ability_category category = ability_names::SOCIAL;
-        for (auto category_it : ability_names::ABILITY_CATEGORY.keys())
-          if (ability_names::ABILITY_CATEGORY[category_it].contains(ability_type))
+        for (auto category_it : ability_names::ABILITIES_IN_CATEGORY.keys())
+          if (ability_names::ABILITIES_IN_CATEGORY[category_it].contains(ability_type))
             category = category_it;
 
         ability_group ability_gr(ability_name, category);

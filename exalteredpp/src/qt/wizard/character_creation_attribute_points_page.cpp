@@ -16,9 +16,6 @@ namespace qt {
     character_creation_attribute_points_page::character_creation_attribute_points_page(QWidget *parent)
       : QWidget(parent)
     {
-      for (auto attribute : character::attribute_names::ATTRIBUTES )
-        chosen_attributes[attribute] = character::attribute(character::attribute_names::ATTRIBUTE_NAME[attribute], 1);
-
       generate_group_labels();
       generate_attribute_labels();
 
@@ -196,6 +193,11 @@ namespace qt {
       category_box->setLayout(form);
 
       return category_box;
+    }
+
+    void character_creation_attribute_points_page::set_current_attributes(const character::attributes &attributes)
+    {
+      chosen_attributes = attributes;
     }
 
     QWidget* character_creation_attribute_points_page::generate_plusminus_buttons_widget(QPushButton* add, QPushButton* subtract)

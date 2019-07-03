@@ -1,5 +1,7 @@
 #include "wizard/character_creation_favorite_abilities.h"
 
+#include <QGroupBox>
+
 #include "label/interfacelabels.h"
 #include "layout/qborderlayout.h"
 
@@ -16,15 +18,24 @@ namespace qt {
       QWidget* abilities = new QWidget;
       QVBoxLayout *ability_list = new QVBoxLayout;
 
+      QMap<character::ability_names::ability_category, QGroupBox*> ability_groups;
+      QMap<character::ability_names::ability_category, QVBoxLayout*> ability_layouts;
+      for (auto ab_category: character::ability_names::ABILITY_CATEGORIES)
+        {
+          QGroupBox *category_group = new QGroupBox(character::ability_names::ABILITY_CATEGORY_NAMES[ab_category]);
+          category_group->setLayout(new QVBoxLayout);
+          ability_groups[ab_category] = category_group;
+          ability_list->addWidget(category_group);
+        }
+
       for (auto ability_enum : character::ability_names::ABILITIES)
         {
           QCheckBox *ability_checkbox = new QCheckBox(character::ability_names::ABILITY_NAME[ability_enum]);
           ability_of_button[ability_checkbox] = ability_enum;
-          ability_list->addWidget(ability_checkbox);
+          ability_groups[character::ability_names::CATEGORY_OF_ABILITY(ability_enum)]->layout()->addWidget(ability_checkbox);
           connect(ability_checkbox, &QCheckBox::clicked, this, &character_creation_favorite_abilities::check_current_selection);
         }
       abilities->setLayout(ability_list);
-      check_current_selection();
 
       QHBoxLayout* buttons_layout = new QHBoxLayout;
       next_page = new QPushButton(NEXT_LABEL);
@@ -74,17 +85,26 @@ namespace qt {
 
     void character_creation_favorite_abilities::check_current_selection()
     {
-      if (selected_abilities().size() == max_favorite + default_favorite)
+      auto selected = selected_abilities();
+      for (character::ability_names::ability_enum ability: character::ability_names::ABILITIES)
+        {
+          _abilities[ability].set_favourite(selected.contains(ability));
+        }
+
+      bool finished_selecting = static_cast<unsigned int>(selected_abilities().size()) == max_favorite + default_favorite;
+      if (finished_selecting)
         {
           for (auto checkbox: ability_of_button.keys())
             {
               bool is_caste_ability = abilities_of_caste.contains(ability_of_button[checkbox]);
-              checkbox->setEnabled(!is_caste_ability || _abilities[ability_of_button[checkbox]].get_ability() > 0);
+              checkbox->setEnabled(!is_caste_ability && _abilities[ability_of_button[checkbox]].is_favourite());
             }
-        }
 
+        }
       else
         allow_check_on_non_caste_abilities();
+
+      next_page->setEnabled(finished_selecting);
     }
 
     void character_creation_favorite_abilities::next_issued()

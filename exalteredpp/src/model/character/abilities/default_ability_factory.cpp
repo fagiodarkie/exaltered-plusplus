@@ -31,12 +31,12 @@ namespace character {
         break;
       }
 
-    QList<ability_names::ability_category> categories = ability_names::ABILITY_CATEGORY.keys();
+    QList<ability_names::ability_category> categories = ability_names::ABILITIES_IN_CATEGORY.keys();
 
     auto category = std::find_if(categories.begin(),
                                  categories.end(),
                                   [abilityname](ability_names::ability_category category_set) -> bool {
-                                    return ability_names::ABILITY_CATEGORY[category_set].contains(abilityname);
+                                    return ability_names::ABILITIES_IN_CATEGORY[category_set].contains(abilityname);
                                   });
 
     ability_group result(ability_names::ABILITY_NAME.value(abilityname), *category, abilities);
