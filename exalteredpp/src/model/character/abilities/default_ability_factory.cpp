@@ -3,7 +3,7 @@
 #include <QList>
 
 namespace character {
-  ability_group default_ability_factory::get_ability_group(ability_names::ability abilityname) const
+  ability_group default_ability_factory::get_ability_group(ability_names::ability_enum abilityname) const
   {
     QList<ability> abilities;
     switch(abilityname)

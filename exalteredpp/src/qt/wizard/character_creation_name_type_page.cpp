@@ -32,6 +32,7 @@ namespace qt {
 
       form->addRow(new QLabel(CHARACTER_TYPE_LABEL), combo_box);
       caste_combo_box = new QComboBox;
+      caste_label = new QLabel(labels::creation_wizard::CASTE);
       form->addRow(caste_label, caste_combo_box);
       hide_show_caste_box();
 

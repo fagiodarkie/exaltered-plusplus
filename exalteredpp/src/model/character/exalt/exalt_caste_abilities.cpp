@@ -5,39 +5,39 @@ namespace character {
 
     using character::creation::character_type;
 
-    QList<ability> exalt_caste::_WARRIOR_CASTE = { ability::WAR,
-                                                   ability::MELEE,
-                                                   ability::ARCHERY,
-                                                   ability::THROWN,
-                                                   ability::MARTIAL_ARTS },
+    QList<ability_enum> exalt_caste::_WARRIOR_CASTE = { ability_enum::WAR,
+                                                   ability_enum::MELEE,
+                                                   ability_enum::ARCHERY,
+                                                   ability_enum::THROWN,
+                                                   ability_enum::MARTIAL_ARTS },
 
-    exalt_caste::_PRIEST_CASTE = { ability::PRESENCE,
-                                   ability::INTEGRITY,
-                                   ability::PERFORMANCE,
-                                   ability::RESISTANCE,
-                                   ability::TECHNOLOGY },
+    exalt_caste::_PRIEST_CASTE = { ability_enum::PRESENCE,
+                                   ability_enum::INTEGRITY,
+                                   ability_enum::PERFORMANCE,
+                                   ability_enum::RESISTANCE,
+                                   ability_enum::TECHNOLOGY },
 
-    exalt_caste::_SCIENTIST_CASTE = { ability::INVESTIGATION,
-                                      ability::ACADEMICS,
-                                      ability::MEDITATION,
-                                      ability::CRAFT,
-                                      ability::MEDICINE },
+    exalt_caste::_SCIENTIST_CASTE = { ability_enum::INVESTIGATION,
+                                      ability_enum::ACADEMICS,
+                                      ability_enum::MEDITATION,
+                                      ability_enum::CRAFT,
+                                      ability_enum::MEDICINE },
 
-    exalt_caste::_STEALTH_CASTE = { ability::PRESTIDIGITATION,
-                                    ability::ATHLETICS,
-                                    ability::DODGE,
-                                    ability::AWARENESS,
-                                    ability::STEALTH },
+    exalt_caste::_STEALTH_CASTE = { ability_enum::PRESTIDIGITATION,
+                                    ability_enum::ATHLETICS,
+                                    ability_enum::DODGE,
+                                    ability_enum::AWARENESS,
+                                    ability_enum::STEALTH },
 
-    exalt_caste::_DIPLOMAT_CASTE = { ability::SOCIALISE,
-                                     ability::BUREAUCRACY,
-                                     ability::MANEUVER,
-                                     ability::ACADEMICS,
-                                     ability::TEACHING };
+    exalt_caste::_DIPLOMAT_CASTE = { ability_enum::SOCIALISE,
+                                     ability_enum::BUREAUCRACY,
+                                     ability_enum::MANEUVER,
+                                     ability_enum::ACADEMICS,
+                                     ability_enum::TEACHING };
 
-    const QMap<caste, QList<ability>> exalt_caste::ABILITIES_OF_CASTE = {
+    const QMap<caste, QList<ability_enum>> exalt_caste::ABILITIES_OF_CASTE = {
 
-      { caste::NO_CASTE,    QList<ability>() },
+      { caste::NO_CASTE,    QList<ability_enum>() },
 
       { caste::DAWN,        _WARRIOR_CASTE },
       { caste::DUSK,        _WARRIOR_CASTE },
@@ -59,35 +59,35 @@ namespace character {
       { caste::MOONSHADOW,  _DIPLOMAT_CASTE },
       { caste::FIEND,       _DIPLOMAT_CASTE },
 
-      { caste::WATER,       { ability::BUREAUCRACY,
-                              ability::INVESTIGATION,
-                              ability::PRESTIDIGITATION,
-                              ability::MARTIAL_ARTS,
-                              ability::MANEUVER } },
+      { caste::WATER,       { ability_enum::BUREAUCRACY,
+                              ability_enum::INVESTIGATION,
+                              ability_enum::PRESTIDIGITATION,
+                              ability_enum::MARTIAL_ARTS,
+                              ability_enum::MANEUVER } },
 
-      { caste::EARTH,       { ability::AWARENESS,
-                              ability::CRAFT,
-                              ability::INTEGRITY,
-                              ability::RESISTANCE,
-                              ability::WAR } },
+      { caste::EARTH,       { ability_enum::AWARENESS,
+                              ability_enum::CRAFT,
+                              ability_enum::INTEGRITY,
+                              ability_enum::RESISTANCE,
+                              ability_enum::WAR } },
 
-      { caste::AIR,         { ability::ACADEMICS,
-                              ability::MEDITATION,
-                              ability::STEALTH,
-                              ability::THROWN,
-                              ability::TEACHING } },
+      { caste::AIR,         { ability_enum::ACADEMICS,
+                              ability_enum::MEDITATION,
+                              ability_enum::STEALTH,
+                              ability_enum::THROWN,
+                              ability_enum::TEACHING } },
 
-      { caste::WOOD,        { ability::ARCHERY,
-                              ability::MEDICINE,
-                              ability::PERFORMANCE,
-                              ability::MANEUVER,
-                              ability::TECHNOLOGY } },
+      { caste::WOOD,        { ability_enum::ARCHERY,
+                              ability_enum::MEDICINE,
+                              ability_enum::PERFORMANCE,
+                              ability_enum::MANEUVER,
+                              ability_enum::TECHNOLOGY } },
 
-      { caste::FIRE,        { ability::ATHLETICS,
-                              ability::DODGE,
-                              ability::MELEE,
-                              ability::PRESENCE,
-                              ability::SOCIALISE } }
+      { caste::FIRE,        { ability_enum::ATHLETICS,
+                              ability_enum::DODGE,
+                              ability_enum::MELEE,
+                              ability_enum::PRESENCE,
+                              ability_enum::SOCIALISE } }
     };
 
     const QMap<character_type, QList<caste>> exalt_caste::CASTES_OF_EXALT_TYPE = {

@@ -29,7 +29,7 @@ namespace qt {
       QLineEdit* character_name;
       QComboBox *combo_box, *caste_combo_box;
       QPushButton *next_page, *cancel;
-      QLabel *caste_label = new QLabel("casta");
+      QLabel *caste_label;
 
       void hide_show_caste_box();
       void check_form();

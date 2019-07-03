@@ -12,6 +12,7 @@ namespace character {
                          unsigned int max_std_ability_points_on_creation,
                          unsigned int max_ability_points_on_creation,
                          unsigned int min_ability_points_on_favorite_abilities,
+                         unsigned int favored_abilities,
                          unsigned int caste_abilities,
                          unsigned int starting_specialisations,
                          unsigned int starting_permanent_essence,
@@ -32,6 +33,7 @@ namespace character {
         max_std_ability_points_on_creation(max_std_ability_points_on_creation),
         max_ability_points_on_creation(max_ability_points_on_creation),
         min_ability_points_on_favorite_abilities(min_ability_points_on_favorite_abilities),
+        favored_abilities(favored_abilities),
         caste_abilities(caste_abilities),
         starting_specialisations(starting_specialisations),
         starting_permanent_essence(starting_permanent_essence),
@@ -58,6 +60,7 @@ namespace character {
         max_std_ability_points_on_creation(other.max_std_ability_points_on_creation),
         max_ability_points_on_creation(other.max_ability_points_on_creation),
         min_ability_points_on_favorite_abilities(other.min_ability_points_on_favorite_abilities),
+        favored_abilities(other.favored_abilities),
         caste_abilities(other.caste_abilities),
         starting_specialisations(other.starting_specialisations),
         starting_permanent_essence(other.starting_permanent_essence),
@@ -81,6 +84,7 @@ namespace character {
       max_std_ability_points_on_creation        = o.max_std_ability_points_on_creation;
       max_ability_points_on_creation            = o.max_ability_points_on_creation;
       min_ability_points_on_favorite_abilities  = o.min_ability_points_on_favorite_abilities;
+      favored_abilities                         = o.favored_abilities;
       caste_abilities                           = o.caste_abilities;
       starting_specialisations                  = o.starting_specialisations;
       starting_permanent_essence                = o.starting_permanent_essence;
@@ -99,37 +103,37 @@ namespace character {
     }
 
     const character_type_model character_type_model::MORTAL_EXTRA(5, 4, 3,
-                                                       18, 3, 0, 0, 0,
+                                                       18, 3, 0, 0, 0, 0,
                                                        0, 1, 1,
                                                        5, 3, 5,
                                                        7, 18, 0, false, character_type::TYPE_MORTAL_EXTRA);
 
     const character_type_model character_type_model::MORTAL_HERO(6, 5, 4,
-                                                       18, 3, 5, 10, 0,
+                                                       18, 3, 5, 10, 5, 0,
                                                        0, 1, 1,
                                                        5, 4, 5,
                                                        7, 18, 0, false, character_type::TYPE_MORTAL_HERO);
 
     const character_type_model character_type_model::TERRESTRIAL_EXALT(8, 6, 4,
-                                                       28, 3, 5, 10, 5,
+                                                       28, 3, 5, 10, 5, 5,
                                                        3, 2, 1,
                                                        5, 4, 5,
                                                        7, 10, 10, true, character_type::TYPE_TERRESTRIAL_EXALT);
 
     const character_type_model character_type_model::SOLAR_EXALT(8, 6, 4,
-                                                       28, 3, 5, 10, 5,
+                                                       28, 3, 5, 10, 5, 5,
                                                        3, 2, 2,
                                                        5, 4, 5,
                                                        7, 10, 10, true, character_type::TYPE_SOLAR_EXALT);
 
     const character_type_model character_type_model::ABYSSAL_EXALT(8, 6, 4,
-                                                       28, 3, 5, 10, 5,
+                                                       28, 3, 5, 10, 5, 5,
                                                        3, 2, 2,
                                                        5, 4, 5,
                                                        7, 10, 10, true, character_type::TYPE_ABYSSAL_EXALT);
 
     const character_type_model character_type_model::INFERNAL_EXALT(8, 6, 4,
-                                                       28, 3, 5, 10, 0,
+                                                       28, 3, 5, 10, 5, 0,
                                                        3, 2, 2,
                                                        5, 4, 5,
                                                        7, 10, 10, true, character_type::TYPE_INFERNAL_EXALT);

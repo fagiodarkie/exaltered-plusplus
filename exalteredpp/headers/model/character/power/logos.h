@@ -7,7 +7,6 @@ namespace character {
     class logos : public serialisable
     {
     public:
-      logos();
 
       void read_from_json(const QJsonObject &json);
       void write_to_json(QJsonObject &json) const;

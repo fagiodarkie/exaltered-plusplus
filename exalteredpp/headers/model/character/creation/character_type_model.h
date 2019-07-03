@@ -44,6 +44,7 @@ namespace character {
                            unsigned int max_std_ability_points_on_creation,
                            unsigned int max_ability_points_on_creation,
                            unsigned int min_ability_points_on_favorite_abilities,
+                           unsigned int favored_abilities,
                            unsigned int caste_abilities,
 
                            unsigned int starting_specialisations,
@@ -76,6 +77,7 @@ namespace character {
         max_std_ability_points_on_creation,
         max_ability_points_on_creation,
         min_ability_points_on_favorite_abilities,
+        favored_abilities,
         caste_abilities,
         starting_specialisations,
         starting_permanent_essence,

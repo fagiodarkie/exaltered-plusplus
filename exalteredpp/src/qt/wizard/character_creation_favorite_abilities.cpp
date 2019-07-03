@@ -14,6 +14,16 @@ namespace qt {
     {
 
       QWidget* abilities = new QWidget;
+      QVBoxLayout *ability_list = new QVBoxLayout;
+
+      for (auto ability_enum : character::ability_names::ABILITIES)
+        {
+          QCheckBox *ability_checkbox = new QCheckBox(character::ability_names::ABILITY_NAME[ability_enum]);
+          ability_of_button[ability_checkbox] = ability_enum;
+          ability_list->addWidget(ability_checkbox);
+          connect(ability_checkbox, &QCheckBox::clicked, this, &character_creation_favorite_abilities::check_current_selection);
+        }
+      abilities->setLayout(ability_list);
 
       QHBoxLayout* buttons_layout = new QHBoxLayout;
       next_page = new QPushButton(NEXT_LABEL);
@@ -35,20 +45,60 @@ namespace qt {
       setLayout(outer_layout);
     }
 
-    void character_creation_favorite_abilities::next_issued()
+    void character_creation_favorite_abilities::set_current_abilities(const character::abilities &new_abilities, character::exalt::caste selected_caste, unsigned int number_of_default_favorites, unsigned int number_of_favorite_abilities)
     {
+      _abilities = new_abilities;
+      default_favorite = number_of_default_favorites;
+      max_favorite = number_of_favorite_abilities;
 
+      abilities_of_caste = character::exalt::exalt_caste::ABILITIES_OF_CASTE[selected_caste];
+
+      for (auto checkbox: ability_of_button.keys())
+        checkbox->setChecked(false);
+
+      check_current_selection();
     }
 
-    QPushButton* character_creation_favorite_abilities::generate_button(character::ability_names::ability ability)
+    void character_creation_favorite_abilities::allow_check_on_non_caste_abilities()
     {
-      QPushButton* button = new QPushButton(character::ability_names::ABILITY_NAME[ability]);
+      for (auto checkbox: ability_of_button.keys())
+        {
+          bool is_caste_ability = abilities_of_caste.contains(ability_of_button[checkbox]);
+          checkbox->setChecked(checkbox->isChecked()
+                               || is_caste_ability
+                               || _abilities[ability_of_button[checkbox]].is_favourite());
+          checkbox->setCheckable(!is_caste_ability);
+        }
+    }
 
-      button->setCheckable(true);
+    void character_creation_favorite_abilities::check_current_selection()
+    {
+      if (selected_abilities().size() == max_favorite + default_favorite)
+        {
+          for (auto checkbox: ability_of_button.keys())
+            checkbox->setCheckable(false);
+        }
 
-      ability_of_button.insert(button, ability);
+      else
+        allow_check_on_non_caste_abilities();
+    }
 
-      return button;
+    void character_creation_favorite_abilities::next_issued()
+    {
+      emit abilities_selected(selected_abilities());
+    }
+
+    QList<character::ability_names::ability_enum> character_creation_favorite_abilities::selected_abilities() const
+    {
+      QList<character::ability_names::ability_enum> selected_favorites;
+
+      for (auto checkbox: ability_of_button.keys())
+        {
+          if (checkbox->isChecked())
+            selected_favorites.push_back(ability_of_button[checkbox]);
+        }
+
+      return selected_favorites;
     }
 
   }

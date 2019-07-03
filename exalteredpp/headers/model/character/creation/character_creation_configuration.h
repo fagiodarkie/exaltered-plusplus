@@ -14,9 +14,9 @@ namespace character {
     public:
       character_type type;
       QList<attribute_names::attribute> primary_attributes, secondary_attributes, tertiary_attributes;
-      QList<ability_names::ability> caste_abilities, favorite_abilities;
+      QList<ability_names::ability_enum> caste_abilities, favorite_abilities;
 
-      QMap<ability_names::ability, ability_group> ability_values;
+      QMap<ability_names::ability_enum, ability_group> ability_values;
       QMap<attribute_names::attribute, unsigned int> attribute_values;
 
       bool is_valid() const;

@@ -6,8 +6,16 @@
 namespace character
 {
   namespace ability_names {
-    enum ability
+    enum ability_enum
     {
+      MELEE, ARCHERY, THROWN, MARTIAL_ARTS, WAR,
+      TECHNOLOGY, PERFORMANCE, PRESENCE, RESISTANCE, INTEGRITY,
+      MEDITATION, MEDICINE, INVESTIGATION, ACADEMICS, CRAFT,
+      STEALTH, AWARENESS, DODGE, ATHLETICS, PRESTIDIGITATION,
+      MANEUVER, SOCIALISE, BUREAUCRACY, TEACHING
+    };
+
+    static const QList<ability_enum> ABILITIES = {
       MELEE, ARCHERY, THROWN, MARTIAL_ARTS, WAR,
       TECHNOLOGY, PERFORMANCE, PRESENCE, RESISTANCE, INTEGRITY,
       MEDITATION, MEDICINE, INVESTIGATION, ACADEMICS, CRAFT,
@@ -37,7 +45,7 @@ namespace character
       FIRSTAGE_MANEUVER = "First Age";
     }
 
-    static const QMap<ability, QString> ABILITY_NAME {
+    static const QMap<ability_enum, QString> ABILITY_NAME {
       { MELEE,            "Melee"           },
       { ARCHERY,          "Archery"         },
       { THROWN,           "Thrown"          },
@@ -63,7 +71,7 @@ namespace character
       { BUREAUCRACY,      "Bureaucracy"     }
     };
 
-    static const QMap<ability_category, QList<ability>> ABILITY_CATEGORY {
+    static const QMap<ability_category, QList<ability_enum>> ABILITY_CATEGORY {
       { COMBAT,     { MELEE,      ARCHERY,      THROWN,   MARTIAL_ARTS, WAR,            RESISTANCE,   AWARENESS,        DODGE     } },
       { NARRATIVE,  { TECHNOLOGY, MEDITATION,   MEDICINE, CRAFT,        STEALTH,        ATHLETICS,    PRESTIDIGITATION, MANEUVER  } },
       { SOCIAL,     { ACADEMICS,  PERFORMANCE,  PRESENCE, INTEGRITY,    INVESTIGATION,  SOCIALISE,    BUREAUCRACY,      TEACHING  } }

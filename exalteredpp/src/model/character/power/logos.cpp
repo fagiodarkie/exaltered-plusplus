@@ -4,7 +4,6 @@
 
 namespace character {
   namespace power {
-    logos::logos() {}
 
     void logos::write_to_json(QJsonObject &json) const
     {

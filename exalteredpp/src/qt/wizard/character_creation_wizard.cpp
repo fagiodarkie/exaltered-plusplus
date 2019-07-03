@@ -26,6 +26,10 @@ namespace qt {
       connect(attribute_points_page, &character_creation_attribute_points_page::back_issued, this, &character_creation_wizard::fallback);
       connect(attribute_points_page, &character_creation_attribute_points_page::attribute_points_chosen, this, &character_creation_wizard::load_attribute_points);
 
+      favorite_abilities_page = new character_creation_favorite_abilities(this);
+      connect(favorite_abilities_page, &character_creation_favorite_abilities::back_issued, this, &character_creation_wizard::fallback);
+      connect(favorite_abilities_page, &character_creation_favorite_abilities::abilities_selected, this, &character_creation_wizard::load_favored_abilities);
+
       virtues_page = new character_creation_virtues_vice(this);
       connect(virtues_page, &character_creation_virtues_vice::back_issued, this, &character_creation_wizard::fallback);
       connect(virtues_page, &character_creation_virtues_vice::virtues_chosen, this, &character_creation_wizard::load_persona);
@@ -34,15 +38,17 @@ namespace qt {
       layout->addWidget(name_page);
       layout->addWidget(attribute_priority_page);
       layout->addWidget(attribute_points_page);
+      layout->addWidget(favorite_abilities_page);
       layout->addWidget(virtues_page);
 
       setLayout(layout);
     }
 
-    void character_creation_wizard::load_attributes_priority(const QString&  char_name, creation::character_type type)
+    void character_creation_wizard::load_attributes_priority(const QString&  char_name, creation::character_type type, exalt::caste selected_caste)
     {
       new_character_type = type;
       character_name = char_name;
+      caste = selected_caste;
       character_model = creation::character_type_model::get_by_character_type(type);
       attribute_priority_page->set_attribute_values(static_cast<int>(character_model.primary_category_attribute_value),
                                                     static_cast<int>(character_model.secondary_category_attribute_value),
@@ -67,6 +73,18 @@ namespace qt {
     {
       attributes = points;
 
+      favorite_abilities_page->set_current_abilities(abilities, caste, character_model.caste_abilities, character_model.favored_abilities);
+
+      advance();
+    }
+
+    void character_creation_wizard::load_favored_abilities(const QList<ability_names::ability_enum> &favored_abilities)
+    {
+      for (ability_names::ability_enum ability: ability_names::ABILITIES)
+        {
+          abilities[ability].set_favourite(favored_abilities.contains(ability));
+        }
+
       // these should go after all the yadda yadda of abilities
       virtues_page->update_virtues_limits(character_virtues, character_model.starting_virtue_points, character_model.max_std_virtue_points);
 
@@ -83,10 +101,13 @@ namespace qt {
     void character_creation_wizard::advance()
     {
       if (layout->currentIndex() + 1 < layout->count() )
-        layout->setCurrentIndex(layout->currentIndex() + 1);
+        {
+          layout->setCurrentIndex(layout->currentIndex() + 1);
+        }
       else
         {
-          QSharedPointer<character> final_character = char_manager->create_character(character_name,
+          QSharedPointer<character> final_character =
+              char_manager->create_character(character_name,
                               new_character_type,
                               caste,
                               attributes,
