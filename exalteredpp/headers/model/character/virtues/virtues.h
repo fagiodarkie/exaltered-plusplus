@@ -8,12 +8,19 @@ namespace character {
     class virtues : public QList<virtue>, public serialisable
     {
     public:
+      virtues();
+
       void read_from_json(const QJsonObject &json);
       void write_to_json(QJsonObject &json) const;
 
-      virtue value(virtue_enum virtue_name) const;
+      virtue& value(virtue_enum virtue_name);
+      virtue& operator[](int index);
 
-      void set_vice(vice_enum vice_name, unsigned int vice_value = 1);
+      virtue value(virtue_enum virtue_name) const;
+      virtue operator[](int index) const;
+
+      void set_vice_type(vice_enum vice_name);
+      void set_vice_value(unsigned int value);
 
       vice_enum vice() const;
       unsigned int vice_value() const;

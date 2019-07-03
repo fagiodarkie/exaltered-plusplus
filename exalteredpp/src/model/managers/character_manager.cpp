@@ -19,6 +19,17 @@ namespace manager {
     return result;
   }
 
+  QSharedPointer<character::character> character_manager::create_character(const QString name, const character::character_type type, const character::exalt::caste caste, const character::attributes attributes, const character::abilities abilities, const character::virtues::virtues virtues, const character::power::power_container power_container)
+  {
+    return character_repository->create_character(name,
+                                                  type,
+                                                  caste,
+                                                  attributes,
+                                                  abilities,
+                                                  virtues,
+                                                  power_container);
+  }
+
   QSharedPointer<character::character> character_manager::load_character(const QString& char_id) const
   {
     if (char_id != nullptr && character_repository->character_list().contains(char_id))

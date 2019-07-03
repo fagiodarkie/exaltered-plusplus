@@ -26,6 +26,11 @@ namespace character {
       return _rank;
     }
 
+    void virtue::set_rank(virtue_rank rank)
+    {
+      _rank = rank;
+    }
+
     unsigned int virtue::value() const
     {
       return _value;

@@ -22,6 +22,7 @@ namespace qt {
       static QString TERTIARY_ATTRIBUTE   = "Tertiary Attribute";
 
       static QString CASTE                = "Caste";
+      static QString VICE_SELECTOR        = "Vice";
 
       static QString ATTRIBUTE_LABEL_WITH_TOTAL_POINTS(const QString& label, int points)
       {

@@ -15,7 +15,7 @@ namespace character {
       TYPE_INFERNAL_EXALT
     };
 
-    const QMap<character_type, QString> CHARACTER_TYPE_NAMES =
+    static const QMap<character_type, QString> CHARACTER_TYPE_NAMES =
       { { TYPE_MORTAL_EXTRA,         "Mortal Extra"    },
         { TYPE_MORTAL_HERO,          "Mortal Hero"     },
         { TYPE_TERRESTRIAL_EXALT,    "Terrestrial Exalt"  },
@@ -23,6 +23,15 @@ namespace character {
         { TYPE_ABYSSAL_EXALT,        "Abyssal Exalt"      },
         { TYPE_INFERNAL_EXALT,       "Infernal Exalt"     }
       };
+
+    static const QList<character_type> CHARACTER_TYPE_LIST = {
+      TYPE_MORTAL_EXTRA,
+      TYPE_MORTAL_HERO,
+      TYPE_TERRESTRIAL_EXALT,
+      TYPE_SOLAR_EXALT,
+      TYPE_ABYSSAL_EXALT,
+      TYPE_INFERNAL_EXALT
+    };
 
     class character_type_model
     {

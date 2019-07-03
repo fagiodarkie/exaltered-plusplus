@@ -6,6 +6,16 @@
 
 namespace character {
   namespace virtues {
+
+    virtues::virtues()
+      : _vice(LUST), _vice_value(1)
+    {
+      for (virtue_enum virtue_e: VIRTUE_LIST)
+        {
+          push_back(virtue(virtue_e, 1, ADULT));
+        }
+    }
+
     void virtues::write_to_json(QJsonObject &json) const
     {
       for (virtue_enum virtue_e : VIRTUE_LIST)
@@ -32,6 +42,25 @@ namespace character {
       _vice_value = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_VICE_VALUE].toInt());
     }
 
+    virtue& virtues::value(virtue_enum virtue_name)
+    {
+      auto found_virtue = std::find_if(begin(), end(), [virtue_name](virtue cur_virtue) -> bool {
+          return cur_virtue.virtue_enum() == virtue_name;
+        });
+      if (found_virtue != end())
+        {
+          return *found_virtue;
+        }
+
+      throw new exception::invalid_parameter();
+    }
+
+    virtue& virtues::operator[](int index)
+    {
+      virtue_enum virtue_name = static_cast<virtue_enum>(index);
+      return value(virtue_name);
+    }
+
     virtue virtues::value(virtue_enum virtue_name) const
     {
       auto found_virtue = std::find_if(begin(), end(), [virtue_name](virtue cur_virtue) -> bool {
@@ -45,10 +74,20 @@ namespace character {
       throw new exception::invalid_parameter();
     }
 
-    void virtues::set_vice(vice_enum vice_name, unsigned int vice_value)
+    virtue virtues::operator[](int index) const
+    {
+      virtue_enum virtue_name = static_cast<virtue_enum>(index);
+      return value(virtue_name);
+    }
+
+    void virtues::set_vice_type(vice_enum vice_name)
     {
       _vice = vice_name;
-      _vice_value = vice_value;
+    }
+
+    void virtues::set_vice_value(unsigned int value)
+    {
+      _vice_value = value;
     }
 
     vice_enum virtues::vice() const

@@ -27,7 +27,7 @@ namespace serialisation {
                                                 const power::power_container power_container) override;
 
   private:
-    static QString FILE_EXT, AVAILABLE_CHARACTERS_FILE;
+    const QString FILE_EXT, AVAILABLE_CHARACTERS_FILE;
     QMap<QString, QString> id_to_name;
 
     void save_json_to_file(QJsonObject json, const QString& filename) const;

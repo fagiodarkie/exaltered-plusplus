@@ -9,12 +9,11 @@ namespace qt {
     using character::character;
     using namespace character;
 
-    character_creation_wizard::character_creation_wizard(QSharedPointer<character> newly_created_character,
-                                                         QWidget* parent)
+    character_creation_wizard::character_creation_wizard(QSharedPointer<manager::character_manager> manager, QWidget* parent)
       : QWidget (parent),
         character_model(::character::creation::character_type_model::SOLAR_EXALT),
-        final_character(newly_created_character)
-    {
+        char_manager(manager)
+    {      
       name_page = new character_creation_name_type_page(this);
       connect(name_page, &character_creation_name_type_page::back_issued, this, &character_creation_wizard::fallback);
       connect(name_page, &character_creation_name_type_page::character_type_chosen, this, &character_creation_wizard::load_attributes_priority);
@@ -27,10 +26,15 @@ namespace qt {
       connect(attribute_points_page, &character_creation_attribute_points_page::back_issued, this, &character_creation_wizard::fallback);
       connect(attribute_points_page, &character_creation_attribute_points_page::attribute_points_chosen, this, &character_creation_wizard::load_attribute_points);
 
+      virtues_page = new character_creation_virtues_vice(this);
+      connect(virtues_page, &character_creation_virtues_vice::back_issued, this, &character_creation_wizard::fallback);
+      connect(virtues_page, &character_creation_virtues_vice::virtues_chosen, this, &character_creation_wizard::load_persona);
+
       layout = new QStackedLayout;
       layout->addWidget(name_page);
       layout->addWidget(attribute_priority_page);
       layout->addWidget(attribute_points_page);
+      layout->addWidget(virtues_page);
 
       setLayout(layout);
     }
@@ -38,8 +42,7 @@ namespace qt {
     void character_creation_wizard::load_attributes_priority(const QString&  char_name, creation::character_type type)
     {
       new_character_type = type;
-      final_character->set_name(char_name);
-      final_character->set_type(type);
+      character_name = char_name;
       character_model = creation::character_type_model::get_by_character_type(type);
       attribute_priority_page->set_attribute_values(static_cast<int>(character_model.primary_category_attribute_value),
                                                     static_cast<int>(character_model.secondary_category_attribute_value),
@@ -62,10 +65,17 @@ namespace qt {
 
     void character_creation_wizard::load_attribute_points(const class attributes &points)
     {
-      for (auto attribute_name: points.keys())
-        {
-          final_character->set_attribute(attribute_name, points[attribute_name]);
-        }
+      attributes = points;
+
+      // these should go after all the yadda yadda of abilities
+      virtues_page->update_virtues_limits(character_virtues, character_model.starting_virtue_points, character_model.max_std_virtue_points);
+
+      advance();
+    }
+
+    void character_creation_wizard::load_persona(const ::character::virtues::virtues &virtues)
+    {
+      character_virtues = virtues;
 
       advance();
     }
@@ -75,7 +85,16 @@ namespace qt {
       if (layout->currentIndex() + 1 < layout->count() )
         layout->setCurrentIndex(layout->currentIndex() + 1);
       else
-        emit character_created(final_character);
+        {
+          QSharedPointer<character> final_character = char_manager->create_character(character_name,
+                              new_character_type,
+                              caste,
+                              attributes,
+                              abilities,
+                              character_virtues,
+                              power);
+          emit character_created(final_character);
+        }
     }
 
     void character_creation_wizard::fallback()

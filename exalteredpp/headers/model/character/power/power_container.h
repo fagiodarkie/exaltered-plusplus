@@ -3,8 +3,8 @@
 #include "willpower.h"
 #include "essence.h"
 #include "health.h"
+#include "logos.h"
 #include "serialisable.h"
-
 
 namespace character {
   namespace power {
@@ -18,6 +18,7 @@ namespace character {
       essence     _essence;
       willpower   _willpower;
       health      _health;
+      logos       _logos;
 
       // serialisable interface
     public:

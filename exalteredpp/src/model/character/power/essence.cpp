@@ -5,6 +5,12 @@
 namespace character {
   namespace power {
 
+    essence::essence(unsigned int permanent, unsigned int khan)
+    {
+      _permanent_essence = permanent;
+      _khan = khan;
+    }
+
     unsigned int essence::permanent_essence() const
     {
       return _permanent_essence;

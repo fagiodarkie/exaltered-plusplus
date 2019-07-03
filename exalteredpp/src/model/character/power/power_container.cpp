@@ -23,14 +23,17 @@ namespace character {
       _essence.write_to_json(essence_obj);
       _willpower.write_to_json(willpower_obj);
 
-      json[serialisation::json_constants::SLOT_HEALTH] = health_obj;
+      json[serialisation::json_constants::SLOT_HEALTH]    = health_obj;
       json[serialisation::json_constants::SLOT_WILLPOWER] = willpower_obj;
-      json[serialisation::json_constants::SLOT_ESSENCE] = essence_obj;
+      json[serialisation::json_constants::SLOT_ESSENCE]   = essence_obj;
     }
 
     void power_container::read_from_json(const QJsonObject &json)
     {
-
+      _health   .read_from_json(json[serialisation::json_constants::SLOT_HEALTH]   .toObject());
+      _willpower.read_from_json(json[serialisation::json_constants::SLOT_WILLPOWER].toObject());
+      _essence  .read_from_json(json[serialisation::json_constants::SLOT_ESSENCE]  .toObject());
     }
+
   }
 }

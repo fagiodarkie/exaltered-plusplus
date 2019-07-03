@@ -37,8 +37,7 @@ void ExalteredApp::load_main_screen(QSharedPointer<character::character> charact
 
 void ExalteredApp::load_creation_wizard_screen()
 {
-  auto new_character = character_manager->load_character();
-  character_creation_wizard = new qt::wizard::character_creation_wizard(new_character, this);
+  character_creation_wizard = new qt::wizard::character_creation_wizard(character_manager, this);
   connect(character_creation_wizard, &qt::wizard::character_creation_wizard::character_created, this, &ExalteredApp::load_main_screen);
   connect(character_creation_wizard, &qt::wizard::character_creation_wizard::back_issued, this, &ExalteredApp::init_load_character_screen);
   setCentralWidget(character_creation_wizard);
