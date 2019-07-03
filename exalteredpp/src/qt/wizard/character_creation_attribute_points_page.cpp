@@ -198,6 +198,7 @@ namespace qt {
     void character_creation_attribute_points_page::set_current_attributes(const character::attributes &attributes)
     {
       chosen_attributes = attributes;
+      generate_attribute_labels();
     }
 
     QWidget* character_creation_attribute_points_page::generate_plusminus_buttons_widget(QPushButton* add, QPushButton* subtract)
