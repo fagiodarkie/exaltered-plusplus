@@ -71,6 +71,7 @@ SOURCES += \
     ../../src/qt/widget/changeable_value_label.cpp \
     ../../src/qt/widget/name_value_widget.cpp \
     ../../src/qt/wizard/attributes_priority_page.cpp \
+    ../../src/qt/wizard/character_creation_ability_values.cpp \
     ../../src/qt/wizard/character_creation_attribute_points_page.cpp \
     ../../src/qt/wizard/character_creation_favorite_abilities.cpp \
     ../../src/qt/wizard/character_creation_name_type_page.cpp \
@@ -127,6 +128,7 @@ HEADERS += \
     ../../headers/qt/widget/changeable_value_label.h \
     ../../headers/qt/widget/name_value_widget.h \
     ../../headers/qt/wizard/attributes_priority_page.h \
+    ../../headers/qt/wizard/character_creation_ability_values.h \
     ../../headers/qt/wizard/character_creation_attribute_points_page.h \
     ../../headers/qt/wizard/character_creation_favorite_abilities.h \
     ../../headers/qt/wizard/character_creation_name_type_page.h \

@@ -1,4 +1,4 @@
-#include "wizard/character_creation_favorite_abilities.h"
+#include "wizard/character_creation_ability_values.h"
 
 #include <QGroupBox>
 
@@ -11,7 +11,7 @@ namespace qt {
     using namespace qt::labels::creation_wizard;
     using namespace qt::labels;
 
-    character_creation_favorite_abilities::character_creation_favorite_abilities(QWidget *parent)
+    character_creation_ability_values::character_creation_ability_values(QWidget *parent)
       : QWidget(parent)
     {
 
@@ -33,7 +33,7 @@ namespace qt {
           QCheckBox *ability_checkbox = new QCheckBox(character::ability_names::ABILITY_NAME[ability_enum]);
           ability_of_button[ability_checkbox] = ability_enum;
           ability_groups[character::ability_names::CATEGORY_OF_ABILITY(ability_enum)]->layout()->addWidget(ability_checkbox);
-          connect(ability_checkbox, &QCheckBox::clicked, this, &character_creation_favorite_abilities::check_current_selection);
+          connect(ability_checkbox, &QCheckBox::clicked, this, &character_creation_ability_values::check_current_selection);
         }
       abilities->setLayout(ability_list);
 
@@ -44,8 +44,8 @@ namespace qt {
       buttons_layout->addWidget(next_page);
 
       next_page->setEnabled(false);
-      connect(next_page, &QPushButton::clicked, this, &character_creation_favorite_abilities::next_issued);
-      connect(cancel, &QPushButton::clicked, this, &character_creation_favorite_abilities::back_issued);
+      connect(next_page, &QPushButton::clicked, this, &character_creation_ability_values::next_issued);
+      connect(cancel, &QPushButton::clicked, this, &character_creation_ability_values::back_issued);
 
       QWidget* buttons = new QWidget;
       buttons->setLayout(buttons_layout);
@@ -57,7 +57,7 @@ namespace qt {
       setLayout(outer_layout);
     }
 
-    void character_creation_favorite_abilities::set_current_abilities(const character::abilities &new_abilities, unsigned int ability_points, unsigned int min_points_in_favored, unsigned int max_std_value)
+    void character_creation_ability_values::set_current_abilities(const character::abilities &new_abilities, character::exalt::caste selected_caste, unsigned int number_of_default_favorites, unsigned int number_of_favorite_abilities)
     {
       _abilities = new_abilities;
       default_favorite = number_of_default_favorites;
@@ -71,7 +71,7 @@ namespace qt {
       check_current_selection();
     }
 
-    void character_creation_favorite_abilities::allow_check_on_non_caste_abilities()
+    void character_creation_ability_values::allow_check_on_non_caste_abilities()
     {
       for (auto checkbox: ability_of_button.keys())
         {
@@ -83,7 +83,7 @@ namespace qt {
         }
     }
 
-    void character_creation_favorite_abilities::check_current_selection()
+    void character_creation_ability_values::check_current_selection()
     {
       auto selected = selected_abilities();
       for (character::ability_names::ability_enum ability: character::ability_names::ABILITIES)
@@ -107,12 +107,12 @@ namespace qt {
       next_page->setEnabled(finished_selecting);
     }
 
-    void character_creation_favorite_abilities::next_issued()
+    void character_creation_ability_values::next_issued()
     {
       emit abilities_selected(selected_abilities());
     }
 
-    QList<character::ability_names::ability_enum> character_creation_favorite_abilities::selected_abilities() const
+    QList<character::ability_names::ability_enum> character_creation_ability_values::selected_abilities() const
     {
       QList<character::ability_names::ability_enum> selected_favorites;
 
@@ -124,6 +124,5 @@ namespace qt {
 
       return selected_favorites;
     }
-
   }
 }
