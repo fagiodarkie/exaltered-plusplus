@@ -24,6 +24,7 @@ namespace qt {
           connect(ability_checkbox, &QCheckBox::clicked, this, &character_creation_favorite_abilities::check_current_selection);
         }
       abilities->setLayout(ability_list);
+      check_current_selection();
 
       QHBoxLayout* buttons_layout = new QHBoxLayout;
       next_page = new QPushButton(NEXT_LABEL);
@@ -67,7 +68,7 @@ namespace qt {
           checkbox->setChecked(checkbox->isChecked()
                                || is_caste_ability
                                || _abilities[ability_of_button[checkbox]].is_favourite());
-          checkbox->setCheckable(!is_caste_ability);
+          checkbox->setEnabled(!is_caste_ability);
         }
     }
 
@@ -76,7 +77,10 @@ namespace qt {
       if (selected_abilities().size() == max_favorite + default_favorite)
         {
           for (auto checkbox: ability_of_button.keys())
-            checkbox->setCheckable(false);
+            {
+              bool is_caste_ability = abilities_of_caste.contains(ability_of_button[checkbox]);
+              checkbox->setEnabled(!is_caste_ability || _abilities[ability_of_button[checkbox]].get_ability() > 0);
+            }
         }
 
       else

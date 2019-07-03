@@ -56,6 +56,7 @@ namespace character
       { PRESENCE,         "Presence"        },
       { RESISTANCE,       "Resistance"      },
       { INTEGRITY,        "Integrity"       },
+      { MEDITATION,       "Meditation"      },
       { ACADEMICS,        "Academics"       },
       { MEDICINE,         "Medicine"        },
       { INVESTIGATION,    "Investigation"   },
