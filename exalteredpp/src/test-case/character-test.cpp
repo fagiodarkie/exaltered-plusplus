@@ -4,12 +4,13 @@
 
 #define CHARACTER_NAME "test-name"
 #define TEST_ATTRIBUTE_NAME "test-attribute"
+#define STANDARD_CHARACTER_CREATION_PARAMETERS CHARACTER_NAME, creation::TYPE_MORTAL_HERO
 
 TEST_CASE("Character")
 {
   SECTION("should create new character correctly (name constructor)")
   {
-    character::character sut(CHARACTER_NAME);
+    character::character sut(STANDARD_CHARACTER_CREATION_PARAMETERS);
     REQUIRE(QString(CHARACTER_NAME) == sut.get_name());
   }
 

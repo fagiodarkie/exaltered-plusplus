@@ -11,6 +11,8 @@ namespace qt {
     static QString CANCEL_LABEL   = "Cancel";
     static QString APP_TITLE      = "Divine Games";
 
+
+
     namespace creation_wizard {
       static QString CHARACTER_NAME_LABEL = "Character name:";
       static QString CHARACTER_TYPE_LABEL = "Character type:";
@@ -18,6 +20,8 @@ namespace qt {
       static QString PRIMARY_ATTRIBUTE    = "Primary Attribute";
       static QString SECONDARY_ATTRIBUTE  = "Secondary Attribute";
       static QString TERTIARY_ATTRIBUTE   = "Tertiary Attribute";
+
+      static QString CASTE                = "Caste";
 
       static QString ATTRIBUTE_LABEL_WITH_TOTAL_POINTS(const QString& label, int points)
       {
