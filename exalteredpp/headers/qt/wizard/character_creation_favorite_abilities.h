@@ -16,7 +16,7 @@ namespace qt {
     public:
       character_creation_favorite_abilities(QWidget *parent = nullptr);
 
-      void set_current_abilities(const character::abilities& new_abilities, unsigned int ability_points, unsigned int min_points_in_favored, unsigned int max_std_value);
+      void set_current_abilities(const character::abilities& new_abilities, character::exalt::caste selected_caste, unsigned int number_of_default_favorites, unsigned int number_of_favorite_abilities);
 
     signals:
       void back_issued();
@@ -30,11 +30,12 @@ namespace qt {
       void check_current_selection();
       void allow_check_on_non_caste_abilities();
 
-      unsigned int distributed_points() const;
+      QList<character::ability_names::ability_enum> selected_abilities() const;
 
       QPushButton *next_page, *cancel;
       character::abilities _abilities;
-      unsigned int max_std, min_in_favored, total_points;
+      unsigned int max_favorite;
+      unsigned int default_favorite;
       QList<character::ability_names::ability_enum> abilities_of_caste;
     };
   }

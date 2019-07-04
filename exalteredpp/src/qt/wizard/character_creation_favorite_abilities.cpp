@@ -57,7 +57,7 @@ namespace qt {
       setLayout(outer_layout);
     }
 
-    void character_creation_favorite_abilities::set_current_abilities(const character::abilities &new_abilities, unsigned int ability_points, unsigned int min_points_in_favored, unsigned int max_std_value)
+    void character_creation_favorite_abilities::set_current_abilities(const character::abilities &new_abilities, character::exalt::caste selected_caste, unsigned int number_of_default_favorites, unsigned int number_of_favorite_abilities)
     {
       _abilities = new_abilities;
       default_favorite = number_of_default_favorites;
