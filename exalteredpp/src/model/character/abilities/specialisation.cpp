@@ -6,6 +6,16 @@ namespace character {
   specialisation::specialisation(const QString& name, unsigned int initial_value)
     : name(name), value(initial_value) {};
 
+  specialisation::specialisation(const specialisation& o) : name(o.name), value(o.value) { }
+
+  specialisation& specialisation::operator=(const specialisation& o)
+  {
+    name = o.name;
+    value = o.value;
+
+    return *this;
+  }
+
   QString specialisation::get_name() const
   {
     return name;
