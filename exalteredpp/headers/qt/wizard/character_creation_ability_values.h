@@ -20,6 +20,7 @@ namespace qt {
                         const QString& ability_name = "");
       QWidget* widget() const;
       void update(character::ability_group ability);
+      void update_labels();
 
       bool is_favored;
       character::ability_names::ability_enum ability;
@@ -28,6 +29,8 @@ namespace qt {
       QString ability_name;
       QPushButton *increase, *decrease;
       unsigned int value;
+
+      static const char* REFERRED_ABILITY;
     };
 
     class character_creation_ability_values : public QWidget
@@ -45,6 +48,9 @@ namespace qt {
       QMap<character::ability_names::ability_enum, ability_value_row> row_of_ability;
       void next_issued();
       void check_current_selection();
+
+      void increase_issued();
+      void decrease_issued();
 
       QPushButton *next_page, *cancel;
       character::abilities _abilities;

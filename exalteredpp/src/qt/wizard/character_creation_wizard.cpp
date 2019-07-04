@@ -99,7 +99,7 @@ namespace qt {
           abilities[ability].set_favourite(favored_abilities.contains(ability));
         }
 
-      abilities_page->set_current_abilities(abilities, character_model.max_ability_points_on_creation, character_model.min_ability_points_on_favorite_abilities, character_model.max_std_ability_points_on_creation);
+      abilities_page->set_current_abilities(abilities, character_model.starting_ability_points, character_model.min_ability_points_on_favorite_abilities, character_model.max_std_ability_points_on_creation);
 
       advance();
     }

@@ -5,7 +5,7 @@
 namespace qt {
   namespace layout {
 
-    static const QSize SQUARE_BUTTON_STD_SIZE(25, 25);
+    static const QSize SQUARE_BUTTON_STD_SIZE(50, 50);
 
   }
 }

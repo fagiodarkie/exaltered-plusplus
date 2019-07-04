@@ -4,6 +4,7 @@
 #include "layout/qborderlayout.h"
 #include "layout/layout_constants.h"
 #include <QFormLayout>
+#include <QScrollArea>
 #include "invalid_parameter.h"
 
 namespace qt {
@@ -44,7 +45,9 @@ namespace qt {
       buttons->setLayout(buttons_layout);
 
       layout::QBorderLayout *outer_layout = new layout::QBorderLayout;
-      outer_layout->addWidget(categories, layout::QBorderLayout::Center);
+      QScrollArea *scroll_categories = new QScrollArea;
+      scroll_categories->setWidget(categories);
+      outer_layout->addWidget(scroll_categories, layout::QBorderLayout::Center);
       outer_layout->addWidget(buttons, layout::QBorderLayout::South);
 
       setLayout(outer_layout);
