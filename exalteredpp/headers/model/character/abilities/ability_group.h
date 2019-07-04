@@ -11,11 +11,12 @@ namespace character
   {
   public:
 
-    ability_group() = default;
-
-    ability_group(const QString& name, ability_names::ability_category category,
+    ability_group(const QString& name = "", ability_names::ability_category category = ability_names::COMBAT,
                   QList<ability> abilities = { ability(ability_names::ability_declination::NO_DECLINATION) },
                   QList<specialisation> specialisations = {});
+    ability_group(const ability_group& o);
+    ability_group& operator=(const ability_group& o);
+
 
     QString get_name() const;
     ability get_ability(const QString& name = ability_names::ability_declination::NO_DECLINATION) const;

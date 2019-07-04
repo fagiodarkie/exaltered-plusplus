@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QCheckBox>
+#include <QFormLayout>
 #include <QLabel>
 #include <QPushButton>
 #include <QWidget>
@@ -14,8 +15,9 @@ namespace qt {
 
     struct ability_value_row {
 
-      ability_value_row(character::ability_names::ability_enum ability, character::ability_names::ability_category category, const QString& ability_name);
-
+      ability_value_row(character::ability_names::ability_enum ability = character::ability_names::WAR,
+                        character::ability_names::ability_category category = character::ability_names::COMBAT,
+                        const QString& ability_name = "");
       QWidget* widget() const;
       void update(character::ability_group ability);
 
@@ -33,7 +35,7 @@ namespace qt {
       Q_OBJECT
     public:
       character_creation_ability_values(QWidget *parent = nullptr);
-      void set_current_abilities(const character::abilities& new_abilities, unsigned int number_of_default_favorites, unsigned int number_of_favorite_abilities);
+      void set_current_abilities(const character::abilities& new_abilities, unsigned int max_points, unsigned int min_in_favorites, unsigned int max_ability_value);
 
     signals:
       void back_issued();
@@ -46,8 +48,7 @@ namespace qt {
 
       QPushButton *next_page, *cancel;
       character::abilities _abilities;
-      unsigned int max_favorite;
-      unsigned int default_favorite;
+      unsigned int max_ability_points, min_points_in_favorites, max_std_ability_value;
     };
   }
 }

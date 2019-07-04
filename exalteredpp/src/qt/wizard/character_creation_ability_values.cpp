@@ -1,10 +1,14 @@
 #include "wizard/character_creation_ability_values.h"
 
+#include <QtDebug>
+
 #include <QFormLayout>
 #include <QGroupBox>
+#include <QScrollArea>
 
 #include "label/interfacelabels.h"
 #include "layout/qborderlayout.h"
+#include "layout/layout_constants.h"
 
 namespace qt {
   namespace wizard {
@@ -13,13 +17,15 @@ namespace qt {
     using namespace qt::labels;
 
     ability_value_row::ability_value_row(character::ability_names::ability_enum ability, character::ability_names::ability_category category, const QString& ability_name)
-      : ability(ability), category(category), ability_name(ability_name)
+      : ability(ability), category(category), ability_name(ability_name), value(0), is_favored(false)
     {
-      label = new QLabel;
+      label = new QLabel(ability_name + " (999)");
+      label->setTextFormat(Qt::RichText);
+      label->setStyleSheet("font-weight: bold");
       increase = new QPushButton("+");
-      increase->resize(increase->minimumHeight(), increase->minimumHeight());
+      increase->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
       decrease = new QPushButton("-");
-      decrease->resize(increase->minimumHeight(), increase->minimumHeight());
+      decrease->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
     }
 
     QWidget* ability_value_row::widget() const
@@ -39,9 +45,9 @@ namespace qt {
       value = ability.get_ability();
       is_favored = ability.is_favourite();
 
-      label->setText(labels::creation_wizard::ATTRIBUTE_WITH_POINTS(ability_name, value));
-      if (is_favored)
-        label->setStyleSheet("font-weight: bold");
+      label->setText(creation_wizard::ATTRIBUTE_WITH_POINTS(ability_name, value));
+      label->setStyleSheet(is_favored ? "font-weight: bold" : "");
+
     }
 
     character_creation_ability_values::character_creation_ability_values(QWidget *parent)
@@ -58,13 +64,14 @@ namespace qt {
           QGroupBox *category_group = new QGroupBox(character::ability_names::ABILITY_CATEGORY_NAMES[ab_category]);
           ability_groups[ab_category] = category_group;
           ability_list->addWidget(category_group);
+          ability_forms[ab_category] = new QFormLayout;
         }
 
       for (auto ability_enum : character::ability_names::ABILITIES)
         {
           ability_value_row row(ability_enum, character::ability_names::CATEGORY_OF_ABILITY(ability_enum), character::ability_names::ABILITY_NAME[ability_enum]);
-          ability_forms[character::ability_names::CATEGORY_OF_ABILITY(ability_enum)]->addRow(row.label, row.widget());
-          row_of_ability[ability_enum] = row;
+          ability_forms[row.category]->addRow(row.label, row.widget());
+          row_of_ability.insert(ability_enum, row);
           // TODO connections
         }
 
@@ -72,6 +79,8 @@ namespace qt {
         ability_groups[ab_category]->setLayout(ability_forms[ab_category]);
 
       abilities->setLayout(ability_list);
+      QScrollArea *scroll_abilities = new QScrollArea;
+      scroll_abilities->setWidget(abilities);
 
       QHBoxLayout* buttons_layout = new QHBoxLayout;
       next_page = new QPushButton(NEXT_LABEL);
@@ -87,17 +96,18 @@ namespace qt {
       buttons->setLayout(buttons_layout);
 
       layout::QBorderLayout *outer_layout = new layout::QBorderLayout;
-      outer_layout->addWidget(abilities, layout::QBorderLayout::Center);
+      outer_layout->addWidget(scroll_abilities, layout::QBorderLayout::Center);
       outer_layout->addWidget(buttons, layout::QBorderLayout::South);
 
       setLayout(outer_layout);
     }
 
-    void character_creation_ability_values::set_current_abilities(const character::abilities &new_abilities, unsigned int number_of_default_favorites, unsigned int number_of_favorite_abilities)
+    void character_creation_ability_values::set_current_abilities(const character::abilities &new_abilities, unsigned int max_points, unsigned int min_in_favorites, unsigned int max_ability_value)
     {
       _abilities = new_abilities;
-      default_favorite = number_of_default_favorites;
-      max_favorite = number_of_favorite_abilities;
+      max_ability_points = max_points;
+      min_points_in_favorites = min_in_favorites;
+      max_std_ability_value = max_ability_value;
 
       for (auto ability_enum : character::ability_names::ABILITIES)
         {
@@ -109,6 +119,8 @@ namespace qt {
 
     void character_creation_ability_values::check_current_selection()
     {
+      // TODO
+
       next_page->setEnabled(false);
     }
 

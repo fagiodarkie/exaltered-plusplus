@@ -18,6 +18,9 @@ namespace qt {
       for (auto attribute_e : attribute_names::ATTRIBUTES)
         attributes[attribute_e] = attribute(attribute_names::ATTRIBUTE_NAME[attribute_e], 1);
 
+      for (auto ability_e : ability_names::ABILITIES)
+        abilities[ability_e] = ability_group(ability_names::ABILITY_NAME[ability_e], ability_names::CATEGORY_OF_ABILITY(ability_e));
+
 
       name_page = new character_creation_name_type_page(this);
       connect(name_page, &character_creation_name_type_page::back_issued, this, &character_creation_wizard::fallback);
@@ -35,6 +38,10 @@ namespace qt {
       connect(favorite_abilities_page, &character_creation_favorite_abilities::back_issued, this, &character_creation_wizard::fallback);
       connect(favorite_abilities_page, &character_creation_favorite_abilities::abilities_selected, this, &character_creation_wizard::load_favored_abilities);
 
+      abilities_page = new character_creation_ability_values(this);
+      connect(abilities_page, &character_creation_ability_values::back_issued, this, &character_creation_wizard::fallback);
+      connect(abilities_page, &character_creation_ability_values::ability_points_chosen, this, &character_creation_wizard::load_ability_values);
+
       virtues_page = new character_creation_virtues_vice(this);
       connect(virtues_page, &character_creation_virtues_vice::back_issued, this, &character_creation_wizard::fallback);
       connect(virtues_page, &character_creation_virtues_vice::virtues_chosen, this, &character_creation_wizard::load_persona);
@@ -44,6 +51,7 @@ namespace qt {
       layout->addWidget(attribute_priority_page);
       layout->addWidget(attribute_points_page);
       layout->addWidget(favorite_abilities_page);
+      layout->addWidget(abilities_page);
       layout->addWidget(virtues_page);
 
       setLayout(layout);
@@ -91,7 +99,15 @@ namespace qt {
           abilities[ability].set_favourite(favored_abilities.contains(ability));
         }
 
-      // these should go after all the yadda yadda of abilities
+      abilities_page->set_current_abilities(abilities, character_model.max_ability_points_on_creation, character_model.min_ability_points_on_favorite_abilities, character_model.max_std_ability_points_on_creation);
+
+      advance();
+    }
+
+    void character_creation_wizard::load_ability_values(const class abilities &abilities)
+    {
+      this->abilities = abilities;
+
       virtues_page->update_virtues_limits(character_virtues, character_model.starting_virtue_points, character_model.max_std_virtue_points);
 
       advance();

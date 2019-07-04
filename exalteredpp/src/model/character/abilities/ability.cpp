@@ -9,6 +9,16 @@ namespace character {
 
   ability::ability(const QString& name, unsigned int value) : _name(name), _value(value) {}
 
+  ability::ability(const ability& o) : _name(o._name), _value(o._value) { }
+
+  ability& ability::operator=(const ability& o)
+  {
+    _name = o._name;
+    _value = o._value;
+
+    return *this;
+  }
+
   ability::operator unsigned int() const
   {
     return _value;

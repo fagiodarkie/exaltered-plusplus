@@ -9,8 +9,23 @@
 namespace character
 {
     ability_group::ability_group(const QString& name, ability_names::ability_category category, QList<ability> abilities, QList<specialisation> existing_specialisations)
-      : group_name(name), category(category), actual_abilities(abilities), specialisations(existing_specialisations)
+      : group_name(name), actual_abilities(abilities), specialisations(existing_specialisations), category(category), is_favorite(false)
     { }
+
+    ability_group::ability_group(const ability_group& o)
+      : group_name(o.group_name), actual_abilities(o.actual_abilities), specialisations(o.specialisations), category(o.category), is_favorite(o.is_favorite)
+    { }
+
+    ability_group& ability_group::operator=(const ability_group& o)
+    {
+      group_name = o.group_name;
+      actual_abilities = o.actual_abilities;
+      specialisations = o.specialisations;
+      category = o.category;
+      is_favorite = o.is_favorite;
+
+      return *this;
+    }
 
     QString ability_group::get_name() const
     {

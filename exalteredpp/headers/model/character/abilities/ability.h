@@ -11,6 +11,8 @@ namespace character
   public:
     ability();
     ability(const QString& name, unsigned int value = 0);
+    ability(const ability& o);
+    ability& operator=(const ability& o);
 
     operator unsigned int() const;
     operator QString() const;

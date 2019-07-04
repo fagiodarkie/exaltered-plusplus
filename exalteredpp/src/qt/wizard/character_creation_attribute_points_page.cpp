@@ -2,6 +2,7 @@
 
 #include "label/interfacelabels.h"
 #include "layout/qborderlayout.h"
+#include "layout/layout_constants.h"
 #include <QFormLayout>
 #include "invalid_parameter.h"
 
@@ -58,6 +59,7 @@ namespace qt {
     QPushButton* character_creation_attribute_points_page::generate_add_button()
     {
       QPushButton* button = new QPushButton("+");
+      button->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
 
       connect(button, &QPushButton::clicked, this, &character_creation_attribute_points_page::increase_attribute);
 
@@ -67,6 +69,7 @@ namespace qt {
     QPushButton* character_creation_attribute_points_page::generate_subtract_button()
     {
       QPushButton* button = new QPushButton("-");
+      button->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
 
       connect(button, &QPushButton::clicked, this, &character_creation_attribute_points_page::decrease_attribute);
 

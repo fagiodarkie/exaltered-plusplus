@@ -118,6 +118,7 @@ HEADERS += \
     ../../headers/model/text/character_text_constants.h \
     ../../headers/qt/exalteredapp.h \
     ../../headers/qt/label/interfacelabels.h \
+    ../../headers/qt/layout/layout_constants.h \
     ../../headers/qt/layout/qborderlayout.h \
     ../../headers/qt/objects_factory.h \
     ../../headers/qt/screen/qcharacterabilities.h \

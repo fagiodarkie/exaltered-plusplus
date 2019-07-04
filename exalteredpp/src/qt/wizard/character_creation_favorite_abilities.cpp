@@ -1,6 +1,7 @@
 #include "wizard/character_creation_favorite_abilities.h"
 
 #include <QGroupBox>
+#include <QScrollArea>
 
 #include "label/interfacelabels.h"
 #include "layout/qborderlayout.h"
@@ -36,6 +37,8 @@ namespace qt {
           connect(ability_checkbox, &QCheckBox::clicked, this, &character_creation_favorite_abilities::check_current_selection);
         }
       abilities->setLayout(ability_list);
+      QScrollArea *scroll_abilities = new QScrollArea;
+      scroll_abilities->setWidget(abilities);
 
       QHBoxLayout* buttons_layout = new QHBoxLayout;
       next_page = new QPushButton(NEXT_LABEL);
@@ -51,7 +54,7 @@ namespace qt {
       buttons->setLayout(buttons_layout);
 
       layout::QBorderLayout *outer_layout = new layout::QBorderLayout;
-      outer_layout->addWidget(abilities, layout::QBorderLayout::Center);
+      outer_layout->addWidget(scroll_abilities, layout::QBorderLayout::Center);
       outer_layout->addWidget(buttons, layout::QBorderLayout::South);
 
       setLayout(outer_layout);
