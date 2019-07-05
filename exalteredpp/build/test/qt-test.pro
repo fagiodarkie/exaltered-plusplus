@@ -29,6 +29,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    ../../headers/common/reverse_search.h \
     ../../headers/errors/ability_not_found_exception.h \
     ../../headers/errors/characternotfoundexception.h \
     ../../headers/errors/error_codes.h \
@@ -45,14 +46,28 @@ HEADERS += \
     ../../headers/model/character/attributes/attribute_names.h \
     ../../headers/model/character/attributes/attributes.h \
     ../../headers/model/character/character.h \
+    ../../headers/model/character/creation/character_creation_configuration.h \
+    ../../headers/model/character/creation/character_type_model.h \
+    ../../headers/model/character/exalt/exalt_caste.h \
+    ../../headers/model/character/narrative/backgrounds.h \
+    ../../headers/model/character/power/essence.h \
+    ../../headers/model/character/power/health.h \
+    ../../headers/model/character/power/logos.h \
+    ../../headers/model/character/power/power_container.h \
+    ../../headers/model/character/power/willpower.h \
+    ../../headers/model/character/social/emotions_names.h \
+    ../../headers/model/character/social/persona.h \
+    ../../headers/model/character/social/philosophy.h \
+    ../../headers/model/character/social/social_specifics.h \
+    ../../headers/model/character/virtues/virtue.h \
+    ../../headers/model/character/virtues/virtue_names.h \
+    ../../headers/model/character/virtues/virtues.h \
     ../../headers/model/managers/character_manager.h \
     ../../headers/model/text/character_text_constants.h \
     ../../headers/serialisation/db_abstraction.h \
     ../../headers/serialisation/filesystem_db.h \
     ../../headers/serialisation/json_constants.h \
     ../../headers/serialisation/serialisable.h \
-    ../../headers/model/character/creation/character_creation_configuration.h \
-    ../../headers/model/character/creation/character_type_model.h \
     ../../headers/test-case/ability_factory_mock.h \
     ../../headers/test-case/db_abstraction_mock.h
 
@@ -68,24 +83,36 @@ SOURCES += \
     ../../src/model/character/attributes/attribute.cpp \
     ../../src/model/character/attributes/attributes.cpp \
     ../../src/model/character/character.cpp \
+    ../../src/model/character/creation/character_creation_configuration.cpp \
+    ../../src/model/character/creation/character_type_model.cpp \
+    ../../src/model/character/exalt/exalt_caste.cpp \
+    ../../src/model/character/exalt/exalt_caste_abilities.cpp \
+    ../../src/model/character/narrative/backgrounds.cpp \
+    ../../src/model/character/power/essence.cpp \
+    ../../src/model/character/power/health.cpp \
+    ../../src/model/character/power/logos.cpp \
+    ../../src/model/character/power/power_container.cpp \
+    ../../src/model/character/power/willpower.cpp \
+    ../../src/model/character/social/persona.cpp \
+    ../../src/model/character/social/philosophy.cpp \
+    ../../src/model/character/virtues/virtue.cpp \
+    ../../src/model/character/virtues/virtues.cpp \
     ../../src/model/managers/character_manager.cpp \
     ../../src/qt-test/main.cpp \
     ../../src/serialisation/filesystem_db.cpp \
     ../../src/serialisation/json_constants.cpp \
     ../../src/test-case/abilities-test.cpp \
+    ../../src/test-case/ability-factory-test.cpp \
+    ../../src/test-case/ability-group-test.cpp \
     ../../src/test-case/ability-test.cpp \
     ../../src/test-case/attribute-test.cpp \
     ../../src/test-case/attributes-test.cpp \
     ../../src/test-case/character-test.cpp \
     ../../src/test-case/character_manager-test.cpp \
+    ../../src/test-case/character_type_model-test.cpp \
     ../../src/test-case/exceptions-test.cpp \
     ../../src/test-case/filesystem_db-test.cpp \
-    ../../src/test-case/ability-group-test.cpp \
-    ../../src/test-case/ability-factory-test.cpp \
-    ../../src/test-case/specialisation-test.cpp \
-    ../../src/model/character/creation/character_creation_configuration.cpp \
-    ../../src/model/character/creation/character_type_model.cpp \
-    ../../src/test-case/character_type_model-test.cpp
+    ../../src/test-case/specialisation-test.cpp
 
 
 
