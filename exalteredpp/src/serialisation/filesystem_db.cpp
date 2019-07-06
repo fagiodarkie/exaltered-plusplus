@@ -8,6 +8,9 @@
 
 namespace serialisation {
 
+  using character::character;
+  using namespace  character;
+
   filesystem_db::filesystem_db()
     : AVAILABLE_CHARACTERS_FILE("available_characters.json"), FILE_EXT(".dcg")
   {

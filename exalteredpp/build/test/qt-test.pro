@@ -69,7 +69,8 @@ HEADERS += \
     ../../headers/serialisation/json_constants.h \
     ../../headers/serialisation/serialisable.h \
     ../../headers/test-case/ability_factory_mock.h \
-    ../../headers/test-case/db_abstraction_mock.h
+    ../../headers/test-case/db_abstraction_mock.h \
+    ../../headers/qt-test/quick_chargen.h
 
 SOURCES += \
     ../../src/errors/ability_not_found_exception.cpp \
@@ -112,7 +113,8 @@ SOURCES += \
     ../../src/test-case/character_type_model-test.cpp \
     ../../src/test-case/exceptions-test.cpp \
     ../../src/test-case/filesystem_db-test.cpp \
-    ../../src/test-case/specialisation-test.cpp
+    ../../src/test-case/specialisation-test.cpp \
+    ../../src/qt-test/quick_chargen.cpp
 
 
 

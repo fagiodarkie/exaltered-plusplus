@@ -4,6 +4,7 @@
 #include "managers/character_manager.h"
 #include "db_abstraction_mock.h"
 #include "ability_factory_mock.h"
+#include "qt-test/quick_chargen.h"
 
 TEST_CASE("character_manager")
 {
@@ -32,7 +33,7 @@ TEST_CASE("character_manager")
   {
     try
     {
-      QSharedPointer<character::character> to_save = QSharedPointer<character::character>(new character::character(CHAR_MAN_TEST_CHAR_NAME));
+      QSharedPointer<character::character> to_save = generate_character_pointer("name", 0);
       sut.save_character(to_save);
       QSharedPointer<character::character> loaded = sut.load_character("name");
       REQUIRE(to_save->get_name() == loaded->get_name());

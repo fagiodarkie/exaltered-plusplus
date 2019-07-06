@@ -29,6 +29,7 @@ namespace character
                 const power::power_container power_container,
                 const unsigned int id = 0);
       character(const QJsonObject& object);
+      character(const character& other);
 
       // character fields
       QString get_name() const;
