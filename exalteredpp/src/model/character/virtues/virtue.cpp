@@ -45,7 +45,7 @@ namespace character {
     {
       QString virtue_name = json[json_constants::SLOT_NAME].toString(),
           virtue_rank = json[json_constants::SLOT_RANK].toString();
-      unsigned int virtue_value = static_cast<unsigned int>(json[json_constants::SLOT_VALUE].toInt());
+      unsigned int virtue_value = static_cast<unsigned int>(json[json_constants::SLOT_VALUE].toString().toInt());
 
       _virtue_enum = commons::reverse_search_in_map(VIRTUE_LIST, VIRTUE_NAME, virtue_name);
       _rank = commons::reverse_search_in_map(VIRTUE_RANK_LIST, RANK_NAME, virtue_rank);

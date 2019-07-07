@@ -34,4 +34,16 @@ TEST_CASE("character_manager")
       FAIL("Something went wrong while retrieving saved character");
     }
   }
+
+  SECTION("should create a new character if requested")
+  {
+    try {
+      auto generated = sut.create_character("name", character::creation::TYPE_MORTAL_HERO, character::exalt::caste::NO_CASTE, character::attributes(), character::abilities(), character::virtues::virtues(), character::power::power_container());
+      REQUIRE(!generated.isNull());
+    }
+    catch(...)
+    {
+      FAIL("Something went wrong while generating character");
+    }
+  }
 }

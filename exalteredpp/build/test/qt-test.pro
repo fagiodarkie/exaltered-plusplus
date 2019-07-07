@@ -100,21 +100,63 @@ SOURCES += \
     ../../src/model/character/virtues/virtues.cpp \
     ../../src/model/managers/character_manager.cpp \
     ../../src/qt-test/main.cpp \
+    ../../src/qt-test/quick_chargen.cpp \
+    ../../src/test-case/errors/exceptions-test.cpp \
+    ../../src/test-case/managers/ability-factory-test.cpp \
+    ../../src/test-case/managers/character_manager-test.cpp \
+    ../../src/test-case/managers/filesystem_db-test.cpp \
+    ../../src/test-case/model/abilities/abilities-test.cpp \
+    ../../src/test-case/model/abilities/ability-group-test.cpp \
+    ../../src/test-case/model/abilities/ability-test.cpp \
+    ../../src/test-case/model/abilities/specialisation-test.cpp \
+    ../../src/test-case/model/attributes/attribute-test.cpp \
+    ../../src/test-case/model/attributes/attributes-test.cpp \
+    ../../src/test-case/model/character-test.cpp \
+    ../../src/test-case/model/character-type-model-test.cpp \
+    ../../src/errors/ability_not_found_exception.cpp \
+    ../../src/errors/characternotfoundexception.cpp \
+    ../../src/errors/invalid_parameter.cpp \
+    ../../src/model/character/abilities/abilities.cpp \
+    ../../src/model/character/abilities/ability.cpp \
+    ../../src/model/character/abilities/ability_group.cpp \
+    ../../src/model/character/abilities/default_ability_factory.cpp \
+    ../../src/model/character/abilities/specialisation.cpp \
+    ../../src/model/character/attributes/attribute.cpp \
+    ../../src/model/character/attributes/attributes.cpp \
+    ../../src/model/character/creation/character_creation_configuration.cpp \
+    ../../src/model/character/creation/character_type_model.cpp \
+    ../../src/model/character/exalt/exalt_caste.cpp \
+    ../../src/model/character/exalt/exalt_caste_abilities.cpp \
+    ../../src/model/character/narrative/backgrounds.cpp \
+    ../../src/model/character/power/essence.cpp \
+    ../../src/model/character/power/health.cpp \
+    ../../src/model/character/power/logos.cpp \
+    ../../src/model/character/power/power_container.cpp \
+    ../../src/model/character/power/willpower.cpp \
+    ../../src/model/character/social/persona.cpp \
+    ../../src/model/character/social/philosophy.cpp \
+    ../../src/model/character/virtues/virtue.cpp \
+    ../../src/model/character/virtues/virtues.cpp \
+    ../../src/model/character/character.cpp \
+    ../../src/model/managers/character_manager.cpp \
+    ../../src/qt-test/main.cpp \
+    ../../src/qt-test/quick_chargen.cpp \
     ../../src/serialisation/filesystem_db.cpp \
     ../../src/serialisation/json_constants.cpp \
-    ../../src/test-case/abilities-test.cpp \
-    ../../src/test-case/ability-factory-test.cpp \
-    ../../src/test-case/ability-group-test.cpp \
-    ../../src/test-case/ability-test.cpp \
-    ../../src/test-case/attribute-test.cpp \
-    ../../src/test-case/attributes-test.cpp \
-    ../../src/test-case/character-test.cpp \
-    ../../src/test-case/character_manager-test.cpp \
-    ../../src/test-case/character_type_model-test.cpp \
-    ../../src/test-case/exceptions-test.cpp \
-    ../../src/test-case/filesystem_db-test.cpp \
-    ../../src/test-case/specialisation-test.cpp \
-    ../../src/qt-test/quick_chargen.cpp
+    ../../src/test-case/errors/exceptions-test.cpp \
+    ../../src/test-case/managers/ability-factory-test.cpp \
+    ../../src/test-case/managers/character_manager-test.cpp \
+    ../../src/test-case/managers/filesystem_db-test.cpp \
+    ../../src/test-case/model/abilities/abilities-test.cpp \
+    ../../src/test-case/model/abilities/ability-group-test.cpp \
+    ../../src/test-case/model/abilities/ability-test.cpp \
+    ../../src/test-case/model/abilities/specialisation-test.cpp \
+    ../../src/test-case/model/attributes/attribute-test.cpp \
+    ../../src/test-case/model/attributes/attributes-test.cpp \
+    ../../src/test-case/model/character-test.cpp \
+    ../../src/test-case/model/character-type-model-test.cpp \
+    ../../src/test-case/model/virtues/virtue-test.cpp \
+    ../../src/test-case/model/virtues/virtues-test.cpp
 
 
 

@@ -42,7 +42,7 @@ namespace character {
         }
 
       _vice = json[serialisation::json_constants::SLOT_VICE_ID].isUndefined() ? LUST : vice_enum(json[serialisation::json_constants::SLOT_VICE_ID].toInt());
-      _vice_value = json[serialisation::json_constants::SLOT_VICE_VALUE].isUndefined() ? 1 : static_cast<unsigned int>(json[serialisation::json_constants::SLOT_VICE_VALUE].toInt());
+      _vice_value = json[serialisation::json_constants::SLOT_VICE_VALUE].isUndefined() ? 1 : static_cast<unsigned int>(json[serialisation::json_constants::SLOT_VICE_VALUE].toString().toInt());
     }
 
     virtue& virtues::value(virtue_enum virtue_name)

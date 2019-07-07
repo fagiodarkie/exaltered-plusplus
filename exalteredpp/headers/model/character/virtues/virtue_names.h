@@ -5,15 +5,15 @@
 namespace character {
   namespace virtues {
     enum virtue_enum {
-      COMPASSION = 1, VALOR, CONVINCTION, TEMPERANCE
+      COMPASSION = 0, VALOR, CONVINCTION, TEMPERANCE
     };
 
     enum vice_enum {
-      LUST = 1, GLUTTONY, WRATH, SLOTH, PRIDE, ENVY, GREED
+      LUST = 0, GLUTTONY, WRATH, SLOTH, PRIDE, ENVY, GREED
     };
 
     enum virtue_rank {
-      CHILD = 1, TEENAGER, ADULT, SENIOR
+      CHILD = 0, TEENAGER, ADULT, SENIOR
     };
 
     static const QList<virtue_enum> VIRTUE_LIST = {
