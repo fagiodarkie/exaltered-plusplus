@@ -20,15 +20,6 @@ TEST_CASE("character_manager")
     REQUIRE(result->get_name() == CHAR_MAN_TEST_CHAR_NAME);
   }
 
-  SECTION("should create new character when it is not present")
-  {
-    manager_mock->mock_has_character(false);
-    REQUIRE(sut.characters().empty());
-    QSharedPointer<character::character> result = sut.load_character("name");
-    REQUIRE_FALSE(sut.characters().empty());
-    REQUIRE(result->get_name() == CHAR_MAN_TEST_CHAR_NAME);
-  }
-
   SECTION("should save character without errors")
   {
     try

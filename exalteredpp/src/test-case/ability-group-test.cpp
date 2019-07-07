@@ -143,12 +143,4 @@ TEST_CASE("Ability group")
     REQUIRE(sut.get_specialisations().count() == 0);
   }
 
-  SECTION("should initialise ability category with just the name")
-  {
-    for (auto ability_name: character::ability_names::ABILITIES)
-      {
-        character::ability_group sut(character::ability_names::ABILITY_NAME[ability_name]);
-        REQUIRE(sut.get_category() == character::ability_names::CATEGORY_OF_ABILITY(ability_name));
-      }
-  }
 }

@@ -33,13 +33,16 @@ namespace character {
     {
       for (virtue_enum virtue_e : VIRTUE_LIST)
         {
+          if (json[VIRTUE_NAME.value(virtue_e)].isUndefined())
+            continue;
+
           QJsonObject inner_json = json[VIRTUE_NAME.value(virtue_e)].toObject();
           virtue v = virtue(inner_json);
           insert(virtue_e, v);
         }
 
-      _vice = vice_enum(json[serialisation::json_constants::SLOT_VICE_ID].toInt());
-      _vice_value = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_VICE_VALUE].toInt());
+      _vice = json[serialisation::json_constants::SLOT_VICE_ID].isUndefined() ? LUST : vice_enum(json[serialisation::json_constants::SLOT_VICE_ID].toInt());
+      _vice_value = json[serialisation::json_constants::SLOT_VICE_VALUE].isUndefined() ? 1 : static_cast<unsigned int>(json[serialisation::json_constants::SLOT_VICE_VALUE].toInt());
     }
 
     virtue& virtues::value(virtue_enum virtue_name)
