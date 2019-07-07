@@ -22,8 +22,8 @@ namespace character {
 
     void health::read_from_json(const QJsonObject &json)
     {
-      _current_health = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_HEALTH_TEMP].toInt());
-      _total_health = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_HEALTH_TOTAL].toInt());
+      _current_health = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_HEALTH_TEMP].toString().toInt());
+      _total_health  = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_HEALTH_TOTAL].toString().toInt());
     }
 
     unsigned int health::total_health() const
@@ -43,7 +43,7 @@ namespace character {
 
     void health::deal_damage(unsigned int damage)
     {
-      _current_health = std::max<unsigned int>(_current_health - damage, 0);
+      _current_health = _current_health > damage ? _current_health - damage : 0;
     }
 
     void health::heal_damage(unsigned int damage)

@@ -7,6 +7,8 @@ namespace character {
     class essence : public serialisable
     {
     public:
+      essence();
+
       unsigned int permanent_essence() const;
       void set_permanent_essence(unsigned int permanent_essence);
 

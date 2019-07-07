@@ -156,7 +156,9 @@ SOURCES += \
     ../../src/test-case/model/character-test.cpp \
     ../../src/test-case/model/character-type-model-test.cpp \
     ../../src/test-case/model/virtues/virtue-test.cpp \
-    ../../src/test-case/model/virtues/virtues-test.cpp
+    ../../src/test-case/model/virtues/virtues-test.cpp \
+    ../../src/test-case/model/power/health-test.cpp \
+    ../../src/test-case/model/power/essence-test.cpp
 
 
 

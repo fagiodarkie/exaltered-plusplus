@@ -42,4 +42,18 @@ TEST_CASE("virtues")
     REQUIRE(stub.value(character::virtues::VALOR).rank()         == sut.value(character::virtues::VALOR).rank()        );
     REQUIRE(stub.value(character::virtues::VALOR).value()        == sut.value(character::virtues::VALOR).value()       );
   }
+
+  SECTION("should set and get values")
+  {
+    character::virtues::virtues stub;
+    stub.set_vice_type(character::virtues::LUST);
+    stub.set_vice_value(5);
+    stub.value(character::virtues::COMPASSION).set_rank(character::virtues::ADULT);
+    stub.value(character::virtues::COMPASSION).set_value(1);
+
+    REQUIRE(stub.vice() == character::virtues::LUST);
+    REQUIRE(stub.vice_value() == 5);
+    REQUIRE(stub.value(character::virtues::COMPASSION).rank() == character::virtues::ADULT);
+    REQUIRE(stub.value(character::virtues::COMPASSION).value() == 1);
+  }
 }
