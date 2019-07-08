@@ -46,13 +46,11 @@ namespace character {
       unsigned int get_celestial_portion_percentage() const;
       unsigned int get_terrestrial_portion_percentage() const;
 
-      virtual ~essence();
-
       void set_total_personal_essence(unsigned int total_personal_essence);
-
       void set_total_peripheral_essence(unsigned int total_peripheral_essence);
-
       void set_total_spiritual_essence(unsigned int total_spiritual_essence);
+
+      virtual ~essence();
 
     private:
       unsigned int

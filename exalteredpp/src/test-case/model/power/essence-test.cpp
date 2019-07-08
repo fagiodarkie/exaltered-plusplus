@@ -164,4 +164,27 @@ TEST_CASE("essence")
     sut.decommit_spiritual_essence(5);
     CHECK(sut.available_spiritual_essence() == 10);
   }
+
+  SECTION("should get and set essence and khan consistently")
+  {
+    character::power::essence sut;
+
+    sut.set_khan(2);
+    sut.set_permanent_essence(4);
+
+    REQUIRE(sut.khan() == 2);
+    REQUIRE(sut.permanent_essence() == 4);
+  }
+
+  SECTION("should compute portion percentages consistently")
+  {
+    character::power::essence sut;
+    sut.set_celestial_portion(60);
+    REQUIRE(sut.get_celestial_portion_percentage() == 60);
+    REQUIRE(sut.get_terrestrial_portion_percentage() == 40);
+
+    sut.set_celestial_portion(10);
+    REQUIRE(sut.get_celestial_portion_percentage() == 10);
+    REQUIRE(sut.get_terrestrial_portion_percentage() == 90);
+  }
 }
