@@ -114,7 +114,8 @@ SOURCES += \
     ../../src/test-case/model/attributes/attribute-test.cpp \
     ../../src/test-case/model/attributes/attributes-test.cpp \
     ../../src/test-case/model/character-test.cpp \
-    ../../src/test-case/model/character-type-model-test.cpp \
+    ../../src/test-case/model/creation/character-type-model-test.cpp \
+    ../../src/test-case/model/exalt/exalt-caste-test.cpp \
     ../../src/test-case/model/power/essence-test.cpp \
     ../../src/test-case/model/power/health-test.cpp \
     ../../src/test-case/model/virtues/virtue-test.cpp \

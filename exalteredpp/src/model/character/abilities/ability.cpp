@@ -51,7 +51,7 @@ namespace character {
 
   void ability::read_from_json(const QJsonObject &json)
   {
-    _value = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_VALUE].toInt());
+    _value = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_VALUE].toString().toInt());
     _name = json[serialisation::json_constants::SLOT_NAME].toString();
   }
 

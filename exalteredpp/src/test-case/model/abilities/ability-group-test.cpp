@@ -143,4 +143,52 @@ TEST_CASE("Ability group")
     REQUIRE(sut.get_specialisations().count() == 0);
   }
 
+  SECTION("should save category")
+  {
+    character::ability_group sut(ABILITYNAME, character::ability_names::COMBAT);
+    REQUIRE(sut.get_category() == character::ability_names::COMBAT);
+  }
+
+  SECTION("should save favorite flag")
+  {
+    character::ability_group sut(ABILITYNAME, character::ability_names::COMBAT);
+    REQUIRE_FALSE(sut.is_favourite());
+    sut.set_favourite(true);
+    REQUIRE(sut.is_favourite());
+    sut.set_favourite(false);
+    REQUIRE_FALSE(sut.is_favourite());
+  }
+
+  SECTION("should save and load successfully with JSON Object")
+  {
+    character::ability_group stub(ABILITYNAME, character::ability_names::COMBAT, { character::ability("a1", 1), character::ability("a2", 2) }, {character::specialisation("s1", 3)});
+
+    QJsonObject obj;
+    stub.write_to_json(obj);
+
+    character::ability_group sut;
+    sut.read_from_json(obj);
+
+    REQUIRE(sut.get_name()                            == stub.get_name()                           );
+    REQUIRE(sut.get_category()                        == stub.get_category()                       );
+    REQUIRE(sut.is_favourite()                        == stub.is_favourite()                       );
+    REQUIRE(sut.get_ability("a1").get_ability_value() == stub.get_ability("a1").get_ability_value());
+    REQUIRE(sut.get_ability("a2").get_ability_value() == stub.get_ability("a2").get_ability_value());
+    REQUIRE(sut.get_specialisation("s1").get_value()  == stub.get_specialisation("s1").get_value() );
+  }
+
+  SECTION("should copy successfully with assignment operator")
+  {
+    character::ability_group stub(ABILITYNAME, character::ability_names::COMBAT, { character::ability("a1", 1), character::ability("a2", 2) }, {character::specialisation("s1", 3)});
+
+    character::ability_group sut = stub;
+
+    REQUIRE(sut.get_name()                            == stub.get_name()                           );
+    REQUIRE(sut.get_category()                        == stub.get_category()                       );
+    REQUIRE(sut.is_favourite()                        == stub.is_favourite()                       );
+    REQUIRE(sut.get_ability("a1").get_ability_value() == stub.get_ability("a1").get_ability_value());
+    REQUIRE(sut.get_ability("a2").get_ability_value() == stub.get_ability("a2").get_ability_value());
+    REQUIRE(sut.get_specialisation("s1").get_value()  == stub.get_specialisation("s1").get_value() );
+  }
+
 }

@@ -12,5 +12,15 @@ namespace character {
     {
       return exalt_caste(NAME_OF_CASTE[caste_type], ABILITIES_OF_CASTE[caste_type]);
     }
+
+    QString exalt_caste::name() const
+    {
+      return caste_name;
+    }
+
+    QList<ability_enum> exalt_caste::abilities() const
+    {
+      return favored_abilities;
+    }
   }
 }

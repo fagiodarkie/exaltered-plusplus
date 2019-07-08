@@ -50,10 +50,16 @@ TEST_CASE("virtues")
     stub.set_vice_value(5);
     stub.value(character::virtues::COMPASSION).set_rank(character::virtues::ADULT);
     stub.value(character::virtues::COMPASSION).set_value(1);
+    // also check square brackets setters
+    stub[character::virtues::VALOR].set_rank(character::virtues::CHILD);
+    stub[character::virtues::VALOR].set_value(3);
 
     REQUIRE(stub.vice() == character::virtues::LUST);
     REQUIRE(stub.vice_value() == 5);
     REQUIRE(stub.value(character::virtues::COMPASSION).rank() == character::virtues::ADULT);
     REQUIRE(stub.value(character::virtues::COMPASSION).value() == 1);
+    // also check square brackets getters
+    REQUIRE(stub[character::virtues::VALOR].rank() == character::virtues::CHILD);
+    REQUIRE(stub[character::virtues::VALOR].value() == 3);
   }
 }

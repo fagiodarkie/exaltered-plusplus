@@ -38,7 +38,7 @@ namespace character {
 
   void specialisation::read_from_json(const QJsonObject &json)
   {
-    value = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_VALUE].toInt());
+    value = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_VALUE].toString().toInt());
     name = json[serialisation::json_constants::SLOT_NAME].toString();
   }
 
