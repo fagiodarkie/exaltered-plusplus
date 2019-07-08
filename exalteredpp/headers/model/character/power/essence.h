@@ -27,6 +27,9 @@ namespace character {
       void decommit_essence(unsigned int commit_essence);
       void decommit_spiritual_essence(unsigned int commit_essence);
 
+      bool can_spend_essence(unsigned int essence) const;
+      bool can_spend_spiritual_essence(unsigned int essence) const;
+
       void spend_essence(unsigned int essence);
       void spend_spiritual_essence(unsigned int essence);
       void recover_essence(unsigned int essence);

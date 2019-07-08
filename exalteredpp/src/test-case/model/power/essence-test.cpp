@@ -44,4 +44,124 @@ TEST_CASE("essence")
     REQUIRE(stub.available_peripheral_essence()     == sut.available_peripheral_essence()    );
     REQUIRE(stub.available_spiritual_essence()      == sut.available_spiritual_essence()     );
   }
+
+  SECTION("should not allow to spend more essence than the total")
+  {
+    character::power::essence sut;
+    sut.set_total_personal_essence(10);
+    sut.set_total_peripheral_essence(10);
+    sut.set_total_spiritual_essence(10);
+    sut.set_bonus_personal_essence(10);
+    sut.set_bonus_peripheral_essence(10);
+    sut.set_bonus_spiritual_essence(10);
+
+    CHECK(sut.can_spend_essence(20));
+    CHECK(sut.can_spend_spiritual_essence(10));
+    CHECK_FALSE(sut.can_spend_essence(50));
+    CHECK_FALSE(sut.can_spend_spiritual_essence(30));
+
+    sut.spend_essence(20);
+    sut.spend_spiritual_essence(10);
+
+    CHECK(sut.can_spend_essence(20));
+    CHECK(sut.can_spend_spiritual_essence(10));
+    CHECK_FALSE(sut.can_spend_essence(30));
+    CHECK_FALSE(sut.can_spend_spiritual_essence(20));
+
+    sut.spend_essence(15);
+    sut.spend_spiritual_essence(8);
+
+    CHECK(sut.can_spend_essence(5));
+    CHECK(sut.can_spend_spiritual_essence(2));
+    CHECK_FALSE(sut.can_spend_essence(10));
+    CHECK_FALSE(sut.can_spend_spiritual_essence(10));
+  }
+
+  SECTION("should use and recover essence from the personal pool before touching the peripheral pool")
+  {
+    character::power::essence sut;
+    sut.set_total_personal_essence(10);
+    sut.set_total_peripheral_essence(10);
+    sut.set_total_spiritual_essence(10);
+
+    sut.spend_essence(5);
+    CHECK(sut.available_personal_essence() == 5);
+    CHECK(sut.available_peripheral_essence() == 10);
+    sut.spend_spiritual_essence(5);
+    CHECK(sut.available_spiritual_essence() == 5);
+
+    sut.spend_essence(5);
+    CHECK(sut.available_personal_essence() == 0);
+    CHECK(sut.available_peripheral_essence() == 10);
+    sut.spend_spiritual_essence(5);
+    CHECK(sut.available_spiritual_essence() == 0);
+
+    sut.spend_essence(5);
+    CHECK(sut.available_personal_essence() == 0);
+    CHECK(sut.available_peripheral_essence() == 5);
+    sut.spend_spiritual_essence(5);
+    CHECK(sut.available_spiritual_essence() == 0);
+
+    sut.recover_essence(10);
+    CHECK(sut.available_personal_essence() == 5);
+    CHECK(sut.available_peripheral_essence() == 10);
+    sut.recover_spiritual_essence(5);
+    CHECK(sut.available_spiritual_essence() == 5);
+
+    sut.recover_essence(5);
+    CHECK(sut.available_personal_essence() == 10);
+    CHECK(sut.available_peripheral_essence() == 10);
+    sut.recover_spiritual_essence(5);
+    CHECK(sut.available_spiritual_essence() == 10);
+
+    sut.recover_essence(5);
+    CHECK(sut.available_personal_essence() == 10);
+    CHECK(sut.available_peripheral_essence() == 10);
+    sut.recover_spiritual_essence(5);
+    CHECK(sut.available_spiritual_essence() == 10);
+  }
+
+  SECTION("committed essence should count as spent")
+  {
+    character::power::essence sut;
+    sut.set_total_personal_essence(10);
+    sut.set_total_peripheral_essence(10);
+    sut.set_total_spiritual_essence(10);
+
+    sut.commit_essence(5);
+    CHECK(sut.available_personal_essence() == 5);
+    CHECK(sut.available_peripheral_essence() == 10);
+    sut.commit_spiritual_essence(5);
+    CHECK(sut.available_spiritual_essence() == 5);
+
+    sut.commit_essence(5);
+    CHECK(sut.available_personal_essence() == 0);
+    CHECK(sut.available_peripheral_essence() == 10);
+    sut.commit_spiritual_essence(5);
+    CHECK(sut.available_spiritual_essence() == 0);
+
+    sut.commit_essence(5);
+    CHECK(sut.available_personal_essence() == 0);
+    CHECK(sut.available_peripheral_essence() == 5);
+    sut.commit_spiritual_essence(5);
+    CHECK(sut.available_spiritual_essence() == 0);
+
+    sut.decommit_essence(10);
+    CHECK(sut.available_personal_essence() == 5);
+    CHECK(sut.available_peripheral_essence() == 10);
+    sut.decommit_spiritual_essence(5);
+    CHECK(sut.available_spiritual_essence() == 5);
+
+    sut.decommit_essence(5);
+    CHECK(sut.available_personal_essence() == 10);
+    CHECK(sut.available_peripheral_essence() == 10);
+    sut.decommit_spiritual_essence(5);
+    CHECK(sut.available_spiritual_essence() == 10);
+
+    sut.decommit_essence(5);
+    CHECK(sut.available_personal_essence() == 10);
+    CHECK(sut.available_peripheral_essence() == 10);
+    sut.decommit_spiritual_essence(5);
+    CHECK(sut.available_spiritual_essence() == 10);
+  }
 }

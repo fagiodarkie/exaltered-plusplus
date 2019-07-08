@@ -87,7 +87,7 @@ namespace character {
 
     void essence::commit_spiritual_essence(unsigned int commit_essence)
     {
-      _spiritual_committed_essence += commit_essence;
+      _spiritual_committed_essence += commit_essence > available_spiritual_essence() ? available_spiritual_essence() : commit_essence;
     }
 
     void essence::decommit_essence(unsigned int commit_essence)
@@ -100,18 +100,27 @@ namespace character {
 
       unsigned int to_be_decommitted_from_personal = commit_essence - _peripheral_committed_essence;
       _peripheral_committed_essence = 0;
-      _personal_committed_essence -= to_be_decommitted_from_personal;
+      _personal_committed_essence = to_be_decommitted_from_personal > _personal_committed_essence ? 0 : _personal_committed_essence - to_be_decommitted_from_personal;
     }
 
     void essence::decommit_spiritual_essence(unsigned int commit_essence)
     {
-      _spiritual_committed_essence -= commit_essence;
+      _spiritual_committed_essence = commit_essence > _spiritual_committed_essence ? 0 : _spiritual_committed_essence - commit_essence;
     }
 
+    bool essence::can_spend_essence(unsigned int essence) const
+    {
+      return available_personal_essence() + available_peripheral_essence() >= essence;
+    }
+
+    bool essence::can_spend_spiritual_essence(unsigned int essence) const
+    {
+      return available_spiritual_essence() >= essence;
+    }
 
     void essence::spend_essence(unsigned int essence)
     {
-      if (available_personal_essence() > essence)
+      if (available_personal_essence() >= essence)
         {
           _personal_spent_essence += essence;
           return;
@@ -119,12 +128,12 @@ namespace character {
 
       unsigned int to_be_spent_in_peripheral = essence - available_personal_essence();
       _personal_spent_essence += available_personal_essence();
-      _peripheral_spent_essence += to_be_spent_in_peripheral;
+      _peripheral_spent_essence += to_be_spent_in_peripheral > available_peripheral_essence() ? available_peripheral_essence() : to_be_spent_in_peripheral;
     }
 
     void essence::spend_spiritual_essence(unsigned int essence)
     {
-      _spiritual_spent_essence += essence;
+      _spiritual_spent_essence += essence <= available_spiritual_essence() ? essence : available_spiritual_essence();
     }
 
     void essence::recover_essence(unsigned int essence)
@@ -135,14 +144,14 @@ namespace character {
           return;
         }
 
-      unsigned int to_be_spent_from_personal = essence - _peripheral_committed_essence;
+      unsigned int to_be_recovered_from_personal = essence - _peripheral_spent_essence;
       _peripheral_spent_essence = 0;
-      _personal_spent_essence -= to_be_spent_from_personal;
+      _personal_spent_essence = to_be_recovered_from_personal > _personal_spent_essence ? 0 : _personal_spent_essence - to_be_recovered_from_personal;
     }
 
     void essence::recover_spiritual_essence(unsigned int essence)
     {
-      _spiritual_spent_essence -= essence;
+      _spiritual_spent_essence = essence > _spiritual_spent_essence ? 0 : _spiritual_spent_essence - essence;
     }
 
 
