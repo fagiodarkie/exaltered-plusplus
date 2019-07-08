@@ -12,8 +12,6 @@
 
 namespace character
 {
-  using creation::character_type;
-
   class character : public QObject, public serialisable
   {
     Q_OBJECT
@@ -21,7 +19,7 @@ namespace character
     public:
       // constructors
       character(const QString name,
-                const character_type type,
+                const creation::character_type type,
                 const exalt::caste caste,
                 const attributes attributes,
                 const abilities abilities,
@@ -35,8 +33,8 @@ namespace character
       QString get_name() const;
       void set_name(const QString& new_name);
 
-      character_type get_type() const;
-      void set_type(character_type type);
+      creation::character_type get_type() const;
+      void set_type(creation::character_type type);
 
       attribute get_attribute(attribute_names::attribute name) const;
       void set_attribute(attribute_names::attribute name, attribute attribute);
@@ -57,7 +55,7 @@ namespace character
 
     private:
       QString                   _name;
-      character_type            _type;
+      creation::character_type            _type;
       unsigned int              _id;
 
       exalt::caste              _character_caste;

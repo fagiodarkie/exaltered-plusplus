@@ -6,7 +6,7 @@ using serialisation::json_constants;
 namespace character
 {
   character::character(const QString name,
-                       const character_type type,
+                       const creation::character_type type,
                        const exalt::caste caste,
                        const attributes attributes,
                        const abilities abilities,
@@ -39,12 +39,12 @@ namespace character
     emit data_changed();
   }
 
-  character_type character::get_type() const
+  creation::character_type character::get_type() const
   {
     return _type;
   }
 
-  void character::set_type(character_type type)
+  void character::set_type(creation::character_type type)
   {
     _type = type;
   }

@@ -14,7 +14,7 @@ namespace manager {
 
     QSharedPointer<character::character> load_character(const QString& char_id = nullptr) const;
     QSharedPointer<character::character> create_character(const QString name,
-                                                          const character::character_type type,
+                                                          const character::creation::character_type type,
                                                           const character::exalt::caste caste,
                                                           const character::attributes attributes,
                                                           const character::abilities abilities,
