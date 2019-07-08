@@ -8,7 +8,7 @@ TEST_CASE("virtues")
   {
     character::virtues::virtues sut;
     for (auto virtue : character::virtues::VIRTUE_LIST)
-      REQUIRE(sut.value(virtue).virtue_enum() == virtue);
+      REQUIRE(sut.value(virtue).virtue_type() == virtue);
   }
 
   SECTION("should read JSON file accordingly")

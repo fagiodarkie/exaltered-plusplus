@@ -48,7 +48,7 @@ namespace character {
     virtue& virtues::value(virtue_enum virtue_name)
     {
       auto found_virtue = std::find_if(begin(), end(), [virtue_name](virtue cur_virtue) -> bool {
-          return cur_virtue.virtue_enum() == virtue_name;
+          return cur_virtue.virtue_type() == virtue_name;
         });
       if (found_virtue != end())
         {
@@ -67,7 +67,7 @@ namespace character {
     virtue virtues::value(virtue_enum virtue_name) const
     {
       auto found_virtue = std::find_if(begin(), end(), [virtue_name](virtue cur_virtue) -> bool {
-          return cur_virtue.virtue_enum() == virtue_name;
+          return cur_virtue.virtue_type() == virtue_name;
         });
       if (found_virtue != end())
         {

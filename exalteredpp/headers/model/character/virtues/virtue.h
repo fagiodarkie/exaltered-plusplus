@@ -11,7 +11,7 @@ namespace character {
       virtue(QJsonObject object);
       virtue(virtue_enum virtue_e, unsigned int value, virtue_rank rank);
 
-      virtue_enum virtue_enum() const;
+      virtue_enum virtue_type() const;
 
       virtue_rank rank() const;
       void set_rank(virtue_rank rank);
@@ -20,7 +20,7 @@ namespace character {
       void set_value(unsigned int value);
 
     private:
-      enum virtue_enum _virtue_enum;
+      enum virtue_enum _virtue_type;
       virtue_rank _rank;
       unsigned int _value;
 

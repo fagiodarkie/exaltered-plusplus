@@ -10,7 +10,7 @@ TEST_CASE("virtue")
     character::virtues::virtue sut(character::virtues::COMPASSION, 2, character::virtues::ADULT);
     REQUIRE(sut.rank() == character::virtues::ADULT);
     REQUIRE(sut.value() == 2);
-    REQUIRE(sut.virtue_enum() == character::virtues::COMPASSION);
+    REQUIRE(sut.virtue_type() == character::virtues::COMPASSION);
   }
 
   SECTION("should create virtue from JSON object")
@@ -24,6 +24,6 @@ TEST_CASE("virtue")
     character::virtues::virtue sut(obj);
     REQUIRE(sut.rank() == stub.rank());
     REQUIRE(sut.value() == stub.value());
-    REQUIRE(sut.virtue_enum() == stub.virtue_enum());
+    REQUIRE(sut.virtue_type() == stub.virtue_type());
   }
 }
