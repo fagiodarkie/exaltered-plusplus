@@ -52,5 +52,16 @@ namespace serialisation
     static const QString SLOT_TOTAL_CIRCADIAN_RHYTHM;
     static const QString SLOT_SPENT_CIRCADIAN_POINTS;
 
+    static const QString SLOT_PERSONA             ;
+    static const QString SLOT_COMPULSIONS_SPECIFIC;
+    static const QString SLOT_EMOTIONS_SPECIFIC   ;
+    static const QString SLOT_ILLUSIONS_SPECIFIC  ;
+    static const QString SLOT_MOTIVATIONS_SPECIFIC;
+    static const QString SLOT_SERFDOM_SPECIFIC    ;
+    static const QString SLOT_MAX_PHILOSOPHIES    ;
+    static const QString SLOT_MAX_PHILOSOPHY_VALUE;
+    static const QString SLOT_PHILOSOPHIES        ;
+    static const QString SLOT_EMOTION_BONUS       ;
+
   };
 }

@@ -41,11 +41,20 @@ const QString serialisation::json_constants::SLOT_HEALTH    ="health";
 const QString serialisation::json_constants::SLOT_ESSENCE   ="essence";
 const QString serialisation::json_constants::SLOT_WILLPOWER ="willpower";
 
-const QString serialisation::json_constants::SLOT_LOGOS                           = "slot_logos";
-const QString serialisation::json_constants::SLOT_QABBALAH                        = "slot_qabbalah";
-const QString serialisation::json_constants::SLOT_TOTAL_QABBALAH                  = "slot_total_qabbalah";
-const QString serialisation::json_constants::SLOT_ABSOLUTE_PRINCIPLE_CONNECTION   = "slot_absolute_principle_connection";
-const QString serialisation::json_constants::SLOT_TOTAL_CIRCADIAN_RHYTHM          = "slot_total_circadian_rhytm";
-const QString serialisation::json_constants::SLOT_SPENT_CIRCADIAN_POINTS          = "slot_spent_circadian_points";
+const QString serialisation::json_constants::SLOT_LOGOS                           = "logos";
+const QString serialisation::json_constants::SLOT_QABBALAH                        = "qabbalah";
+const QString serialisation::json_constants::SLOT_TOTAL_QABBALAH                  = "total_qabbalah";
+const QString serialisation::json_constants::SLOT_ABSOLUTE_PRINCIPLE_CONNECTION   = "absolute_principle_connection";
+const QString serialisation::json_constants::SLOT_TOTAL_CIRCADIAN_RHYTHM          = "total_circadian_rhytm";
+const QString serialisation::json_constants::SLOT_SPENT_CIRCADIAN_POINTS          = "spent_circadian_points";
 
-
+const QString serialisation::json_constants::SLOT_PERSONA                = "persona";
+const QString serialisation::json_constants::SLOT_COMPULSIONS_SPECIFIC   = "compulsions_specific";
+const QString serialisation::json_constants::SLOT_EMOTIONS_SPECIFIC      = "emotions_specific";
+const QString serialisation::json_constants::SLOT_ILLUSIONS_SPECIFIC     = "illusions_specific";
+const QString serialisation::json_constants::SLOT_MOTIVATIONS_SPECIFIC   = "motivations_specific";
+const QString serialisation::json_constants::SLOT_SERFDOM_SPECIFIC       = "serfdom_specific";
+const QString serialisation::json_constants::SLOT_MAX_PHILOSOPHIES       = "max_philosophies";
+const QString serialisation::json_constants::SLOT_MAX_PHILOSOPHY_VALUE   = "max_philosophy_value";
+const QString serialisation::json_constants::SLOT_PHILOSOPHIES           = "philosophies";
+const QString serialisation::json_constants::SLOT_EMOTION_BONUS          = "emotion_bonus";

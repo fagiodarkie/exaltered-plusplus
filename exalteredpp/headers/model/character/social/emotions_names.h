@@ -18,6 +18,33 @@ namespace character {
       SERENITY,     JOY,          ECSTASY
     };
 
+    static const QMap<emotion, QString> NAME_OF_EMOTION = {
+      { APPROVAL    , "Approval" },
+      { TRUST       , "Trust" },
+      { ADMIRATION  , "Admiration" },
+      { MELANCHOLY  , "Melancholy" },
+      { SADNESS     , "Sadness" },
+      { GRIEF       , "Grief" },
+      { NUISANCE    , "Nuisance" },
+      { ANGRINESS   , "Angriness" },
+      { RAGE        , "Rage" },
+      { CARELESSNESS, "Carelessness" },
+      { DISTASTE    , "Distaste" },
+      { REPULSE     , "Repulse" },
+      { DISTRACTION , "Distraction" },
+      { SURPRISE    , "Surprise" },
+      { WONDER      , "Wonder" },
+      { FRIGHT      , "Fright" },
+      { FEAR        , "Fear" },
+      { TERROR      , "Terror" },
+      { INTEREST    , "Interest" },
+      { EXPECTATION , "Expectation" },
+      { HYPE        , "Hype" },
+      { SERENITY    , "Serenity" },
+      { JOY         , "Joy" },
+      { ECSTASY     , "Ecstasy" }
+    };
+
     static const QList<emotion> BASE_EMOTIONS = {
       APPROVAL,
       MELANCHOLY,
@@ -80,7 +107,7 @@ namespace character {
       { virtues::TEMPERANCE, { INTEREST, SERENITY } }
     };
 
-    virtues::virtue_enum VIRTUE_OF_EMOTION(enum emotion _emotion) {
+    static virtues::virtue_enum VIRTUE_OF_EMOTION(enum emotion _emotion) {
 
       emotion emotion_to_look_up = _emotion;
       if (!BASE_EMOTIONS.contains(_emotion))
@@ -96,6 +123,16 @@ namespace character {
                 {
                   return EMOTION_UNDER_VIRTUE[virtue].contains(emotion_to_look_up);
                 });
+    }
+
+    static emotion BASE_EMOTION_OF(emotion e)
+    {
+      if (BASE_EMOTIONS.contains(e))
+        return e;
+
+      return *std::find_if(BASE_EMOTIONS.begin(), BASE_EMOTIONS.end(),
+                          [e](emotion base) { return (MIDDLE_EMOTION_GRADES[base] == e)
+                                                      || (INTIMATE_EMOTION_GRADES[base] == e); });
     }
 
 
