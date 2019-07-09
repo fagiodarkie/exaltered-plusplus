@@ -177,18 +177,33 @@ TEST_CASE("Ability group")
     REQUIRE(sut.get_specialisation("s1").get_value()  == stub.get_specialisation("s1").get_value() );
   }
 
-  SECTION("should copy successfully with assignment operator")
+  SECTION("should copy successfully withcopy constructor and assignment operator")
   {
     character::ability_group stub(ABILITYNAME, character::ability_names::COMBAT, { character::ability("a1", 1), character::ability("a2", 2) }, {character::specialisation("s1", 3)});
 
-    character::ability_group sut = stub;
+    character::ability_group sut_1(stub), sut_2;
+    sut_2 = stub;
 
-    REQUIRE(sut.get_name()                            == stub.get_name()                           );
-    REQUIRE(sut.get_category()                        == stub.get_category()                       );
-    REQUIRE(sut.is_favourite()                        == stub.is_favourite()                       );
-    REQUIRE(sut.get_ability("a1").get_ability_value() == stub.get_ability("a1").get_ability_value());
-    REQUIRE(sut.get_ability("a2").get_ability_value() == stub.get_ability("a2").get_ability_value());
-    REQUIRE(sut.get_specialisation("s1").get_value()  == stub.get_specialisation("s1").get_value() );
+    REQUIRE(sut_1.get_name()                            == stub.get_name()                           );
+    REQUIRE(sut_1.get_category()                        == stub.get_category()                       );
+    REQUIRE(sut_1.is_favourite()                        == stub.is_favourite()                       );
+    REQUIRE(sut_1.get_ability("a1").get_ability_value() == stub.get_ability("a1").get_ability_value());
+    REQUIRE(sut_1.get_ability("a2").get_ability_value() == stub.get_ability("a2").get_ability_value());
+    REQUIRE(sut_1.get_specialisation("s1").get_value()  == stub.get_specialisation("s1").get_value() );
+
+    REQUIRE(sut_2.get_name()                            == stub.get_name()                           );
+    REQUIRE(sut_2.get_category()                        == stub.get_category()                       );
+    REQUIRE(sut_2.is_favourite()                        == stub.is_favourite()                       );
+    REQUIRE(sut_2.get_ability("a1").get_ability_value() == stub.get_ability("a1").get_ability_value());
+    REQUIRE(sut_2.get_ability("a2").get_ability_value() == stub.get_ability("a2").get_ability_value());
+    REQUIRE(sut_2.get_specialisation("s1").get_value()  == stub.get_specialisation("s1").get_value() );
   }
 
+  SECTION("should throw if asked to retrieve invalid abilities or specialisation")
+  {
+    character::ability_group stub(ABILITYNAME, character::ability_names::COMBAT);
+
+    REQUIRE_THROWS(stub.set_ability_value("invalid_ability", 4));
+    REQUIRE_THROWS(stub.set_specialisation_value("invalid_specialisation", 2));
+  }
 }

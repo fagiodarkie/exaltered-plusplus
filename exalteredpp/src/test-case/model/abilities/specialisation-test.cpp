@@ -55,9 +55,12 @@ TEST_CASE("Specialisation")
   {
     character::specialisation stub(TEST_SPEC_NAME, TEST_SPEC_VALUE);
 
-    character::specialisation sut = stub;
+    character::specialisation sut_1(stub), sut_2("a");
+    sut_2 = stub;
 
-    REQUIRE(sut.get_name() == stub.get_name());
-    REQUIRE(sut.get_specialisation_value() == stub.get_specialisation_value());
+    REQUIRE(sut_1.get_name() == stub.get_name());
+    REQUIRE(sut_1.get_specialisation_value() == stub.get_specialisation_value());
+    REQUIRE(sut_2.get_name() == stub.get_name());
+    REQUIRE(sut_2.get_specialisation_value() == stub.get_specialisation_value());
   }
 }

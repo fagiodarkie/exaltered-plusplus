@@ -53,9 +53,12 @@ TEST_CASE("Ability")
   {
     character::ability stub(TEST_ABILITY_NAME, TEST_ABILITY_VALUE);
 
-    character::ability sut = stub;
+    character::ability sut_1(stub), sut_2;
+    sut_2 = stub;
 
-    REQUIRE(stub.get_name() == sut.get_name());
-    REQUIRE(stub.get_ability_value() == sut.get_ability_value());
+    REQUIRE(stub.get_name() == sut_1.get_name());
+    REQUIRE(stub.get_ability_value() == sut_1.get_ability_value());
+    REQUIRE(stub.get_name() == sut_2.get_name());
+    REQUIRE(stub.get_ability_value() == sut_2.get_ability_value());
   }
 }

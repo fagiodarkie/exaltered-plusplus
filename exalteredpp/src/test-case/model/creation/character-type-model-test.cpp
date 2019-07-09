@@ -17,7 +17,8 @@ TEST_CASE("Character type model")
     auto stub = character::creation::character_type_model::get_by_character_type(character::creation::TYPE_SOLAR_EXALT);
 
     auto sut_1(stub);
-    auto sut_2 = stub;
+    auto sut_2 = character::creation::character_type_model::get_by_character_type(character::creation::TYPE_MORTAL_HERO);
+    sut_2 = stub;
 
     REQUIRE(sut_1.primary_category_attribute_value          == stub.primary_category_attribute_value        );
     REQUIRE(sut_1.secondary_category_attribute_value        == stub.secondary_category_attribute_value      );
