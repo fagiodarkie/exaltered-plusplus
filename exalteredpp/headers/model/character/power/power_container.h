@@ -12,20 +12,23 @@ namespace character {
     {
     public:
       power_container();
-      power_container(const essence& essence, const willpower& willpower, const health& health);
+      power_container(const essence& essence, const willpower& willpower, const health& health, const logos& logos);
 
-    private:
-      essence     _essence;
-      willpower   _willpower;
-      health      _health;
-      logos       _logos;
-
-      // serialisable interface
-    public:
       void read_from_json(const QJsonObject &json);
       void write_to_json(QJsonObject &json) const;
 
+      essence essence() const;
+      willpower willpower() const;
+      health health() const;
+      logos logos() const;
+
       virtual ~power_container();
+
+    private:
+      class essence     _essence;
+      class willpower   _willpower;
+      class health      _health;
+      class logos       _logos;
     };
   }
 }

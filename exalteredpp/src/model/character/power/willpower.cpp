@@ -4,8 +4,8 @@
 
 namespace character {
   namespace power {
-    willpower::willpower()
-      : _permanent_willpower(0), _temporary_willpower(0)
+    willpower::willpower(unsigned int total, unsigned int temporary)
+      : _permanent_willpower(total), _temporary_willpower(temporary)
     { }
 
     unsigned int willpower::temporary_willpower() const

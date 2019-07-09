@@ -7,7 +7,7 @@ namespace character {
     class willpower : public serialisable
     {
     public:
-      willpower();
+      willpower(unsigned int total = 0, unsigned int temporary = 0);
 
       unsigned int temporary_willpower() const;
       bool can_consume(unsigned int to_consume = 1) const;
