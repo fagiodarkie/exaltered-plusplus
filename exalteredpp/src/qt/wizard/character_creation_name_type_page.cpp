@@ -78,7 +78,7 @@ namespace qt {
       caste_combo_box->clear();
       for (character::exalt::caste available_caste : available_castes)
         {
-          caste_combo_box->addItem(character::exalt::exalt_caste::NAME_OF_CASTE.value(available_caste));
+          caste_combo_box->addItem(character::exalt::exalt_caste::get_caste(available_caste).name());
         }
       caste_combo_box->show();
     }

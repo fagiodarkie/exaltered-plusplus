@@ -32,6 +32,7 @@ namespace character {
       static exalt_caste get_caste(caste caste_type);
 
       static const QMap<character::creation::character_type, QList<caste>>  CASTES_OF_EXALT_TYPE;
+      static const QMap<caste, QString>                                     NAME_OF_CASTE;
 
       QString name() const;
       QList<ability_enum> abilities() const;
@@ -43,7 +44,6 @@ namespace character {
         _STEALTH_CASTE,
         _DIPLOMAT_CASTE;
 
-      static const QMap<caste, QString>                                     NAME_OF_CASTE;
       static const QMap<caste, QList<ability_enum>>                         ABILITIES_OF_CASTE;
 
       exalt_caste(const QString& caste_name, QList<ability_enum> favorite_abilities);

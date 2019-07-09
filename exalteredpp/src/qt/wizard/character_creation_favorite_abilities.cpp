@@ -66,7 +66,7 @@ namespace qt {
       default_favorite = number_of_default_favorites;
       max_favorite = number_of_favorite_abilities;
 
-      abilities_of_caste = character::exalt::exalt_caste::ABILITIES_OF_CASTE[selected_caste];
+      abilities_of_caste = character::exalt::exalt_caste::get_caste(selected_caste).abilities();
 
       for (auto checkbox: ability_of_button.keys())
         checkbox->setChecked(false);
