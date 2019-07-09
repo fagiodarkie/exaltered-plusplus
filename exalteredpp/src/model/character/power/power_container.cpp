@@ -7,25 +7,25 @@ namespace character {
     power_container::power_container()
       : _health(0) {}
 
-    power_container::power_container(const class essence& essence, const class willpower& willpower, const class health& health, const class logos& logos)
+    power_container::power_container(const essence& essence, const willpower& willpower, const health& health, const logos& logos)
       : _essence(essence), _willpower(willpower), _health(health), _logos(logos) { }
 
-    logos power_container::logos() const
+    logos power_container::get_logos() const
     {
       return _logos;
     }
 
-    health power_container::health() const
+    health power_container::get_health() const
     {
       return _health;
     }
 
-    willpower power_container::willpower() const
+    willpower power_container::get_willpower() const
     {
       return _willpower;
     }
 
-    essence power_container::essence() const
+    essence power_container::get_essence() const
     {
       return _essence;
     }

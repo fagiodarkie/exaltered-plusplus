@@ -16,11 +16,11 @@ TEST_CASE("power_container")
     character::power::power_container sut;
     sut.read_from_json(obj);
 
-    REQUIRE(sut.essence().permanent_essence()     == stub.essence().permanent_essence()     );
-    REQUIRE(sut.essence().khan()                  == stub.essence().khan()                  );
-    REQUIRE(sut.willpower().permanent_willpower() == stub.willpower().permanent_willpower() );
-    REQUIRE(sut.willpower().temporary_willpower() == stub.willpower().temporary_willpower() );
-    REQUIRE(sut.health().total_health()           == stub.health().total_health()           );
-    REQUIRE(sut.health().current_health()         == stub.health().current_health()         );
+    REQUIRE(sut.get_essence().permanent_essence()     == stub.get_essence().permanent_essence()     );
+    REQUIRE(sut.get_essence().khan()                  == stub.get_essence().khan()                  );
+    REQUIRE(sut.get_willpower().permanent_willpower() == stub.get_willpower().permanent_willpower() );
+    REQUIRE(sut.get_willpower().temporary_willpower() == stub.get_willpower().temporary_willpower() );
+    REQUIRE(sut.get_health().total_health()           == stub.get_health().total_health()           );
+    REQUIRE(sut.get_health().current_health()         == stub.get_health().current_health()         );
   }
 }

@@ -17,18 +17,18 @@ namespace character {
       void read_from_json(const QJsonObject &json);
       void write_to_json(QJsonObject &json) const;
 
-      essence essence() const;
-      willpower willpower() const;
-      health health() const;
-      logos logos() const;
+      essence get_essence() const;
+      willpower get_willpower() const;
+      health get_health() const;
+      logos get_logos() const;
 
       virtual ~power_container();
 
     private:
-      class essence     _essence;
-      class willpower   _willpower;
-      class health      _health;
-      class logos       _logos;
+      essence     _essence;
+      willpower   _willpower;
+      health      _health;
+      logos       _logos;
     };
   }
 }
