@@ -45,7 +45,7 @@ const QString serialisation::json_constants::SLOT_LOGOS                         
 const QString serialisation::json_constants::SLOT_QABBALAH                        = "slot_qabbalah";
 const QString serialisation::json_constants::SLOT_TOTAL_QABBALAH                  = "slot_total_qabbalah";
 const QString serialisation::json_constants::SLOT_ABSOLUTE_PRINCIPLE_CONNECTION   = "slot_absolute_principle_connection";
-const QString serialisation::json_constants::SLOT_TOTAL_CIRCADIAN_RHYTM           = "slot_total_circadian_rhytm";
+const QString serialisation::json_constants::SLOT_TOTAL_CIRCADIAN_RHYTHM          = "slot_total_circadian_rhytm";
 const QString serialisation::json_constants::SLOT_SPENT_CIRCADIAN_POINTS          = "slot_spent_circadian_points";
 
 

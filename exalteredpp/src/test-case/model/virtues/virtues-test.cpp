@@ -100,7 +100,15 @@ TEST_CASE("virtues")
     REQUIRE(stub.value(character::virtues::COMPASSION).rank() == character::virtues::ADULT);
     REQUIRE(stub.value(character::virtues::COMPASSION).value() == 1);
     // also check square brackets getters
-    REQUIRE(stub[character::virtues::VALOR].rank() == character::virtues::CHILD);
-    REQUIRE(stub[character::virtues::VALOR].value() == 3);
+    REQUIRE(static_cast<const character::virtues::virtue>(stub[character::virtues::VALOR]).rank() == character::virtues::CHILD);
+    REQUIRE(static_cast<const character::virtues::virtue>(stub[character::virtues::VALOR]).value() == 3);
+  }
+
+  SECTION("will not throw if one tries to access a non-initialised virtue")
+  {
+    character::virtues::virtues sut;
+
+    REQUIRE_NOTHROW(static_cast<const character::virtues::virtue>(sut[character::virtues::VALOR]).rank());
+    REQUIRE_NOTHROW(sut[character::virtues::VALOR].set_value(3));
   }
 }

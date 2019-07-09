@@ -46,4 +46,16 @@ TEST_CASE("character_manager")
       FAIL("Something went wrong while generating character");
     }
   }
+
+  SECTION("should list available characters")
+  {
+    manager_mock->mock_has_character(true);
+    REQUIRE(sut.characters().size() > 0);
+  }
+
+  SECTION("will throw if a requested character id doesn't exist")
+  {
+    manager_mock->mock_has_character(true);
+    REQUIRE_THROWS(sut.load_character("non_existing_character_id"));
+  }
 }

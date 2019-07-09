@@ -22,5 +22,7 @@ TEST_CASE("power_container")
     REQUIRE(sut.get_willpower().temporary_willpower() == stub.get_willpower().temporary_willpower() );
     REQUIRE(sut.get_health().total_health()           == stub.get_health().total_health()           );
     REQUIRE(sut.get_health().current_health()         == stub.get_health().current_health()         );
+    REQUIRE(sut.get_logos().get_logos()               == stub.get_logos().get_logos()               );
+    REQUIRE(sut.get_logos().get_total_qabbalah()      == stub.get_logos().get_total_qabbalah()      );
   }
 }

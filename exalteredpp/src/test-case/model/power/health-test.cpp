@@ -57,5 +57,10 @@ TEST_CASE("health")
     sut.heal_damage(5);
     REQUIRE(sut.current_health() == 10);
     REQUIRE(sut.current_health_penalty() == 0);
+
+    sut.set_total_health(15);
+    sut.heal_damage(5);
+    REQUIRE(sut.current_health() == 15);
+    REQUIRE(sut.current_health_penalty() == 0);
   }
 }

@@ -49,7 +49,7 @@ namespace serialisation
     static const QString SLOT_QABBALAH;
     static const QString SLOT_TOTAL_QABBALAH;
     static const QString SLOT_ABSOLUTE_PRINCIPLE_CONNECTION;
-    static const QString SLOT_TOTAL_CIRCADIAN_RHYTM;
+    static const QString SLOT_TOTAL_CIRCADIAN_RHYTHM;
     static const QString SLOT_SPENT_CIRCADIAN_POINTS;
 
   };

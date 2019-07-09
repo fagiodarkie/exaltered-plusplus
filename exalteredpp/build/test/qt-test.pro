@@ -118,6 +118,7 @@ SOURCES += \
     ../../src/test-case/model/exalt/exalt-caste-test.cpp \
     ../../src/test-case/model/power/essence-test.cpp \
     ../../src/test-case/model/power/health-test.cpp \
+    ../../src/test-case/model/power/logos-test.cpp \
     ../../src/test-case/model/virtues/virtue-test.cpp \
     ../../src/test-case/model/virtues/virtues-test.cpp \
     ../../src/test-case/model/power/power-container-test.cpp \
