@@ -20,12 +20,12 @@ namespace character {
 
     void willpower::consume(unsigned int to_consume)
     {
-      _temporary_willpower -= to_consume;
+      _temporary_willpower -= to_consume > _temporary_willpower ? temporary_willpower() : to_consume;
     }
 
     void willpower::restore(unsigned int to_restore)
     {
-      _temporary_willpower += to_restore;
+      _temporary_willpower = std::min(_temporary_willpower + to_restore, _permanent_willpower);
     }
 
     unsigned int willpower::permanent_willpower() const
@@ -46,8 +46,8 @@ namespace character {
 
     void willpower::read_from_json(const QJsonObject &json)
     {
-      _permanent_willpower = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_WILLPOWER_TOTAL].toInt());
-      _temporary_willpower = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_WILLPOWER_TEMP].toInt());
+      _permanent_willpower = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_WILLPOWER_TOTAL].toString().toInt());
+      _temporary_willpower = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_WILLPOWER_TEMP] .toString().toInt());
     }
 
     willpower::~willpower() {}
