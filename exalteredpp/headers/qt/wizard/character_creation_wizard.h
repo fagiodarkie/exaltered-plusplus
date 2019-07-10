@@ -16,6 +16,7 @@
 #include "wizard/character_creation_ability_values.h"
 #include "wizard/character_creation_attribute_points_page.h"
 #include "wizard/character_creation_virtues_vice.h"
+#include "wizard/character_creation_persona.h"
 
 namespace qt {
   namespace wizard {
@@ -38,28 +39,31 @@ namespace qt {
       void load_attribute_points(const character::attributes& points);
       void load_favored_abilities(const QList<character::ability_names::ability_enum>& favored_abilities);
       void load_ability_values(const character::abilities& abilities);
-      void load_persona(const character::virtues::virtues& virtues);
+      void load_virtues(const character::virtues::virtues& virtues);
+      void load_persona(const character::social::persona& persona);
 
 
-      QString character_name;
-      character_type new_character_type;
-      character::creation::character_type_model character_model;
+      QString                                               character_name;
+      character_type                                        new_character_type;
+      character::creation::character_type_model             character_model;
       character::creation::character_creation_configuration configuration;
-      character::exalt::caste caste;
-      character::virtues::virtues character_virtues;
-      character::attributes attributes;
-      character::abilities abilities;
+      character::exalt::caste                               caste;
+      character::virtues::virtues                           character_virtues;
+      character::attributes                                 attributes;
+      character::abilities                                  abilities;
       QMap<character::attribute_names::attribute_category, unsigned int> points_per_category;
-      character::power::power_container power;
+      character::power::power_container                     power;
+      character::social::persona                            persona;
 
-      QSharedPointer<manager::character_manager> char_manager;
+      QSharedPointer<manager::character_manager>    char_manager;
 
-      character_creation_name_type_page* name_page;
-      attributes_priority_page* attribute_priority_page;
-      character_creation_attribute_points_page* attribute_points_page;
-      character_creation_favorite_abilities* favorite_abilities_page;
-      character_creation_ability_values* abilities_page;
-      character_creation_virtues_vice* virtues_page;
+      character_creation_name_type_page*            name_page;
+      attributes_priority_page*                     attribute_priority_page;
+      character_creation_attribute_points_page*     attribute_points_page;
+      character_creation_favorite_abilities*        favorite_abilities_page;
+      character_creation_ability_values*            abilities_page;
+      character_creation_virtues_vice*              virtues_page;
+      character_creation_persona*                   persona_page;
 
       QStackedLayout *layout;
     };

@@ -2,6 +2,7 @@
 
 #include <string>
 #include <QObject>
+#include <social/persona.h>
 #include "character/attributes/attributes.h"
 #include "character/abilities/abilities.h"
 #include "serialisation/serialisable.h"
@@ -55,7 +56,7 @@ namespace character
 
     private:
       QString                   _name;
-      creation::character_type            _type;
+      creation::character_type  _type;
       unsigned int              _id;
 
       exalt::caste              _character_caste;
@@ -63,7 +64,7 @@ namespace character
       abilities                 _abilities;
       virtues::virtues          _virtues;
       power::power_container    _power;
-
+      social::persona           _persona;
 
     };
 }

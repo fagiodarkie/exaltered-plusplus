@@ -11,7 +11,15 @@ namespace qt {
     static QString CANCEL_LABEL   = "Cancel";
     static QString APP_TITLE      = "Divine Games";
 
-
+    namespace social_labels {
+      static QString EMOTIONS_SPECIFIC      = "Emotions";
+      static QString COMPULSIONS_SPECIFIC   = "Compulsions";
+      static QString ILLUSIONS_SPECIFIC     = "Illusions";
+      static QString MOTIVATIONS_SPECIFIC   = "Motivations";
+      static QString SERFDOM_SPECIFIC       = "Serfdom";
+      static QString PERSONA_VALUE          = "Persona";
+      static QString EMOTION_BONUS_VALUE    = "Emotion bonuses";
+    }
 
     namespace creation_wizard {
       static QString CHARACTER_NAME_LABEL = "Character name:";

@@ -22,7 +22,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-CONFIG += c++11
+CONFIG += c++17
 
 INCLUDEPATH += ../../headers \
     ../../headers/model \
@@ -75,6 +75,7 @@ SOURCES += \
     ../../src/qt/wizard/character_creation_attribute_points_page.cpp \
     ../../src/qt/wizard/character_creation_favorite_abilities.cpp \
     ../../src/qt/wizard/character_creation_name_type_page.cpp \
+    ../../src/qt/wizard/character_creation_persona.cpp \
     ../../src/qt/wizard/character_creation_wizard.cpp \
     ../../src/serialisation/filesystem_db.cpp \
     ../../src/serialisation/json_constants.cpp \
@@ -133,6 +134,7 @@ HEADERS += \
     ../../headers/qt/wizard/character_creation_attribute_points_page.h \
     ../../headers/qt/wizard/character_creation_favorite_abilities.h \
     ../../headers/qt/wizard/character_creation_name_type_page.h \
+    ../../headers/qt/wizard/character_creation_persona.h \
     ../../headers/qt/wizard/character_creation_wizard.h \
     ../../headers/serialisation/db_abstraction.h \
     ../../headers/serialisation/filesystem_db.h \

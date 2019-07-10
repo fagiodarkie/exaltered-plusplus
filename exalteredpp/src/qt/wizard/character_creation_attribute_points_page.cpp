@@ -212,8 +212,8 @@ namespace qt {
       QHBoxLayout* hlayout = new QHBoxLayout;
       QWidget *result = new QWidget;
 
-      hlayout->addWidget(add);
       hlayout->addWidget(subtract);
+      hlayout->addWidget(add);
 
       result->setLayout(hlayout);
 

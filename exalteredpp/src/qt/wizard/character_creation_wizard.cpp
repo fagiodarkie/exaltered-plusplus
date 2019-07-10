@@ -44,7 +44,11 @@ namespace qt {
 
       virtues_page = new character_creation_virtues_vice(this);
       connect(virtues_page, &character_creation_virtues_vice::back_issued, this, &character_creation_wizard::fallback);
-      connect(virtues_page, &character_creation_virtues_vice::virtues_chosen, this, &character_creation_wizard::load_persona);
+      connect(virtues_page, &character_creation_virtues_vice::virtues_chosen, this, &character_creation_wizard::load_virtues);
+
+      persona_page = new character_creation_persona(this);
+      connect(persona_page, &character_creation_persona::back_issued, this, &character_creation_wizard::fallback);
+      connect(persona_page, &character_creation_persona::persona_created, this, &character_creation_wizard::load_persona);
 
       layout = new QStackedLayout;
       layout->addWidget(name_page);
@@ -53,6 +57,7 @@ namespace qt {
       layout->addWidget(favorite_abilities_page);
       layout->addWidget(abilities_page);
       layout->addWidget(virtues_page);
+      layout->addWidget(persona_page);
 
       setLayout(layout);
     }
@@ -113,9 +118,18 @@ namespace qt {
       advance();
     }
 
-    void character_creation_wizard::load_persona(const ::character::virtues::virtues &virtues)
+    void character_creation_wizard::load_virtues(const virtues &virtues)
     {
       character_virtues = virtues;
+
+      persona_page->set_current_persona(virtues, persona, character_model, attributes, power);
+
+      advance();
+    }
+
+    void character_creation_wizard::load_persona(const social::persona &persona)
+    {
+      this->persona = persona;
 
       advance();
     }
