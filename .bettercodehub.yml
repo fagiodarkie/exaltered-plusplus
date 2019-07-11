@@ -1,7 +1,8 @@
 exclude:
 - /exalteredpp/thirdparty/.*
 - /exalteredpp/src/qt/.*
-- /exalteredpp/headers/qt/.*
+- /exalteredpp/src/qt-test/.*
+- /exalteredpp/headers/.*
 
 languages:
 - name: cpp
@@ -12,4 +13,4 @@ languages:
     include:
       - /exalteredpp/src/test-case/.*\.cpp
 
-component_depth: 3
+component_depth: 4
