@@ -2,6 +2,7 @@
 
 #include "label/interfacelabels.h"
 #include "layout/qborderlayout.h"
+#include "layout/layout_constants.h"
 #include <QFormLayout>
 #include <QHBoxLayout>
 
@@ -45,21 +46,22 @@ namespace qt {
 
           // increase / decrease management
           QPushButton *add = new QPushButton("+");
+          add->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
           add->setProperty(AFFECTED_VIRTUE_VICE_PROPERTY, v);
           connect(add, &QPushButton::clicked, this, &character_creation_virtues_vice::increase_issued);
           add_to_virtues_or_vice[v] = add;
 
           QPushButton *remove = new QPushButton("-");
+          remove->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
           remove->setProperty(AFFECTED_VIRTUE_VICE_PROPERTY, v);
           connect(remove, &QPushButton::clicked, this, &character_creation_virtues_vice::decrease_issued);
           remove_from_virtues_or_vice[v] = remove;
 
           QHBoxLayout *row = new QHBoxLayout;
-          row->addWidget(virtue_label.value(v));
-          row->addWidget(add);
           row->addWidget(remove);
+          row->addWidget(add);
           row->addWidget(virtue_cbox);
-          virtues_vice_form->addRow(row);
+          virtues_vice_form->addRow(virtue_label.value(v), row);
         }
 
       connect(virtue_type[VIRTUE_LIST.at(0)], &QComboBox::currentTextChanged, this, &character_creation_virtues_vice::choose_first_virtue_type);
@@ -74,20 +76,21 @@ namespace qt {
 
         // increase / decrease management
         add_vice = new QPushButton("+");
+        add_vice->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
         connect(add_vice, &QPushButton::clicked, this, &character_creation_virtues_vice::increase_issued);
 
         remove_vice = new QPushButton("-");
+        remove_vice->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
         connect(remove_vice, &QPushButton::clicked, this, &character_creation_virtues_vice::decrease_issued);
 
         vice_label = new QLabel;
         update_vice_label();
 
         QHBoxLayout *row = new QHBoxLayout;
-        row->addWidget(vice_label);
-        row->addWidget(add_vice);
         row->addWidget(remove_vice);
+        row->addWidget(add_vice);
         row->addWidget(vice_selector);
-        virtues_vice_form->addRow(row);
+        virtues_vice_form->addRow(vice_label, row);
       }
       virtues_widget->setLayout(virtues_vice_form);
 

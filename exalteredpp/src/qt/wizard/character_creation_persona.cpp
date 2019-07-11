@@ -1,7 +1,7 @@
 #include "wizard/character_creation_persona.h"
 
 #include <layout/qborderlayout.h>
-
+#include <QDebug>
 #include <QFormLayout>
 #include <QGroupBox>
 #include "label/interfacelabels.h"
@@ -25,6 +25,9 @@ namespace qt {
 
       QGroupBox *specifics = new QGroupBox(social_labels::PERSONA_VALUE), *emotion_bonuses = new QGroupBox(social_labels::EMOTION_BONUS_VALUE);
       QFormLayout *specifics_form = new QFormLayout, *emotions_form = new QFormLayout;
+      specifics_form->setSizeConstraint(QLayout::SetMinimumSize);
+      emotions_form->setSizeConstraint(QLayout::SetMinimumSize);
+      specifics_and_emotions->setSizeConstraint(QLayout::SetMinimumSize);
 
       for (QString specific : {
            social_labels::COMPULSIONS_SPECIFIC,
@@ -33,7 +36,8 @@ namespace qt {
            social_labels::SERFDOM_SPECIFIC,
            social_labels::MOTIVATIONS_SPECIFIC })
         {
-          label_of_persona_specific.insert(specific, new QLabel);
+          label_of_persona_specific[specific] = new QLabel;
+          label_of_persona_specific[specific]->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
           QPushButton *increase = new QPushButton("+"), *decrease = new QPushButton("-");
           increase->setProperty(SPECIFIC_PROPERTY, specific);
           increase->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
@@ -53,7 +57,8 @@ namespace qt {
 
       for (character::social::emotion emotion : character::social::BASE_EMOTIONS)
         {
-          label_of_emotion.insert(emotion, new QLabel);
+          label_of_emotion[emotion] = new QLabel;
+          label_of_emotion[emotion]->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
           QPushButton *increase = new QPushButton("+"), *decrease = new QPushButton("-");
           increase->setProperty(EMOTION_PROPERTY, static_cast<int>(emotion));
           increase->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
@@ -146,9 +151,9 @@ namespace qt {
       _persona.set_persona(model.is_supernatural ? exalted_persona_max : standard_persona_max);
 
       label_of_persona_specific[social_labels::COMPULSIONS_SPECIFIC]->setText(ATTRIBUTE_WITH_POINTS(social_labels::COMPULSIONS_SPECIFIC, _persona.get_compulsions_specific()));
-      label_of_persona_specific[social_labels::EMOTIONS_SPECIFIC   ]->setText(ATTRIBUTE_WITH_POINTS(social_labels::EMOTIONS_SPECIFIC   , _persona.get_emotions_specific()))   ;
-      label_of_persona_specific[social_labels::ILLUSIONS_SPECIFIC  ]->setText(ATTRIBUTE_WITH_POINTS(social_labels::ILLUSIONS_SPECIFIC  , _persona.get_illusions_specific()))  ;
-      label_of_persona_specific[social_labels::SERFDOM_SPECIFIC    ]->setText(ATTRIBUTE_WITH_POINTS(social_labels::SERFDOM_SPECIFIC    , _persona.get_serfdom_specific()))    ;
+      label_of_persona_specific[social_labels::EMOTIONS_SPECIFIC   ]->setText(ATTRIBUTE_WITH_POINTS(social_labels::EMOTIONS_SPECIFIC   , _persona.get_emotions_specific())   );
+      label_of_persona_specific[social_labels::ILLUSIONS_SPECIFIC  ]->setText(ATTRIBUTE_WITH_POINTS(social_labels::ILLUSIONS_SPECIFIC  , _persona.get_illusions_specific())  );
+      label_of_persona_specific[social_labels::SERFDOM_SPECIFIC    ]->setText(ATTRIBUTE_WITH_POINTS(social_labels::SERFDOM_SPECIFIC    , _persona.get_serfdom_specific())    );
       label_of_persona_specific[social_labels::MOTIVATIONS_SPECIFIC]->setText(ATTRIBUTE_WITH_POINTS(social_labels::MOTIVATIONS_SPECIFIC, _persona.get_motivations_specific()));
 
       for (auto emotion : character::social::BASE_EMOTIONS)

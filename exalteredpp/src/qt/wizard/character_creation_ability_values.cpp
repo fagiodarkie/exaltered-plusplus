@@ -156,7 +156,6 @@ namespace qt {
 
           row.increase->setEnabled(row.value < max_std_ability_value);
           row.decrease->setEnabled(row.value > 0);
-          qDebug() << "ability " << row.ability_name << " has value " << row.value;
         }
 
       bool  should_inhibit_all_add = (points_spent == max_ability_points),
