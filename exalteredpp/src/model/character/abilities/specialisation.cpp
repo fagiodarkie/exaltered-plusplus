@@ -6,6 +6,16 @@ namespace character {
   specialisation::specialisation(const QString& name, unsigned int initial_value)
     : name(name), value(initial_value) {};
 
+  specialisation::specialisation(const specialisation& o) : name(o.name), value(o.value) { }
+
+  specialisation& specialisation::operator=(const specialisation& o)
+  {
+    name = o.name;
+    value = o.value;
+
+    return *this;
+  }
+
   QString specialisation::get_name() const
   {
     return name;
@@ -28,7 +38,7 @@ namespace character {
 
   void specialisation::read_from_json(const QJsonObject &json)
   {
-    value = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_VALUE].toInt());
+    value = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_VALUE].toString().toInt());
     name = json[serialisation::json_constants::SLOT_NAME].toString();
   }
 

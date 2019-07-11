@@ -4,6 +4,7 @@
 #include <QMap>
 
 namespace serialisation {
+
   class filesystem_db : public db_abstraction
   {
   public:
@@ -17,10 +18,16 @@ namespace serialisation {
     void remove_character(const QString& character_id) override;
     void remove_character(unsigned int character_id) override;
     QString character_name(const QString& character_id) const override;
-    QSharedPointer<character::character> create_character(const QString& character_name) override;
+    QSharedPointer<character::character> create_character( const QString name,
+                                                const character::creation::character_type type,
+                                                const character::exalt::caste caste,
+                                                const character::attributes attributes,
+                                                const character::abilities abilities,
+                                                const character::virtues::virtues virtues,
+                                                const character::power::power_container power_container) override;
 
   private:
-    static QString FILE_EXT, AVAILABLE_CHARACTERS_FILE;
+    const QString FILE_EXT, AVAILABLE_CHARACTERS_FILE;
     QMap<QString, QString> id_to_name;
 
     void save_json_to_file(QJsonObject json, const QString& filename) const;

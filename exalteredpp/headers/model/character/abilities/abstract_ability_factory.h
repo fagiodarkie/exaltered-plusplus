@@ -8,7 +8,7 @@ namespace character {
   class abstract_ability_factory
   {
   public:
-    virtual ability_group get_ability_group(ability_name ability) const = 0;
+    virtual ability_group get_ability_group(ability_names::ability_enum ability) const = 0;
     virtual ~abstract_ability_factory() = default;
   };
 

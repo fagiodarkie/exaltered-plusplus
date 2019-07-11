@@ -4,6 +4,7 @@
 #include <QSharedPointer>
 
 namespace serialisation {
+
   class db_abstraction
   {
   public:
@@ -14,7 +15,13 @@ namespace serialisation {
     virtual void remove_character(const QString& character_id) = 0;
     virtual void remove_character(unsigned int character_id) = 0;
     virtual void save_character(const QSharedPointer<character::character> character) = 0;
-    virtual QSharedPointer<character::character> create_character(const QString& character_name) = 0;
+    virtual QSharedPointer<character::character> create_character( const QString name,
+                                                        const character::creation::character_type type,
+                                                        const character::exalt::caste caste,
+                                                        const character::attributes attributes,
+                                                        const character::abilities abilities,
+                                                        const character::virtues::virtues virtues,
+                                                        const character::power::power_container power_container) = 0;
 
     virtual ~db_abstraction() {}
   };

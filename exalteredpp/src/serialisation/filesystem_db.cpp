@@ -8,10 +8,11 @@
 
 namespace serialisation {
 
-  QString filesystem_db::FILE_EXT = ".dgc";
-  QString filesystem_db::AVAILABLE_CHARACTERS_FILE = "available_characters.json";
+  using character::character;
+  using namespace  character;
 
   filesystem_db::filesystem_db()
+    : AVAILABLE_CHARACTERS_FILE("available_characters.json"), FILE_EXT(".dcg")
   {
     QFile map_file(AVAILABLE_CHARACTERS_FILE);
     if (map_file.exists())
@@ -53,7 +54,7 @@ namespace serialisation {
     return !id_to_name.empty();
   }
 
-  QSharedPointer<character::character> filesystem_db::load_character(const QString& character_id)
+  QSharedPointer<character> filesystem_db::load_character(const QString& character_id)
   {
     if (!has_characters())
     {
@@ -67,10 +68,16 @@ namespace serialisation {
     expected_file.close();
     QJsonDocument json_character = QJsonDocument::fromJson(serialised_character.toUtf8());
 
-    return QSharedPointer<character::character>(new character::character(json_character.object()));
+    return QSharedPointer<character>(new character(json_character.object()));
   }
 
-  QSharedPointer<character::character> filesystem_db::create_character(const QString& character_name)
+  QSharedPointer<character> filesystem_db::create_character(const QString name,
+                                                            const creation::character_type type,
+                                                            const exalt::caste caste,
+                                                            const attributes attributes,
+                                                            const abilities abilities,
+                                                            const virtues::virtues virtues,
+                                                            const power::power_container power_container)
   {
     unsigned int id = 0;
 
@@ -82,7 +89,7 @@ namespace serialisation {
           id = new_id;
       }
 
-    QSharedPointer<character::character> result(new character::character(character_name, id + 1));
+    QSharedPointer<character> result(new character(name, type, caste, attributes, abilities, virtues, power_container, id + 1));
     return result;
   }
 
@@ -106,7 +113,7 @@ namespace serialisation {
     save_json_to_file(character_list_object, AVAILABLE_CHARACTERS_FILE);
   }
 
-  void filesystem_db::save_character(const QSharedPointer<character::character> character)
+  void filesystem_db::save_character(const QSharedPointer<character> character)
   {
     QJsonObject character_object;
     character->write_to_json(character_object);

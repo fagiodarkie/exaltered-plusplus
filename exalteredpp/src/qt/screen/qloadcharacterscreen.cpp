@@ -88,7 +88,7 @@ namespace qt {
 
     void qloadcharacterscreen::create_new_character()
     {
-      emit character_loaded(character_manager->load_character());
+      emit character_create_issued();
     }
 
     void qloadcharacterscreen::load_character()

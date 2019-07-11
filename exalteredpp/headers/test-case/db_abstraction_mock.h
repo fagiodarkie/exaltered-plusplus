@@ -4,23 +4,25 @@
 #include "character.h"
 #include "serialisation/db_abstraction.h"
 #include "characternotfoundexception.h"
+#include "qt-test/quick_chargen.h"
 
-#define CHAR_MAN_TEST_CHAR_NAME "CHARACTER_NAME"
+#define CHAR_MAN_TEST_CHAR_NAME "name"
 
 namespace mock_tests {
+
+  using character::character;
+  using namespace character;
 
   class mock_db_abstraction: public serialisation::db_abstraction
   {
     // db_abstraction interface
   public:
-    mock_db_abstraction() : has_character(true) {}
+    mock_db_abstraction() : has_character(true), cached_character(nullptr) {}
 
-    QSharedPointer<character::character> load_character(const QString& /*character_id*/)
+    QSharedPointer<character> load_character(const QString& character_name)
     {
       if (has_character)
-        return cached_character.isNull()
-            ? QSharedPointer<character::character>(new character::character(CHAR_MAN_TEST_CHAR_NAME))
-            : cached_character;
+        return cached_character.isNull() ? generate_character_pointer(character_name, 0) : cached_character;
       throw exception::character_not_found_exception();
     }
 
@@ -35,15 +37,21 @@ namespace mock_tests {
 
     void remove_character(unsigned int /* character_id */) {}
 
-    QSharedPointer<character::character> create_character(const QString& /*character_id*/)
+    QSharedPointer<character> create_character(const QString name,
+                                               const creation::character_type type,
+                                               const exalt::caste caste,
+                                               const attributes attributes,
+                                               const abilities abilities,
+                                               const virtues::virtues virtues,
+                                               const power::power_container power_container)
     {
       has_character = true;
-      return QSharedPointer<character::character>(new character::character(CHAR_MAN_TEST_CHAR_NAME));
+      return QSharedPointer<character>(new character(CHAR_MAN_TEST_CHAR_NAME, type, caste, attributes, abilities, virtues, power_container));
     }
 
     QList<QString> character_list()
     {
-      if (has_character) return {CHAR_MAN_TEST_CHAR_NAME} ;
+      if (has_character) return { CHAR_MAN_TEST_CHAR_NAME } ;
       return {};
     }
 
@@ -52,7 +60,7 @@ namespace mock_tests {
       return char_id;
     }
 
-    void save_character(const QSharedPointer<character::character> character)
+    void save_character(const QSharedPointer<character> character)
     {
       cached_character = character;
     }
@@ -64,7 +72,7 @@ namespace mock_tests {
 
   private:
     bool has_character;
-    QSharedPointer<character::character> cached_character;
+    QSharedPointer<character> cached_character;
   };
 
 }

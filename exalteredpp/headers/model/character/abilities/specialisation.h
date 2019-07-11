@@ -9,6 +9,8 @@ namespace character {
   {
   public:
     specialisation(const QString& name, unsigned int initial_value = 1);
+    specialisation(const specialisation& o);
+    specialisation& operator=(const specialisation& o);
 
     QString get_name() const override;
     QString get_value() const override;

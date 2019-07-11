@@ -9,15 +9,15 @@ TEST_CASE("Attribute")
   SECTION("should create new attribute correctly (name constructor)")
   {
     character::attribute sut(TEST_ATTRIBUTE_NAME);
-    REQUIRE(QString(TEST_ATTRIBUTE_NAME) == QString(sut));
-    REQUIRE(0 == int(sut));
+    REQUIRE(TEST_ATTRIBUTE_NAME == sut);
+    REQUIRE(0 == sut);
   }
 
   SECTION("should create new attribute correctly (name and value constructor)")
   {
     character::attribute sut(TEST_ATTRIBUTE_NAME, TEST_ATTRIBUTE_VALUE);
-    REQUIRE(QString(TEST_ATTRIBUTE_NAME) == QString(sut));
-    REQUIRE(TEST_ATTRIBUTE_VALUE == int(sut));
+    REQUIRE(TEST_ATTRIBUTE_NAME == sut);
+    REQUIRE(TEST_ATTRIBUTE_VALUE == sut);
   }
 
   SECTION("should retrieve correctly name and value strings")

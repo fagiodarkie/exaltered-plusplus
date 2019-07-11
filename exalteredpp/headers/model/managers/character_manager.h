@@ -13,6 +13,13 @@ namespace manager {
     QList<QPair<QString, QString>> characters() const;
 
     QSharedPointer<character::character> load_character(const QString& char_id = nullptr) const;
+    QSharedPointer<character::character> create_character(const QString name,
+                                                          const character::creation::character_type type,
+                                                          const character::exalt::caste caste,
+                                                          const character::attributes attributes,
+                                                          const character::abilities abilities,
+                                                          const character::virtues::virtues virtues,
+                                                          const character::power::power_container power_container);
     void save_character(QSharedPointer<character::character> character) const;
 
   private:

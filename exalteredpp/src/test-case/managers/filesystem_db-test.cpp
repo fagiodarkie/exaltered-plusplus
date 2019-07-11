@@ -4,19 +4,20 @@
 #include <QJsonDocument>
 #include <QDirIterator>
 #include "characternotfoundexception.h"
+#include "qt-test/quick_chargen.h"
 
 TEST_CASE("filesystem_db")
 {
   serialisation::filesystem_db sut;
+  QSharedPointer<character::character> stub = generate_character_pointer("stub", 0);
 
   SECTION("should save and load a character")
   {
-    QSharedPointer<character::character> stub_character(new character::character("name", 0));
-    sut.save_character(stub_character);
+    sut.save_character(stub);
     REQUIRE(sut.character_list().size() == 1);
     QString id = sut.character_list().at(0);
     QSharedPointer<character::character> result = sut.load_character(id);
-    REQUIRE(result->get_name() == "name");
+    REQUIRE(result->get_name() == stub->get_name());
   }
 
   SECTION("should throw an exception if the file isn't there")
@@ -31,21 +32,22 @@ TEST_CASE("filesystem_db")
   SECTION("should add multiple characters")
   {
     REQUIRE(sut.character_list().isEmpty());
-    sut.save_character(QSharedPointer<character::character>(new character::character("name 1")));
+    sut.save_character(generate_character_pointer("stub", 0));
     REQUIRE(sut.character_list().size() == 1);
-    sut.save_character(QSharedPointer<character::character>(new character::character("name 2", 1)));
+    sut.save_character(generate_character_pointer("stub", 1));
     REQUIRE(sut.character_list().size() == 2);
   }
 
   SECTION("should retrieve a character's name")
   {
-    sut.save_character(QSharedPointer<character::character>(new character::character("name 1")));
+    QString name1 = "name1", name2 = "name2";
+    sut.save_character(generate_character_pointer(name1, 0));
     QString id1 = sut.character_list().at(0);
-    REQUIRE(sut.character_name(id1) == "name 1");
-    sut.save_character(QSharedPointer<character::character>(new character::character("name 2", 1)));
+    REQUIRE(sut.character_name(id1) == name1);
+    sut.save_character(generate_character_pointer(name2, 1));
     QString id2 = sut.character_list().at(1);
-    REQUIRE(sut.character_name(id1) == "name 1");
-    REQUIRE(sut.character_name(id2) == "name 2");
+    REQUIRE(sut.character_name(id1) == name1);
+    REQUIRE(sut.character_name(id2) == name2);
   }
 
   SECTION("should load characters list")
@@ -68,8 +70,8 @@ TEST_CASE("filesystem_db")
   SECTION("should load characters list")
   {
     serialisation::filesystem_db new_sut;
-    auto  a_char = QSharedPointer<character::character>(new character::character("a", 0)),
-          b_char = QSharedPointer<character::character>(new character::character("b", 1));
+    auto  a_char = generate_character_pointer("a", 0),
+          b_char = generate_character_pointer("b", 1);
     new_sut.save_character(a_char);
     new_sut.save_character(b_char);
     new_sut.remove_character(a_char->id());
@@ -92,7 +94,7 @@ TEST_CASE("filesystem_db")
 
   SECTION("should remove old character file when character name changes")
   {
-    QSharedPointer<character::character> a_character(new character::character("a", 1));
+    QSharedPointer<character::character> a_character(generate_character_pointer("a", 1));
     sut.save_character(a_character);
     a_character->set_name("b");
     sut.save_character(a_character);
@@ -102,10 +104,10 @@ TEST_CASE("filesystem_db")
 
   SECTION("should create a new character with a new id")
   {
-    auto new_char = sut.create_character("name");
+    auto new_char = sut.create_character("name", character::creation::TYPE_MORTAL_HERO, character::exalt::caste::NO_CASTE, character::attributes(), character::abilities(), character::virtues::virtues(), character::power::power_container());
     sut.save_character(new_char);
-    auto new_char_with_strange_id = sut.create_character("name");
-    auto new_char_2 = sut.create_character("name");
+    auto new_char_with_strange_id = sut.create_character("name", character::creation::TYPE_MORTAL_HERO, character::exalt::caste::NO_CASTE, character::attributes(), character::abilities(), character::virtues::virtues(), character::power::power_container());
+    auto new_char_2 = sut.create_character("name", character::creation::TYPE_MORTAL_HERO, character::exalt::caste::NO_CASTE, character::attributes(), character::abilities(), character::virtues::virtues(), character::power::power_container());
     CHECK(new_char_2->id() == new_char_with_strange_id->id());
     sut.save_character(new_char_2);
     REQUIRE(sut.character_list().size() == 2);

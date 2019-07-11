@@ -5,9 +5,19 @@
 
 namespace character {
 
-  ability::ability() : _name(ability_declination::NO_DECLINATION), _value(0) {};
+  ability::ability() : _name(ability_names::ability_declination::NO_DECLINATION), _value(0) {};
 
   ability::ability(const QString& name, unsigned int value) : _name(name), _value(value) {}
+
+  ability::ability(const ability& o) : _name(o._name), _value(o._value) { }
+
+  ability& ability::operator=(const ability& o)
+  {
+    _name = o._name;
+    _value = o._value;
+
+    return *this;
+  }
 
   ability::operator unsigned int() const
   {
@@ -41,7 +51,7 @@ namespace character {
 
   void ability::read_from_json(const QJsonObject &json)
   {
-    _value = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_VALUE].toInt());
+    _value = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_VALUE].toString().toInt());
     _name = json[serialisation::json_constants::SLOT_NAME].toString();
   }
 

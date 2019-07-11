@@ -36,4 +36,31 @@ TEST_CASE("Specialisation")
     other.set_value(TEST_SPEC_VALUE + 1);
     REQUIRE_FALSE(sut == other);
   }
+
+  SECTION("should create correctly via JSON Object")
+  {
+    character::specialisation stub(TEST_SPEC_NAME, TEST_SPEC_VALUE);
+
+    QJsonObject obj;
+    stub.write_to_json(obj);
+
+    character::specialisation sut("");
+    sut.read_from_json(obj);
+
+    REQUIRE(sut.get_name() == stub.get_name());
+    REQUIRE(sut.get_specialisation_value() == stub.get_specialisation_value());
+  }
+
+  SECTION("should create correctly via JSON Object")
+  {
+    character::specialisation stub(TEST_SPEC_NAME, TEST_SPEC_VALUE);
+
+    character::specialisation sut_1(stub), sut_2("a");
+    sut_2 = stub;
+
+    REQUIRE(sut_1.get_name() == stub.get_name());
+    REQUIRE(sut_1.get_specialisation_value() == stub.get_specialisation_value());
+    REQUIRE(sut_2.get_name() == stub.get_name());
+    REQUIRE(sut_2.get_specialisation_value() == stub.get_specialisation_value());
+  }
 }

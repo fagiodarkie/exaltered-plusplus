@@ -1,0 +1,36 @@
+#pragma once
+
+#include "virtues/virtue.h"
+#include "serialisation/serialisable.h"
+
+namespace character {
+  namespace virtues {
+    class virtues : public QList<virtue>, public serialisable
+    {
+    public:
+      virtues();
+
+      void read_from_json(const QJsonObject &json);
+      void write_to_json(QJsonObject &json) const;
+
+      virtue& value(virtue_enum virtue_name);
+      virtue& operator[](int index);
+
+      virtue value(virtue_enum virtue_name) const;
+      virtue operator[](int index) const;
+
+      void set_vice_type(vice_enum vice_name);
+      void set_vice_value(unsigned int value);
+
+      vice_enum vice() const;
+      unsigned int vice_value() const;
+
+      virtual ~virtues();
+
+    private:
+      vice_enum _vice;
+      unsigned int _vice_value;
+    };
+  }
+}
+

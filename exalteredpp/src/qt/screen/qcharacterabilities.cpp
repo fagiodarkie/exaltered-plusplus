@@ -18,7 +18,7 @@ namespace qt
 
       v_layout->addWidget(new QLabel("Abilities of " + character->get_name()));
 
-      for (character::ability_name ability_name: character::ABILITY_NAME.keys())
+      for (character::ability_names::ability_enum ability_name: character::ability_names::ABILITY_NAME.keys())
       {
         for (character::ability ability : character->get_ability_group(ability_name).get_abilities())
           {

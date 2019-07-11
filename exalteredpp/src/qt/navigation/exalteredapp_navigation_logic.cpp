@@ -2,6 +2,7 @@
 
 #include <QGridLayout>
 #include <QMenuBar>
+#include <QToolBar>
 #include <screen/qmainscreen.h>
 #include <screen/qloadcharacterscreen.h>
 #include <screen/qcharacterattributes.h>
@@ -17,9 +18,7 @@ QLayout* ExalteredApp::create_layout_for_widget(QWidget *content) const
 
 void ExalteredApp::load_menu()
 {
-  menuBar()->clear();
-
-  QMenu *charMenu = menuBar()->addMenu("Character");
+  QToolBar *charMenu = addToolBar("Character");
 
   {
     QAction *load_character_screen = new QAction(charMenu);

@@ -8,8 +8,24 @@
 
 namespace character
 {
-    ability_group::ability_group(const QString& name, QList<ability> abilities, QList<specialisation> existing_specialisations)
-      : group_name(name), actual_abilities(abilities), specialisations(existing_specialisations) {}
+    ability_group::ability_group(const QString& name, ability_names::ability_category category, QList<ability> abilities, QList<specialisation> existing_specialisations)
+      : group_name(name), actual_abilities(abilities), specialisations(existing_specialisations), category(category), is_favorite(false)
+    { }
+
+    ability_group::ability_group(const ability_group& o)
+      : group_name(o.group_name), actual_abilities(o.actual_abilities), specialisations(o.specialisations), category(o.category), is_favorite(o.is_favorite)
+    { }
+
+    ability_group& ability_group::operator=(const ability_group& o)
+    {
+      group_name = o.group_name;
+      actual_abilities = o.actual_abilities;
+      specialisations = o.specialisations;
+      category = o.category;
+      is_favorite = o.is_favorite;
+
+      return *this;
+    }
 
     QString ability_group::get_name() const
     {
@@ -33,6 +49,11 @@ namespace character
     QList<specialisation> ability_group::get_specialisations() const
     {
       return specialisations;
+    }
+
+    ability_names::ability_category ability_group::get_category() const
+    {
+      return category;
     }
 
     ability ability_group::get_ability(const QString& name) const
@@ -146,12 +167,12 @@ namespace character
     bool ability_group::has_abilities() const
     {
       return (actual_abilities.count() > 1)
-          || (actual_abilities.at(0).get_name() != ability_declination::NO_DECLINATION);
+          || (actual_abilities.at(0).get_name() != ability_names::ability_declination::NO_DECLINATION);
     }
 
     bool ability_group::can_manage_ability(const QString& ability_name) const
     {
-      return has_abilities() || ability_name == ability_declination::NO_DECLINATION;
+      return has_abilities() || ability_name == ability_names::ability_declination::NO_DECLINATION;
     }
 
     QList<ability>::iterator ability_group::get_ability_reference(const QString &name)
@@ -172,11 +193,23 @@ namespace character
         });
     }
 
+    bool ability_group::is_favourite() const
+    {
+      return is_favorite;
+    }
+
+    void ability_group::set_favourite(bool is_favourite)
+    {
+      is_favorite = is_favourite;
+    }
+
     void ability_group::read_from_json(const QJsonObject &json)
     {
       group_name = json[serialisation::json_constants::SLOT_NAME].toString();
       actual_abilities.clear();
       specialisations.clear();
+
+      is_favorite = json[serialisation::json_constants::SLOT_FAVOURITE].toBool();
 
       for (auto ability_obj: json[serialisation::json_constants::SLOT_ABILITIES].toArray())
         {
@@ -211,9 +244,9 @@ namespace character
           specialisations_array.push_back(spec_obj);
         }
 
+      json[serialisation::json_constants::SLOT_FAVOURITE] = is_favorite;
       json[serialisation::json_constants::SLOT_ABILITIES] = abilities_array;
       json[serialisation::json_constants::SLOT_SPECIALISATIONS] = specialisations_array;
     }
-
 }
 
