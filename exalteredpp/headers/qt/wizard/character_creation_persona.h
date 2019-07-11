@@ -21,7 +21,7 @@ namespace qt {
 
   signals:
     void back_issued();
-    void persona_created(const character::social::persona& abilities);
+    void persona_created(const character::social::persona& persona);
 
   private:
 
@@ -32,6 +32,9 @@ namespace qt {
 
     void increase_issued();
     void decrease_issued();
+
+    void change_persona(const QString& specific, int delta);
+    void change_emotion(int emotion_value, int delta);
 
     QPushButton *next_page, *cancel;
     QMap<character::social::emotion, QLabel*> label_of_emotion;
