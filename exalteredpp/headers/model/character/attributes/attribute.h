@@ -1,25 +1,28 @@
 #pragma once
 
-#include <QString>
+#include <string>
 #include "behavioral/name_value_pair.h"
+#include "../thirdparty/serialisable/serialisable.hpp"
 
 namespace character
 {
-  class attribute : public model::name_value_pair
+  class attribute : public model::name_value_pair, Serialisable
   {
   public:
     attribute() = default;
-    attribute(QString name);
-    attribute(QString name, int value);
+    attribute(std::string name);
+    attribute(std::string name, int value);
 
-    QString get_value() const override;
-    QString get_name() const override;
+    std::string get_value() const override;
+    std::string get_name() const override;
+
+    virtual void serialisation() override;
 
     operator int() const;
-    operator QString() const;
+    operator std::string() const;
 
   private:
     int _value;
-    QString _name;
+    std::string _name;
   };
 }

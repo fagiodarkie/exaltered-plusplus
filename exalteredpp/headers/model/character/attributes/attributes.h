@@ -3,16 +3,15 @@
 #include <map>
 #include "attribute_names.h"
 #include "attribute.h"
-#include "serialisable.h"
+#include "../thirdparty/serialisable/serialisable.hpp"
 
 namespace character
 {
-  class attributes : public QMap<attribute_names::attribute, attribute>, serialisable
+  class attributes : public std::map<attribute_names::attribute, attribute>, Serialisable
   {
 
   public:
-    void read_from_json(const QJsonObject &json) override;
-    void write_to_json(QJsonObject &json) const override;
+    virtual void serialisation() override;
 
     virtual ~attributes() = default;
   };

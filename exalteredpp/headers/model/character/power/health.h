@@ -1,10 +1,10 @@
 #pragma once
 
-#include "serialisable.h"
+#include "../thirdparty/serialisable/serialisable.hpp"
 
 namespace character {
   namespace power {
-    class health : public serialisable
+    class health : public Serialisable
     {
     public:
       health(unsigned int total_health);
@@ -20,9 +20,7 @@ namespace character {
       double dying_health_level() const;
       unsigned int current_health_penalty() const;
 
-      void read_from_json(const QJsonObject &json);
-      void write_to_json(QJsonObject &json) const;
-
+      virtual void serialisation() override;
       virtual ~health();
 
     private:

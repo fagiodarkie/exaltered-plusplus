@@ -1,12 +1,12 @@
 #pragma once
 
 #include "behavioral/name_value_pair.h"
-#include "serialisable.h"
+#include "../thirdparty/serialisable/serialisable.hpp"
 
 namespace character
 {
 
-  class ability : public model::name_value_pair, public serialisable
+  class ability : public model::name_value_pair, public Serialisable
   {
   public:
     ability();
@@ -23,8 +23,7 @@ namespace character
 
     void set_value(unsigned int new_value);
 
-    void read_from_json(const QJsonObject &json) override;
-    void write_to_json(QJsonObject &json) const override;
+    virtual void serialisation() override;
 
     bool operator==(const ability& other) const;
 

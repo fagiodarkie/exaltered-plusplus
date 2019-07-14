@@ -1,17 +1,14 @@
 #pragma once
 
-#include "serialisable.h"
+#include "../thirdparty/serialisable/serialisable.hpp"
 
 namespace character {
   namespace power {
-    class logos : public serialisable
+    class logos : public Serialisable
     {
     public:
 
       logos(unsigned int logos = 1, unsigned int qabbalah = 0, unsigned int total_qabbalah = 0, unsigned int absolute_connection = 0, unsigned int total_cyrcadian_rhythm = 0, unsigned int spent_cyrcadian_points = 0);
-
-      void read_from_json(const QJsonObject &json);
-      void write_to_json(QJsonObject &json) const;
 
       unsigned int get_logos() const;
       unsigned int get_current_qabbalah() const;
@@ -20,6 +17,7 @@ namespace character {
       unsigned int get_total_cyrcadian_rhythm() const;
       unsigned int get_current_cyrcadian_rhythm() const;
 
+      virtual void serialisation() override;
       virtual ~logos();
 
     private:

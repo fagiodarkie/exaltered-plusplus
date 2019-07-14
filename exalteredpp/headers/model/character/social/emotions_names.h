@@ -1,8 +1,9 @@
 #pragma once
 
-#include <QList>
-#include <QMap>
+#include <list>
+#include <map>
 #include "virtues/virtue_names.h"
+#include "common/reverse_search.h"
 
 namespace character {
   namespace social {
@@ -18,7 +19,7 @@ namespace character {
       SERENITY,     JOY,          ECSTASY
     };
 
-    static const QMap<emotion, QString> NAME_OF_EMOTION = {
+    static const std::map<emotion, std::string> NAME_OF_EMOTION = {
       { APPROVAL    , "Approval" },
       { TRUST       , "Trust" },
       { ADMIRATION  , "Admiration" },
@@ -45,7 +46,7 @@ namespace character {
       { ECSTASY     , "Ecstasy" }
     };
 
-    static const QList<emotion> BASE_EMOTIONS = {
+    static const std::list<emotion> BASE_EMOTIONS = {
       APPROVAL,
       MELANCHOLY,
       NUISANCE,
@@ -56,7 +57,7 @@ namespace character {
       SERENITY
     };
 
-    static const QList<emotion> MIDDLE_EMOTIONS = {
+    static const std::list<emotion> MIDDLE_EMOTIONS = {
       TRUST,
       SADNESS,
       ANGRINESS,
@@ -67,7 +68,7 @@ namespace character {
       JOY
     };
 
-    static const QList<emotion> INTIMATE_EMOTIONS = {
+    static const std::list<emotion> INTIMATE_EMOTIONS = {
       ADMIRATION,
       GRIEF,
       RAGE,
@@ -78,7 +79,7 @@ namespace character {
       ECSTASY
     };
 
-    static const QMap<emotion, emotion> MIDDLE_EMOTION_GRADES = {
+    static const std::map<emotion, emotion> MIDDLE_EMOTION_GRADES = {
       { APPROVAL,     TRUST       },
       { MELANCHOLY,   SADNESS     },
       { NUISANCE,     ANGRINESS   },
@@ -89,7 +90,7 @@ namespace character {
       { SERENITY,     JOY         }
     };
 
-    static const QMap<emotion, emotion> INTIMATE_EMOTION_GRADES = {
+    static const std::map<emotion, emotion> INTIMATE_EMOTION_GRADES = {
       { APPROVAL,     ADMIRATION },
       { MELANCHOLY,   GRIEF      },
       { NUISANCE,     RAGE       },
@@ -100,7 +101,7 @@ namespace character {
       { SERENITY,     ECSTASY    }
     };
 
-    static const QMap<virtues::virtue_enum, QList<emotion>> EMOTION_UNDER_VIRTUE = {
+    static const std::map<virtues::virtue_enum, std::list<emotion>> EMOTION_UNDER_VIRTUE = {
       { virtues::COMPASSION, { NUISANCE, CARELESSNESS } },
       { virtues::CONVINCTION, { APPROVAL, MELANCHOLY } },
       { virtues::VALOR, { DISTRACTION, FRIGHT } },
@@ -110,29 +111,29 @@ namespace character {
     static virtues::virtue_enum VIRTUE_OF_EMOTION(enum emotion _emotion) {
 
       emotion emotion_to_look_up = _emotion;
-      if (!BASE_EMOTIONS.contains(_emotion))
+      if (commons::contains(BASE_EMOTIONS, _emotion))
         emotion_to_look_up = *std::find_if(BASE_EMOTIONS.begin(), BASE_EMOTIONS.end(),
                               [_emotion](enum emotion lower_grade)
         {
-          return (_emotion == MIDDLE_EMOTION_GRADES[lower_grade])
-            || (_emotion == INTIMATE_EMOTION_GRADES[lower_grade]);
+          return (_emotion == MIDDLE_EMOTION_GRADES.at(lower_grade))
+            || (_emotion == INTIMATE_EMOTION_GRADES.at(lower_grade));
         });
 
       return *std::find_if(virtues::VIRTUE_LIST.begin(), virtues::VIRTUE_LIST.end(),
               [emotion_to_look_up](virtues::virtue_enum virtue)
                 {
-                  return EMOTION_UNDER_VIRTUE[virtue].contains(emotion_to_look_up);
+                  return commons::contains(EMOTION_UNDER_VIRTUE.at(virtue), emotion_to_look_up);
                 });
     }
 
     static emotion BASE_EMOTION_OF(emotion e)
     {
-      if (BASE_EMOTIONS.contains(e))
+      if (commons::contains(BASE_EMOTIONS, e))
         return e;
 
       return *std::find_if(BASE_EMOTIONS.begin(), BASE_EMOTIONS.end(),
-                          [e](emotion base) { return (MIDDLE_EMOTION_GRADES[base] == e)
-                                                      || (INTIMATE_EMOTION_GRADES[base] == e); });
+                          [e](emotion base) { return (MIDDLE_EMOTION_GRADES.at(base) == e)
+                                                      || (INTIMATE_EMOTION_GRADES.at(base) == e); });
     }
 
 

@@ -1,14 +1,13 @@
 #pragma once
 
 #include "virtue_names.h"
-#include "serialisable.h"
+#include "../thirdparty/serialisable/serialisable.hpp"
 
 namespace character {
   namespace virtues {
-    class virtue : public serialisable
+    class virtue : public Serialisable
     {
     public:
-      virtue(QJsonObject object);
       virtue(virtue_enum virtue_e, unsigned int value, virtue_rank rank);
 
       virtue_enum virtue_type() const;
@@ -26,9 +25,7 @@ namespace character {
 
       // serialisable interface
     public:
-      void read_from_json(const QJsonObject &json);
-      void write_to_json(QJsonObject &json) const;
-
+      virtual void serialisation() override;
       virtual ~virtue();
     };
   }

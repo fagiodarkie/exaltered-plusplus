@@ -1,18 +1,18 @@
 #pragma once
 
-#include <QMap>
-#include "serialisable.h"
+#include <map>
+#include "../thirdparty/serialisable/serialisable.hpp"
 #include "ability_names.h"
 #include "ability_group.h"
 
 namespace character
 {
-  class abilities : public QMap<ability_names::ability_enum, ability_group>, serialisable
+  class abilities : public std::map<ability_names::ability_enum, ability_group>, Serialisable
   {
 
   public:
-    void read_from_json(const QJsonObject &json) override;
-    void write_to_json(QJsonObject &json) const override;
+
+    virtual void serialisation() override;
 
     virtual ~abilities() = default;
   };

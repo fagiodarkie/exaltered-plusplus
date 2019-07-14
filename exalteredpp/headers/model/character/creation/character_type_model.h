@@ -1,7 +1,8 @@
 #pragma once
 
 #include "attributes/attribute_names.h"
-#include <QList>
+#include <list>
+#include <map>
 
 namespace character {
   namespace creation {
@@ -15,7 +16,7 @@ namespace character {
       TYPE_INFERNAL_EXALT
     };
 
-    static const QMap<character_type, QString> CHARACTER_TYPE_NAMES =
+    static const std::map<character_type, std::string> CHARACTER_TYPE_NAMES =
       { { TYPE_MORTAL_EXTRA,         "Mortal Extra"    },
         { TYPE_MORTAL_HERO,          "Mortal Hero"     },
         { TYPE_TERRESTRIAL_EXALT,    "Terrestrial Exalt"  },
@@ -24,7 +25,7 @@ namespace character {
         { TYPE_INFERNAL_EXALT,       "Infernal Exalt"     }
       };
 
-    static const QList<character_type> CHARACTER_TYPE_LIST = {
+    static const std::list<character_type> CHARACTER_TYPE_LIST = {
       TYPE_MORTAL_EXTRA,
       TYPE_MORTAL_HERO,
       TYPE_TERRESTRIAL_EXALT,
@@ -91,7 +92,7 @@ namespace character {
       ;
       bool is_supernatural;
       character_type type;
-      QString character_type_name;
+      std::string character_type_name;
 
       static const character_type_model& get_by_character_type(character_type type);
 

@@ -1,6 +1,7 @@
-#include <QMap>
-
 #pragma once
+
+#include <map>
+#include <list>
 
 namespace character {
   namespace virtues {
@@ -16,26 +17,26 @@ namespace character {
       CHILD = 0, TEENAGER, ADULT, SENIOR
     };
 
-    static const QList<virtue_enum> VIRTUE_LIST = {
+    static const std::list<virtue_enum> VIRTUE_LIST = {
       COMPASSION, CONVINCTION, VALOR, TEMPERANCE
     };
 
-    static const QList<vice_enum> VICE_LIST = {
+    static const std::list<vice_enum> VICE_LIST = {
       LUST, GLUTTONY, WRATH, SLOTH, PRIDE, ENVY, GREED
     };
 
-    static const QList<virtue_rank> VIRTUE_RANK_LIST = {
+    static const std::list<virtue_rank> VIRTUE_RANK_LIST = {
       CHILD, TEENAGER, ADULT, SENIOR
     };
 
-    static const QMap<virtue_enum, QString> VIRTUE_NAME = {
+    static const std::map<virtue_enum, std::string> VIRTUE_NAME = {
       { COMPASSION,     "Compassion"    },
       { CONVINCTION,    "Convinction"   },
       { VALOR,          "Valor"         },
       { TEMPERANCE,     "Temperance"    }
     };
 
-    static const QMap<vice_enum, QString> VICE_NAME = {
+    static const std::map<vice_enum, std::string> VICE_NAME = {
       { LUST,     "Lust"      },
       { GLUTTONY, "Gluttony"  },
       { WRATH,    "Wrath"     },
@@ -45,7 +46,7 @@ namespace character {
       { GREED,    "Greed"     }
     };
 
-    static const QMap<virtue_rank, QString> RANK_NAME = {
+    static const std::map<virtue_rank, std::string> RANK_NAME = {
       { CHILD,    "Child"   },
       { TEENAGER, "Teenager"},
       { ADULT,    "Adult"   },

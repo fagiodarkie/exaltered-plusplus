@@ -2,7 +2,7 @@
 
 #include "abilities/ability_names.h"
 #include "creation/character_type_model.h"
-#include <QList>
+#include <list>
 
 namespace character {
   namespace exalt {
@@ -18,7 +18,7 @@ namespace character {
       FIRE, WATER, EARTH, AIR, WOOD                 // TERRESTRIAL
     };
 
-    static const QList<caste> CASTES = {
+    static const std::list<caste> CASTES = {
       caste::NO_CASTE,
       caste::DAWN, caste::ZENITH, caste::TWILIGHT, caste::NIGHT, caste::ECLIPSE,
       caste::DUSK, caste::MIDNIGHT, caste::DAYBREAK, caste::DAY, caste::MOONSHADOW,
@@ -31,25 +31,25 @@ namespace character {
     public:
       static exalt_caste get_caste(caste caste_type);
 
-      static const QMap<character::creation::character_type, QList<caste>>  CASTES_OF_EXALT_TYPE;
+      static const QMap<character::creation::character_type, std::list<caste>>  CASTES_OF_EXALT_TYPE;
       static const QMap<caste, QString>                                     NAME_OF_CASTE;
 
-      QString name() const;
-      QList<ability_enum> abilities() const;
+      std::string name() const;
+      std::list<ability_enum> abilities() const;
 
     private:
-      static QList<ability_enum> _WARRIOR_CASTE,
+      static std::list<ability_enum> _WARRIOR_CASTE,
         _PRIEST_CASTE,
         _SCIENTIST_CASTE,
         _STEALTH_CASTE,
         _DIPLOMAT_CASTE;
 
-      static const QMap<caste, QList<ability_enum>>                         ABILITIES_OF_CASTE;
+      static const std::map<caste, std::list<ability_enum>>                         ABILITIES_OF_CASTE;
 
-      exalt_caste(const QString& caste_name, QList<ability_enum> favorite_abilities);
+      exalt_caste(const std::string& caste_name, std::list<ability_enum> favorite_abilities);
 
-      QString caste_name;
-      QList<character::ability_names::ability_enum> favored_abilities;
+      std::string caste_name;
+      std::list<character::ability_names::ability_enum> favored_abilities;
     };
   }
 }
