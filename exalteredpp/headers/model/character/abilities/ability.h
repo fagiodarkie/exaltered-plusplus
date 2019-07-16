@@ -10,15 +10,15 @@ namespace character
   {
   public:
     ability();
-    ability(const QString& name, unsigned int value = 0);
+    ability(const std::string& name, unsigned int value = 0);
     ability(const ability& o);
     ability& operator=(const ability& o);
 
     operator unsigned int() const;
-    operator QString() const;
+    operator std::string() const;
 
-    QString get_name() const override;
-    QString get_value() const override;
+    std::string get_name() const override;
+    std::string get_value() const override;
     unsigned int get_ability_value() const;
 
     void set_value(unsigned int new_value);
@@ -28,7 +28,7 @@ namespace character
     bool operator==(const ability& other) const;
 
   private:
-    QString _name;
+    std::string _name;
     unsigned int _value;
   };
 

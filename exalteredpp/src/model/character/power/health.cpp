@@ -1,5 +1,6 @@
 #include "power/health.h"
 #include "json_constants.h"
+#include <algorithm>
 
 namespace character {
   namespace power {
@@ -14,16 +15,10 @@ namespace character {
 
     health::~health() {}
 
-    void health::write_to_json(QJsonObject &json) const
+    void health::serialisation()
     {
-      json[serialisation::json_constants::SLOT_HEALTH_TEMP] = QString::number(_current_health);
-      json[serialisation::json_constants::SLOT_HEALTH_TOTAL] = QString::number(_total_health);
-    }
-
-    void health::read_from_json(const QJsonObject &json)
-    {
-      _current_health = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_HEALTH_TEMP].toString().toInt());
-      _total_health  = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_HEALTH_TOTAL].toString().toInt());
+      synch(serialisation::json_constants::SLOT_HEALTH_TEMP, _current_health);
+      synch(serialisation::json_constants::SLOT_HEALTH_TOTAL, _total_health);
     }
 
     unsigned int health::total_health() const
@@ -48,7 +43,7 @@ namespace character {
 
     void health::heal_damage(unsigned int damage)
     {
-      _current_health = std::min<unsigned int>(_current_health + damage, _total_health);
+      _current_health = std::min(_current_health + damage, _total_health);
     }
 
     double health::injured_health_level() const

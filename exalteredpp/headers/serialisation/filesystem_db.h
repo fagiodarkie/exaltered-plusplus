@@ -11,14 +11,14 @@ namespace serialisation {
     filesystem_db();
 
     // db_abstraction interface
-    QSharedPointer<character::character> load_character(const QString& character_id) override;
+    std::shared_ptr<character::character> load_character(const std::string& character_id) override;
     bool has_characters() const override;
-    QList<QString> character_list() override;
-    void save_character(const QSharedPointer<character::character> character) override;
-    void remove_character(const QString& character_id) override;
+    std::list<std::string> character_list() override;
+    void save_character(const std::shared_ptr<character::character> character) override;
+    void remove_character(const std::string& character_id) override;
     void remove_character(unsigned int character_id) override;
-    QString character_name(const QString& character_id) const override;
-    QSharedPointer<character::character> create_character( const QString name,
+    std::string character_name(const std::string& character_id) const override;
+    std::shared_ptr<character::character> create_character( const std::string& name,
                                                 const character::creation::character_type type,
                                                 const character::exalt::caste caste,
                                                 const character::attributes attributes,
@@ -27,10 +27,10 @@ namespace serialisation {
                                                 const character::power::power_container power_container) override;
 
   private:
-    const QString FILE_EXT, AVAILABLE_CHARACTERS_FILE;
-    QMap<QString, QString> id_to_name;
+    const std::string FILE_EXT, AVAILABLE_CHARACTERS_FILE;
+    std::list<std::string, std::string> id_to_name;
 
-    void save_json_to_file(QJsonObject json, const QString& filename) const;
+    void save_json_to_file(std::string json, const std::string& filename) const;
     void save_character_map();
   };
 }

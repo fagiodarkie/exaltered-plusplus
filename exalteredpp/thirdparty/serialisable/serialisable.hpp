@@ -364,7 +364,27 @@ protected:
 		}
 		return true;
 	}
-	
+
+	/*!
+	* \brief Saves or loads a enum
+	* \param The name of the value in the output/input file
+	* \param Reference to the value
+	* \return false if the value was absent while reading, true otherwise
+	*/
+	template<typename T>
+	typename std::enable_if<std::is_enum<T>::value && !std::is_same<T, bool>::value, bool>::type
+	inline bool synch(const std::string& key, T& value) {
+		if (preferencesSaving_) {
+			preferencesJson_->getObject()[key] = std::make_shared<JSONdouble>(value);
+		} else {
+			auto found = preferencesJson_->getObject().find(key);
+			if (found != preferencesJson_->getObject().end()) {
+				value = found->second->getDouble();
+			} else return false;
+		}
+		return true;
+	}
+
 	/*!
 	* \brief Saves or loads an object derived from Serialisable held in a smart pointer
 	* \param The name of the value in the output/input file

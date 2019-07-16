@@ -3,25 +3,13 @@
 namespace character {
   using namespace attribute_names;
 
-  void attributes::read_from_json(const QJsonObject& json)
+  void attributes::serialisation()
   {
-    clear();
-    for (auto attribute_type: ATTRIBUTE_NAME.keys())
+    for (auto attribute_type: ATTRIBUTES)
       {
-        QString attribute_name = ATTRIBUTE_NAME[attribute_type];
-        int attribute_value = json[attribute_name].toInt();
-        character::attribute computed_attribute(attribute_name, attribute_value);
-        insert(attribute_type, computed_attribute);
+        character::attribute& attribute = operator[](attribute_type);
+        synch(ATTRIBUTE_NAME.at(attribute_type), attribute);
       }
   }
 
-  void attributes::write_to_json(QJsonObject &json) const
-  {
-    for (auto attribute_type: ATTRIBUTE_NAME.keys())
-      {
-        QString attribute_name = ATTRIBUTE_NAME[attribute_type];
-        int attribute_value = int(value(attribute_type));
-        json[attribute_name] = attribute_value;
-      }
-  }
 }

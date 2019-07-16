@@ -62,7 +62,7 @@ namespace character {
 
                            bool is_supernatural,
                            character_type type,
-                           const QString& character_type_name = nullptr);
+                           const std::string& character_type_name = nullptr);
 
       character_type_model(const character_type_model& other);
 

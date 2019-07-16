@@ -1,11 +1,12 @@
 #include "exalt/exalt_caste.h"
 
+
 namespace character {
   namespace exalt {
 
     using character::creation::character_type;
 
-    QList<ability_enum> exalt_caste::_WARRIOR_CASTE = { ability_enum::WAR,
+    std::vector<ability_enum> exalt_caste::_WARRIOR_CASTE = { ability_enum::WAR,
                                                    ability_enum::MELEE,
                                                    ability_enum::ARCHERY,
                                                    ability_enum::THROWN,
@@ -35,9 +36,9 @@ namespace character {
                                      ability_enum::ACADEMICS,
                                      ability_enum::TEACHING };
 
-    const QMap<caste, QList<ability_enum>> exalt_caste::ABILITIES_OF_CASTE = {
+    const std::map<caste, std::vector<ability_enum>> exalt_caste::ABILITIES_OF_CASTE = {
 
-      { caste::NO_CASTE,    QList<ability_enum>() },
+      { caste::NO_CASTE,    std::vector<ability_enum>() },
 
       { caste::DAWN,        _WARRIOR_CASTE },
       { caste::DUSK,        _WARRIOR_CASTE },
@@ -90,7 +91,7 @@ namespace character {
                               ability_enum::SOCIALISE } }
     };
 
-    const QMap<character_type, QList<caste>> exalt_caste::CASTES_OF_EXALT_TYPE = {
+    const std::map<character_type, std::vector<caste>> exalt_caste::CASTES_OF_EXALT_TYPE = {
       { character_type::TYPE_MORTAL_HERO,       { caste::NO_CASTE } },
       { character_type::TYPE_MORTAL_EXTRA,      { caste::NO_CASTE } },
       { character_type::TYPE_TERRESTRIAL_EXALT, { caste::AIR,     caste::WATER, caste::FIRE, caste::WOOD, caste::EARTH               } },
@@ -99,7 +100,7 @@ namespace character {
       { character_type::TYPE_INFERNAL_EXALT,    { caste::SLAYER,  caste::MALEFACTOR, caste::DEFILER, caste::SCOURGE, caste::FIEND } },
     };
 
-    const QMap<caste, QString> exalt_caste::NAME_OF_CASTE = {
+    const std::map<caste, std::string> exalt_caste::NAME_OF_CASTE = {
       { caste::NO_CASTE    , "None"       },
       { caste::DAWN        , "Dawn"       },
       { caste::ZENITH      , "Zenith"     },

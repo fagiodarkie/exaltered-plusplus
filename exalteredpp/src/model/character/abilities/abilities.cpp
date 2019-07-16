@@ -5,7 +5,7 @@ namespace character {
 
   void abilities::serialisation()
   {
-    for (auto ability: *this)
-      synch(ability_names::ABILITY_NAME[ability.first], ability.second);
+    for (auto ability: ability_names::ABILITIES)
+      synch(ability_names::ABILITY_NAME.at(ability), operator[](ability));
   }
 }

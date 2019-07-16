@@ -10,7 +10,7 @@ namespace commons {
   T reverse_search_in_map(std::list<T> iterable, std::map<T, std::string> names_map, std::string name)
   {
     return *std::find_if(iterable.begin(), iterable.end(), [names_map, name](T iterator) {
-      return names_map.value(iterator) == name;
+      return names_map.at(iterator) == name;
     });
   }
 

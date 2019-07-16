@@ -4,7 +4,7 @@
 
 namespace character {
   namespace power {
-    class willpower : public serialisable
+    class willpower : public Serialisable
     {
     public:
       willpower(unsigned int total = 0, unsigned int temporary = 0);

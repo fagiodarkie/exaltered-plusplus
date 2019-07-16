@@ -24,7 +24,7 @@ namespace character {
       unsigned int get_max_philosophies     () const;
       unsigned int get_max_philosophy_value () const;
 
-      std::list<philosophy> philosophies() const;
+      std::vector<philosophy> philosophies() const;
       unsigned int get_emotion_bonus_for(emotion e) const;
 
       void set_persona              (unsigned int new_value);
@@ -55,8 +55,8 @@ namespace character {
         _max_philosophies,
         _max_philosophy_value;
 
-      QMap<emotion, unsigned int> _emotion_bonus;
-      QList<philosophy> _philosophies;
+      std::map<emotion, unsigned int> _emotion_bonus;
+      std::vector<philosophy> _philosophies;
     };
   }
 }

@@ -7,7 +7,7 @@ namespace character {
 
   ability::ability() : _name(ability_names::ability_declination::NO_DECLINATION), _value(0) {};
 
-  ability::ability(const QString& name, unsigned int value) : _name(name), _value(value) {}
+  ability::ability(const std::string& name, unsigned int value) : _name(name), _value(value) {}
 
   ability::ability(const ability& o) : _name(o._name), _value(o._value) { }
 
@@ -24,19 +24,19 @@ namespace character {
     return _value;
   }
 
-  ability::operator QString() const
+  ability::operator std::string() const
   {
     return _name;
   }
 
-  QString ability::get_name() const
+  std::string ability::get_name() const
   {
     return _name;
   }
 
-  QString ability::get_value() const
+  std::string ability::get_value() const
   {
-    return QString::number(_value);
+    return std::to_string(_value);
   }
 
   unsigned int ability::get_ability_value() const
@@ -49,16 +49,10 @@ namespace character {
     _value = new_value;
   }
 
-  void ability::read_from_json(const QJsonObject &json)
+  void ability::serialisation()
   {
-    _value = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_VALUE].toString().toInt());
-    _name = json[serialisation::json_constants::SLOT_NAME].toString();
-  }
-
-  void ability::write_to_json(QJsonObject &json) const
-  {
-    json[serialisation::json_constants::SLOT_VALUE] = QString::number(_value);
-    json[serialisation::json_constants::SLOT_NAME] = _name;
+    synch(serialisation::json_constants::SLOT_VALUE, _value);
+    synch(serialisation::json_constants::SLOT_NAME, _name);
   }
 
   bool ability::operator==(const ability& other) const

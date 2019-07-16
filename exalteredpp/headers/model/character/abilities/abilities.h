@@ -7,7 +7,7 @@
 
 namespace character
 {
-  class abilities : public std::map<ability_names::ability_enum, ability_group>, Serialisable
+  class abilities : public std::map<ability_names::ability_enum, ability_group>, public Serialisable
   {
 
   public:

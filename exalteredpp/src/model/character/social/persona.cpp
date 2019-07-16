@@ -99,24 +99,24 @@ namespace character {
       _max_philosophy_value = new_value;
     }
 
-    QList<philosophy> persona::philosophies() const
+    std::vector<philosophy> persona::philosophies() const
     {
       return _philosophies;
     }
 
     unsigned int persona::get_emotion_bonus_for(emotion e) const
     {
-      if (BASE_EMOTIONS.contains(e))
-        return _emotion_bonus[e];
+      if (commons::contains(BASE_EMOTIONS, e))
+        return _emotion_bonus.at(e);
 
       emotion base_emotion = BASE_EMOTION_OF(e);
-      unsigned int multiplier = INTIMATE_EMOTIONS.contains(e) ? 3 : 2;
-      return _emotion_bonus[base_emotion] * multiplier;
+      unsigned int multiplier = commons::contains(INTIMATE_EMOTIONS, e) ? 3 : 2;
+      return _emotion_bonus.at(base_emotion) * multiplier;
     }
 
     void persona::set_base_emotion_bonus(emotion e, unsigned int base_bonus)
     {
-      if (!BASE_EMOTIONS.contains(e))
+      if (!commons::contains(BASE_EMOTIONS, e))
         throw new exception::invalid_parameter();
 
       _emotion_bonus[e] = base_bonus;
@@ -127,10 +127,10 @@ namespace character {
       if (_philosophies.size() == _max_philosophies)
         throw new exception::invalid_parameter();
 
-      _philosophies.append(p);
+      _philosophies.push_back(p);
     }
 
-    void persona::increase_philosophy(QString philosophy_name, unsigned int increment)
+    void persona::increase_philosophy(std::string philosophy_name, unsigned int increment)
     {
       auto philosophy_pointer = std::find_if(_philosophies.begin(), _philosophies.end(),
                                              [philosophy_name](const philosophy& current_p) {
@@ -143,7 +143,7 @@ namespace character {
       philosophy_pointer->set_value(std::min(philosophy_pointer->value() + increment, _max_philosophy_value));
     }
 
-    void persona::decrease_philosophy(QString philosophy_name, unsigned int decrement)
+    void persona::decrease_philosophy(std::string philosophy_name, unsigned int decrement)
     {
       auto philosophy_pointer = std::find_if(_philosophies.begin(), _philosophies.end(),
                                              [philosophy_name](const philosophy& current_p) {
@@ -155,64 +155,24 @@ namespace character {
 
       if (philosophy_pointer->value() <= decrement)
         {
-          _philosophies.removeOne(*philosophy_pointer);
+          _philosophies.erase(philosophy_pointer);
         }
 
       philosophy_pointer->set_value(philosophy_pointer->value() - decrement);
     }
 
-    void persona::read_from_json(const QJsonObject &json)
+    void persona::serialisation()
     {
-      _persona              = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_PERSONA             ].toString().toInt());
-      _compulsions_specific = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_COMPULSIONS_SPECIFIC].toString().toInt());
-      _emotions_specific    = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_EMOTIONS_SPECIFIC   ].toString().toInt());
-      _illusions_specific   = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_ILLUSIONS_SPECIFIC  ].toString().toInt());
-      _motivations_specific = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_MOTIVATIONS_SPECIFIC].toString().toInt());
-      _serfdom_specific     = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_SERFDOM_SPECIFIC    ].toString().toInt());
-      _max_philosophies     = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_MAX_PHILOSOPHIES    ].toString().toInt());
-      _max_philosophy_value = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_MAX_PHILOSOPHY_VALUE].toString().toInt());
-
-      QJsonObject emotion_bonus = json[serialisation::json_constants::SLOT_EMOTION_BONUS].toObject();
-      QJsonArray philosophies_obj = json[serialisation::json_constants::SLOT_PHILOSOPHIES].toArray();
-      for (int i = 0; i < philosophies_obj.size(); ++i)
-        {
-          philosophy p;
-          p.read_from_json(philosophies_obj[i].toObject());
-          _philosophies.insert(i, p);
-        }
-
-      for (auto emotion: BASE_EMOTIONS)
-        {
-          _emotion_bonus[emotion] = static_cast<unsigned int>(emotion_bonus[NAME_OF_EMOTION[emotion]].toString().toInt());
-        }
-    }
-
-    void persona::write_to_json(QJsonObject &json) const
-    {
-      json[serialisation::json_constants::SLOT_PERSONA             ] = QString::number(_persona             );
-      json[serialisation::json_constants::SLOT_COMPULSIONS_SPECIFIC] = QString::number(_compulsions_specific);
-      json[serialisation::json_constants::SLOT_EMOTIONS_SPECIFIC   ] = QString::number(_emotions_specific   );
-      json[serialisation::json_constants::SLOT_ILLUSIONS_SPECIFIC  ] = QString::number(_illusions_specific  );
-      json[serialisation::json_constants::SLOT_MOTIVATIONS_SPECIFIC] = QString::number(_motivations_specific);
-      json[serialisation::json_constants::SLOT_SERFDOM_SPECIFIC    ] = QString::number(_serfdom_specific    );
-      json[serialisation::json_constants::SLOT_MAX_PHILOSOPHIES    ] = QString::number(_max_philosophies    );
-      json[serialisation::json_constants::SLOT_MAX_PHILOSOPHY_VALUE] = QString::number(_max_philosophy_value);
-
-      QJsonObject emotion_bonus; QJsonArray philosophies_obj;
-      for (int i = 0; i < _philosophies.size(); ++i)
-        {
-          QJsonObject p;
-          _philosophies[i].write_to_json(p);
-          philosophies_obj.insert(i, p);
-        }
-      json[serialisation::json_constants::SLOT_PHILOSOPHIES] = philosophies_obj;
-
-      for (auto emotion: BASE_EMOTIONS)
-        {
-          emotion_bonus[NAME_OF_EMOTION[emotion]] = QString::number(get_emotion_bonus_for(emotion));
-        }
-      json[serialisation::json_constants::SLOT_EMOTION_BONUS] = emotion_bonus;
-
+      synch(serialisation::json_constants::SLOT_PERSONA             , _persona             );
+      synch(serialisation::json_constants::SLOT_COMPULSIONS_SPECIFIC, _compulsions_specific);
+      synch(serialisation::json_constants::SLOT_EMOTIONS_SPECIFIC   , _emotions_specific   );
+      synch(serialisation::json_constants::SLOT_ILLUSIONS_SPECIFIC  , _illusions_specific  );
+      synch(serialisation::json_constants::SLOT_MOTIVATIONS_SPECIFIC, _motivations_specific);
+      synch(serialisation::json_constants::SLOT_SERFDOM_SPECIFIC    , _serfdom_specific    );
+      synch(serialisation::json_constants::SLOT_MAX_PHILOSOPHIES    , _max_philosophies    );
+      synch(serialisation::json_constants::SLOT_MAX_PHILOSOPHY_VALUE, _max_philosophy_value);
+      synch(serialisation::json_constants::SLOT_PHILOSOPHIES        , _philosophies        );
+      synch(serialisation::json_constants::SLOT_EMOTION_BONUS       , _emotion_bonus       );
     }
 
     persona::~persona() {}

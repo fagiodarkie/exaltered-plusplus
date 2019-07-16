@@ -12,8 +12,8 @@ namespace character
   public:
 
     ability_group(const std::string& name = "", ability_names::ability_category category = ability_names::COMBAT,
-                  std::list<ability> abilities = { ability(ability_names::ability_declination::NO_DECLINATION) },
-                  std::list<specialisation> specialisations = {});
+                  std::vector<ability> abilities = { ability(ability_names::ability_declination::NO_DECLINATION) },
+                  std::vector<specialisation> specialisations = {});
     ability_group(const ability_group& o);
     ability_group& operator=(const ability_group& o);
 
@@ -23,8 +23,8 @@ namespace character
     specialisation get_specialisation(const std::string& name) const;
     ability_names::ability_category get_category() const;
 
-    std::list<ability> get_abilities() const;
-    std::list<specialisation> get_specialisations() const;
+    std::vector<ability> get_abilities() const;
+    std::vector<specialisation> get_specialisations() const;
 
     bool has_ability(const std::string& ability_name) const;
     bool has_specialisation(const std::string& specialisation_name) const;
@@ -51,14 +51,14 @@ namespace character
 
   private:
     std::string group_name;
-    std::list<ability> actual_abilities;
-    std::list<specialisation> specialisations;
+    std::vector<ability> actual_abilities;
+    std::vector<specialisation> specialisations;
     ability_names::ability_category category;
     bool is_favorite;
 
     bool can_manage_ability(const std::string& ability_name) const;
-    std::list<ability>::iterator get_ability_reference(const std::string& name);
-    std::list<specialisation>::iterator get_specialisation_reference(const std::string& name);
+    std::vector<ability>::iterator get_ability_reference(const std::string& name);
+    std::vector<specialisation>::iterator get_specialisation_reference(const std::string& name);
 
   };
 }
