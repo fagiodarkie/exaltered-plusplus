@@ -16,7 +16,7 @@ namespace character
   {
     public:
       // constructors
-      character(const QString name,
+      character(const std::string name,
                 const creation::character_type type,
                 const exalt::caste caste,
                 const attributes attributes,
@@ -51,7 +51,7 @@ namespace character
       creation::character_type  _type;
       unsigned int              _id;
 
-      exalt::caste              _character_caste;
+      int                       _character_caste;
       attributes                _attributes;
       abilities                 _abilities;
       virtues::virtues          _virtues;

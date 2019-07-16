@@ -13,12 +13,12 @@ namespace character {
 
     virtue_enum virtue::virtue_type() const
     {
-      return _virtue_type;
+      return static_cast<virtue_enum>(_virtue_type);
     }
 
     virtue_rank virtue::rank() const
     {
-      return _rank;
+      return static_cast<virtue_rank>(_rank);
     }
 
     void virtue::set_rank(virtue_rank rank)

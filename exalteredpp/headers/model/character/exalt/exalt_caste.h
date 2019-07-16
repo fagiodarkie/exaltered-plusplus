@@ -11,7 +11,7 @@ namespace character {
 
     enum class caste
     {
-      NO_CASTE,
+      NO_CASTE = 0,
       DAWN, ZENITH, TWILIGHT, NIGHT, ECLIPSE,       // SOLAR
       DUSK, MIDNIGHT, DAYBREAK, DAY, MOONSHADOW,    // ABYSSAL
       SLAYER, MALEFACTOR, DEFILER, SCOURGE, FIEND,  // INFERNAL

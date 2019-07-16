@@ -27,7 +27,7 @@ namespace character {
       virtual ~virtues();
 
     private:
-      vice_enum _vice;
+      int _vice;
       unsigned int _vice_value;
     };
   }
