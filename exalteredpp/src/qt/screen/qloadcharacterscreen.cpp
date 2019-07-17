@@ -65,10 +65,10 @@ namespace qt {
       for (auto char_pair: character_manager->characters())
         {
           QRadioButton *character_name_button = new QRadioButton(this);
-          character_name_button->setText(char_pair.second);
+          character_name_button->setText(char_pair.second.c_str());
           connect(character_name_button, &QRadioButton::clicked, this, &qloadcharacterscreen::enable_load_button);
           vertical_layout->addWidget(character_name_button);
-          character_buttons.push_back(QPair<QRadioButton*, QString>(character_name_button, char_pair.first));
+          character_buttons.push_back(QPair<QRadioButton*, QString>(character_name_button, char_pair.first.c_str()));
         }
 
       vertical_layout->setAlignment(Qt::AlignTop);
@@ -95,7 +95,7 @@ namespace qt {
     {
       QString character_id = detect_selected_character_id();
       qDebug("Load character with id %s", qUtf8Printable(character_id));
-      emit character_loaded(character_manager->load_character(character_id));
+      emit character_loaded(character_manager->load_character(character_id.toStdString()));
     }
   }
 }

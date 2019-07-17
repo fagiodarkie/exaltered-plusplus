@@ -140,7 +140,8 @@ HEADERS += \
     ../../headers/serialisation/filesystem_db.h \
     ../../headers/serialisation/json_constants.h \
     ../../headers/serialisation/serialisable.h \
-    ../../headers/qt/wizard/character_creation_virtues_vice.h
+    ../../headers/qt/wizard/character_creation_virtues_vice.h \
+    ../../headers/qt/widget/std_compatible.h
 
 CONFIG += mobility
 MOBILITY = 

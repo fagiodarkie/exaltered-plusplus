@@ -6,7 +6,7 @@
 
 namespace character
 {
-  class attribute : public model::name_value_pair, Serialisable
+  class attribute : public model::name_value_pair, public Serialisable
   {
   public:
     attribute() = default;

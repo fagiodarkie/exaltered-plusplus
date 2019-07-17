@@ -86,6 +86,6 @@ namespace character
 
   exalt::caste character::caste() const
   {
-    return _character_caste;
+    return static_cast<exalt::caste>(_character_caste);
   }
 }

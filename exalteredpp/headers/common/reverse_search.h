@@ -2,6 +2,7 @@
 
 #include <map>
 #include <string>
+#include <vector>
 #include <list>
 #include <algorithm>
 
@@ -16,6 +17,20 @@ namespace commons {
 
   template<class T>
   bool contains(std::list<T> iterable, T item)
+  {
+    return std::find(iterable.begin(), iterable.end(), item) != iterable.end();
+  }
+
+  template<class T>
+  T reverse_search_in_map(std::vector<T> iterable, std::map<T, std::string> names_map, std::string name)
+  {
+    return *std::find_if(iterable.begin(), iterable.end(), [names_map, name](T iterator) {
+      return names_map.at(iterator) == name;
+    });
+  }
+
+  template<class T>
+  bool contains(std::vector<T> iterable, T item)
   {
     return std::find(iterable.begin(), iterable.end(), item) != iterable.end();
   }

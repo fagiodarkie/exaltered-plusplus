@@ -7,8 +7,7 @@ namespace character {
   {
     for (auto attribute_type: ATTRIBUTES)
       {
-        character::attribute& attribute = operator[](attribute_type);
-        synch(ATTRIBUTE_NAME.at(attribute_type), attribute);
+        synch(ATTRIBUTE_NAME.at(attribute_type), this[attribute_type]);
       }
   }
 

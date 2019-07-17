@@ -10,7 +10,7 @@ namespace manager {
   public:
     character_manager(std::shared_ptr<serialisation::db_abstraction> db, std::shared_ptr<character::abstract_ability_factory> ability_factory);
 
-    std::list<std::pair<std::string, std::string>> characters() const;
+    std::map<std::string, std::string> characters() const;
 
     std::shared_ptr<character::character> load_character(const std::string& char_id = nullptr) const;
     std::shared_ptr<character::character> create_character(const std::string name,

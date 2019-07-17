@@ -2,6 +2,7 @@
 
 #include <QScrollArea>
 #include <QVBoxLayout>
+#include "widget/std_compatible.h"
 #include "behavioral/name_value_pair.h"
 #include "widget/name_value_widget.h"
 #include "abilities/ability_names.h"
@@ -16,9 +17,9 @@ namespace qt
       QWidget* abilities_list = new QWidget;
       QVBoxLayout *v_layout = new QVBoxLayout(this), *inner_layout = new QVBoxLayout;
 
-      v_layout->addWidget(new QLabel("Abilities of " + character->get_name()));
+      v_layout->addWidget(label("Abilities of " + character->get_name()));
 
-      for (character::ability_names::ability_enum ability_name: character::ability_names::ABILITY_NAME.keys())
+      for (auto ability_name: character::ability_names::ABILITIES)
       {
         for (character::ability ability : character->get_ability_group(ability_name).get_abilities())
           {

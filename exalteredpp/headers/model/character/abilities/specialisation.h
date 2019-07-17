@@ -8,7 +8,7 @@ namespace character {
   class specialisation : public model::name_value_pair, public Serialisable
   {
   public:
-    specialisation(const std::string& name, unsigned int initial_value = 1);
+    specialisation(const std::string& name = "", unsigned int initial_value = 1);
     specialisation(const specialisation& o);
     specialisation& operator=(const specialisation& o);
 

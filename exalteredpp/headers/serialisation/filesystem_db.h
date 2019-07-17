@@ -13,7 +13,7 @@ namespace serialisation {
     // db_abstraction interface
     std::shared_ptr<character::character> load_character(const std::string& character_id) override;
     bool has_characters() const override;
-    std::list<std::string> character_list() override;
+    std::vector<std::string> character_list() override;
     void save_character(const std::shared_ptr<character::character> character) override;
     void remove_character(const std::string& character_id) override;
     void remove_character(unsigned int character_id) override;
@@ -28,7 +28,7 @@ namespace serialisation {
 
   private:
     const std::string FILE_EXT, AVAILABLE_CHARACTERS_FILE;
-    std::list<std::string, std::string> id_to_name;
+    std::map<std::string, std::string> id_to_name;
 
     void save_json_to_file(std::string json, const std::string& filename) const;
     void save_character_map();

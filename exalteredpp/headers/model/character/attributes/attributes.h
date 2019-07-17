@@ -7,7 +7,7 @@
 
 namespace character
 {
-  class attributes : public std::map<attribute_names::attribute, attribute>, Serialisable
+  class attributes : public std::map<attribute_names::attribute, attribute>, public Serialisable
   {
 
   public:

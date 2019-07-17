@@ -172,7 +172,8 @@ namespace character {
       synch(serialisation::json_constants::SLOT_MAX_PHILOSOPHIES    , _max_philosophies    );
       synch(serialisation::json_constants::SLOT_MAX_PHILOSOPHY_VALUE, _max_philosophy_value);
       synch(serialisation::json_constants::SLOT_PHILOSOPHIES        , _philosophies        );
-      synch(serialisation::json_constants::SLOT_EMOTION_BONUS       , _emotion_bonus       );
+      for (auto emotion: BASE_EMOTIONS)
+        synch(NAME_OF_EMOTION.at(emotion), _emotion_bonus[emotion]);
     }
 
     persona::~persona() {}

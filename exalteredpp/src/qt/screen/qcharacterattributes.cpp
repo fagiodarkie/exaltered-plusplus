@@ -16,9 +16,9 @@ namespace qt
       QWidget* attributes_list = new QWidget;
       QVBoxLayout *v_layout = new QVBoxLayout(this), *inner_layout = new QVBoxLayout;
 
-      v_layout->addWidget(new QLabel("Attributes of " + character->get_name()));
+      v_layout->addWidget(new QLabel(QString("Attributes of ") + character->get_name().c_str()));
 
-      for (character::attribute_names::attribute attribute_name: character::attribute_names::ATTRIBUTE_NAME.keys())
+      for (auto attribute_name: character::attribute_names::ATTRIBUTES)
       {
         inner_layout->addWidget(new widget::name_value_widget(character->get_attribute(attribute_name), this));
       }

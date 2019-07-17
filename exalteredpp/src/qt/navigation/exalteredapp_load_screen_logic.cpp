@@ -29,7 +29,7 @@ void ExalteredApp::load_abilities_screen()
 void ExalteredApp::load_main_screen(QSharedPointer<character::character> character)
 {
   current_character = character;
-  character_manager->save_character(character);
+  character_manager->save_character(std::shared_ptr<character::character>(character.data()));
   main_screen_widget = new qmainscreen(this);
   setCentralWidget(main_screen_widget);
   load_menu();
