@@ -110,21 +110,24 @@ public:
                 }
                 inline void write(std::ostream& out, int = 0) {
                         out << value_;
+                        double whole;
+                        if (std::modf(value_, &whole) == 0)
+                                out << ".0";
                 }
         };
         struct JSONint : public JSON {
-                        int64_t value_;
-                        JSONint(int64_t from = 0) : value_(from) {}
+                int64_t value_;
+                JSONint(int64_t from = 0) : value_(from) {}
 
-                        inline virtual JSONtype type() {
-                                        return JSONtype::INTEGER;
-                        }
-                        inline virtual int64_t& getInt() {
-                                        return value_;
-                        }
-                        inline void write(std::ostream& out, int = 0) {
-                                        out << value_;
-                        }
+                inline virtual JSONtype type() {
+                        return JSONtype::INTEGER;
+                }
+                inline virtual int64_t& getInt() {
+                        return value_;
+                }
+                inline void write(std::ostream& out, int = 0) {
+                        out << value_;
+                }
         };
         struct JSONbool : public JSON {
                 bool value_;
@@ -256,20 +259,21 @@ public:
                 else if (letter == '-' || (letter >= '0' && letter <= '9')) {
                         std::string asString;
                         asString.push_back(letter);
-                        bool has_decimal = false;
+                        bool hasDecimal = false;
                         do {
                                 letter = in.get();
-                                if (!has_decimal && (letter == '.' || letter == ','))
-                                        has_decimal = true;
+                                if (!hasDecimal && letter == '.')
+                                        hasDecimal = true;
                                 asString.push_back(letter);
                         } while (letter == '-' || letter == 'E' || letter == 'e' || letter == ',' || letter == '.' || (letter >= '0' && letter <= '9'));
                         in.unget();
                         std::stringstream parsing(asString);
-                        if (has_decimal) {
+                        if (hasDecimal) {
                                 double number;
                                 parsing >> number;
                                 return std::make_shared<JSONdouble>(number);
-                        } else {
+                        }
+                        else {
                                 int64_t number;
                                 parsing >> number;
                                 return std::make_shared<JSONint>(number);
@@ -353,7 +357,7 @@ protected:
         }
 
         /*!
-        * \brief Saves or loads an arithmetic decimal value
+        * \brief Saves or loads an arithmetic value
         * \param The name of the value in the output/input file
         * \param Reference to the value
         * \return false if the value was absent while reading, true otherwise
@@ -361,9 +365,7 @@ protected:
         * \note The value is converted from and to a double for JSON conformity
         */
         template<typename T>
-        typename std::enable_if<std::is_arithmetic<T>::value
-                        && !std::is_integral<T>::value
-                        && !std::is_same<T, bool>::value, bool>::type
+        typename std::enable_if<std::is_floating_point<T>::value, bool>::type
         synch(const std::string& key, T& value) {
                 if (preferencesSaving_) {
                         preferencesJson_->getObject()[key] = std::make_shared<JSONdouble>(double(value));
@@ -383,17 +385,17 @@ protected:
         * \return false if the value was absent while reading, true otherwise
         *
         * \note The value is kept integer for precision.
-        * \note unsigned integers greater than 2^63 may not work correctly
         */
         template<typename T>
         typename std::enable_if<std::is_integral<T>::value, bool>::type
-        synch(const std::string& key, T& value) {
+                synch(const std::string& key, T& value) {
                 if (preferencesSaving_) {
-                        preferencesJson_->getObject()[key] = std::make_shared<JSONint>(static_cast<int64_t>(value));
-                } else {
+                        preferencesJson_->getObject()[key] = std::make_shared<JSONint>(int64_t(value));
+                }
+                else {
                         auto found = preferencesJson_->getObject().find(key);
                         if (found != preferencesJson_->getObject().end()) {
-                                value = static_cast<T>(found->second->getInt());
+                                value = T(found->second->getInt());
                         } return false;
                 }
                 return true;
@@ -407,14 +409,15 @@ protected:
         */
         template<typename T>
         typename std::enable_if<std::is_enum<T>::value, bool>::type
-        synch(const std::string& key, T& value) {
+                synch(const std::string& key, T& value) {
                 if (preferencesSaving_) {
-                                preferencesJson_->getObject()[key] = std::make_shared<JSONint>(int(value));
-                } else {
-                                auto found = preferencesJson_->getObject().find(key);
-                                if (found != preferencesJson_->getObject().end()) {
-                                                value = T(found->second->getInt());
-                                } return false;
+                        preferencesJson_->getObject()[key] = std::make_shared<JSONint>(int(value));
+                }
+                else {
+                        auto found = preferencesJson_->getObject().find(key);
+                        if (found != preferencesJson_->getObject().end()) {
+                                value = T(found->second->getInt());
+                        } return false;
                 }
                 return true;
         }
