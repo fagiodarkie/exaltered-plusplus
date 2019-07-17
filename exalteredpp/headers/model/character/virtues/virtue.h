@@ -19,7 +19,7 @@ namespace character {
       void set_value(unsigned int value);
 
     private:
-      int _virtue_type, _rank;
+      virtue_enum _virtue_type; int _rank;
       unsigned int _value;
 
       // serialisable interface
