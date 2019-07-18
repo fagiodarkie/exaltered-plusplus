@@ -635,7 +635,7 @@ public:
                         preferencesJson_ = nullptr;
                         return;
                 }
-                preferencesSaving_ = true;
+                preferencesSaving_ = false;
                 serialisation();
                 preferencesJson_ = nullptr;
         }
