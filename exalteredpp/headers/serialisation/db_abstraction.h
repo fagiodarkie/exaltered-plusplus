@@ -14,7 +14,7 @@ namespace serialisation {
     virtual std::string character_name(const std::string& character_id) const = 0;
     virtual void remove_character(const std::string& character_id) = 0;
     virtual void remove_character(unsigned int character_id) = 0;
-    virtual void save_character(const std::shared_ptr<character::character> character) = 0;
+    virtual void save_character(std::shared_ptr<character::character>& character) = 0;
     virtual std::shared_ptr<character::character> create_character( const std::string& name,
                                                         const character::creation::character_type type,
                                                         const character::exalt::caste caste,

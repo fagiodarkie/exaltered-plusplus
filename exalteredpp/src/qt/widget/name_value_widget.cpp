@@ -1,4 +1,5 @@
 #include "widget/name_value_widget.h"
+#include "widget/std_compatible.h"
 
 namespace qt {
   namespace widget {
@@ -6,8 +7,8 @@ namespace qt {
       : QWidget(parent)
     {
       QHBoxLayout *layout = new QHBoxLayout(this);
-      layout->addWidget(new QLabel(name_value.get_name()));
-      layout->addWidget(new QLabel(name_value.get_value()));
+      layout->addWidget(label(name_value.get_name()));
+      layout->addWidget(label(name_value.get_value()));
       setLayout(layout);
     }
   }

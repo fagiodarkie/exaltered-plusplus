@@ -117,7 +117,7 @@ namespace qt {
     {
       unsigned int current_points = total_points_for_category(category);
 
-      auto attributes_in_category = character::attribute_names::ATTRIBUTES_BY_CATEGORY[category];
+      auto attributes_in_category = character::attribute_names::ATTRIBUTES_BY_CATEGORY.at(category);
 
       bool able_to_increase = current_points < max_points_for_category(category);
 
@@ -152,7 +152,7 @@ namespace qt {
 
       for (auto category:character::attribute_names::ATTRIBUTE_CATEGORIES)
         group_label_by_category[category]->setTitle(
-              qt::labels::creation_wizard::ATTRIBUTE_LABEL_WITH_TOTAL_POINTS(character::attribute_names::ATTRIBUTE_CATEGORY_NAME[category],
+              qt::labels::creation_wizard::ATTRIBUTE_LABEL_WITH_TOTAL_POINTS(character::attribute_names::ATTRIBUTE_CATEGORY_NAME.at(category).c_str(),
                                                                  static_cast<int>(points_per_category[category])));
     }
 
@@ -164,15 +164,15 @@ namespace qt {
 
     void character_creation_attribute_points_page::generate_attribute_labels_for_category(attribute_category category)
     {
-      for (auto attribute:character::attribute_names::ATTRIBUTES_BY_CATEGORY[category])
+      for (auto attribute:character::attribute_names::ATTRIBUTES_BY_CATEGORY.at(category))
         {
           if (!label_by_attribute.contains(attribute))
             label_by_attribute[attribute] = new QLabel();
         }
 
-      for (auto attribute:character::attribute_names::ATTRIBUTES_BY_CATEGORY[category])
+      for (auto attribute:character::attribute_names::ATTRIBUTES_BY_CATEGORY.at(category))
         label_by_attribute[attribute]->setText(
-              qt::labels::creation_wizard::ATTRIBUTE_WITH_POINTS(character::attribute_names::ATTRIBUTE_NAME[attribute],
+              qt::labels::creation_wizard::ATTRIBUTE_WITH_POINTS(character::attribute_names::ATTRIBUTE_NAME.at(attribute).c_str(),
                                                                  static_cast<int>(chosen_attributes[attribute])));
     }
 
@@ -182,7 +182,7 @@ namespace qt {
 
       QFormLayout* form = new QFormLayout;
 
-      for (auto attribute : character::attribute_names::ATTRIBUTES_BY_CATEGORY[category])
+      for (auto attribute : character::attribute_names::ATTRIBUTES_BY_CATEGORY.at(category))
         {
           auto add_button = generate_add_button();
           auto subtract_button = generate_subtract_button();
@@ -228,7 +228,7 @@ namespace qt {
     unsigned int character_creation_attribute_points_page::total_points_for_category(attribute_category category)
     {
       int result = 0;
-      for (auto attribute : character::attribute_names::ATTRIBUTES_BY_CATEGORY[category])
+      for (auto attribute : character::attribute_names::ATTRIBUTES_BY_CATEGORY.at(category))
         {
           result += chosen_attributes[attribute];
         }

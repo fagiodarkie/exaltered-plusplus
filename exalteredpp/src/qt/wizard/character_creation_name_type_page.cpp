@@ -25,9 +25,9 @@ namespace qt {
       connect(character_name, &QLineEdit::textChanged, this, &character_creation_name_type_page::check_form);
 
       combo_box = new QComboBox;
-      for (auto type: character::creation::CHARACTER_TYPE_NAMES.keys())
+      for (auto type: character::creation::CHARACTER_TYPE_LIST)
         {
-          combo_box->addItem(character::creation::CHARACTER_TYPE_NAMES[type]);
+          combo_box->addItem(character::creation::CHARACTER_TYPE_NAMES.at(type).c_str());
         }
 
       form->addRow(new QLabel(CHARACTER_TYPE_LABEL), combo_box);
@@ -65,9 +65,9 @@ namespace qt {
     {
       character_type selected_type = commons::reverse_search_in_map(character::creation::CHARACTER_TYPE_LIST,
                                                                     character::creation::CHARACTER_TYPE_NAMES,
-                                                                    combo_box->currentText());
-      auto available_castes = character::exalt::exalt_caste::CASTES_OF_EXALT_TYPE.value(selected_type);
-      if (available_castes.isEmpty() || available_castes.size() == 1)
+                                                                    combo_box->currentText().toStdString());
+      auto available_castes = character::exalt::exalt_caste::CASTES_OF_EXALT_TYPE.at(selected_type);
+      if (available_castes.empty() || available_castes.size() == 1)
         {
           caste_combo_box->hide();
           caste_label -> hide();
@@ -78,7 +78,7 @@ namespace qt {
       caste_combo_box->clear();
       for (character::exalt::caste available_caste : available_castes)
         {
-          caste_combo_box->addItem(character::exalt::exalt_caste::get_caste(available_caste).name());
+          caste_combo_box->addItem(character::exalt::exalt_caste::get_caste(available_caste).name().c_str());
         }
       caste_combo_box->show();
     }
@@ -88,10 +88,10 @@ namespace qt {
       QString char_name = character_name->text(),
           char_type = combo_box->currentText();
 
-      character_type type = commons::reverse_search_in_map(character::creation::CHARACTER_TYPE_LIST, character::creation::CHARACTER_TYPE_NAMES, char_type);
-      character::exalt::caste caste_type = caste_combo_box->isHidden() ? character::exalt::caste::NO_CASTE : commons::reverse_search_in_map(character::exalt::exalt_caste::CASTES_OF_EXALT_TYPE.value(type),
+      character_type type = commons::reverse_search_in_map(character::creation::CHARACTER_TYPE_LIST, character::creation::CHARACTER_TYPE_NAMES, char_type.toStdString());
+      character::exalt::caste caste_type = caste_combo_box->isHidden() ? character::exalt::caste::NO_CASTE : commons::reverse_search_in_map(character::exalt::exalt_caste::CASTES_OF_EXALT_TYPE.at(type),
                                                                                                              character::exalt::exalt_caste::NAME_OF_CASTE,
-                                                                                                             caste_combo_box->currentText());
+                                                                                                             caste_combo_box->currentText().toStdString());
       emit character_type_chosen(char_name, type, caste_type);
     }
 

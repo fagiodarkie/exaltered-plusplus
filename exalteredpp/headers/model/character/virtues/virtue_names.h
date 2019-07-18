@@ -1,7 +1,7 @@
 #pragma once
 
 #include <map>
-#include <list>
+#include <vector>
 
 namespace character {
   namespace virtues {
@@ -17,15 +17,15 @@ namespace character {
       CHILD = 0, TEENAGER, ADULT, SENIOR
     };
 
-    static const std::list<virtue_enum> VIRTUE_LIST = {
+    static const std::vector<virtue_enum> VIRTUE_LIST = {
       COMPASSION, CONVINCTION, VALOR, TEMPERANCE
     };
 
-    static const std::list<vice_enum> VICE_LIST = {
+    static const std::vector<vice_enum> VICE_LIST = {
       LUST, GLUTTONY, WRATH, SLOTH, PRIDE, ENVY, GREED
     };
 
-    static const std::list<virtue_rank> VIRTUE_RANK_LIST = {
+    static const std::vector<virtue_rank> VIRTUE_RANK_LIST = {
       CHILD, TEENAGER, ADULT, SENIOR
     };
 

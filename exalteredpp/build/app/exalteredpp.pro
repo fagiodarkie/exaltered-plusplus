@@ -139,9 +139,9 @@ HEADERS += \
     ../../headers/serialisation/db_abstraction.h \
     ../../headers/serialisation/filesystem_db.h \
     ../../headers/serialisation/json_constants.h \
-    ../../headers/serialisation/serialisable.h \
     ../../headers/qt/wizard/character_creation_virtues_vice.h \
-    ../../headers/qt/widget/std_compatible.h
+    ../../headers/qt/widget/std_compatible.h \
+    ../../thirdparty/serialisable/serialisable.hpp
 
 CONFIG += mobility
 MOBILITY = 

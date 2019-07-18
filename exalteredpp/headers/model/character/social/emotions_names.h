@@ -111,7 +111,7 @@ namespace character {
     static virtues::virtue_enum VIRTUE_OF_EMOTION(enum emotion _emotion) {
 
       emotion emotion_to_look_up = _emotion;
-      if (commons::contains(BASE_EMOTIONS, _emotion))
+      if (!commons::contains(BASE_EMOTIONS, _emotion))
         emotion_to_look_up = *std::find_if(BASE_EMOTIONS.begin(), BASE_EMOTIONS.end(),
                               [_emotion](enum emotion lower_grade)
         {

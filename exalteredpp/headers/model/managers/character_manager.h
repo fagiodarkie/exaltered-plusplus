@@ -8,7 +8,7 @@ namespace manager {
   class character_manager
   {
   public:
-    character_manager(std::shared_ptr<serialisation::db_abstraction> db, std::shared_ptr<character::abstract_ability_factory> ability_factory);
+    character_manager(std::shared_ptr<serialisation::db_abstraction>& db, std::shared_ptr<character::abstract_ability_factory>& ability_factory);
 
     std::map<std::string, std::string> characters() const;
 
@@ -20,7 +20,7 @@ namespace manager {
                                                           const character::abilities abilities,
                                                           const character::virtues::virtues virtues,
                                                           const character::power::power_container power_container);
-    void save_character(std::shared_ptr<character::character> character) const;
+    void save_character(std::shared_ptr<character::character>& character) const;
 
   private:
     std::shared_ptr<serialisation::db_abstraction> character_repository;

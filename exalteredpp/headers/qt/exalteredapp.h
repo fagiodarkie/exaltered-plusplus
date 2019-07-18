@@ -17,11 +17,11 @@ class ExalteredApp : public QMainWindow
   Q_OBJECT
 
   public:
-    ExalteredApp(QSharedPointer<manager::character_manager> c_manager);
+    ExalteredApp(manager::character_manager* const c_manager);
     ~ExalteredApp();
 
   public slots:
-    void        load_main_screen(QSharedPointer<character::character> character);
+    void        load_main_screen(std::shared_ptr<character::character> character);
     void        load_character_screen();
     void        load_attributes_screen();
     void        load_abilities_screen();
@@ -43,6 +43,6 @@ class ExalteredApp : public QMainWindow
     qcharacterabilities*                        character_abilities_widget;
     qt::wizard::character_creation_wizard*      character_creation_wizard;
 
-    QSharedPointer<manager::character_manager>  character_manager;
-    QSharedPointer<character::character>        current_character;
+    std::shared_ptr<manager::character_manager>  character_manager;
+    std::shared_ptr<character::character>        current_character;
 };

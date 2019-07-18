@@ -102,6 +102,12 @@ namespace character {
       return *this;
     }
 
+    const character_type_model character_type_model::MORTAL_TEST(5, 4, 3,
+                                                       18, 3, 0, 0, 0, 0,
+                                                       0, 1, 1,
+                                                       5, 3, 5,
+                                                       7, 18, 0, false, character_type::TYPE_MORTAL_EXTRA);
+
     const character_type_model character_type_model::MORTAL_EXTRA(5, 4, 3,
                                                        18, 3, 0, 0, 0, 0,
                                                        0, 1, 1,
@@ -143,7 +149,7 @@ namespace character {
       switch(type)
         {
         case character_type::TYPE_MORTAL_EXTRA:
-          return MORTAL_EXTRA;
+          return MORTAL_TEST;
 
         case character_type::TYPE_MORTAL_HERO:
           return MORTAL_HERO;

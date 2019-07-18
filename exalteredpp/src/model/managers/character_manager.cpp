@@ -5,8 +5,8 @@
 
 namespace manager {
 
-  character_manager::character_manager(std::shared_ptr<serialisation::db_abstraction> db, std::shared_ptr<character::abstract_ability_factory> abilities)
-    : character_repository(db), ability_factory(abilities)
+  character_manager::character_manager(std::shared_ptr<serialisation::db_abstraction>& db, std::shared_ptr<character::abstract_ability_factory>& ability_factory)
+    : character_repository(db), ability_factory(ability_factory)
   {
   }
 
@@ -38,7 +38,7 @@ namespace manager {
     throw new exception::character_not_found_exception();
   }
 
-  void character_manager::save_character(std::shared_ptr<character::character> character) const
+  void character_manager::save_character(std::shared_ptr<character::character>& character) const
   {
     character_repository->save_character(character);
   }

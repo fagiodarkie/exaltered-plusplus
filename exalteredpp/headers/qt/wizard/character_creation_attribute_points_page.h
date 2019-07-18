@@ -3,7 +3,7 @@
 #include <QGroupBox>
 #include <QPushButton>
 #include <QWidget>
-
+#include <QMap>
 #include "attributes/attributes.h"
 #include "attributes/attribute_names.h"
 

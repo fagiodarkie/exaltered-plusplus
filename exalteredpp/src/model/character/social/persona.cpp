@@ -17,7 +17,12 @@ namespace character {
         _motivations_specific(motivations),
         _serfdom_specific(serfdom),
         _max_philosophies(max_philosophies),
-        _max_philosophy_value(max_philosophy_value) { }
+        _max_philosophy_value(max_philosophy_value) {
+      for (auto e: BASE_EMOTIONS)
+        {
+          _emotion_bonus[e] = 0;
+        }
+    }
 
     unsigned int persona::get_persona              () const
     {

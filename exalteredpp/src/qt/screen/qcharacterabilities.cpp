@@ -11,7 +11,7 @@ namespace qt
 {
   namespace screen
   {
-    qcharacterabilities::qcharacterabilities(QSharedPointer<character::character> character, QWidget* parent)
+    qcharacterabilities::qcharacterabilities(character::character *character, QWidget* parent)
       : QWidget (parent)
     {
       QWidget* abilities_list = new QWidget;

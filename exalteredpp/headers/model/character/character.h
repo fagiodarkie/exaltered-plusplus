@@ -24,7 +24,9 @@ namespace character
                 const virtues::virtues virtues,
                 const power::power_container power_container,
                 const unsigned int id = 0);
-      character(const character& other);
+
+
+      character(const std::string& serialised_data);
 
       // character fields
       std::string get_name() const;

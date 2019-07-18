@@ -446,7 +446,7 @@ protected:
         * \param Reference to the pointer
         * \return false if the value was absent while reading, true otherwise
         *
-        \ \note The smart pointer class must be dereferencable through operator*(), constructible from raw pointer to the class and the ! operation must result in a number
+        * \note The smart pointer class must be dereferencable through operator*(), constructible from raw pointer to the class and the ! operation must result in a number
         * \note If not null, the contents will be overwritten, so raw pointers must be initalised before calling it, but no memory leak will occur
         */
         template<typename T>

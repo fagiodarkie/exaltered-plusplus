@@ -13,7 +13,7 @@ using namespace qt::labels;
 
 namespace qt {
   namespace screen {
-    qloadcharacterscreen::qloadcharacterscreen(QSharedPointer<manager::character_manager> char_manager, QWidget* parent)
+    qloadcharacterscreen::qloadcharacterscreen(manager::character_manager * char_manager, QWidget* parent)
       : QWidget (parent),
         character_manager(char_manager)
     {

@@ -2,6 +2,7 @@
 
 #include <QStackedLayout>
 #include <QWizard>
+#include <QMap>
 
 #include "creation/character_creation_configuration.h"
 #include "creation/character_type_model.h"
@@ -25,10 +26,10 @@ namespace qt {
     {
       Q_OBJECT
     public:
-      character_creation_wizard(QSharedPointer<manager::character_manager> manager, QWidget* parent = nullptr);
+      character_creation_wizard(manager::character_manager *manager, QWidget* parent = nullptr);
 
     signals:
-      void character_created(QSharedPointer<character::character> new_character);
+      void character_created(std::shared_ptr<character::character> new_character);
       void back_issued();
 
     private:
@@ -55,7 +56,7 @@ namespace qt {
       character::power::power_container                     power;
       character::social::persona                            persona;
 
-      QSharedPointer<manager::character_manager>    char_manager;
+      std::shared_ptr<manager::character_manager>    char_manager;
 
       character_creation_name_type_page*            name_page;
       attributes_priority_page*                     attribute_priority_page;

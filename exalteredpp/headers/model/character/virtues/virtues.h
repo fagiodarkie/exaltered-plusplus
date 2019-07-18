@@ -6,7 +6,7 @@
 
 namespace character {
   namespace virtues {
-    class virtues : public std::list<virtue>, public Serialisable
+    class virtues : public std::vector<virtue>, public Serialisable
     {
     public:
       virtues();

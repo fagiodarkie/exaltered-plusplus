@@ -9,17 +9,17 @@ namespace qt {
     using character::character;
     using namespace character;
 
-    character_creation_wizard::character_creation_wizard(QSharedPointer<manager::character_manager> manager, QWidget* parent)
+    character_creation_wizard::character_creation_wizard(manager::character_manager *manager, QWidget* parent)
       : QWidget (parent),
         character_model(::character::creation::character_type_model::SOLAR_EXALT),
         char_manager(manager)
     {
       // initialise character specs
       for (auto attribute_e : attribute_names::ATTRIBUTES)
-        attributes[attribute_e] = attribute(attribute_names::ATTRIBUTE_NAME[attribute_e], 1);
+        attributes[attribute_e] = attribute(attribute_names::ATTRIBUTE_NAME.at(attribute_e), 1);
 
       for (auto ability_e : ability_names::ABILITIES)
-        abilities[ability_e] = ability_group(ability_names::ABILITY_NAME[ability_e], ability_names::CATEGORY_OF_ABILITY(ability_e));
+        abilities[ability_e] = ability_group(ability_names::ABILITY_NAME.at(ability_e), ability_names::CATEGORY_OF_ABILITY(ability_e));
 
 
       name_page = new character_creation_name_type_page(this);
@@ -78,9 +78,9 @@ namespace qt {
     void character_creation_wizard::load_attributes_values(const QString& primary_attribute, const QString& secondary_attribute, const QString& tertiary_attribute)
     {
       points_per_category.clear();
-      points_per_category.insert(attribute_names::ATTRIBUTE_CATEGORY_BY_NAME(primary_attribute), character_model.primary_category_attribute_value);
-      points_per_category.insert(attribute_names::ATTRIBUTE_CATEGORY_BY_NAME(secondary_attribute), character_model.secondary_category_attribute_value);
-      points_per_category.insert(attribute_names::ATTRIBUTE_CATEGORY_BY_NAME(tertiary_attribute), character_model.tertiary_category_attribute_value);
+      points_per_category.insert(attribute_names::ATTRIBUTE_CATEGORY_BY_NAME(primary_attribute  .toStdString()), character_model.primary_category_attribute_value);
+      points_per_category.insert(attribute_names::ATTRIBUTE_CATEGORY_BY_NAME(secondary_attribute.toStdString()), character_model.secondary_category_attribute_value);
+      points_per_category.insert(attribute_names::ATTRIBUTE_CATEGORY_BY_NAME(tertiary_attribute .toStdString()), character_model.tertiary_category_attribute_value);
 
       attribute_points_page->set_total_points(points_per_category);
       attribute_points_page->set_current_attributes(attributes);
@@ -142,8 +142,8 @@ namespace qt {
         }
       else
         {
-          QSharedPointer<character> final_character =
-              char_manager->create_character(character_name,
+          auto final_character =
+              char_manager->create_character(character_name.toStdString(),
                               new_character_type,
                               caste,
                               attributes,

@@ -23,6 +23,10 @@ namespace character
       _power(power_container)
   { };
 
+  character::character(const std::string& serialised_data)
+  {
+    deserialise(serialised_data);
+  }
 
   std::string character::get_name() const
   {
@@ -88,4 +92,6 @@ namespace character
   {
     return static_cast<exalt::caste>(_character_caste);
   }
+
+  character::~character() {}
 }

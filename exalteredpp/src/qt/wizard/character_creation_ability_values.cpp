@@ -69,7 +69,7 @@ namespace qt {
       QMap<character::ability_names::ability_category, QFormLayout*> ability_forms;
       for (auto ab_category: character::ability_names::ABILITY_CATEGORIES)
         {
-          QGroupBox *category_group = new QGroupBox(character::ability_names::ABILITY_CATEGORY_NAMES[ab_category]);
+          QGroupBox *category_group = new QGroupBox(character::ability_names::ABILITY_CATEGORY_NAMES.at(ab_category).c_str());
           ability_groups[ab_category] = category_group;
           ability_list->addWidget(category_group);
           ability_forms[ab_category] = new QFormLayout;
@@ -77,7 +77,7 @@ namespace qt {
 
       for (auto ability_enum : character::ability_names::ABILITIES)
         {
-          ability_value_row row(ability_enum, character::ability_names::CATEGORY_OF_ABILITY(ability_enum), character::ability_names::ABILITY_NAME[ability_enum]);
+          ability_value_row row(ability_enum, character::ability_names::CATEGORY_OF_ABILITY(ability_enum), character::ability_names::ABILITY_NAME.at(ability_enum).c_str());
           ability_forms[row.category]->addRow(row.label, row.widget());
           row_of_ability.insert(ability_enum, row);
 

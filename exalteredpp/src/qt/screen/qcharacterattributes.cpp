@@ -10,7 +10,7 @@ namespace qt
 {
   namespace screen
   {
-    qcharacterattributes::qcharacterattributes(QSharedPointer<character::character> character, QWidget* parent)
+    qcharacterattributes::qcharacterattributes(character::character *character, QWidget* parent)
       : QWidget (parent)
     {
       QWidget* attributes_list = new QWidget;
