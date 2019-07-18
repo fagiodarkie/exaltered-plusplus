@@ -26,7 +26,7 @@ namespace qt {
     {
       Q_OBJECT
     public:
-      character_creation_wizard(manager::character_manager *manager, QWidget* parent = nullptr);
+      character_creation_wizard(manager::character_manager &manager, QWidget* parent = nullptr);
 
     signals:
       void character_created(std::shared_ptr<character::character> new_character);
@@ -56,7 +56,7 @@ namespace qt {
       character::power::power_container                     power;
       character::social::persona                            persona;
 
-      std::shared_ptr<manager::character_manager>    char_manager;
+      manager::character_manager&    char_manager;
 
       character_creation_name_type_page*            name_page;
       attributes_priority_page*                     attribute_priority_page;

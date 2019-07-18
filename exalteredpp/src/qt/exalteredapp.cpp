@@ -5,7 +5,7 @@
 
 using namespace qt;
 
-ExalteredApp::ExalteredApp(manager::character_manager* const c_manager)
+ExalteredApp::ExalteredApp(manager::character_manager& c_manager)
     : QMainWindow (), character_manager(c_manager)
 {
   init_load_character_screen();

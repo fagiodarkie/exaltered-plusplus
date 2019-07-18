@@ -9,7 +9,7 @@ namespace qt {
     class qcharacterattributes : public QWidget
     {
     public:
-      qcharacterattributes(character::character *character, QWidget* parent);
+      qcharacterattributes(std::shared_ptr<character::character> character, QWidget* parent);
     };
   }
 }

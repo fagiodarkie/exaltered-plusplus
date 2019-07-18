@@ -97,7 +97,7 @@ namespace serialisation {
   std::vector<std::string> filesystem_db::character_list()
   {
     std::vector<std::string> result;
-    for (auto name: id_to_name.values())
+    for (auto name: id_to_name.keys())
       {
         result.push_back(name.toStdString());
       }

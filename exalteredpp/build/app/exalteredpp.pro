@@ -121,7 +121,6 @@ HEADERS += \
     ../../headers/qt/label/interfacelabels.h \
     ../../headers/qt/layout/layout_constants.h \
     ../../headers/qt/layout/qborderlayout.h \
-    ../../headers/qt/objects_factory.h \
     ../../headers/qt/screen/qcharacterabilities.h \
     ../../headers/qt/screen/qcharacterattributes.h \
     ../../headers/qt/screen/qcharacterinfoscreen.h \

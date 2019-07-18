@@ -9,7 +9,7 @@ namespace qt {
     using character::character;
     using namespace character;
 
-    character_creation_wizard::character_creation_wizard(manager::character_manager *manager, QWidget* parent)
+    character_creation_wizard::character_creation_wizard(manager::character_manager &manager, QWidget* parent)
       : QWidget (parent),
         character_model(::character::creation::character_type_model::SOLAR_EXALT),
         char_manager(manager)
@@ -143,7 +143,7 @@ namespace qt {
       else
         {
           auto final_character =
-              char_manager->create_character(character_name.toStdString(),
+              char_manager.create_character(character_name.toStdString(),
                               new_character_type,
                               caste,
                               attributes,

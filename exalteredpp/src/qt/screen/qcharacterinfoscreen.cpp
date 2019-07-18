@@ -9,7 +9,7 @@ namespace qt
 
   namespace screen
   {
-    qcharacterinfoscreen::qcharacterinfoscreen(character::character *character, manager::character_manager *ch_manager, QWidget *parent)
+    qcharacterinfoscreen::qcharacterinfoscreen(std::shared_ptr<character::character> character, manager::character_manager &ch_manager, QWidget *parent)
       : QWidget(parent),
         character(character),
         character_manager(ch_manager),
@@ -36,7 +36,7 @@ namespace qt
     {
       QString new_name = character_name_widget.text();
       character->set_name(new_name.toStdString());
-      character_manager->save_character(character);
+      character_manager.save_character(character);
       save_button.setEnabled(false);
     }
   }

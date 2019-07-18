@@ -7,7 +7,7 @@ namespace character {
   {
     for (auto attribute_type: ATTRIBUTES)
       {
-        synch(ATTRIBUTE_NAME.at(attribute_type), this[attribute_type]);
+        synch(ATTRIBUTE_NAME.at(attribute_type), operator[](attribute_type));
       }
   }
 

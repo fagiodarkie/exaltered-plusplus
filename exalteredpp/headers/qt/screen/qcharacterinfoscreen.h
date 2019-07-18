@@ -14,8 +14,8 @@ namespace qt
     {
         Q_OBJECT
     public:
-        explicit qcharacterinfoscreen(character::character *character,
-                             manager::character_manager *ch_manager,
+        explicit qcharacterinfoscreen(std::shared_ptr<character::character> character,
+                             manager::character_manager &ch_manager,
                              QWidget *parent = nullptr);
 
     signals:
@@ -26,7 +26,7 @@ namespace qt
       void save_character();
 
       std::shared_ptr<character::character> character;
-      std::shared_ptr<manager::character_manager> character_manager;
+      manager::character_manager& character_manager;
       QLineEdit character_name_widget;
       QPushButton save_button;
 

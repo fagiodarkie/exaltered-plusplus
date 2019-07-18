@@ -15,7 +15,7 @@ namespace qt
       Q_OBJECT
 
     public:
-        qloadcharacterscreen(manager::character_manager * char_manager, QWidget* parent);
+        qloadcharacterscreen(manager::character_manager& char_manager, QWidget* parent);
 
     private slots:
         void load_character();
@@ -31,7 +31,7 @@ namespace qt
 
         QList<QPair<QRadioButton*, QString>> character_buttons;
         QPushButton *load_character_button, *new_character_button;
-        std::shared_ptr<manager::character_manager> character_manager;
+        manager::character_manager& character_manager;
 
         QString detect_selected_character_id() const;
         QWidget* create_lower_buttons();

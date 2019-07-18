@@ -17,7 +17,7 @@ class ExalteredApp : public QMainWindow
   Q_OBJECT
 
   public:
-    ExalteredApp(manager::character_manager* const c_manager);
+    ExalteredApp(manager::character_manager& c_manager);
     ~ExalteredApp();
 
   public slots:
@@ -43,6 +43,6 @@ class ExalteredApp : public QMainWindow
     qcharacterabilities*                        character_abilities_widget;
     qt::wizard::character_creation_wizard*      character_creation_wizard;
 
-    std::shared_ptr<manager::character_manager>  character_manager;
+    manager::character_manager&  character_manager;
     std::shared_ptr<character::character>        current_character;
 };
