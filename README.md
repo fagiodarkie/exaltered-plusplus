@@ -8,6 +8,17 @@
 
 C++ version of Exaltered, an interactive Character sheet for a heavily altered version of the White Wolf Publishing RPG Exalted (version 2.0).
 
+## Dependencies
+Exaltered++ is built with the `C++11` standard library.
+
+All dependencies aside the standard libraries are provided as single-include headers under the `thirdparty` folder. 
+
+### Serialisation
+Exaltered++ models are serialised and deserialised using the [`serialisable`](https://github.com/Dugy/serialisable) library by Dugy.
+
+### Unit Testing
+The Unit Testing project depends on the single-include version of [`Catch`](https://github.com/catchorg/Catch2).
+
 ## Project Monitoring Services
 
 ### Continuous Integration Service
