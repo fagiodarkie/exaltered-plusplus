@@ -2,13 +2,12 @@
 
 #include "character.h"
 #include "db_abstraction.h"
-#include "abilities/abstract_ability_factory.h"
 
 namespace manager {
   class character_manager
   {
   public:
-    character_manager(serialisation::db_abstraction& db, character::abstract_ability_factory& ability_factory);
+    character_manager(serialisation::db_abstraction& db);
 
     std::map<std::string, std::string> characters() const;
 
@@ -24,7 +23,6 @@ namespace manager {
 
   private:
     serialisation::db_abstraction& character_repository;
-    character::abstract_ability_factory& ability_factory;
   };
 
 }

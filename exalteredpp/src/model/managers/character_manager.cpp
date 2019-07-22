@@ -5,8 +5,8 @@
 
 namespace manager {
 
-  character_manager::character_manager(serialisation::db_abstraction& db, character::abstract_ability_factory& ability_factory)
-    : character_repository(db), ability_factory(ability_factory)
+  character_manager::character_manager(serialisation::db_abstraction& db)
+    : character_repository(db)
   {
   }
 

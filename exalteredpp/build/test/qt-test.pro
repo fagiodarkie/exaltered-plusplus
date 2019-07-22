@@ -39,8 +39,6 @@ HEADERS += \
     ../../headers/model/character/abilities/ability.h \
     ../../headers/model/character/abilities/ability_group.h \
     ../../headers/model/character/abilities/ability_names.h \
-    ../../headers/model/character/abilities/abstract_ability_factory.h \
-    ../../headers/model/character/abilities/default_ability_factory.h \
     ../../headers/model/character/abilities/specialisation.h \
     ../../headers/model/character/attributes/attribute.h \
     ../../headers/model/character/attributes/attribute_names.h \
@@ -68,7 +66,6 @@ HEADERS += \
     ../../headers/serialisation/filesystem_db.h \
     ../../headers/serialisation/json_constants.h \
     ../../headers/serialisation/serialisable.h \
-    ../../headers/test-case/ability_factory_mock.h \
     ../../headers/test-case/db_abstraction_mock.h \
     ../../headers/qt-test/quick_chargen.h
 
@@ -79,7 +76,6 @@ SOURCES += \
     ../../src/model/character/abilities/abilities.cpp \
     ../../src/model/character/abilities/ability.cpp \
     ../../src/model/character/abilities/ability_group.cpp \
-    ../../src/model/character/abilities/default_ability_factory.cpp \
     ../../src/model/character/abilities/specialisation.cpp \
     ../../src/model/character/attributes/attribute.cpp \
     ../../src/model/character/attributes/attributes.cpp \
@@ -104,7 +100,6 @@ SOURCES += \
     ../../src/serialisation/filesystem_db.cpp \
     ../../src/serialisation/json_constants.cpp \
     ../../src/test-case/errors/exceptions-test.cpp \
-    ../../src/test-case/managers/ability-factory-test.cpp \
     ../../src/test-case/managers/character_manager-test.cpp \
     ../../src/test-case/managers/filesystem_db-test.cpp \
     ../../src/test-case/model/abilities/abilities-test.cpp \
