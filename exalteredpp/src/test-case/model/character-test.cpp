@@ -20,25 +20,15 @@ TEST_CASE("Character")
   SECTION("should create new character correctly (name constructor)")
   {
     character::character sut = STANDARD_CHARACTER;
-    REQUIRE(QString(CHARACTER_NAME) == sut.get_name());
+    REQUIRE(sut.get_name() == CHARACTER_NAME);
   }
 
   SECTION("should create new character correctly (JSON object constructor)")
   {
-    QJsonObject object;
-    object.insert(serialisation::json_constants::SLOT_NAME, QJsonValue(CHARACTER_NAME));
+    character::character stub = STANDARD_CHARACTER;
+    character::character sut(stub.serialise());
 
-    character::character sut(object);
-    REQUIRE(QString(CHARACTER_NAME) == sut.get_name());
-  }
-
-  SECTION("should save character correctly to JSON object")
-  {
-    character::character sut = STANDARD_CHARACTER;
-    QJsonObject object;
-    sut.write_to_json(object);
-
-    REQUIRE(object[serialisation::json_constants::SLOT_NAME] == sut.get_name());
+    REQUIRE(sut.get_name() == stub.get_name());
   }
 
   SECTION("should accept a new attribute")
@@ -60,8 +50,8 @@ TEST_CASE("Character")
   SECTION("should change name when change is issued")
   {
     character::character sut = STANDARD_CHARACTER;
-    sut.set_name(QString(CHARACTER_NAME) + " - edit");
-    REQUIRE(sut.get_name() == QString(CHARACTER_NAME) + " - edit");
+    sut.set_name(std::string(CHARACTER_NAME) + " - edit");
+    REQUIRE(sut.get_name() == std::string(CHARACTER_NAME) + " - edit");
   }
 
   SECTION("should save and retrieve correct abilities")

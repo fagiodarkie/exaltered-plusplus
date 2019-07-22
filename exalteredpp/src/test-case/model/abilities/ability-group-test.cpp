@@ -42,8 +42,8 @@ TEST_CASE("Ability group")
   SECTION("should change ability names if it has ability declinations")
   {
     character::ability_group sut(ABILITYNAME, character::ability_names::COMBAT, { character::ability("a1", 1), character::ability("a2", 2) }, {character::specialisation("s1", 3)});
-    REQUIRE(sut.get_abilities().at(0).get_name() == QString(ABILITYNAME) + " (a1)");
-    REQUIRE(sut.get_abilities().at(1).get_name() == QString(ABILITYNAME) + " (a2)");
+    REQUIRE(sut.get_abilities().at(0).get_name() == std::string(ABILITYNAME) + " (a1)");
+    REQUIRE(sut.get_abilities().at(1).get_name() == std::string(ABILITYNAME) + " (a2)");
   }
 
   SECTION("should not change ability names if it is simple")
@@ -138,9 +138,9 @@ TEST_CASE("Ability group")
   {
     character::ability_group sut(ABILITYNAME, character::ability_names::COMBAT, { character::ability("a1", 1), character::ability("a2", 2) }, {character::specialisation("s1", 3)});
     REQUIRE_NOTHROW(sut.remove_specialisation("s2"));
-    REQUIRE(sut.get_specialisations().count() == 1);
+    REQUIRE(sut.get_specialisations().size() == 1);
     REQUIRE_NOTHROW(sut.remove_specialisation("s1"));
-    REQUIRE(sut.get_specialisations().count() == 0);
+    REQUIRE(sut.get_specialisations().size() == 0);
   }
 
   SECTION("should save category")
@@ -163,11 +163,8 @@ TEST_CASE("Ability group")
   {
     character::ability_group stub(ABILITYNAME, character::ability_names::COMBAT, { character::ability("a1", 1), character::ability("a2", 2) }, {character::specialisation("s1", 3)});
 
-    QJsonObject obj;
-    stub.write_to_json(obj);
-
     character::ability_group sut;
-    sut.read_from_json(obj);
+    sut.deserialise(stub.serialise());
 
     REQUIRE(sut.get_name()                            == stub.get_name()                           );
     REQUIRE(sut.get_category()                        == stub.get_category()                       );

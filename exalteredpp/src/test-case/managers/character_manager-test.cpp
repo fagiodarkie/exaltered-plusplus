@@ -8,15 +8,14 @@
 
 TEST_CASE("character_manager")
 {
-  QSharedPointer<mock_tests::mock_db_abstraction> manager_mock = QSharedPointer<mock_tests::mock_db_abstraction>(new mock_tests::mock_db_abstraction());
-  QSharedPointer<character::abstract_ability_factory> factory_mock = QSharedPointer<character::abstract_ability_factory>(new mock_tests::mock_ability_factory());
+  std::shared_ptr<mock_tests::mock_db_abstraction> manager_mock = std::make_shared<mock_tests::mock_db_abstraction>();
 
-  manager::character_manager sut = manager::character_manager(manager_mock, factory_mock);
+  manager::character_manager sut = manager::character_manager(*manager_mock);
 
   SECTION("should load character when it is present")
   {
     manager_mock->mock_has_character(true);
-    QSharedPointer<character::character> result = sut.load_character("name");
+    std::shared_ptr<character::character> result = sut.load_character("name");
     REQUIRE(result->get_name() == CHAR_MAN_TEST_CHAR_NAME);
   }
 
@@ -24,9 +23,9 @@ TEST_CASE("character_manager")
   {
     try
     {
-      QSharedPointer<character::character> to_save = generate_character_pointer("name", 0);
+      std::shared_ptr<character::character> to_save = generate_character_pointer("name", 0);
       sut.save_character(to_save);
-      QSharedPointer<character::character> loaded = sut.load_character("name");
+      std::shared_ptr<character::character> loaded = sut.load_character("name");
       REQUIRE(to_save->get_name() == loaded->get_name());
     }
     catch(...)
@@ -39,7 +38,7 @@ TEST_CASE("character_manager")
   {
     try {
       auto generated = sut.create_character("name", character::creation::TYPE_MORTAL_HERO, character::exalt::caste::NO_CASTE, character::attributes(), character::abilities(), character::virtues::virtues(), character::power::power_container());
-      REQUIRE(!generated.isNull());
+      REQUIRE(generated);
     }
     catch(...)
     {

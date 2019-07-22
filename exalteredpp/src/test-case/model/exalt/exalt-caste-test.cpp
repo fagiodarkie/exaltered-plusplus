@@ -10,9 +10,9 @@ TEST_CASE("exalt_caste")
       {
         try {
           auto resulting_caste = character::exalt::exalt_caste::get_caste(caste);
-          REQUIRE_FALSE(resulting_caste.name().isEmpty());
+          REQUIRE_FALSE(resulting_caste.name().empty());
           REQUIRE_FALSE(((caste != character::exalt::caste::NO_CASTE)
-                        && resulting_caste.abilities().isEmpty()));
+                        && resulting_caste.abilities().empty()));
         } catch (...) {
           FAIL("some castes are not defined!");
         }

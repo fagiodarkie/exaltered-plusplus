@@ -19,11 +19,8 @@ TEST_CASE("logos")
   {
     character::power::logos stub(1, 2, 3, 4, 6, 5);
 
-    QJsonObject obj;
-    stub.write_to_json(obj);
-
     character::power::logos sut;
-    sut.read_from_json(obj);
+    sut.deserialise(stub.serialise());
 
     REQUIRE(sut.get_logos()                         == stub.get_logos()                        );
     REQUIRE(sut.get_current_qabbalah()              == stub.get_current_qabbalah()             );

@@ -18,11 +18,8 @@ TEST_CASE("health")
   {
     character::power::health stub(10, 5);
 
-    QJsonObject obj;
-    stub.write_to_json(obj);
-
     character::power::health sut(1);
-    sut.read_from_json(obj);
+    sut.deserialise(stub.serialise());
 
     REQUIRE(stub.current_health() == sut.current_health());
     REQUIRE(stub.total_health() == sut.total_health());

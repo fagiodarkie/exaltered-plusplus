@@ -13,26 +13,18 @@ TEST_CASE("Attributes")
   {
     character::attribute attribute(TEST_ATTRIBUTE_NAME, TEST_ATTRIBUTE_VALUE);
     character::attributes sut;
-    sut.insert(STRENGTH, attribute);
+    sut[STRENGTH] = attribute;
     REQUIRE(sut[STRENGTH] == TEST_ATTRIBUTE_VALUE);
-    REQUIRE(sut[STRENGTH] == QString(TEST_ATTRIBUTE_NAME));
+    REQUIRE(sut[STRENGTH].get_name() == std::string(TEST_ATTRIBUTE_NAME));
   }
 
-  SECTION("should create correctly from JSON")
+  SECTION("should serialise and deserialise correctly from JSON")
   {
-    QJsonObject from;
-    from[ATTRIBUTE_NAME[STRENGTH]] = TEST_ATTRIBUTE_VALUE;
+    character::attributes stub;
+    stub[STRENGTH] = character::attribute(ATTRIBUTE_NAME.at(STRENGTH), TEST_ATTRIBUTE_VALUE);
     character::attributes sut;
-    sut.read_from_json(from);
-    REQUIRE(sut[STRENGTH] == TEST_ATTRIBUTE_VALUE);
-  }
+    sut.deserialise(stub.serialise());
 
-  SECTION("should write correctly to JSON")
-  {
-    character::attributes sut;
-    sut.insert(STRENGTH, character::attribute(ATTRIBUTE_NAME.value(STRENGTH), TEST_ATTRIBUTE_VALUE));
-    QJsonObject from;
-    sut.write_to_json(from);
-    REQUIRE(from[ATTRIBUTE_NAME[STRENGTH]].toInt() == TEST_ATTRIBUTE_VALUE);
+    REQUIRE(sut[STRENGTH] == TEST_ATTRIBUTE_VALUE);
   }
 }
