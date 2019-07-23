@@ -29,9 +29,12 @@ INCLUDEPATH += ../../headers \
     ../../headers/model/character \
     ../../headers/serialisation \
     ../../headers/qt \
-    ../../headers/errors
+    ../../headers/errors \
+    ../../headers/calculator
 
 SOURCES += \
+    ../../src/calculator/derived_value_calculator.cpp \
+    ../../src/calculator/worker/abstract_calculator_worker.cpp \
     ../../src/errors/ability_not_found_exception.cpp \
     ../../src/errors/characternotfoundexception.cpp \
     ../../src/errors/invalid_parameter.cpp \
@@ -81,6 +84,9 @@ SOURCES += \
     ../../src/qt/wizard/character_creation_virtues_vice.cpp
 
 HEADERS += \
+    ../../headers/calculator/derived_value_calculator.h \
+    ../../headers/calculator/derived_value_definitions.h \
+    ../../headers/calculator/worker/abstract_calculator_worker.h \
     ../../headers/common/reverse_search.h \
     ../../headers/errors/ability_not_found_exception.h \
     ../../headers/errors/characternotfoundexception.h \
