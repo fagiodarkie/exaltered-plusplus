@@ -28,12 +28,8 @@ TEST_CASE("persona")
 
     stub.add_philosophy(character::social::philosophy("phil_name", 1));
 
-    QJsonObject obj;
-    stub.write_to_json(obj);
-
     character::social::persona sut;
-    sut.read_from_json(obj);
-
+    sut.deserialise(stub.serialise());
     REQUIRE(sut.get_persona              () == stub.get_persona              () );
     REQUIRE(sut.get_compulsions_specific () == stub.get_compulsions_specific () );
     REQUIRE(sut.get_emotions_specific    () == stub.get_emotions_specific    () );
@@ -47,7 +43,7 @@ TEST_CASE("persona")
       REQUIRE(sut.get_emotion_bonus_for(emotion) == stub.get_emotion_bonus_for(emotion));
 
     for (auto philosophy : stub.philosophies())
-      REQUIRE(sut.philosophies().contains(philosophy));
+      REQUIRE(commons::contains(sut.philosophies(), philosophy));
   }
 
   SECTION("should throw if attempts are made to insert more philosophies than allowed")
@@ -79,7 +75,7 @@ TEST_CASE("persona")
     sut.decrease_philosophy("p1", 2);
     REQUIRE(sut.philosophies()[0].value() == 1);
     sut.decrease_philosophy("p1");
-    REQUIRE(sut.philosophies().isEmpty());
+    REQUIRE(sut.philosophies().empty());
   }
 
   SECTION("should break on attempts to handle non existing philosophies")
@@ -123,8 +119,8 @@ TEST_CASE("persona")
     for (auto emotion: character::social::BASE_EMOTIONS)
       {
         REQUIRE(sut.get_emotion_bonus_for(emotion) == 2);
-        REQUIRE(sut.get_emotion_bonus_for(character::social::MIDDLE_EMOTION_GRADES[emotion]) == 4);
-        REQUIRE(sut.get_emotion_bonus_for(character::social::INTIMATE_EMOTION_GRADES[emotion]) == 6);
+        REQUIRE(sut.get_emotion_bonus_for(character::social::MIDDLE_EMOTION_GRADES.at(emotion)) == 4);
+        REQUIRE(sut.get_emotion_bonus_for(character::social::INTIMATE_EMOTION_GRADES.at(emotion)) == 6);
       }
   }
 }

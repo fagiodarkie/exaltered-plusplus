@@ -161,6 +161,7 @@ namespace character {
       if (philosophy_pointer->value() <= decrement)
         {
           _philosophies.erase(philosophy_pointer);
+          return;
         }
 
       philosophy_pointer->set_value(philosophy_pointer->value() - decrement);

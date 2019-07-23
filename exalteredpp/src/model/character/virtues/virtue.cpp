@@ -11,6 +11,11 @@ namespace character {
       : _virtue_type(virtue_e), _rank(rank), _value(value)
     { }
 
+    virtue::virtue(const std::string& serialised_data)
+    {
+      deserialise(serialised_data);
+    }
+
     virtue_enum virtue::virtue_type() const
     {
       return _virtue_type;

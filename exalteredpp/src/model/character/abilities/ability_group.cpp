@@ -39,7 +39,7 @@ namespace character
       std::vector<ability> mod_abilities;
       for (ability a : actual_abilities)
         {
-          mod_abilities.push_back(ability(group_name + " - " + a.get_name(), a.get_ability_value()));
+          mod_abilities.push_back(ability(group_name + " (" + a.get_name() + ")", a.get_ability_value()));
         }
 
       return mod_abilities;
@@ -204,6 +204,7 @@ namespace character
 
     void ability_group::serialisation()
     {
+      synch(serialisation::json_constants::SLOT_NAME     ,      group_name);
       synch(serialisation::json_constants::SLOT_FAVOURITE,      is_favorite);
       synch(serialisation::json_constants::SLOT_ABILITIES,      actual_abilities);
       synch(serialisation::json_constants::SLOT_SPECIALISATIONS,specialisations);

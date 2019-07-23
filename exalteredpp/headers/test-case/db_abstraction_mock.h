@@ -19,10 +19,10 @@ namespace mock_tests {
   public:
     mock_db_abstraction() : has_character(true), cached_character(nullptr) {}
 
-    std::shared_ptr<character> load_character(const QString& character_name)
+    std::shared_ptr<character> load_character(const std::string& character_name)
     {
       if (has_character)
-        return !cached_character ? generate_character_pointer(character_name, 0) : cached_character;
+        return !cached_character ? generate_character_pointer(character_name.c_str(), 0) : cached_character;
       throw exception::character_not_found_exception();
     }
 
@@ -37,7 +37,7 @@ namespace mock_tests {
 
     void remove_character(unsigned int /* character_id */) {}
 
-    std::shared_ptr<character> create_character(const std::string name,
+    std::shared_ptr<character> create_character(const std::string& name,
                                                const creation::character_type type,
                                                const exalt::caste caste,
                                                const attributes attributes,
@@ -60,7 +60,7 @@ namespace mock_tests {
       return char_id;
     }
 
-    void save_character(const std::shared_ptr<character> character)
+    void save_character(std::shared_ptr<character>& character)
     {
       cached_character = character;
     }

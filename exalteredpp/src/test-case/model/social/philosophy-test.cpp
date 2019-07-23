@@ -16,7 +16,7 @@ TEST_CASE("philosophy")
     character::social::philosophy stub("name", 3);
 
     character::social::philosophy sut;
-    sut.deserialise(sut.serialise());
+    sut.deserialise(stub.serialise());
 
     REQUIRE(sut.name() == stub.name());
     REQUIRE(sut.value() == stub.value());

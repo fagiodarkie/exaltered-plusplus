@@ -46,7 +46,7 @@ namespace character {
       { ECSTASY     , "Ecstasy" }
     };
 
-    static const std::list<emotion> BASE_EMOTIONS = {
+    static const std::vector<emotion> BASE_EMOTIONS = {
       APPROVAL,
       MELANCHOLY,
       NUISANCE,
@@ -57,7 +57,7 @@ namespace character {
       SERENITY
     };
 
-    static const std::list<emotion> MIDDLE_EMOTIONS = {
+    static const std::vector<emotion> MIDDLE_EMOTIONS = {
       TRUST,
       SADNESS,
       ANGRINESS,
@@ -68,7 +68,7 @@ namespace character {
       JOY
     };
 
-    static const std::list<emotion> INTIMATE_EMOTIONS = {
+    static const std::vector<emotion> INTIMATE_EMOTIONS = {
       ADMIRATION,
       GRIEF,
       RAGE,

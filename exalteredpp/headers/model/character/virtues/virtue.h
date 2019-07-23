@@ -9,6 +9,7 @@ namespace character {
     {
     public:
       virtue(virtue_enum virtue_e, unsigned int value, virtue_rank rank);
+      virtue(const std::string& serialised_data);
 
       virtue_enum virtue_type() const;
 

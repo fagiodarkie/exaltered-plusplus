@@ -3,18 +3,17 @@
 #include "errors/characternotfoundexception.h"
 #include "managers/character_manager.h"
 #include "db_abstraction_mock.h"
-#include "ability_factory_mock.h"
 #include "qt-test/quick_chargen.h"
 
 TEST_CASE("character_manager")
 {
-  std::shared_ptr<mock_tests::mock_db_abstraction> manager_mock = std::make_shared<mock_tests::mock_db_abstraction>();
+  mock_tests::mock_db_abstraction manager_mock;
 
-  manager::character_manager sut = manager::character_manager(*manager_mock);
+  manager::character_manager sut = manager::character_manager(manager_mock);
 
   SECTION("should load character when it is present")
   {
-    manager_mock->mock_has_character(true);
+    manager_mock.mock_has_character(true);
     std::shared_ptr<character::character> result = sut.load_character("name");
     REQUIRE(result->get_name() == CHAR_MAN_TEST_CHAR_NAME);
   }
@@ -48,13 +47,13 @@ TEST_CASE("character_manager")
 
   SECTION("should list available characters")
   {
-    manager_mock->mock_has_character(true);
+    manager_mock.mock_has_character(true);
     REQUIRE(sut.characters().size() > 0);
   }
 
   SECTION("will throw if a requested character id doesn't exist")
   {
-    manager_mock->mock_has_character(true);
+    manager_mock.mock_has_character(true);
     REQUIRE_THROWS(sut.load_character("non_existing_character_id"));
   }
 }

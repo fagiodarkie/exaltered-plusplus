@@ -6,7 +6,7 @@
 
 #include <QJsonArray>
 
-#define TEST_ABILITY_NAME "test-attribute"
+#define TEST_ABILITY_NAME "test-ability"
 #define TEST_ABILITY_VALUE 1
 
 TEST_CASE("Abilities")
@@ -17,7 +17,7 @@ TEST_CASE("Abilities")
   {
     character::ability ability(TEST_ABILITY_NAME, TEST_ABILITY_VALUE);
     character::abilities sut;
-    sut[WAR] = character::ability_group(TEST_ABILITY_NAME, ability_category::COMBAT, {ability}));
+    sut[WAR] = character::ability_group(TEST_ABILITY_NAME, ability_category::COMBAT, {ability});
     REQUIRE(sut[WAR].get_name() == TEST_ABILITY_NAME);
   }
 

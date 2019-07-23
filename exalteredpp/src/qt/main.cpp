@@ -7,8 +7,7 @@
 int main(int argc, char *argv[])
 {
   serialisation::filesystem_db s_db_abstraction;
-  character::default_ability_factory s_ability_factory;
-  manager::character_manager s_character_manager(s_db_abstraction, s_ability_factory);
+  manager::character_manager s_character_manager(s_db_abstraction);
 
   QApplication a(argc, argv);
   ExalteredApp w(s_character_manager);

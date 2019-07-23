@@ -15,13 +15,9 @@ TEST_CASE("virtue")
 
   SECTION("should create virtue from JSON object")
   {
-    QJsonObject obj;
     character::virtues::virtue stub(character::virtues::COMPASSION, 2, character::virtues::ADULT);
-    stub.write_to_json(obj);
 
-    QString result_json = QJsonDocument(obj).toJson();
-
-    character::virtues::virtue sut(obj);
+    character::virtues::virtue sut(stub.serialise());
     REQUIRE(sut.rank() == stub.rank());
     REQUIRE(sut.value() == stub.value());
     REQUIRE(sut.virtue_type() == stub.virtue_type());
