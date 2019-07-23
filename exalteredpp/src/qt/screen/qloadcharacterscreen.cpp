@@ -13,7 +13,7 @@ using namespace qt::labels;
 
 namespace qt {
   namespace screen {
-    qloadcharacterscreen::qloadcharacterscreen(QSharedPointer<manager::character_manager> char_manager, QWidget* parent)
+    qloadcharacterscreen::qloadcharacterscreen(manager::character_manager& char_manager, QWidget* parent)
       : QWidget (parent),
         character_manager(char_manager)
     {
@@ -62,13 +62,13 @@ namespace qt {
     {
       QGroupBox* character_selection_group = new QGroupBox(this);
       QVBoxLayout* vertical_layout = new QVBoxLayout;
-      for (auto char_pair: character_manager->characters())
+      for (auto char_pair: character_manager.characters())
         {
           QRadioButton *character_name_button = new QRadioButton(this);
-          character_name_button->setText(char_pair.second);
+          character_name_button->setText(char_pair.second.c_str());
           connect(character_name_button, &QRadioButton::clicked, this, &qloadcharacterscreen::enable_load_button);
           vertical_layout->addWidget(character_name_button);
-          character_buttons.push_back(QPair<QRadioButton*, QString>(character_name_button, char_pair.first));
+          character_buttons.push_back(QPair<QRadioButton*, QString>(character_name_button, char_pair.first.c_str()));
         }
 
       vertical_layout->setAlignment(Qt::AlignTop);
@@ -95,7 +95,7 @@ namespace qt {
     {
       QString character_id = detect_selected_character_id();
       qDebug("Load character with id %s", qUtf8Printable(character_id));
-      emit character_loaded(character_manager->load_character(character_id));
+      emit character_loaded(character_manager.load_character(character_id.toStdString()));
     }
   }
 }

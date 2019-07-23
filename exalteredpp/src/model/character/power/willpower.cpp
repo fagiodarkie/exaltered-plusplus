@@ -1,5 +1,5 @@
 #include "power/willpower.h"
-
+#include <algorithm>
 #include "json_constants.h"
 
 namespace character {
@@ -38,16 +38,10 @@ namespace character {
       _permanent_willpower = permanent_willpower;
     }
 
-    void willpower::write_to_json(QJsonObject &json) const
+    void willpower::serialisation()
     {
-      json[serialisation::json_constants::SLOT_WILLPOWER_TOTAL] = QString::number(_permanent_willpower);
-      json[serialisation::json_constants::SLOT_WILLPOWER_TEMP] = QString::number(_temporary_willpower);
-    }
-
-    void willpower::read_from_json(const QJsonObject &json)
-    {
-      _permanent_willpower = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_WILLPOWER_TOTAL].toString().toInt());
-      _temporary_willpower = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_WILLPOWER_TEMP] .toString().toInt());
+      synch(serialisation::json_constants::SLOT_WILLPOWER_TOTAL, _permanent_willpower);
+      synch(serialisation::json_constants::SLOT_WILLPOWER_TEMP,  _temporary_willpower);
     }
 
     willpower::~willpower() {}

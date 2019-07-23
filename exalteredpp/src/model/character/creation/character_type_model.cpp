@@ -25,7 +25,7 @@ namespace character {
                          unsigned int starting_charms,
                          bool is_supernatural,
                          character_type type,
-                         const QString& character_type_name)
+                         const std::string& character_type_name)
       : primary_category_attribute_value(primary_category_attribute_value),
         secondary_category_attribute_value(secondary_category_attribute_value),
         tertiary_category_attribute_value(tertiary_category_attribute_value),
@@ -48,8 +48,8 @@ namespace character {
         type(type),
         character_type_name(character_type_name)
     {
-      if (character_type_name == nullptr)
-        this->character_type_name = CHARACTER_TYPE_NAMES.value(type);
+      if (character_type_name.empty())
+        this->character_type_name = CHARACTER_TYPE_NAMES.at(type);
     }
 
     character_type_model::character_type_model(const character_type_model &other)
@@ -102,6 +102,12 @@ namespace character {
       return *this;
     }
 
+    const character_type_model character_type_model::MORTAL_TEST(5, 4, 3,
+                                                       18, 3, 0, 0, 0, 0,
+                                                       0, 1, 1,
+                                                       5, 3, 5,
+                                                       7, 18, 0, false, character_type::TYPE_MORTAL_EXTRA);
+
     const character_type_model character_type_model::MORTAL_EXTRA(5, 4, 3,
                                                        18, 3, 0, 0, 0, 0,
                                                        0, 1, 1,
@@ -143,7 +149,7 @@ namespace character {
       switch(type)
         {
         case character_type::TYPE_MORTAL_EXTRA:
-          return MORTAL_EXTRA;
+          return MORTAL_TEST;
 
         case character_type::TYPE_MORTAL_HERO:
           return MORTAL_HERO;

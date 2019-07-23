@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QWidget>
+#include <QMap>
 
 #include "abilities/abilities.h"
 #include "abilities/ability_names.h"

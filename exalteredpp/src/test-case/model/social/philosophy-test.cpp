@@ -15,11 +15,8 @@ TEST_CASE("philosophy")
   {
     character::social::philosophy stub("name", 3);
 
-    QJsonObject obj;
-    stub.write_to_json(obj);
-
     character::social::philosophy sut;
-    sut.read_from_json(obj);
+    sut.deserialise(stub.serialise());
 
     REQUIRE(sut.name() == stub.name());
     REQUIRE(sut.value() == stub.value());

@@ -59,9 +59,9 @@ namespace qt {
 
     void attributes_priority_page::populate_primary()
     {
-      for (auto category: ATTRIBUTE_CATEGORY_NAME.keys())
+      for (auto category: ATTRIBUTE_CATEGORIES)
         {
-          primary_select->addItem(ATTRIBUTE_CATEGORY_NAME[category]);
+          primary_select->addItem(ATTRIBUTE_CATEGORY_NAME.at(category).c_str());
         }
     }
 
@@ -76,9 +76,9 @@ namespace qt {
     {
       secondary_select->clear();
       QString first_attribute = first_attribute_value();
-      for (auto category: ATTRIBUTE_CATEGORY_NAME.keys())
+      for (auto category: ATTRIBUTE_CATEGORIES)
         {
-          QString name = ATTRIBUTE_CATEGORY_NAME[category];
+          QString name = ATTRIBUTE_CATEGORY_NAME.at(category).c_str();
           if (name != first_attribute)
             secondary_select->addItem(name);
         }
@@ -89,9 +89,9 @@ namespace qt {
     void attributes_priority_page::second_attribute_change()
     {
       QString first_attribute = first_attribute_value(), second_attribute = second_attribute_value();
-      for (auto category: ATTRIBUTE_CATEGORY_NAME.keys())
+      for (auto category: ATTRIBUTE_CATEGORIES)
         {
-          QString name = ATTRIBUTE_CATEGORY_NAME[category];
+          QString name = ATTRIBUTE_CATEGORY_NAME.at(category).c_str();
           if (name != first_attribute && name != second_attribute)
             third_attribute->setText(name);
         }

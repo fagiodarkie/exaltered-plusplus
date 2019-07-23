@@ -25,11 +25,8 @@ TEST_CASE("virtues")
     stub.value(character::virtues::VALOR).set_rank(character::virtues::CHILD);
     stub.value(character::virtues::VALOR).set_value(4);
 
-    QJsonObject obj;
-    stub.write_to_json(obj);
-
     character::virtues::virtues sut;
-    sut.read_from_json(obj);
+    sut.deserialise(stub.serialise());
 
     REQUIRE(stub.vice() == sut.vice());
     REQUIRE(stub.vice_value() == sut.vice_value());

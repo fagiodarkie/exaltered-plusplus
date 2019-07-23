@@ -49,11 +49,8 @@ TEST_CASE("willpower")
   {
     character::power::willpower stub(10, 8);
 
-    QJsonObject obj;
-    stub.write_to_json(obj);
-
     character::power::willpower sut;
-    sut.read_from_json(obj);
+    sut.deserialise(stub.serialise());
 
     REQUIRE(sut.permanent_willpower() == stub.permanent_willpower() );
     REQUIRE(sut.temporary_willpower() == stub.temporary_willpower() );

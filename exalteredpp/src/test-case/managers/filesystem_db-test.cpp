@@ -5,18 +5,20 @@
 #include <QDirIterator>
 #include "characternotfoundexception.h"
 #include "qt-test/quick_chargen.h"
+#include <QJsonObject>
+#include "common/reverse_search.h"
 
 TEST_CASE("filesystem_db")
 {
   serialisation::filesystem_db sut;
-  QSharedPointer<character::character> stub = generate_character_pointer("stub", 0);
+  std::shared_ptr<character::character> stub = generate_character_pointer("stub", 0);
 
   SECTION("should save and load a character")
   {
     sut.save_character(stub);
     REQUIRE(sut.character_list().size() == 1);
-    QString id = sut.character_list().at(0);
-    QSharedPointer<character::character> result = sut.load_character(id);
+    QString id = sut.character_list().at(0).c_str();
+    std::shared_ptr<character::character> result = sut.load_character(id.toStdString());
     REQUIRE(result->get_name() == stub->get_name());
   }
 
@@ -24,30 +26,34 @@ TEST_CASE("filesystem_db")
   {
     try {
       sut.load_character("non existing character");
-    } catch (QException& e) {
+    } catch (std::exception& e) {
       REQUIRE(dynamic_cast<exception::character_not_found_exception*>(&e) != nullptr);
     }
   }
 
   SECTION("should add multiple characters")
   {
-    REQUIRE(sut.character_list().isEmpty());
-    sut.save_character(generate_character_pointer("stub", 0));
+    REQUIRE(sut.character_list().empty());
+    auto c1 = generate_character_pointer("stub", 0),
+        c2 = generate_character_pointer("stub", 1);
+    sut.save_character(c1);
     REQUIRE(sut.character_list().size() == 1);
-    sut.save_character(generate_character_pointer("stub", 1));
+    sut.save_character(c2);
     REQUIRE(sut.character_list().size() == 2);
   }
 
   SECTION("should retrieve a character's name")
   {
     QString name1 = "name1", name2 = "name2";
-    sut.save_character(generate_character_pointer(name1, 0));
-    QString id1 = sut.character_list().at(0);
-    REQUIRE(sut.character_name(id1) == name1);
-    sut.save_character(generate_character_pointer(name2, 1));
-    QString id2 = sut.character_list().at(1);
-    REQUIRE(sut.character_name(id1) == name1);
-    REQUIRE(sut.character_name(id2) == name2);
+    auto c1 = generate_character_pointer(name1, 0),
+        c2 = generate_character_pointer(name2, 1);
+    sut.save_character(c1);
+    QString id1 = sut.character_list().at(0).c_str();
+    REQUIRE(sut.character_name(id1.toStdString()).c_str() == name1);
+    sut.save_character(c2);
+    QString id2 = sut.character_list().at(1).c_str();
+    REQUIRE(sut.character_name(id1.toStdString()).c_str() == name1);
+    REQUIRE(sut.character_name(id2.toStdString()).c_str() == name2);
   }
 
   SECTION("should load characters list")
@@ -76,8 +82,8 @@ TEST_CASE("filesystem_db")
     new_sut.save_character(b_char);
     new_sut.remove_character(a_char->id());
     REQUIRE(new_sut.character_list().size() == 1);
-    REQUIRE_FALSE(new_sut.character_list().contains("character_0"));
-    REQUIRE(new_sut.character_list().contains("character_1"));
+    REQUIRE_FALSE(commons::contains(new_sut.character_list(), std::string("character_0")));
+    REQUIRE(commons::contains(new_sut.character_list(), std::string("character_1")));
   }
 
   SECTION("should not load if data file is corrupted")
@@ -94,7 +100,7 @@ TEST_CASE("filesystem_db")
 
   SECTION("should remove old character file when character name changes")
   {
-    QSharedPointer<character::character> a_character(generate_character_pointer("a", 1));
+    std::shared_ptr<character::character> a_character(generate_character_pointer("a", 1));
     sut.save_character(a_character);
     a_character->set_name("b");
     sut.save_character(a_character);

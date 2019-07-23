@@ -23,7 +23,7 @@ namespace qt {
       QMap<character::ability_names::ability_category, QVBoxLayout*> ability_layouts;
       for (auto ab_category: character::ability_names::ABILITY_CATEGORIES)
         {
-          QGroupBox *category_group = new QGroupBox(character::ability_names::ABILITY_CATEGORY_NAMES[ab_category]);
+          QGroupBox *category_group = new QGroupBox(character::ability_names::ABILITY_CATEGORY_NAMES.at(ab_category).c_str());
           category_group->setLayout(new QVBoxLayout);
           ability_groups[ab_category] = category_group;
           ability_list->addWidget(category_group);
@@ -31,7 +31,7 @@ namespace qt {
 
       for (auto ability_enum : character::ability_names::ABILITIES)
         {
-          QCheckBox *ability_checkbox = new QCheckBox(character::ability_names::ABILITY_NAME[ability_enum]);
+          QCheckBox *ability_checkbox = new QCheckBox(character::ability_names::ABILITY_NAME.at(ability_enum).c_str());
           ability_of_button[ability_checkbox] = ability_enum;
           ability_groups[character::ability_names::CATEGORY_OF_ABILITY(ability_enum)]->layout()->addWidget(ability_checkbox);
           connect(ability_checkbox, &QCheckBox::clicked, this, &character_creation_favorite_abilities::check_current_selection);
@@ -66,7 +66,8 @@ namespace qt {
       default_favorite = number_of_default_favorites;
       max_favorite = number_of_favorite_abilities;
 
-      abilities_of_caste = character::exalt::exalt_caste::get_caste(selected_caste).abilities();
+      auto abilities = character::exalt::exalt_caste::get_caste(selected_caste).abilities();
+      abilities_of_caste = QList<character::ability_names::ability_enum>::fromVector(QVector<character::ability_names::ability_enum>::fromStdVector(abilities));
 
       for (auto checkbox: ability_of_button.keys())
         checkbox->setChecked(false);

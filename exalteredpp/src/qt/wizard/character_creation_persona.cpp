@@ -160,7 +160,7 @@ namespace qt {
     {
       character::social::emotion emotion = static_cast<character::social::emotion>(emotion_value);
       _persona.set_base_emotion_bonus(emotion, _persona.get_emotion_bonus_for(emotion) + delta);
-      label_of_emotion[emotion]->setText(ATTRIBUTE_WITH_POINTS(character::social::NAME_OF_EMOTION[emotion], _persona.get_emotion_bonus_for(emotion)));
+      label_of_emotion[emotion]->setText(ATTRIBUTE_WITH_POINTS(character::social::NAME_OF_EMOTION.at(emotion).c_str(), _persona.get_emotion_bonus_for(emotion)));
       check_current_selection();
     }
 
@@ -192,7 +192,7 @@ namespace qt {
       for (auto virtue: character::virtues::VIRTUE_LIST) {
         current_available[virtue] = _virtues[virtue].value();
 
-        for (auto emotion: character::social::EMOTION_UNDER_VIRTUE[virtue])
+        for (auto emotion: character::social::EMOTION_UNDER_VIRTUE.at(virtue))
           current_available[virtue] -= _persona.get_emotion_bonus_for(emotion);
 
         if (chose_all_emotion_bonus && (current_available[virtue] > 0))
@@ -222,16 +222,16 @@ namespace qt {
       _persona = new_persona;
       _virtues = new_virtues;
 
-      unsigned int standard_persona_max = static_cast<unsigned int>(int(attributes[character::attribute_names::CHARISMA]    )
-                               + int(attributes[character::attribute_names::MANIPULATION])
-                               + int(attributes[character::attribute_names::APPEARANCE]  )
+      unsigned int standard_persona_max = static_cast<unsigned int>(int(attributes.at(character::attribute_names::CHARISMA)    )
+                               + int(attributes.at(character::attribute_names::MANIPULATION))
+                               + int(attributes.at(character::attribute_names::APPEARANCE)  )
                                + power.get_willpower().permanent_willpower());
 
       unsigned int exalted_persona_max = standard_persona_max;
       unsigned int essence = power.get_essence().permanent_essence();
-      unsigned int min_social_attribute = static_cast<unsigned int>(std::min(attributes[character::attribute_names::CHARISMA],
-                                          std::min(attributes[character::attribute_names::MANIPULATION],
-                                          attributes[character::attribute_names::APPEARANCE])));
+      unsigned int min_social_attribute = static_cast<unsigned int>(std::min(attributes.at(character::attribute_names::CHARISMA),
+                                          std::min(attributes.at(character::attribute_names::MANIPULATION),
+                                          attributes.at(character::attribute_names::APPEARANCE))));
       if (essence > min_social_attribute)
         {
           exalted_persona_max += essence - min_social_attribute;
@@ -247,7 +247,7 @@ namespace qt {
 
       for (auto emotion : character::social::BASE_EMOTIONS)
         {
-          label_of_emotion[emotion]->setText(ATTRIBUTE_WITH_POINTS(character::social::NAME_OF_EMOTION[emotion], _persona.get_emotion_bonus_for(emotion)));
+          label_of_emotion[emotion]->setText(ATTRIBUTE_WITH_POINTS(character::social::NAME_OF_EMOTION.at(emotion).c_str(), _persona.get_emotion_bonus_for(emotion)));
         }
 
       check_current_selection();

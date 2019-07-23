@@ -28,11 +28,8 @@ TEST_CASE("essence")
     stub.set_bonus_peripheral_essence(60);
     stub.set_bonus_spiritual_essence(70);
 
-    QJsonObject obj;
-    stub.write_to_json(obj);
-
     character::power::essence sut;
-    sut.read_from_json(obj);
+    sut.deserialise(stub.serialise());
 
     REQUIRE(stub.permanent_essence()                == sut.permanent_essence()               );
     REQUIRE(stub.khan()                             == sut.khan()                            );

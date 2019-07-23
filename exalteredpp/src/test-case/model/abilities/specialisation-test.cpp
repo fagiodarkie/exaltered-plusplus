@@ -26,7 +26,7 @@ TEST_CASE("Specialisation")
   {
     character::specialisation sut(TEST_SPEC_NAME, TEST_SPEC_VALUE);
     REQUIRE(sut.get_name() == TEST_SPEC_NAME);
-    REQUIRE(sut.get_value() == QString::number(TEST_SPEC_VALUE));
+    REQUIRE(sut.get_value() == std::to_string(TEST_SPEC_VALUE));
   }
 
   SECTION("should compare equal with an specialisation with same name and value")
@@ -41,11 +41,8 @@ TEST_CASE("Specialisation")
   {
     character::specialisation stub(TEST_SPEC_NAME, TEST_SPEC_VALUE);
 
-    QJsonObject obj;
-    stub.write_to_json(obj);
-
     character::specialisation sut("");
-    sut.read_from_json(obj);
+    sut.deserialise(stub.serialise());
 
     REQUIRE(sut.get_name() == stub.get_name());
     REQUIRE(sut.get_specialisation_value() == stub.get_specialisation_value());

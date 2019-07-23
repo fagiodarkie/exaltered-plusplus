@@ -1,30 +1,28 @@
 #pragma once
 
-#include "serialisable.h"
+#include "../thirdparty/serialisable/serialisable.hpp"
 
 namespace character {
   namespace social {
 
-    class philosophy : public serialisable
+    class philosophy : public Serialisable
     {
     public:
-      philosophy(QString name = "", unsigned int value = 1);
+      philosophy(std::string name = "", unsigned int value = 1);
 
-      QString name() const;
+      std::string name() const;
       unsigned int value() const;
 
       void set_value(unsigned int new_value);
 
       bool operator== (const philosophy& o) const;
 
-      void read_from_json(const QJsonObject &json);
-      void write_to_json(QJsonObject &json) const;
-
+      virtual void serialisation() override;
       virtual ~philosophy();
 
     private:
       unsigned int _value;
-      QString _name;
+      std::string _name;
     };
   }
 }

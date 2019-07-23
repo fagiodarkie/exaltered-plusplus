@@ -1,11 +1,16 @@
 #include "qt/exalteredapp.h"
-#include "objects_factory.h"
 #include <QApplication>
+
+#include "filesystem_db.h"
+#include "abilities/default_ability_factory.h"
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    ExalteredApp w(qt::model_factory::s_character_manager);
-    w.show();
-    return a.exec();
+  serialisation::filesystem_db s_db_abstraction;
+  manager::character_manager s_character_manager(s_db_abstraction);
+
+  QApplication a(argc, argv);
+  ExalteredApp w(s_character_manager);
+  w.show();
+  return a.exec();
 }

@@ -3,6 +3,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QWidget>
+#include <QMap>
 #include "character.h"
 
 namespace qt {

@@ -1,7 +1,10 @@
 #pragma once
 
-#include <QMap>
-#include <QString>
+#include <list>
+#include <map>
+#include <string>
+#include <algorithm>
+#include "common/reverse_search.h"
 
 namespace character
 {
@@ -15,7 +18,7 @@ namespace character
       MANEUVER, SOCIALISE, BUREAUCRACY, TEACHING
     };
 
-    static const QList<ability_enum> ABILITIES = {
+    static const std::list<ability_enum> ABILITIES = {
       MELEE, ARCHERY, THROWN, MARTIAL_ARTS, WAR,
       TECHNOLOGY, PERFORMANCE, PRESENCE, RESISTANCE, INTEGRITY,
       MEDITATION, MEDICINE, INVESTIGATION, ACADEMICS, CRAFT,
@@ -28,14 +31,14 @@ namespace character
       COMBAT, SOCIAL, NARRATIVE
     };
 
-    static const QList<ability_category> ABILITY_CATEGORIES = { COMBAT, SOCIAL, NARRATIVE };
+    static const std::list<ability_category> ABILITY_CATEGORIES = { COMBAT, SOCIAL, NARRATIVE };
 
-    static const QMap<ability_category, QString> ABILITY_CATEGORY_NAMES = {
+    static const std::map<ability_category, std::string> ABILITY_CATEGORY_NAMES = {
       { COMBAT, "Combat"}, { SOCIAL, "Social"}, { NARRATIVE, "Narrative" }
     };
 
     namespace ability_declination {
-      static const QString
+      static const std::string
       NO_DECLINATION = "NONE",
 
       FIRE_CRAFT    = "Fire",
@@ -51,7 +54,7 @@ namespace character
       FIRSTAGE_MANEUVER = "First Age";
     }
 
-    static const QMap<ability_enum, QString> ABILITY_NAME {
+    static const std::map<ability_enum, std::string> ABILITY_NAME {
       { MELEE,            "Melee"           },
       { ARCHERY,          "Archery"         },
       { THROWN,           "Thrown"          },
@@ -78,7 +81,7 @@ namespace character
       { BUREAUCRACY,      "Bureaucracy"     }
     };
 
-    static const QMap<ability_category, QList<ability_enum>> ABILITIES_IN_CATEGORY {
+    static const std::map<ability_category, std::list<ability_enum>> ABILITIES_IN_CATEGORY {
       { COMBAT,     { MELEE,      ARCHERY,      THROWN,   MARTIAL_ARTS, WAR,            RESISTANCE,   AWARENESS,        DODGE     } },
       { NARRATIVE,  { TECHNOLOGY, MEDITATION,   MEDICINE, CRAFT,        STEALTH,        ATHLETICS,    PRESTIDIGITATION, MANEUVER  } },
       { SOCIAL,     { ACADEMICS,  PERFORMANCE,  PRESENCE, INTEGRITY,    INVESTIGATION,  SOCIALISE,    BUREAUCRACY,      TEACHING  } }
@@ -86,7 +89,7 @@ namespace character
 
     static ability_category CATEGORY_OF_ABILITY(ability_enum ability)
     {
-      return *std::find_if(ABILITY_CATEGORIES.begin(), ABILITY_CATEGORIES.end(), [ability](ability_category category) { return ABILITIES_IN_CATEGORY[category].contains(ability); });
+      return *std::find_if(ABILITY_CATEGORIES.begin(), ABILITY_CATEGORIES.end(), [ability](ability_category category) { return commons::contains(ABILITIES_IN_CATEGORY.at(category), ability); } );
     }
 
   }

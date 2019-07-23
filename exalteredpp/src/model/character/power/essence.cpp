@@ -170,43 +170,23 @@ namespace character {
       _bonus_spiritual_essence = essence;
     }
 
-
-    void essence::read_from_json(const QJsonObject &json)
+    void essence::serialisation()
     {
-      _permanent_essence              = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_ESSENCE_PERMANENT]            .toString().toInt());
-      _khan                           = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_ESSENCE_KHAN]                 .toString().toInt());
-      _celestial_portion              = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_ESSENCE_CELESTIAL_PORTION]    .toString().toInt());
-      _personal_committed_essence     = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_ESSENCE_PERSONAL_COMMITTED]   .toString().toInt());
-      _personal_spent_essence         = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_ESSENCE_PERSONAL_SPENT]       .toString().toInt());
-      _peripheral_committed_essence   = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_ESSENCE_PERIPHERAL_COMMITTED] .toString().toInt());
-      _peripheral_spent_essence       = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_ESSENCE_PERIPHERAL_SPENT]     .toString().toInt());
-      _spiritual_committed_essence    = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_ESSENCE_SPIRITUAL_COMMITTED]  .toString().toInt());
-      _spiritual_spent_essence        = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_ESSENCE_SPIRITUAL_SPENT]      .toString().toInt());
-      _total_personal_essence         = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_ESSENCE_PERSONAL_TOTAL]       .toString().toInt());
-      _total_peripheral_essence       = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_ESSENCE_PERIPHERAL_TOTAL]     .toString().toInt());
-      _total_spiritual_essence        = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_ESSENCE_SPIRITUAL_TOTAL]      .toString().toInt());
-      _bonus_personal_essence         = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_ESSENCE_PERSONAL_BONUS]       .toString().toInt());
-      _bonus_peripheral_essence       = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_ESSENCE_PERIPHERAL_BONUS]     .toString().toInt());
-      _bonus_spiritual_essence        = static_cast<unsigned int>(json[serialisation::json_constants::SLOT_ESSENCE_SPIRITUAL_BONUS]      .toString().toInt());
-    }
-
-    void essence::write_to_json(QJsonObject &json) const
-    {
-      json[serialisation::json_constants::SLOT_ESSENCE_PERMANENT]            = QString::number(_permanent_essence           );
-      json[serialisation::json_constants::SLOT_ESSENCE_KHAN]                 = QString::number(_khan                        );
-      json[serialisation::json_constants::SLOT_ESSENCE_CELESTIAL_PORTION]    = QString::number(_celestial_portion           );
-      json[serialisation::json_constants::SLOT_ESSENCE_PERSONAL_COMMITTED]   = QString::number(_personal_committed_essence  );
-      json[serialisation::json_constants::SLOT_ESSENCE_PERSONAL_SPENT]       = QString::number(_personal_spent_essence      );
-      json[serialisation::json_constants::SLOT_ESSENCE_PERIPHERAL_COMMITTED] = QString::number(_peripheral_committed_essence);
-      json[serialisation::json_constants::SLOT_ESSENCE_PERIPHERAL_SPENT]     = QString::number(_peripheral_spent_essence    );
-      json[serialisation::json_constants::SLOT_ESSENCE_SPIRITUAL_COMMITTED]  = QString::number(_spiritual_committed_essence );
-      json[serialisation::json_constants::SLOT_ESSENCE_SPIRITUAL_SPENT]      = QString::number(_spiritual_spent_essence     );
-      json[serialisation::json_constants::SLOT_ESSENCE_PERSONAL_TOTAL]       = QString::number(_total_personal_essence      );
-      json[serialisation::json_constants::SLOT_ESSENCE_PERIPHERAL_TOTAL]     = QString::number(_total_peripheral_essence    );
-      json[serialisation::json_constants::SLOT_ESSENCE_SPIRITUAL_TOTAL]      = QString::number(_total_spiritual_essence     );
-      json[serialisation::json_constants::SLOT_ESSENCE_PERSONAL_BONUS]       = QString::number(_bonus_personal_essence      );
-      json[serialisation::json_constants::SLOT_ESSENCE_PERIPHERAL_BONUS]     = QString::number(_bonus_peripheral_essence    );
-      json[serialisation::json_constants::SLOT_ESSENCE_SPIRITUAL_BONUS]      = QString::number(_bonus_spiritual_essence     );
+      synch(serialisation::json_constants::SLOT_ESSENCE_PERMANENT           , _permanent_essence           );
+      synch(serialisation::json_constants::SLOT_ESSENCE_KHAN                , _khan                        );
+      synch(serialisation::json_constants::SLOT_ESSENCE_CELESTIAL_PORTION   , _celestial_portion           );
+      synch(serialisation::json_constants::SLOT_ESSENCE_PERSONAL_COMMITTED  , _personal_committed_essence  );
+      synch(serialisation::json_constants::SLOT_ESSENCE_PERSONAL_SPENT      , _personal_spent_essence      );
+      synch(serialisation::json_constants::SLOT_ESSENCE_PERIPHERAL_COMMITTED, _peripheral_committed_essence);
+      synch(serialisation::json_constants::SLOT_ESSENCE_PERIPHERAL_SPENT    , _peripheral_spent_essence    );
+      synch(serialisation::json_constants::SLOT_ESSENCE_SPIRITUAL_COMMITTED , _spiritual_committed_essence );
+      synch(serialisation::json_constants::SLOT_ESSENCE_SPIRITUAL_SPENT     , _spiritual_spent_essence     );
+      synch(serialisation::json_constants::SLOT_ESSENCE_PERSONAL_TOTAL      , _total_personal_essence      );
+      synch(serialisation::json_constants::SLOT_ESSENCE_PERIPHERAL_TOTAL    , _total_peripheral_essence    );
+      synch(serialisation::json_constants::SLOT_ESSENCE_SPIRITUAL_TOTAL     , _total_spiritual_essence     );
+      synch(serialisation::json_constants::SLOT_ESSENCE_PERSONAL_BONUS      , _bonus_personal_essence      );
+      synch(serialisation::json_constants::SLOT_ESSENCE_PERIPHERAL_BONUS    , _bonus_peripheral_essence    );
+      synch(serialisation::json_constants::SLOT_ESSENCE_SPIRITUAL_BONUS     , _bonus_spiritual_essence     );
     }
 
     void essence::set_celestial_portion(unsigned int celestial_portion)

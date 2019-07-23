@@ -10,11 +10,8 @@ TEST_CASE("power_container")
                                            character::power::health(10, 5),
                                            character::power::logos());
 
-    QJsonObject obj;
-    stub.write_to_json(obj);
-
     character::power::power_container sut;
-    sut.read_from_json(obj);
+    sut.deserialise(stub.serialise());
 
     REQUIRE(sut.get_essence().permanent_essence()     == stub.get_essence().permanent_essence()     );
     REQUIRE(sut.get_essence().khan()                  == stub.get_essence().khan()                  );

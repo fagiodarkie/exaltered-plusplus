@@ -1,10 +1,10 @@
 #pragma once
 
-#include "serialisable.h"
+#include "../thirdparty/serialisable/serialisable.hpp"
 
 namespace character {
   namespace power {
-    class essence : public serialisable
+    class essence : public Serialisable
     {
     public:
       essence();
@@ -39,9 +39,6 @@ namespace character {
       void set_bonus_peripheral_essence(unsigned int essence);
       void set_bonus_spiritual_essence(unsigned int essence);
 
-      void read_from_json(const QJsonObject &json);
-      void write_to_json(QJsonObject &json) const;
-
       void set_celestial_portion(unsigned int celestial_portion);
       unsigned int get_celestial_portion_percentage() const;
       unsigned int get_terrestrial_portion_percentage() const;
@@ -50,6 +47,7 @@ namespace character {
       void set_total_peripheral_essence(unsigned int total_peripheral_essence);
       void set_total_spiritual_essence(unsigned int total_spiritual_essence);
 
+      virtual void serialisation() override;
       virtual ~essence();
 
     private:

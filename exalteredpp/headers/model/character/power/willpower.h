@@ -1,10 +1,10 @@
 #pragma once
 
-#include "serialisable.h"
+#include "../thirdparty/serialisable/serialisable.hpp"
 
 namespace character {
   namespace power {
-    class willpower : public serialisable
+    class willpower : public Serialisable
     {
     public:
       willpower(unsigned int total = 0, unsigned int temporary = 0);
@@ -17,9 +17,7 @@ namespace character {
       unsigned int permanent_willpower() const;
       void set_permanent_willpower(unsigned int permanent_willpower);
 
-      void read_from_json(const QJsonObject &json);
-      void write_to_json(QJsonObject &json) const;
-
+      virtual void serialisation() override;
       virtual ~willpower();
 
     private:

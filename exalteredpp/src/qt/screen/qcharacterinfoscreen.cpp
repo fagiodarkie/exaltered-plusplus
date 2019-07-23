@@ -9,11 +9,11 @@ namespace qt
 
   namespace screen
   {
-    qcharacterinfoscreen::qcharacterinfoscreen(QSharedPointer<character::character> character, QSharedPointer<manager::character_manager> ch_manager, QWidget *parent)
+    qcharacterinfoscreen::qcharacterinfoscreen(std::shared_ptr<character::character> character, manager::character_manager &ch_manager, QWidget *parent)
       : QWidget(parent),
         character(character),
         character_manager(ch_manager),
-        character_name_widget(character->get_name()),
+        character_name_widget(character->get_name().c_str()),
         save_button(labels::SAVE_LABEL)
     {
       QBorderLayout* outerLayout = new QBorderLayout();
@@ -29,14 +29,14 @@ namespace qt
 
     void qcharacterinfoscreen::on_text_change(const QString& new_character_name)
     {
-      save_button.setEnabled(new_character_name != character->get_name());
+      save_button.setEnabled(new_character_name.toStdString() != character->get_name());
     }
 
     void qcharacterinfoscreen::save_character()
     {
       QString new_name = character_name_widget.text();
-      character->set_name(new_name);
-      character_manager->save_character(character);
+      character->set_name(new_name.toStdString());
+      character_manager.save_character(character);
       save_button.setEnabled(false);
     }
   }

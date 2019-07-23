@@ -36,7 +36,7 @@ namespace qt {
           QComboBox *virtue_cbox = new QComboBox;
           for (auto rank : VIRTUE_RANK_LIST)
             {
-              virtue_cbox->addItem(RANK_NAME[rank], rank);
+              virtue_cbox->addItem(RANK_NAME.at(rank).c_str(), rank);
             }
           virtue_type[v] = virtue_cbox;
 
@@ -71,7 +71,8 @@ namespace qt {
       // fill vice
       {
         vice_selector = new QComboBox;
-        vice_selector->addItems(VICE_NAME.values());
+        for (auto vice: VICE_NAME)
+          vice_selector->addItem(vice.second.c_str());
         connect(vice_selector, &QComboBox::currentTextChanged, this, &character_creation_virtues_vice::update_vice);
 
         // increase / decrease management
@@ -140,13 +141,13 @@ namespace qt {
       if (selected_text.isEmpty())
         return;
 
-      virtue_rank selected_rank = commons::reverse_search_in_map(VIRTUE_RANK_LIST, RANK_NAME, selected_text);
+      virtue_rank selected_rank = commons::reverse_search_in_map(VIRTUE_RANK_LIST, RANK_NAME, selected_text.toStdString());
       _virtues.value(selected_virtue).set_rank(selected_rank);
 
       QList<QString> already_picked_ranks;
       for (int i = 0; i <= virtue_chosen; ++i)
         {
-          already_picked_ranks.append(RANK_NAME[_virtues[VIRTUE_LIST[i]].rank()]);
+          already_picked_ranks.append(RANK_NAME.at(_virtues[VIRTUE_LIST[i]].rank()).c_str());
         }
 
       if (virtue_chosen + 1 == VIRTUE_LIST.size())
@@ -159,12 +160,12 @@ namespace qt {
       virtue_type[next_virtue]->clear();
       bool should_reselect_rank = true;
       QList<QString> new_values;
-      for (QString rank : RANK_NAME.values())
-        if (!already_picked_ranks.contains(rank))
+      for (auto rank: RANK_NAME)
+        if (!already_picked_ranks.contains(rank.second.c_str()))
           {
-            new_values.append(rank);
+            new_values.append(rank.second.c_str());
             // we are adding a new rank: is it the one that was previously selected?
-            should_reselect_rank &= (currently_selected_next_virtue != rank);
+            should_reselect_rank &= (currently_selected_next_virtue != rank.second.c_str());
           }
 
       virtue_type[next_virtue]->addItems(new_values);
@@ -202,7 +203,7 @@ namespace qt {
 
     void character_creation_virtues_vice::update_label(virtue_enum virtue)
     {
-      virtue_label[virtue]->setText(labels::creation_wizard::ATTRIBUTE_WITH_POINTS(VIRTUE_NAME[virtue], _virtues.value(virtue).value()));
+      virtue_label[virtue]->setText(labels::creation_wizard::ATTRIBUTE_WITH_POINTS(VIRTUE_NAME.at(virtue).c_str(), _virtues.value(virtue).value()));
     }
 
     void character_creation_virtues_vice::update_vice_label()
@@ -258,7 +259,7 @@ namespace qt {
 
     void character_creation_virtues_vice::update_vice()
     {
-      vice_enum selected_vice = commons::reverse_search_in_map(VICE_LIST, VICE_NAME, vice_selector->currentText());
+      vice_enum selected_vice = commons::reverse_search_in_map(VICE_LIST, VICE_NAME, vice_selector->currentText().toStdString());
       _virtues.set_vice_type(selected_vice);
     }
   }
