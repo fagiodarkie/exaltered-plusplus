@@ -42,6 +42,12 @@ namespace character
       ability get_ability(ability_names::ability_enum name, const std::string& ability_declination = ability_names::ability_declination::NO_DECLINATION) const;
       void set_ability(ability_names::ability_enum name, ability_group ability);
 
+      power::willpower& get_willpower();
+      power::willpower get_willpower() const;
+
+      power::essence& get_essence();
+      power::essence get_essence() const;
+
       unsigned int id() const;
       exalt::caste caste() const;
 

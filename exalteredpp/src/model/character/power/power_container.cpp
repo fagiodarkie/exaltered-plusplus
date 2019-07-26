@@ -30,6 +30,26 @@ namespace character {
       return _essence;
     }
 
+    logos& power_container::get_logos()
+    {
+      return _logos;
+    }
+
+    health& power_container::get_health()
+    {
+      return _health;
+    }
+
+    willpower& power_container::get_willpower()
+    {
+      return _willpower;
+    }
+
+    essence& power_container::get_essence()
+    {
+      return _essence;
+    }
+
     power_container::~power_container() {}
 
     void power_container::serialisation()
@@ -37,6 +57,7 @@ namespace character {
       synch(serialisation::json_constants::SLOT_HEALTH   , _health   );
       synch(serialisation::json_constants::SLOT_WILLPOWER, _willpower);
       synch(serialisation::json_constants::SLOT_ESSENCE  , _essence  );
+      synch(serialisation::json_constants::SLOT_LOGOS    , _logos    );
     }
 
   }

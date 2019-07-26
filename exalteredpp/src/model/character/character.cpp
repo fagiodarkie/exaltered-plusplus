@@ -73,6 +73,26 @@ namespace character
     _abilities[name] = ability;
   }
 
+  power::willpower& character::get_willpower()
+  {
+    return _power.get_willpower();
+  }
+
+  power::willpower character::get_willpower() const
+  {
+    return _power.get_willpower();
+  }
+
+  power::essence& character::get_essence()
+  {
+    return _power.get_essence();
+  }
+
+  power::essence character::get_essence() const
+  {
+    return _power.get_essence();
+  }
+
   void character::serialisation()
   {
     synch(json_constants::SLOT_NAME , _name);

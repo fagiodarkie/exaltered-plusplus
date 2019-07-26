@@ -34,7 +34,7 @@ INCLUDEPATH += ../../headers \
 
 SOURCES += \
     ../../src/calculator/derived_value_calculator.cpp \
-    ../../src/calculator/worker/abstract_calculator_worker.cpp \
+    ../../src/calculator/worker/exalt_worker.cpp \
     ../../src/errors/ability_not_found_exception.cpp \
     ../../src/errors/characternotfoundexception.cpp \
     ../../src/errors/invalid_parameter.cpp \
@@ -87,6 +87,9 @@ HEADERS += \
     ../../headers/calculator/derived_value_calculator.h \
     ../../headers/calculator/derived_value_definitions.h \
     ../../headers/calculator/worker/abstract_calculator_worker.h \
+    ../../headers/calculator/worker/common_worker.h \
+    ../../headers/calculator/worker/exalt_worker.h \
+    ../../headers/calculator/worker/rounding_type.h \
     ../../headers/common/reverse_search.h \
     ../../headers/errors/ability_not_found_exception.h \
     ../../headers/errors/characternotfoundexception.h \
