@@ -39,5 +39,5 @@ namespace calculator {
     return calculator_workers.at(c.get_type())->compute_persona(c);
   }
 
-
+  derived_value_calculator::~derived_value_calculator() {}
 }

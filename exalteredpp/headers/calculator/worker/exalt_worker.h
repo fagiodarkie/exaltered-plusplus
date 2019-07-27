@@ -10,7 +10,7 @@ namespace calculator {
     public:
       ~exalt_worker() override;
 
-    private:
+    protected:
       virtual double _persona(const character::character& c) const override;
     };
 

@@ -81,7 +81,8 @@ SOURCES += \
     ../../src/qt/wizard/character_creation_wizard.cpp \
     ../../src/serialisation/filesystem_db.cpp \
     ../../src/serialisation/json_constants.cpp \
-    ../../src/qt/wizard/character_creation_virtues_vice.cpp
+    ../../src/qt/wizard/character_creation_virtues_vice.cpp \
+    ../../src/qt/screen/qdefense_values_screen.cpp
 
 HEADERS += \
     ../../headers/calculator/derived_value_calculator.h \
@@ -146,7 +147,9 @@ HEADERS += \
     ../../headers/serialisation/json_constants.h \
     ../../headers/qt/wizard/character_creation_virtues_vice.h \
     ../../headers/qt/widget/std_compatible.h \
-    ../../thirdparty/serialisable/serialisable.hpp
+    ../../thirdparty/serialisable/serialisable.hpp \
+    ../../headers/qt/dependencies.h \
+    ../../headers/qt/screen/qdefense_values_screen.h
 
 CONFIG += mobility
 MOBILITY = 

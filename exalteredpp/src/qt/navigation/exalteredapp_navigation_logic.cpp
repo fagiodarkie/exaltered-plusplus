@@ -20,26 +20,25 @@ void ExalteredApp::load_menu()
 {
   QToolBar *charMenu = addToolBar("Character");
 
-  {
-    QAction *load_character_screen = new QAction(charMenu);
-    connect(load_character_screen, &QAction::triggered, this, &ExalteredApp::load_character_screen);
-    load_character_screen->setText("Character Info");
-    charMenu->addAction(load_character_screen);
-  }
+  QAction *load_character_screen = new QAction(charMenu);
+  connect(load_character_screen, &QAction::triggered, this, &ExalteredApp::load_character_screen);
+  load_character_screen->setText("Character Info");
+  charMenu->addAction(load_character_screen);
 
-  {
-    QAction *load_attributes_screen = new QAction(charMenu);
-    connect(load_attributes_screen, &QAction::triggered, this, &ExalteredApp::load_attributes_screen);
-    load_attributes_screen->setText("Character Attributes");
-    charMenu->addAction(load_attributes_screen);
-  }
+  QAction *load_attributes_screen = new QAction(charMenu);
+  connect(load_attributes_screen, &QAction::triggered, this, &ExalteredApp::load_attributes_screen);
+  load_attributes_screen->setText("Character Attributes");
+  charMenu->addAction(load_attributes_screen);
 
-  {
-    QAction *load_abilities_screen = new QAction(charMenu);
-    connect(load_abilities_screen, &QAction::triggered, this, &ExalteredApp::load_abilities_screen);
-    load_abilities_screen->setText("Character Abilities");
-    charMenu->addAction(load_abilities_screen);
-  }
+  QAction *load_abilities_screen = new QAction(charMenu);
+  connect(load_abilities_screen, &QAction::triggered, this, &ExalteredApp::load_abilities_screen);
+  load_abilities_screen->setText("Character Abilities");
+  charMenu->addAction(load_abilities_screen);
+
+  QAction *load_defenses_screen = new QAction(charMenu);
+  connect(load_defenses_screen, &QAction::triggered, this, &ExalteredApp::load_vd_screen);
+  load_defenses_screen->setText("Character Abilities");
+  charMenu->addAction(load_defenses_screen);
 }
 
 

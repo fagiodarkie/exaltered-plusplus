@@ -26,6 +26,12 @@ void ExalteredApp::load_abilities_screen()
   setCentralWidget(character_abilities_widget);
 }
 
+void ExalteredApp::load_vd_screen()
+{
+  character_defenses_widget = new qdefense_values_screen(current_character, derived_values_calculator, this);
+  setCentralWidget(character_defenses_widget);
+}
+
 void ExalteredApp::load_main_screen(std::shared_ptr<character::character> character)
 {
   current_character = character;

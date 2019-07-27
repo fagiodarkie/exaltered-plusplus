@@ -16,7 +16,7 @@ namespace character
     : _name(name),
       _type(type),
       _id(id),
-      _character_caste(static_cast<int>(caste)),
+      _character_caste(caste),
       _attributes(attributes),
       _abilities(abilities),
       _virtues(virtues),
@@ -97,10 +97,13 @@ namespace character
   {
     synch(json_constants::SLOT_NAME , _name);
     synch(json_constants::SLOT_ID   , _id);
+    synch(json_constants::SLOT_CHARACTER_TYPE, _type);
     synch(json_constants::SLOT_CASTE, _character_caste);
     synch(json_constants::SLOT_ATTRIBUTES, _attributes);
     synch(json_constants::SLOT_ABILITIES, _abilities);
     synch(json_constants::SLOT_VIRTUES, _virtues);
+    synch(json_constants::SLOT_POWER,   _power);
+    synch(json_constants::SLOT_PERSONA, _persona);
   }
 
   unsigned int character::id() const

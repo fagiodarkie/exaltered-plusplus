@@ -114,6 +114,7 @@ namespace calculator {
 
     class human_worker : public common_worker<round_down>
     {
+    public:
       virtual ~human_worker() {}
     };
 

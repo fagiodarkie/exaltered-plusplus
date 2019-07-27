@@ -55,11 +55,11 @@ namespace character
       virtual ~character();
 
     private:
-      std::string                   _name;
+      std::string               _name;
       creation::character_type  _type;
       unsigned int              _id;
 
-      int                       _character_caste;
+      exalt::caste              _character_caste;
       attributes                _attributes;
       abilities                 _abilities;
       virtues::virtues          _virtues;
