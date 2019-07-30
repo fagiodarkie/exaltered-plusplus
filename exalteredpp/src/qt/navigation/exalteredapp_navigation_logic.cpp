@@ -37,10 +37,9 @@ void ExalteredApp::load_menu()
 
   QAction *load_defenses_screen = new QAction(charMenu);
   connect(load_defenses_screen, &QAction::triggered, this, &ExalteredApp::load_vd_screen);
-  load_defenses_screen->setText("Character Abilities");
+  load_defenses_screen->setText("Defense Values");
   charMenu->addAction(load_defenses_screen);
 }
-
 
 void ExalteredApp::clear_layout(QWidget* current_layout)
 {
