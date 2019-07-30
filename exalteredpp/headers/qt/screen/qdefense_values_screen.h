@@ -2,6 +2,7 @@
 
 #include <QComboBox>
 #include <QWidget>
+#include <QLabel>
 #include "character.h"
 #include "derived_value_calculator.h"
 
@@ -20,6 +21,14 @@ namespace qt {
       const calculator::derived_value_calculator& _calculator;
 
       QComboBox *physical_parry_ability;
+
+      QLabel *dodge_dv,
+             *parry_dv,
+             *heavy_parry_dv,
+             *mental_dodge_dv,
+             *charisma_pdv,
+             *manipulation_pdv,
+             *appearance_pdv;
     };
   }
 }
