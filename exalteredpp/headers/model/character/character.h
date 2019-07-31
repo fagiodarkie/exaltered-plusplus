@@ -44,9 +44,10 @@ namespace character
 
       power::willpower& get_willpower();
       power::willpower get_willpower() const;
-
       power::essence& get_essence();
       power::essence get_essence() const;
+      power::logos& get_logos();
+      power::logos  get_logos() const;
 
       unsigned int id() const;
       exalt::caste caste() const;

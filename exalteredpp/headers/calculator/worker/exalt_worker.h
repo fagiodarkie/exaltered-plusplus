@@ -12,6 +12,7 @@ namespace calculator {
 
     protected:
       virtual double _persona(const character::character& c) const override;
+      virtual double _natural_aggravated_soak(const character::character& c) const override;
     };
 
   }

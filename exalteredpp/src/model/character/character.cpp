@@ -93,6 +93,15 @@ namespace character
     return _power.get_essence();
   }
 
+  power::logos& character::get_logos()
+  {
+    return _power.get_logos();
+  }
+  power::logos  character::get_logos() const
+  {
+    return _power.get_logos();
+  }
+
   void character::serialisation()
   {
     synch(json_constants::SLOT_NAME , _name);

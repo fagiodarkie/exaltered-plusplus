@@ -2,6 +2,7 @@
 
 #include "abstract_calculator_worker.h"
 #include "rounding_type.h"
+#include <cmath>
 
 namespace calculator {
   namespace worker {
@@ -40,6 +41,76 @@ namespace calculator {
         return round<round_t>(_persona(c));
       }
 
+      virtual long int compute_bashing_soak             (const character::character& c)  const override
+      {
+        return round<round_t>(_persona(c));
+      }
+
+      virtual long int compute_lethal_soak              (const character::character& c)  const override
+      {
+        return round<round_t>(_persona(c));
+      }
+
+      virtual long int compute_aggravated_soak          (const character::character& c)  const override
+      {
+        return round<round_t>(_persona(c));
+      }
+
+      virtual long int compute_natural_bashing_soak     (const character::character& c)  const override
+      {
+        return round<round_t>(_persona(c));
+      }
+
+      virtual long int compute_natural_lethal_soak      (const character::character& c)  const override
+      {
+        return round<round_t>(_persona(c));
+      }
+
+      virtual long int compute_natural_aggravated_soak  (const character::character& c)  const override
+      {
+        return round<round_t>(_persona(c));
+      }
+
+      virtual long int compute_personal_essence         (const character::character& c)  const override
+      {
+        return round<round_t>(_persona(c));
+      }
+
+      virtual long int compute_peripheral_essence       (const character::character& c)  const override
+      {
+        return round<round_t>(_persona(c));
+      }
+
+      virtual long int compute_spiritual_essence        (const character::character& c)  const override
+      {
+        return round<round_t>(_persona(c));
+      }
+
+      virtual long int compute_celestial_portion        (const character::character& c)  const override
+      {
+        return round<round_t>(_persona(c));
+      }
+
+      virtual long int compute_life_points              (const character::character& c) const override
+      {
+        return 10 * c.get_logos().get_logos() + 2 * c.get_attribute(attribute_t::CONSTITUTION);
+      }
+
+      virtual double   starting_darkana                 (const character::creation::character_type& c) const override
+      {
+        return _darkana(c);
+      }
+
+      virtual long int starting_essence                 (const character::creation::character_type& c) const override
+      {
+        return _essence(c);
+      }
+
+      virtual long int starting_logos                   (const character::creation::character_type& c) const override
+      {
+        return _logos(c);
+      }
+
       virtual ~common_worker() override {}
 
     protected:
@@ -53,8 +124,6 @@ namespace calculator {
       {
         return round_t::round(value);
       }
-
-    private:
 
       typedef character::attribute_names::attribute attribute_t;
       typedef character::ability_names::ability_enum ability_t;
@@ -96,6 +165,121 @@ namespace calculator {
         return static_cast<double>(persona);
       }
 
+      virtual double _bashing_soak             (const character::character& c) const
+      {
+        return c.get_attribute(attribute_t::CONSTITUTION);
+      }
+
+      virtual double _lethal_soak              (const character::character& c) const
+      {
+        return half(c, attribute_t::CONSTITUTION);
+      }
+
+      virtual double _aggravated_soak          (const character::character& c) const
+      {
+        return 0;
+      }
+
+      virtual double _natural_bashing_soak     (const character::character& c) const
+      {
+        return _bashing_soak(c);
+      }
+
+      virtual double _natural_lethal_soak      (const character::character& c) const
+      {
+        return _lethal_soak(c);
+      }
+
+      virtual double _natural_aggravated_soak  (const character::character& c) const
+      {
+        return _aggravated_soak(c);
+      }
+
+      virtual double _personal_essence         (const character::character& c) const
+      {
+        unsigned int permanent_essence = c.get_essence().permanent_essence();
+        double exp = static_cast<double>(10 + permanent_essence) / 10;
+        return (10 - permanent_essence) * std::pow(permanent_essence, exp);
+      }
+
+      virtual double _peripheral_essence       (const character::character& c) const {
+        unsigned int permanent_essence = c.get_essence().permanent_essence();
+        double exp = static_cast<double>(10 + permanent_essence) / 10;
+        return std::pow(permanent_essence, exp) * c.get_essence().khan();
+      }
+
+      virtual double _spiritual_essence        (const character::character& c) const
+      {
+        double celestial_portion = _celestial_portion(c), terrestrial_portion = 1 - celestial_portion,
+            peripheral = _peripheral_essence(c), personal = _personal_essence(c);
+
+        return (celestial_portion * (peripheral + personal)) / terrestrial_portion;
+      }
+
+      virtual double _celestial_portion        (const character::character& c) const {
+        switch(c.get_type())
+          {
+          case character::creation::TYPE_SOLAR_EXALT:
+          case character::creation::TYPE_ABYSSAL_EXALT:
+          case character::creation::TYPE_INFERNAL_EXALT:
+          case character::creation::TYPE_TERRESTRIAL_EXALT:
+            return 0.4 + 0.01 * c.get_essence().permanent_essence();
+          case character::creation::TYPE_MORTAL_HERO:
+          case character::creation::TYPE_MORTAL_EXTRA:
+          default:
+            return 0.3;
+          }
+      }
+
+      virtual double _darkana                  (const character::creation::character_type& c) const
+      {
+        switch(c)
+          {
+          case character::creation::TYPE_SOLAR_EXALT:
+          case character::creation::TYPE_ABYSSAL_EXALT:
+          case character::creation::TYPE_INFERNAL_EXALT:
+            return 2;
+          case character::creation::TYPE_TERRESTRIAL_EXALT:
+            return 1;
+          case character::creation::TYPE_MORTAL_HERO:
+          case character::creation::TYPE_MORTAL_EXTRA:
+          default:
+            return 0;
+          }
+      }
+
+      virtual double _essence                  (const character::creation::character_type& c) const
+      {
+        switch(c)
+          {
+          case character::creation::TYPE_SOLAR_EXALT:
+          case character::creation::TYPE_ABYSSAL_EXALT:
+          case character::creation::TYPE_INFERNAL_EXALT:
+          case character::creation::TYPE_TERRESTRIAL_EXALT:
+            return 2;
+          case character::creation::TYPE_MORTAL_HERO:
+          case character::creation::TYPE_MORTAL_EXTRA:
+          default:
+            return 1;
+          }
+      }
+
+      virtual double _logos                    (const character::creation::character_type& c) const
+      {
+        switch(c)
+          {
+          case character::creation::TYPE_SOLAR_EXALT:
+          case character::creation::TYPE_ABYSSAL_EXALT:
+          case character::creation::TYPE_INFERNAL_EXALT:
+            return 2;
+          case character::creation::TYPE_TERRESTRIAL_EXALT:
+          case character::creation::TYPE_MORTAL_HERO:
+          case character::creation::TYPE_MORTAL_EXTRA:
+          default:
+            return 1;
+          }
+      }
+
       virtual double half(const character::character& c, attribute_t attribute, ability_t ability) const
       {
         return static_cast<double>(c.get_attribute(attribute) + c.get_ability(ability)) / 2;
@@ -109,6 +293,11 @@ namespace calculator {
       virtual double half(const character::character& c, attribute_t attribute, attribute_t attribute_2) const
       {
         return static_cast<double>(c.get_attribute(attribute) + c.get_attribute(attribute_2)) / 2;
+      }
+
+      virtual double half(const character::character& c, attribute_t attribute) const
+      {
+        return static_cast<double>(c.get_attribute(attribute)) / 2;
       }
     };
 

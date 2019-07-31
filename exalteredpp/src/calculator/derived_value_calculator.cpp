@@ -39,5 +39,77 @@ namespace calculator {
     return calculator_workers.at(c.get_type())->compute_persona(c);
   }
 
+  long int derived_value_calculator::compute_bashing_soak             (const character::character& c) const
+  {
+    return calculator_workers.at(c.get_type())->compute_bashing_soak(c);
+  }
+
+  long int derived_value_calculator::compute_lethal_soak              (const character::character& c) const
+  {
+    return calculator_workers.at(c.get_type())->compute_lethal_soak(c);
+  }
+
+  long int derived_value_calculator::compute_aggravated_soak          (const character::character& c) const
+  {
+    return calculator_workers.at(c.get_type())->compute_aggravated_soak(c);
+  }
+
+  long int derived_value_calculator::compute_natural_bashing_soak     (const character::character& c) const
+  {
+    return calculator_workers.at(c.get_type())->compute_natural_bashing_soak(c);
+  }
+
+  long int derived_value_calculator::compute_natural_lethal_soak      (const character::character& c) const
+  {
+    return calculator_workers.at(c.get_type())->compute_natural_lethal_soak(c);
+  }
+
+  long int derived_value_calculator::compute_natural_aggravated_soak  (const character::character& c) const
+  {
+    return calculator_workers.at(c.get_type())->compute_natural_aggravated_soak(c);
+  }
+
+  long int derived_value_calculator::compute_personal_essence         (const character::character& c) const
+  {
+    return calculator_workers.at(c.get_type())->compute_personal_essence(c);
+  }
+
+  long int derived_value_calculator::compute_peripheral_essence       (const character::character& c) const
+  {
+    return calculator_workers.at(c.get_type())->compute_peripheral_essence(c);
+  }
+
+  long int derived_value_calculator::compute_spiritual_essence        (const character::character& c) const
+  {
+    return calculator_workers.at(c.get_type())->compute_spiritual_essence(c);
+  }
+
+  long int derived_value_calculator::compute_celestial_portion        (const character::character& c) const
+  {
+    return calculator_workers.at(c.get_type())->compute_celestial_portion(c);
+  }
+
+  long int derived_value_calculator::compute_life_points              (const character::character& c) const
+  {
+    return calculator_workers.at(c.get_type())->compute_life_points(c);
+  }
+
+  double   derived_value_calculator::starting_darkana                 (const character::creation::character_type& c) const
+  {
+    return calculator_workers.at(c)->starting_darkana(c);
+  }
+
+  long int derived_value_calculator::starting_essence                 (const character::creation::character_type& c) const
+  {
+    return calculator_workers.at(c)->starting_essence(c);
+  }
+
+  long int derived_value_calculator::starting_logos                   (const character::creation::character_type& c) const
+  {
+    return calculator_workers.at(c)->starting_logos(c);
+  }
+
+
+
   derived_value_calculator::~derived_value_calculator() {}
 }
