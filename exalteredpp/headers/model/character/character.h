@@ -37,10 +37,12 @@ namespace character
 
       attribute get_attribute(attribute_names::attribute name) const;
       void set_attribute(attribute_names::attribute name, attribute attribute);
+      void set_attribute_value(attribute_names::attribute name, int new_val);
 
       ability_group get_ability_group(ability_names::ability_enum name) const;
       ability get_ability(ability_names::ability_enum name, const std::string& ability_declination = ability_names::ability_declination::NO_DECLINATION) const;
       void set_ability(ability_names::ability_enum name, ability_group ability);
+      void set_ability_value(ability_names::ability_enum name, int new_val);
 
       power::willpower& get_willpower();
       power::willpower get_willpower() const;

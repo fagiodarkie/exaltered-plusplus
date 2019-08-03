@@ -15,6 +15,7 @@ namespace character
 
     std::string get_value() const override;
     std::string get_name() const override;
+    void set_value(int new_value);
 
     virtual void serialisation() override;
 

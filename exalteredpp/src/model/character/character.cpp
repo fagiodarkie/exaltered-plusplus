@@ -58,6 +58,11 @@ namespace character
     _attributes[name] = attribute;
   }
 
+  void character::set_attribute_value(attribute_names::attribute name, int new_val)
+  {
+    _attributes[name].set_value(new_val);
+  }
+
   ability character::get_ability(ability_names::ability_enum name, const std::string& ability_declination) const
   {
     return _abilities.at(name).get_ability(ability_declination);
@@ -71,6 +76,11 @@ namespace character
   void character::set_ability(ability_names::ability_enum name, ability_group ability)
   {
     _abilities[name] = ability;
+  }
+
+  void character::set_ability_value(ability_names::ability_enum name, int new_val)
+  {
+    _abilities[name].set_ability_value(ability_names::ability_declination::NO_DECLINATION, new_val);
   }
 
   power::willpower& character::get_willpower()

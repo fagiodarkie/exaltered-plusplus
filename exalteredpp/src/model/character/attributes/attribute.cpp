@@ -17,6 +17,11 @@ namespace character
     return std::to_string(_value);
   }
 
+  void attribute::set_value(int new_value)
+  {
+    _value = new_value;
+  }
+
   attribute::operator std::string() const
   {
     return _name;
