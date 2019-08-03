@@ -9,10 +9,11 @@ namespace qt {
     using character::character;
     using namespace character;
 
-    character_creation_wizard::character_creation_wizard(manager::character_manager &manager, QWidget* parent)
+    character_creation_wizard::character_creation_wizard(manager::character_manager &manager, calculator::worker::abstract_calculator_worker& worker, QWidget* parent)
       : QWidget (parent),
         character_model(::character::creation::character_type_model::SOLAR_EXALT),
-        char_manager(manager)
+        char_manager(manager),
+        calculator(worker)
     {
       // initialise character specs
       for (auto attribute_e : attribute_names::ATTRIBUTES)
@@ -20,7 +21,6 @@ namespace qt {
 
       for (auto ability_e : ability_names::ABILITIES)
         abilities[ability_e] = ability_group(ability_names::ABILITY_NAME.at(ability_e), ability_names::CATEGORY_OF_ABILITY(ability_e));
-
 
       name_page = new character_creation_name_type_page(this);
       connect(name_page, &character_creation_name_type_page::back_issued, this, &character_creation_wizard::fallback);
@@ -68,6 +68,11 @@ namespace qt {
       character_name = char_name;
       caste = selected_caste;
       character_model = creation::character_type_model::get_by_character_type(type);
+
+      power.get_logos().set_logos(calculator.starting_logos(type));
+      power.get_essence().set_khan(calculator.starting_darkana(type));
+      power.get_essence().set_permanent_essence(calculator.starting_essence(type));
+
       attribute_priority_page->set_attribute_values(static_cast<int>(character_model.primary_category_attribute_value),
                                                     static_cast<int>(character_model.secondary_category_attribute_value),
                                                     static_cast<int>(character_model.tertiary_category_attribute_value));
@@ -121,6 +126,7 @@ namespace qt {
     void character_creation_wizard::load_virtues(const virtues &virtues)
     {
       character_virtues = virtues;
+      persona.set_persona(calculator.compute_persona(new_character_type, attributes, power));
 
       persona_page->set_current_persona(virtues, persona, character_model, attributes, power);
 

@@ -48,6 +48,11 @@ namespace character
     _type = type;
   }
 
+  attributes character::get_attributes() const
+  {
+    return _attributes;
+  }
+
   attribute character::get_attribute(attribute_names::attribute name) const
   {
     return _attributes.at(name);
@@ -81,6 +86,11 @@ namespace character
   void character::set_ability_value(ability_names::ability_enum name, int new_val)
   {
     _abilities[name].set_ability_value(ability_names::ability_declination::NO_DECLINATION, new_val);
+  }
+
+  power::power_container character::get_powers() const
+  {
+    return _power;
   }
 
   power::willpower& character::get_willpower()

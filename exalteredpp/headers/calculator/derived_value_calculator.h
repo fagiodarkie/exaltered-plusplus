@@ -21,6 +21,7 @@ namespace calculator {
     long int compute_mental_dodge_dv          (const character::character& c) const override;
     long int compute_mental_parry_dv          (const character::character& c, character::attribute_names::attribute parry_attribute) const override;
     long int compute_persona                  (const character::character& c) const override;
+    long int compute_persona                  (const character::creation::character_type& type, const character::attributes& attributes, const character::power::power_container& power) const override;
     long int compute_bashing_soak             (const character::character& c) const override;
     long int compute_lethal_soak              (const character::character& c) const override;
     long int compute_aggravated_soak          (const character::character& c) const override;

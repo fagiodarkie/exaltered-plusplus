@@ -222,23 +222,6 @@ namespace qt {
       _persona = new_persona;
       _virtues = new_virtues;
 
-      unsigned int standard_persona_max = static_cast<unsigned int>(int(attributes.at(character::attribute_names::CHARISMA)    )
-                               + int(attributes.at(character::attribute_names::MANIPULATION))
-                               + int(attributes.at(character::attribute_names::APPEARANCE)  )
-                               + power.get_willpower().permanent_willpower());
-
-      unsigned int exalted_persona_max = standard_persona_max;
-      unsigned int essence = power.get_essence().permanent_essence();
-      unsigned int min_social_attribute = static_cast<unsigned int>(std::min(attributes.at(character::attribute_names::CHARISMA),
-                                          std::min(attributes.at(character::attribute_names::MANIPULATION),
-                                          attributes.at(character::attribute_names::APPEARANCE))));
-      if (essence > min_social_attribute)
-        {
-          exalted_persona_max += essence - min_social_attribute;
-        }
-
-      _persona.set_persona(model.is_supernatural ? exalted_persona_max : standard_persona_max);
-
       label_of_persona_specific[social_labels::COMPULSIONS_SPECIFIC]->setText(ATTRIBUTE_WITH_POINTS(social_labels::COMPULSIONS_SPECIFIC, _persona.get_compulsions_specific()));
       label_of_persona_specific[social_labels::EMOTIONS_SPECIFIC   ]->setText(ATTRIBUTE_WITH_POINTS(social_labels::EMOTIONS_SPECIFIC   , _persona.get_emotions_specific())   );
       label_of_persona_specific[social_labels::ILLUSIONS_SPECIFIC  ]->setText(ATTRIBUTE_WITH_POINTS(social_labels::ILLUSIONS_SPECIFIC  , _persona.get_illusions_specific())  );

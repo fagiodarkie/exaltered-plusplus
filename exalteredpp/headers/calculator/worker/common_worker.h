@@ -38,57 +38,62 @@ namespace calculator {
 
       virtual long int compute_persona(const character::character& c) const override
       {
-        return round<round_t>(_persona(c));
+        return _persona(c);
+      }
+
+      virtual long int compute_persona                  (const character::creation::character_type& type, const character::attributes& attributes, const character::power::power_container& power) const
+      {
+        return _persona(type, attributes, power);
       }
 
       virtual long int compute_bashing_soak             (const character::character& c)  const override
       {
-        return round<round_t>(_persona(c));
+        return round<round_t>(_bashing_soak(c));
       }
 
       virtual long int compute_lethal_soak              (const character::character& c)  const override
       {
-        return round<round_t>(_persona(c));
+        return round<round_t>(_lethal_soak(c));
       }
 
       virtual long int compute_aggravated_soak          (const character::character& c)  const override
       {
-        return round<round_t>(_persona(c));
+        return round<round_t>(_aggravated_soak(c));
       }
 
       virtual long int compute_natural_bashing_soak     (const character::character& c)  const override
       {
-        return round<round_t>(_persona(c));
+        return round<round_t>(_natural_bashing_soak(c));
       }
 
       virtual long int compute_natural_lethal_soak      (const character::character& c)  const override
       {
-        return round<round_t>(_persona(c));
+        return round<round_t>(_natural_lethal_soak(c));
       }
 
       virtual long int compute_natural_aggravated_soak  (const character::character& c)  const override
       {
-        return round<round_t>(_persona(c));
+        return round<round_t>(_natural_aggravated_soak(c));
       }
 
       virtual long int compute_personal_essence         (const character::character& c)  const override
       {
-        return round<round_t>(_persona(c));
+        return round<round_t>(_personal_essence(c));
       }
 
       virtual long int compute_peripheral_essence       (const character::character& c)  const override
       {
-        return round<round_t>(_persona(c));
+        return round<round_t>(_peripheral_essence(c));
       }
 
       virtual long int compute_spiritual_essence        (const character::character& c)  const override
       {
-        return round<round_t>(_persona(c));
+        return round<round_t>(_spiritual_essence(c));
       }
 
       virtual long int compute_celestial_portion        (const character::character& c)  const override
       {
-        return round<round_t>(_persona(c));
+        return round<round_t>(_celestial_portion(c));
       }
 
       virtual long int compute_life_points              (const character::character& c) const override
@@ -157,10 +162,15 @@ namespace calculator {
 
       virtual double _persona(const character::character& c) const
       {
-        unsigned int persona = c.get_willpower().permanent_willpower();
+        return _persona(c.get_type(), c.get_attributes(), c.get_powers());
+      }
+
+      virtual long int _persona                  (const character::creation::character_type& type, const character::attributes& attributes, const character::power::power_container& power) const
+      {
+        unsigned int persona = power.get_willpower().permanent_willpower();
 
         for (auto social_attribute : character::attribute_names::ATTRIBUTES_BY_CATEGORY.at(character::attribute_names::SOCIAL))
-          persona += c.get_attribute(social_attribute);
+          persona += attributes.at(social_attribute);
 
         return static_cast<double>(persona);
       }

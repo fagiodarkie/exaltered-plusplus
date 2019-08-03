@@ -35,6 +35,7 @@ namespace character
       creation::character_type get_type() const;
       void set_type(creation::character_type type);
 
+      attributes get_attributes() const;
       attribute get_attribute(attribute_names::attribute name) const;
       void set_attribute(attribute_names::attribute name, attribute attribute);
       void set_attribute_value(attribute_names::attribute name, int new_val);
@@ -44,6 +45,7 @@ namespace character
       void set_ability(ability_names::ability_enum name, ability_group ability);
       void set_ability_value(ability_names::ability_enum name, int new_val);
 
+      power::power_container get_powers() const;
       power::willpower& get_willpower();
       power::willpower get_willpower() const;
       power::essence& get_essence();
