@@ -126,7 +126,7 @@ namespace qt {
     void character_creation_wizard::load_virtues(const virtues &virtues)
     {
       character_virtues = virtues;
-      persona.set_persona(calculator.compute_persona(new_character_type, attributes, power));
+      persona.set_persona(calculator.compute_persona(new_character_type, attributes, power.get_willpower(), power.get_essence()));
 
       persona_page->set_current_persona(virtues, persona, character_model, attributes, power);
 

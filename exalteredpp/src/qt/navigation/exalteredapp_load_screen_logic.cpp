@@ -43,7 +43,7 @@ void ExalteredApp::load_main_screen(std::shared_ptr<character::character> charac
 
 void ExalteredApp::load_creation_wizard_screen()
 {
-  character_creation_wizard = new qt::wizard::character_creation_wizard(character_manager, this);
+  character_creation_wizard = new qt::wizard::character_creation_wizard(character_manager, derived_values_calculator, this);
   connect(character_creation_wizard, &qt::wizard::character_creation_wizard::character_created, this, &ExalteredApp::load_main_screen);
   connect(character_creation_wizard, &qt::wizard::character_creation_wizard::back_issued, this, &ExalteredApp::init_load_character_screen);
   setCentralWidget(character_creation_wizard);

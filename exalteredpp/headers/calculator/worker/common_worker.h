@@ -38,12 +38,12 @@ namespace calculator {
 
       virtual long int compute_persona(const character::character& c) const override
       {
-        return _persona(c);
+        return _persona(c.get_type(), c.get_attributes(), c.get_willpower(), c.get_essence());
       }
 
-      virtual long int compute_persona                  (const character::creation::character_type& type, const character::attributes& attributes, const character::power::power_container& power) const
+      virtual long int compute_persona                  (const character::creation::character_type& type, const character::attributes& attributes, const character::power::willpower& willpower, const character::power::essence& essence) const override
       {
-        return _persona(type, attributes, power);
+        return _persona(type, attributes, willpower, essence);
       }
 
       virtual long int compute_bashing_soak             (const character::character& c)  const override
@@ -101,19 +101,50 @@ namespace calculator {
         return 10 * c.get_logos().get_logos() + 2 * c.get_attribute(attribute_t::CONSTITUTION);
       }
 
-      virtual double   starting_darkana                 (const character::creation::character_type& c) const override
+      virtual double starting_darkana                  (const character::creation::character_type& c) const override
       {
-        return _darkana(c);
+        switch(c)
+          {
+          case character::creation::TYPE_SOLAR_EXALT:
+          case character::creation::TYPE_ABYSSAL_EXALT:
+          case character::creation::TYPE_INFERNAL_EXALT:
+            return 2;
+          case character::creation::TYPE_TERRESTRIAL_EXALT:
+            return 1;
+          case character::creation::TYPE_MORTAL_HERO:
+          case character::creation::TYPE_MORTAL_EXTRA:
+            return 0;
+          }
       }
 
-      virtual long int starting_essence                 (const character::creation::character_type& c) const override
+      virtual long int starting_essence                  (const character::creation::character_type& c) const override
       {
-        return _essence(c);
+        switch(c)
+          {
+          case character::creation::TYPE_SOLAR_EXALT:
+          case character::creation::TYPE_ABYSSAL_EXALT:
+          case character::creation::TYPE_INFERNAL_EXALT:
+          case character::creation::TYPE_TERRESTRIAL_EXALT:
+            return 2;
+          case character::creation::TYPE_MORTAL_HERO:
+          case character::creation::TYPE_MORTAL_EXTRA:
+            return 1;
+          }
       }
 
-      virtual long int starting_logos                   (const character::creation::character_type& c) const override
+      virtual long int starting_logos                    (const character::creation::character_type& c) const override
       {
-        return _logos(c);
+        switch(c)
+          {
+          case character::creation::TYPE_SOLAR_EXALT:
+          case character::creation::TYPE_ABYSSAL_EXALT:
+          case character::creation::TYPE_INFERNAL_EXALT:
+            return 2;
+          case character::creation::TYPE_TERRESTRIAL_EXALT:
+          case character::creation::TYPE_MORTAL_HERO:
+          case character::creation::TYPE_MORTAL_EXTRA:
+            return 1;
+          }
       }
 
       virtual ~common_worker() override {}
@@ -160,19 +191,14 @@ namespace calculator {
         return half(c, attribute_t::INTELLIGENCE, parry_attribute);
       }
 
-      virtual double _persona(const character::character& c) const
+      virtual long int _persona                  (const character::creation::character_type& type, const character::attributes& attributes, const character::power::willpower& willpower, const character::power::essence& ) const
       {
-        return _persona(c.get_type(), c.get_attributes(), c.get_powers());
-      }
-
-      virtual long int _persona                  (const character::creation::character_type& type, const character::attributes& attributes, const character::power::power_container& power) const
-      {
-        unsigned int persona = power.get_willpower().permanent_willpower();
+        unsigned int persona = willpower.permanent_willpower();
 
         for (auto social_attribute : character::attribute_names::ATTRIBUTES_BY_CATEGORY.at(character::attribute_names::SOCIAL))
           persona += attributes.at(social_attribute);
 
-        return static_cast<double>(persona);
+        return persona;
       }
 
       virtual double _bashing_soak             (const character::character& c) const
@@ -236,57 +262,7 @@ namespace calculator {
             return 0.4 + 0.01 * c.get_essence().permanent_essence();
           case character::creation::TYPE_MORTAL_HERO:
           case character::creation::TYPE_MORTAL_EXTRA:
-          default:
             return 0.3;
-          }
-      }
-
-      virtual double _darkana                  (const character::creation::character_type& c) const
-      {
-        switch(c)
-          {
-          case character::creation::TYPE_SOLAR_EXALT:
-          case character::creation::TYPE_ABYSSAL_EXALT:
-          case character::creation::TYPE_INFERNAL_EXALT:
-            return 2;
-          case character::creation::TYPE_TERRESTRIAL_EXALT:
-            return 1;
-          case character::creation::TYPE_MORTAL_HERO:
-          case character::creation::TYPE_MORTAL_EXTRA:
-          default:
-            return 0;
-          }
-      }
-
-      virtual double _essence                  (const character::creation::character_type& c) const
-      {
-        switch(c)
-          {
-          case character::creation::TYPE_SOLAR_EXALT:
-          case character::creation::TYPE_ABYSSAL_EXALT:
-          case character::creation::TYPE_INFERNAL_EXALT:
-          case character::creation::TYPE_TERRESTRIAL_EXALT:
-            return 2;
-          case character::creation::TYPE_MORTAL_HERO:
-          case character::creation::TYPE_MORTAL_EXTRA:
-          default:
-            return 1;
-          }
-      }
-
-      virtual double _logos                    (const character::creation::character_type& c) const
-      {
-        switch(c)
-          {
-          case character::creation::TYPE_SOLAR_EXALT:
-          case character::creation::TYPE_ABYSSAL_EXALT:
-          case character::creation::TYPE_INFERNAL_EXALT:
-            return 2;
-          case character::creation::TYPE_TERRESTRIAL_EXALT:
-          case character::creation::TYPE_MORTAL_HERO:
-          case character::creation::TYPE_MORTAL_EXTRA:
-          default:
-            return 1;
           }
       }
 

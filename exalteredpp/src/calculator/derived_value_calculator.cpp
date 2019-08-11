@@ -39,6 +39,12 @@ namespace calculator {
     return calculator_workers.at(c.get_type())->compute_persona(c);
   }
 
+  long int derived_value_calculator::compute_persona                  (const character::creation::character_type& type, const character::attributes& attributes, const character::power::willpower& willpower, const character::power::essence& essence) const
+  {
+    return calculator_workers.at(type)->compute_persona(type, attributes, willpower, essence);
+  }
+
+
   long int derived_value_calculator::compute_bashing_soak             (const character::character& c) const
   {
     return calculator_workers.at(c.get_type())->compute_bashing_soak(c);
@@ -108,8 +114,6 @@ namespace calculator {
   {
     return calculator_workers.at(c)->starting_logos(c);
   }
-
-
 
   derived_value_calculator::~derived_value_calculator() {}
 }
