@@ -20,10 +20,14 @@ namespace qt {
         dodge_dv        (nullptr),
         parry_dv        (nullptr),
         heavy_parry_dv  (nullptr),
+        parry_balance   (nullptr),
+        dodge_balance   (nullptr),
         mental_dodge_dv (nullptr),
         charisma_pdv    (nullptr),
         manipulation_pdv(nullptr),
-        appearance_pdv  (nullptr)
+        appearance_pdv  (nullptr),
+        resilience      (nullptr),
+        natural_soak    (nullptr)
     {
       physical_parry_ability = new QComboBox;
 
@@ -43,14 +47,18 @@ namespace qt {
       update_values();
 
       phys_form->addRow(DODGE_DV, dodge_dv      );
+      phys_form->addRow(DODGE_BAL, dodge_balance);
       phys_form->addRow(PARRY_DV, parry_dv      );
       phys_form->addRow(H_PARRY_DV, heavy_parry_dv);
+      phys_form->addRow(PARRY_BAL, parry_balance);
+      phys_form->addRow(NAT_SOAK, natural_soak);
       phys_form_widget->setLayout(phys_form);
 
       mental_form->addRow(M_DODGE_DV        , mental_dodge_dv);
       mental_form->addRow(M_CHARISMA_PDV    , charisma_pdv);
       mental_form->addRow(M_MANIPULATION_PDV, manipulation_pdv);
       mental_form->addRow(M_APPEARANCE_PDV  , appearance_pdv);
+      mental_form->addRow(M_RESILIENCE      , resilience);
       mental_form_widget->setLayout(mental_form);
 
       QVBoxLayout *v_layout = new QVBoxLayout, *dv_layout = new QVBoxLayout;
@@ -80,19 +88,32 @@ namespace qt {
           dodge_dv            = new QLabel;
           parry_dv            = new QLabel;
           heavy_parry_dv      = new QLabel;
+          parry_balance       = new QLabel;
+          dodge_balance       = new QLabel;
           mental_dodge_dv     = new QLabel;
           charisma_pdv        = new QLabel;
           manipulation_pdv    = new QLabel;
           appearance_pdv      = new QLabel;
+          resilience          = new QLabel;
+          natural_soak        = new QLabel;
         }
 
       dodge_dv        ->setText(QString::number(_calculator.compute_dodge_dv(*_character)));
+      dodge_balance   ->setText(QString::number(_calculator.compute_dodge_balance(*_character)));
       parry_dv        ->setText(QString::number(_calculator.compute_parry_dv(*_character, ability)));
       heavy_parry_dv  ->setText(QString::number(_calculator.compute_heavy_parry_dv(*_character, ability)));
+      parry_balance   ->setText(QString::number(_calculator.compute_parry_balance(*_character)));
+
       mental_dodge_dv ->setText(QString::number(_calculator.compute_mental_dodge_dv(*_character)));
       charisma_pdv    ->setText(QString::number(_calculator.compute_mental_parry_dv(*_character, CHARISMA)));
       manipulation_pdv->setText(QString::number(_calculator.compute_mental_parry_dv(*_character, MANIPULATION)));
       appearance_pdv  ->setText(QString::number(_calculator.compute_mental_parry_dv(*_character, APPEARANCE)));
+      resilience      ->setText(QString::number(_calculator.compute_resilience(*_character)));
+
+      natural_soak    ->setText(QString("%1U / %2L / %3A")
+                              .arg(_calculator.compute_natural_bashing_soak(*_character))
+                              .arg(_calculator.compute_natural_lethal_soak(*_character))
+                              .arg(_calculator.compute_natural_aggravated_soak(*_character)));
     }
   }
 }

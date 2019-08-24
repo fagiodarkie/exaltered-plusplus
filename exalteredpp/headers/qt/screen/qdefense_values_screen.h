@@ -25,10 +25,16 @@ namespace qt {
       QLabel *dodge_dv,
              *parry_dv,
              *heavy_parry_dv,
+             *parry_balance,
+             *dodge_balance,
+
              *mental_dodge_dv,
              *charisma_pdv,
              *manipulation_pdv,
-             *appearance_pdv;
+             *appearance_pdv,
+             *resilience,
+
+             *natural_soak;
     };
   }
 }

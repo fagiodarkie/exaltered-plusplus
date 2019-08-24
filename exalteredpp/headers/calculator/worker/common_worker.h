@@ -117,6 +117,33 @@ namespace calculator {
           }
       }
 
+      virtual long int compute_hindrance                (const character::character& c) const  override
+      {
+        // TODO not supported
+        return 0;
+      }
+
+      virtual long int compute_stance_bonus             (const character::character& c) const  override
+      {
+        // TODO not supported
+        return 0;
+      }
+
+      virtual long int compute_parry_balance            (const character::character& c) const  override
+      {
+        return c.get_attribute(attribute_t::DEXTERITY) - compute_hindrance(c);
+      }
+
+      virtual long int compute_dodge_balance            (const character::character& c) const  override
+      {
+        return c.get_attribute(attribute_t::CONSTITUTION) + compute_stance_bonus(c);
+      }
+
+      virtual long int compute_resilience               (const character::character& c) const  override
+      {
+        return c.get_ability(ability_t::INTEGRITY) + c.get_willpower().temporary_willpower();
+      }
+
       virtual long int starting_essence                  (const character::creation::character_type& c) const override
       {
         switch(c)

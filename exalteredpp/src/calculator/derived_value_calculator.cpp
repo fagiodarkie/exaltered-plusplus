@@ -24,6 +24,26 @@ namespace calculator {
     return calculator_workers.at(c.get_type())->compute_heavy_parry_dv(c, parry_ability);
   }
 
+  long int derived_value_calculator::compute_hindrance                (const character::character& c) const
+  {
+    return calculator_workers.at(c.get_type())->compute_hindrance(c);
+  }
+
+  long int derived_value_calculator::compute_stance_bonus             (const character::character& c) const
+  {
+    return calculator_workers.at(c.get_type())->compute_stance_bonus(c);
+  }
+
+  long int derived_value_calculator::compute_parry_balance            (const character::character& c) const
+  {
+    return calculator_workers.at(c.get_type())->compute_parry_balance(c);
+  }
+
+  long int derived_value_calculator::compute_dodge_balance            (const character::character& c) const
+  {
+    return calculator_workers.at(c.get_type())->compute_dodge_balance(c);
+  }
+
   long int derived_value_calculator::compute_mental_dodge_dv(const character::character& c) const
   {
     return calculator_workers.at(c.get_type())->compute_mental_dodge_dv(c);
@@ -44,6 +64,10 @@ namespace calculator {
     return calculator_workers.at(type)->compute_persona(type, attributes, willpower, essence);
   }
 
+  long int derived_value_calculator::compute_resilience               (const character::character& c) const
+  {
+    return calculator_workers.at(c.get_type())->compute_resilience(c);
+  }
 
   long int derived_value_calculator::compute_bashing_soak             (const character::character& c) const
   {

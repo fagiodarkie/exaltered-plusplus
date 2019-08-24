@@ -29,10 +29,15 @@ namespace qt {
       static QString DODGE_DV    = "Dodge DV"      ;
       static QString PARRY_DV    = "Parry DV"      ;
       static QString H_PARRY_DV  = "Heavy Parry DV";
+      static QString DODGE_BAL   = "Dodge Balance"      ;
+      static QString PARRY_BAL   = "Parry Balance"      ;
+      static QString NAT_SOAK    = "Natural Soak"       ;
+
       static QString M_DODGE_DV         = "Mental Dodge DV"      ;
       static QString M_CHARISMA_PDV     = "Charisma Parry DV"    ;
       static QString M_MANIPULATION_PDV = "Manipulation Parry DV";
       static QString M_APPEARANCE_PDV   = "Appearance Parry DV"  ;
+      static QString M_RESILIENCE       = "Social Resilience"    ;
     }
 
     namespace creation_wizard {
