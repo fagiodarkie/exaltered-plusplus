@@ -112,7 +112,7 @@ namespace calculator {
 
         return virtue_values[2] + virtue_values[3];
       }
-      virtual double starting_darkana                  (const character::creation::character_type& c) const override
+      virtual unsigned int starting_khan                  (const character::creation::character_type& c) const override
       {
         switch(c)
           {

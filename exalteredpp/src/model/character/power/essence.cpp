@@ -71,7 +71,6 @@ namespace character {
       return _total_spiritual_essence + _bonus_spiritual_essence;
     }
 
-
     void essence::commit_essence(unsigned int commit_essence)
     {
       if (available_personal_essence() > commit_essence)
@@ -153,7 +152,6 @@ namespace character {
     {
       _spiritual_spent_essence = essence > _spiritual_spent_essence ? 0 : _spiritual_spent_essence - essence;
     }
-
 
     void essence::set_bonus_personal_essence(unsigned int essence)
     {

@@ -70,7 +70,7 @@ namespace qt {
       character_model = creation::character_type_model::get_by_character_type(type);
 
       power.get_logos().set_logos(calculator.starting_logos(type));
-      power.get_essence().set_khan(calculator.starting_darkana(type));
+      power.get_essence().set_khan(calculator.starting_khan(type));
       power.get_essence().set_permanent_essence(calculator.starting_essence(type));
 
       attribute_priority_page->set_attribute_values(static_cast<int>(character_model.primary_category_attribute_value),
@@ -148,6 +148,12 @@ namespace qt {
         }
       else
         {
+          // finishing touches for the character
+          power.get_logos().set_logos(calculator.starting_logos(new_character_type));
+          power.get_essence().set_khan(calculator.starting_khan(new_character_type));
+          // will have to be changed when we introduce bonus points
+          power.get_essence().set_permanent_essence(calculator.starting_essence(new_character_type));
+
           auto final_character =
               char_manager.create_character(character_name.toStdString(),
                               new_character_type,
@@ -156,6 +162,13 @@ namespace qt {
                               abilities,
                               character_virtues,
                               power);
+
+          final_character->get_essence().set_celestial_portion(calculator.compute_celestial_portion(*final_character));
+          final_character->get_essence().set_total_personal_essence(calculator.compute_personal_essence(*final_character));
+          final_character->get_essence().set_total_peripheral_essence(calculator.compute_peripheral_essence(*final_character));
+          final_character->get_essence().set_total_spiritual_essence(calculator.compute_spiritual_essence(*final_character));
+          final_character->get_willpower().set_permanent_willpower(calculator.starting_willpower(*final_character));
+
           emit character_created(final_character);
         }
     }

@@ -42,7 +42,7 @@ namespace calculator {
     long int compute_spiritual_essence        (const character::character& c) const override;
     long int compute_celestial_portion        (const character::character& c) const override;
     unsigned int compute_life_points          (const character::character& c) const override;
-    double   starting_darkana                 (const character::creation::character_type& c) const override;
+    unsigned int starting_khan                (const character::creation::character_type& c) const override;
     unsigned int starting_essence             (const character::creation::character_type& c) const override;
     unsigned int starting_logos               (const character::creation::character_type& c) const override;
     unsigned int starting_willpower           (const character::character& c) const override;

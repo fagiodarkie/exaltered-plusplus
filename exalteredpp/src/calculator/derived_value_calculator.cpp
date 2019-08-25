@@ -124,7 +124,7 @@ namespace calculator {
     return calculator_workers.at(c.get_type())->compute_life_points(c);
   }
 
-  double   derived_value_calculator::starting_darkana                 (const character::creation::character_type& c) const
+  unsigned int   derived_value_calculator::starting_khan                 (const character::creation::character_type& c) const
   {
     return calculator_workers.at(c)->starting_darkana(c);
   }
