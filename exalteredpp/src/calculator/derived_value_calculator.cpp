@@ -119,7 +119,7 @@ namespace calculator {
     return calculator_workers.at(c.get_type())->compute_celestial_portion(c);
   }
 
-  long int derived_value_calculator::compute_life_points              (const character::character& c) const
+  unsigned int derived_value_calculator::compute_life_points              (const character::character& c) const
   {
     return calculator_workers.at(c.get_type())->compute_life_points(c);
   }
@@ -129,14 +129,19 @@ namespace calculator {
     return calculator_workers.at(c)->starting_darkana(c);
   }
 
-  long int derived_value_calculator::starting_essence                 (const character::creation::character_type& c) const
+  unsigned int derived_value_calculator::starting_essence                 (const character::creation::character_type& c) const
   {
     return calculator_workers.at(c)->starting_essence(c);
   }
 
-  long int derived_value_calculator::starting_logos                   (const character::creation::character_type& c) const
+  unsigned int derived_value_calculator::starting_logos                   (const character::creation::character_type& c) const
   {
     return calculator_workers.at(c)->starting_logos(c);
+  }
+
+  unsigned int derived_value_calculator::starting_willpower           (const character::character& c) const
+  {
+    return calculator_workers.at(c.get_type())->starting_willpower(c);
   }
 
   derived_value_calculator::~derived_value_calculator() {}

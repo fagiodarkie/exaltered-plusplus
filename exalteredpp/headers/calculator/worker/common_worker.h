@@ -96,11 +96,22 @@ namespace calculator {
         return round<round_t>(_celestial_portion(c));
       }
 
-      virtual long int compute_life_points              (const character::character& c) const override
+      virtual unsigned int compute_life_points              (const character::character& c) const override
       {
         return 10 * c.get_logos().get_logos() + 2 * c.get_attribute(attribute_t::CONSTITUTION);
       }
 
+      virtual unsigned int starting_willpower               (const character::character& c) const override
+      {
+        std::vector<unsigned int> virtue_values = { c.get_virtue(character::virtues::COMPASSION).value(),
+                                                  c.get_virtue(character::virtues::CONVINCTION) .value(),
+                                                  c.get_virtue(character::virtues::VALOR)       .value(),
+                                                  c.get_virtue(character::virtues::TEMPERANCE)  .value()};
+
+        std::sort(virtue_values.begin(), virtue_values.end());
+
+        return virtue_values[2] + virtue_values[3];
+      }
       virtual double starting_darkana                  (const character::creation::character_type& c) const override
       {
         switch(c)
@@ -144,7 +155,7 @@ namespace calculator {
         return c.get_ability(ability_t::INTEGRITY) + c.get_willpower().temporary_willpower();
       }
 
-      virtual long int starting_essence                  (const character::creation::character_type& c) const override
+      virtual unsigned int starting_essence                  (const character::creation::character_type& c) const override
       {
         switch(c)
           {
@@ -159,7 +170,7 @@ namespace calculator {
           }
       }
 
-      virtual long int starting_logos                    (const character::creation::character_type& c) const override
+      virtual unsigned int starting_logos                    (const character::creation::character_type& c) const override
       {
         switch(c)
           {

@@ -117,6 +117,36 @@ namespace character
     return _power.get_logos();
   }
 
+  power::health& character::get_health()
+  {
+    return _power.get_health();
+  }
+  power::health  character::get_health() const
+  {
+    return _power.get_health();
+  }
+
+  virtues::virtue   character::get_virtue(virtues::virtue_enum v) const
+  {
+    return _virtues.at(v);
+  }
+  virtues::virtue&  character::get_virtue(virtues::virtue_enum v)
+  {
+    return _virtues[v];
+  }
+  unsigned int      character::get_vice_value() const
+  {
+    return _virtues.vice_value();
+  }
+  virtues::vice_enum character::get_vice() const
+  {
+    return _virtues.vice();
+  }
+  void              character::set_virtue(virtues::vice_enum v, unsigned int vice_value)
+  {
+    _virtues.set_vice_value(vice_value);
+  }
+
   void character::serialisation()
   {
     synch(json_constants::SLOT_NAME , _name);

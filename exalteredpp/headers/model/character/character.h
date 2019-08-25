@@ -45,13 +45,20 @@ namespace character
       void set_ability(ability_names::ability_enum name, ability_group ability);
       void set_ability_value(ability_names::ability_enum name, int new_val);
 
+      virtues::virtue get_virtue(virtues::virtue_enum v) const;
+      virtues::virtue& get_virtue(virtues::virtue_enum v);
+      unsigned int get_vice_value() const;
+      virtues::vice_enum get_vice() const;
+      void set_virtue(virtues::vice_enum v, unsigned int vice_value);
+
       power::willpower& get_willpower();
       power::willpower get_willpower() const;
       power::essence& get_essence();
       power::essence get_essence() const;
       power::logos& get_logos();
       power::logos  get_logos() const;
-
+      power::health& get_health();
+      power::health  get_health() const;
 
       unsigned int id() const;
       exalt::caste caste() const;
