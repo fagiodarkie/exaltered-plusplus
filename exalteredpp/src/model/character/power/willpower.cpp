@@ -20,7 +20,7 @@ namespace character {
 
     void willpower::consume(unsigned int to_consume)
     {
-      _temporary_willpower -= to_consume > _temporary_willpower ? temporary_willpower() : to_consume;
+      _temporary_willpower -= (to_consume > _temporary_willpower ? temporary_willpower() : to_consume);
     }
 
     void willpower::restore(unsigned int to_restore)

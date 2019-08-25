@@ -126,7 +126,7 @@ namespace calculator {
 
   unsigned int   derived_value_calculator::starting_khan                 (const character::creation::character_type& c) const
   {
-    return calculator_workers.at(c)->starting_darkana(c);
+    return calculator_workers.at(c)->starting_khan(c);
   }
 
   unsigned int derived_value_calculator::starting_essence                 (const character::creation::character_type& c) const

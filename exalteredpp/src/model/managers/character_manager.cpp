@@ -41,6 +41,7 @@ namespace manager {
     final_character->get_essence().set_total_peripheral_essence(calculator.compute_peripheral_essence(*final_character));
     final_character->get_essence().set_total_spiritual_essence(calculator.compute_spiritual_essence(*final_character));
     final_character->get_willpower().set_permanent_willpower(calculator.starting_willpower(*final_character));
+    final_character->get_willpower().restore(final_character->get_willpower().permanent_willpower());
     final_character->get_health().set_total_health(calculator.compute_life_points(*final_character));
 
     return final_character;
