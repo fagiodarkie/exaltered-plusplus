@@ -38,7 +38,7 @@ namespace calculator {
       virtual unsigned int compute_life_points          (const character::character& c) const = 0;
 
       // starting values
-      virtual unsigned int starting_khan             (const character::creation::character_type& c) const = 0;
+      virtual unsigned int starting_khan                (const character::creation::character_type& c) const = 0;
       virtual unsigned int starting_essence             (const character::creation::character_type& c) const = 0;
       virtual unsigned int starting_logos               (const character::creation::character_type& c) const = 0;
       virtual unsigned int starting_willpower           (const character::character& c) const = 0;
