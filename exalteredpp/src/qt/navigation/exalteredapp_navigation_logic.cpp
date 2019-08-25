@@ -39,6 +39,11 @@ void ExalteredApp::load_menu()
   connect(load_defenses_screen, &QAction::triggered, this, &ExalteredApp::load_vd_screen);
   load_defenses_screen->setText("Defense Values");
   charMenu->addAction(load_defenses_screen);
+
+  QAction *load_essence_screen = new QAction(charMenu);
+  connect(load_essence_screen, &QAction::triggered, this, &ExalteredApp::load_essence_screen);
+  load_essence_screen->setText("Essence and Khan");
+  charMenu->addAction(load_essence_screen);
 }
 
 void ExalteredApp::clear_layout(QWidget* current_layout)

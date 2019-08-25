@@ -21,6 +21,9 @@ namespace character {
       unsigned int total_personal_essence() const;
       unsigned int total_peripheral_essence() const;
       unsigned int total_spiritual_essence() const;
+      unsigned int committed_personal_essence() const;
+      unsigned int committed_peripheral_essence() const;
+      unsigned int committed_spiritual_essence() const;
 
       void commit_essence(unsigned int commit_essence);
       void commit_spiritual_essence(unsigned int commit_essence);

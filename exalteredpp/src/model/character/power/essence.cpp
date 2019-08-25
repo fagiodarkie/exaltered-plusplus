@@ -71,6 +71,21 @@ namespace character {
       return _total_spiritual_essence + _bonus_spiritual_essence;
     }
 
+    unsigned int essence::committed_personal_essence() const
+    {
+      return _personal_committed_essence;
+    }
+
+    unsigned int essence::committed_peripheral_essence() const
+    {
+      return _peripheral_committed_essence;
+    }
+
+    unsigned int essence::committed_spiritual_essence() const
+    {
+      return _spiritual_committed_essence;
+    }
+
     void essence::commit_essence(unsigned int commit_essence)
     {
       if (available_personal_essence() > commit_essence)

@@ -188,15 +188,15 @@ namespace calculator {
       virtual ~common_worker() override {}
 
     protected:
-      template<typename round_t>
+      template<typename T>
       // round_t must implement a static unsigned long int round(const double) method.
       typename std::enable_if<
         std::is_constructible<long int,
-        decltype(round_t::round(std::declval<const double>()))
+        decltype(T::round(std::declval<const double>()))
       >::value, long int>::type
       round(const double value) const
       {
-        return round_t::round(value);
+        return T::round(value);
       }
 
       typedef character::attribute_names::attribute attribute_t;

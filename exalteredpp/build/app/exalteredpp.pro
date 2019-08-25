@@ -83,8 +83,7 @@ SOURCES += \
     ../../src/serialisation/json_constants.cpp \
     ../../src/qt/wizard/character_creation_virtues_vice.cpp \
     ../../src/qt/screen/qdefense_values_screen.cpp \
-    ../../src/test-case/common/reverse-search-tests.cpp \
-    ../../src/test-case/calculator/worker/common-worker-test.cpp
+    ../../src/qt/screen/qessence_values_screen.cpp
 
 HEADERS += \
     ../../headers/calculator/derived_value_calculator.h \
@@ -151,7 +150,8 @@ HEADERS += \
     ../../headers/qt/widget/std_compatible.h \
     ../../thirdparty/serialisable/serialisable.hpp \
     ../../headers/qt/dependencies.h \
-    ../../headers/qt/screen/qdefense_values_screen.h
+    ../../headers/qt/screen/qdefense_values_screen.h \
+    ../../headers/qt/screen/qessence_values_screen.h
 
 CONFIG += mobility
 MOBILITY = 

@@ -21,6 +21,18 @@ namespace qt {
       static QString EMOTION_BONUS_VALUE    = "Emotion bonuses";
     }
 
+    namespace essence_labels {
+      static QString ESSENCE_TITLE        = "Essence and Logos";
+      static QString KHAN                 = "Khan";
+      static QString CELESTIAL_PORTION    = "Celestial Portion";
+      static QString TERRESTRIAL_PORTION  = "Terrestrial Portion";
+      static QString PERMANENT_ESSENCE    = "Permanent Essence";
+      static QString PERSONAL_ESSENCE     = "Personal Essence";
+      static QString PERIPHERAL_ESSENCE   = "Peripheral Essence";
+      static QString SPIRITUAL_ESSENCE    = "Spiritual Essence";
+      static QString COMMITTED_SUBSCRIPT  = "(Committed)";
+    }
+
     namespace dv_labels {
       static QString PHYS_PARRY_ABILITY = "Physical Parry Ability";
       static QString PHYS_VDS           = "Physical DVs"          ;
@@ -60,6 +72,11 @@ namespace qt {
       {
         return QString("%1: (%2)").arg(label, QString::number(points));
       }
+    }
+
+    static QString AVAILABLE_OVER_TOTAL(int available, int total)
+    {
+      return QString("%1 / %2").arg(available).arg(total);
     }
   }
 }

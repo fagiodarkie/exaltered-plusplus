@@ -8,6 +8,7 @@
 #include "screen/qcharacterattributes.h"
 #include "screen/qcharacterabilities.h"
 #include "screen/qdefense_values_screen.h"
+#include "screen/qessence_values_screen.h"
 #include "wizard/character_creation_wizard.h"
 #include "screen/qmainscreen.h"
 
@@ -31,6 +32,7 @@ class ExalteredApp : public QMainWindow
     void        load_abilities_screen();
     void        load_creation_wizard_screen();
     void        load_vd_screen();
+    void        load_essence_screen();
 
   protected:
     void        init_load_character_screen();
@@ -47,6 +49,7 @@ class ExalteredApp : public QMainWindow
     qcharacterattributes*                       character_attributes_widget;
     qcharacterabilities*                        character_abilities_widget;
     qdefense_values_screen*                     character_defenses_widget;
+    qessence_values_screen*                     character_essence_widget;
     qt::wizard::character_creation_wizard*      character_creation_wizard;
 
     manager::character_manager&                 character_manager;

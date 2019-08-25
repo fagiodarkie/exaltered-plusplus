@@ -452,7 +452,7 @@ protected:
         */
         template<typename T>
         typename std::enable_if<!std::is_base_of<Serialisable, T>::value
-                        && std::is_same<bool, typename std::remove_reference<decltype(std::declval<Serialisable>().synch(std::declval<std::string>(), *std::declval<T>()))>::type>::value
+                        && std::is_base_of<Serialisable, typename std::remove_reference<decltype(*std::declval<T>())>::type>::value
                         && std::is_constructible<T, typename std::remove_reference<decltype(*std::declval<T>())>::type*>::value
                         && std::is_arithmetic<typename std::remove_reference<decltype(!std::declval<T>())>::type>::value , bool>::type
         synch(const std::string& key, T& value) {

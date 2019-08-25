@@ -32,6 +32,12 @@ void ExalteredApp::load_vd_screen()
   setCentralWidget(character_defenses_widget);
 }
 
+void ExalteredApp::load_essence_screen()
+{
+  character_essence_widget = new qessence_values_screen(current_character, this);
+  setCentralWidget(character_essence_widget);
+}
+
 void ExalteredApp::load_main_screen(std::shared_ptr<character::character> character)
 {
   current_character = character;

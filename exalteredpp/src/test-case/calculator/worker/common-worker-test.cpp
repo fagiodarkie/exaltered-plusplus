@@ -42,9 +42,14 @@ TEST_CASE("common worker")
     REQUIRE_NOTHROW(sut.compute_spiritual_essence      (test_character));
     REQUIRE_NOTHROW(sut.compute_celestial_portion      (test_character));
     REQUIRE_NOTHROW(sut.compute_life_points            (test_character));
+    REQUIRE_NOTHROW(sut.starting_willpower             (test_character));
+    REQUIRE_NOTHROW(sut.compute_parry_balance          (test_character));
+    REQUIRE_NOTHROW(sut.compute_dodge_balance          (test_character));
+    REQUIRE_NOTHROW(sut.compute_stance_bonus           (test_character));
+    REQUIRE_NOTHROW(sut.compute_hindrance              (test_character));
 
     REQUIRE_NOTHROW(sut.starting_logos                 (test_character.get_type()));
-    REQUIRE_NOTHROW(sut.starting_darkana               (test_character.get_type()));
+    REQUIRE_NOTHROW(sut.starting_khan                  (test_character.get_type()));
     REQUIRE_NOTHROW(sut.starting_essence               (test_character.get_type()));
   }
 }
