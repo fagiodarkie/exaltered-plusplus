@@ -24,6 +24,7 @@ namespace qt {
     namespace essence_labels {
       static QString ESSENCE_TITLE        = "Essence and Logos";
       static QString KHAN                 = "Khan";
+      static QString LOGOS                = "Logos";
       static QString CELESTIAL_PORTION    = "Celestial Portion";
       static QString TERRESTRIAL_PORTION  = "Terrestrial Portion";
       static QString PERMANENT_ESSENCE    = "Permanent Essence";
@@ -31,6 +32,12 @@ namespace qt {
       static QString PERIPHERAL_ESSENCE   = "Peripheral Essence";
       static QString SPIRITUAL_ESSENCE    = "Spiritual Essence";
       static QString COMMITTED_SUBSCRIPT  = "(Committed)";
+    }
+
+    namespace will_virtue_labels {
+      static QString WILLPOWER        = "Willpower";
+      static QString VIRTUES_SECTION  = "Virtues";
+      static QString VIRTUE_TYPE      = "Virtue Type";
     }
 
     namespace dv_labels {
@@ -77,6 +84,11 @@ namespace qt {
     static QString AVAILABLE_OVER_TOTAL(int available, int total)
     {
       return QString("%1 / %2").arg(available).arg(total);
+    }
+
+    static QString SPECIFY_SUBLABEL(const QString& general, const QString& specific)
+    {
+      return QString("%1 (%2)").arg(general).arg(specific);
     }
   }
 }

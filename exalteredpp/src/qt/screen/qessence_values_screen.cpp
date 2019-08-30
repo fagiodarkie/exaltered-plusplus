@@ -10,8 +10,6 @@
 namespace qt {
   namespace screen {
 
-    using namespace character::ability_names;
-    using namespace character::attribute_names;
     using namespace labels::essence_labels;
 
     qessence_values_screen::qessence_values_screen(const std::shared_ptr<character::character> c,
@@ -28,6 +26,7 @@ namespace qt {
 
       essence_form->addRow(PERMANENT_ESSENCE,   new QLabel(QString::number(essence.permanent_essence())));
       essence_form->addRow(KHAN,                new QLabel(QString::number(essence.khan())));
+      essence_form->addRow(LOGOS,               new QLabel(QString::number(c->get_logos().get_logos())));
       essence_form->addRow(CELESTIAL_PORTION,   new QLabel(QString::number(essence.get_celestial_portion_percentage())));
       essence_form->addRow(TERRESTRIAL_PORTION, new QLabel(QString::number(essence.get_terrestrial_portion_percentage())));
       essence_form->addRow(PERSONAL_ESSENCE,    new QLabel(labels::AVAILABLE_OVER_TOTAL(essence.available_personal_essence(), essence.total_personal_essence())));

@@ -44,6 +44,11 @@ void ExalteredApp::load_menu()
   connect(load_essence_screen, &QAction::triggered, this, &ExalteredApp::load_essence_screen);
   load_essence_screen->setText("Essence and Khan");
   charMenu->addAction(load_essence_screen);
+
+  QAction *load_virtues_screen = new QAction(charMenu);
+  connect(load_virtues_screen, &QAction::triggered, this, &ExalteredApp::load_virtues_screen);
+  load_virtues_screen->setText("Willpower and Virtues");
+  charMenu->addAction(load_virtues_screen);
 }
 
 void ExalteredApp::clear_layout(QWidget* current_layout)

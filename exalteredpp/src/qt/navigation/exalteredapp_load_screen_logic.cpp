@@ -38,6 +38,12 @@ void ExalteredApp::load_essence_screen()
   setCentralWidget(character_essence_widget);
 }
 
+void ExalteredApp::load_virtues_screen()
+{
+  character_virtues_widget = new qwillpower_virtues_screen(current_character, this);
+  setCentralWidget(character_virtues_widget);
+}
+
 void ExalteredApp::load_main_screen(std::shared_ptr<character::character> character)
 {
   current_character = character;
