@@ -2,6 +2,8 @@
 
 #include <QScrollArea>
 #include <QVBoxLayout>
+#include <QGroupBox>
+#include <QFormLayout>
 #include "widget/std_compatible.h"
 #include "behavioral/name_value_pair.h"
 #include "widget/name_value_widget.h"
@@ -19,14 +21,20 @@ namespace qt
 
       v_layout->addWidget(label("Abilities of " + character->get_name()));
 
-      for (auto ability_name: character::ability_names::ABILITIES)
-      {
-        for (character::ability ability : character->get_ability_group(ability_name).get_abilities())
+      for (auto category: character::ability_names::ABILITY_CATEGORIES)
+        {
+          QGroupBox *category_group = new QGroupBox(character::ability_names::ABILITY_CATEGORY_NAMES.at(category).c_str());
+          QFormLayout *category_form = new QFormLayout;
+          for (auto ability_name: character::ability_names::ABILITIES_IN_CATEGORY.at(category))
           {
-            QWidget* label_widget = new widget::name_value_widget(ability, this);
-            inner_layout->addWidget(label_widget);
+            for (character::ability ability : character->get_ability_group(ability_name).get_abilities())
+              {
+                category_form->addRow(ability.get_name().c_str(), new QLabel(QString::number(ability.get_ability_value())));
+              }
           }
-      }
+          category_group->setLayout(category_form);
+          inner_layout->addWidget(category_group);
+        }
 
       abilities_list->setLayout(inner_layout);
 

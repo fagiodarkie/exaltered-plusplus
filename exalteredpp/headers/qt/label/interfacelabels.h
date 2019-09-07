@@ -11,6 +11,17 @@ namespace qt {
     static QString CANCEL_LABEL   = "Cancel";
     static QString APP_TITLE      = "Divine Games";
 
+    namespace info_labels {
+      static QString CHARACTER_TYPE_DESCRIPTION(const QString& type, const QString& caste)
+      {
+        QString result = QString("%0 character").arg(type);
+        if (!caste.isEmpty())
+          result += QString(" of %0 caste").arg(caste);
+
+        return result;
+      }
+    }
+
     namespace social_labels {
       static QString EMOTIONS_SPECIFIC      = "Emotions";
       static QString COMPULSIONS_SPECIFIC   = "Compulsions";
@@ -38,6 +49,10 @@ namespace qt {
       static QString WILLPOWER        = "Willpower";
       static QString VIRTUES_SECTION  = "Virtues";
       static QString VIRTUE_TYPE      = "Virtue Type";
+
+      static QString VIRTUE_RANK_DESC(const QString& rank) {
+        return QString("(with rank: %0)").arg(rank);
+      }
     }
 
     namespace dv_labels {

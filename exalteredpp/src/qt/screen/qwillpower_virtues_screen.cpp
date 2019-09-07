@@ -21,7 +21,6 @@ namespace qt {
     {
 
       QWidget *wp_widget = new QWidget, *ext_widget = new QWidget;
-      //essence_form->addRow(PERSONAL_ESSENCE,    new QLabel(labels::AVAILABLE_OVER_TOTAL(essence.available_personal_essence(), essence.total_personal_essence())));
 
       QHBoxLayout *wp_layout = new QHBoxLayout;
       wp_layout->addWidget(new QLabel(WILLPOWER));
@@ -34,7 +33,12 @@ namespace qt {
 
       for (auto virtue: VIRTUE_LIST)
         {
-          virt_form->addRow(VIRTUE_NAME.at(virtue).c_str(), new QLabel(QString::number(c->get_virtue(virtue).value())));
+          QLabel *valueLabel= new QLabel(QString::number(c->get_virtue(virtue).value()));
+          QLabel *typeLabel = new QLabel(VIRTUE_RANK_DESC(RANK_NAME.at(c->get_virtue(virtue).rank()).c_str()));
+          QHBoxLayout *virtue_spec = new QHBoxLayout;
+          virtue_spec->addWidget(valueLabel);
+          virtue_spec->addWidget(typeLabel);
+          virt_form->addRow(VIRTUE_NAME.at(virtue).c_str(), virtue_spec);
         }
 
       QString vice_label = SPECIFY_SUBLABEL(labels::creation_wizard::VICE_SELECTOR, VICE_NAME.at(c->get_vice()).c_str());
