@@ -93,7 +93,7 @@ namespace calculator {
 
       virtual long int compute_celestial_portion        (const character::character& c)  const override
       {
-        return round<round_t>(_celestial_portion(c));
+        return round<round_t>(_celestial_portion(c) * 100);
       }
 
       virtual unsigned int compute_life_points              (const character::character& c) const override
@@ -112,6 +112,7 @@ namespace calculator {
 
         return virtue_values[2] + virtue_values[3];
       }
+
       virtual unsigned int starting_khan                  (const character::creation::character_type& c) const override
       {
         switch(c)
