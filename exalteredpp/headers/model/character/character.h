@@ -49,7 +49,7 @@ namespace character
       virtues::virtue& get_virtue(virtues::virtue_enum v);
       unsigned int get_vice_value() const;
       virtues::vice_enum get_vice() const;
-      void set_virtue(virtues::vice_enum v, unsigned int vice_value);
+      void set_vice(virtues::vice_enum v, unsigned int vice_value);
 
       power::willpower& get_willpower();
       power::willpower get_willpower() const;

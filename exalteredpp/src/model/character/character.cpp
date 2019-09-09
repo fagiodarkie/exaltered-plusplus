@@ -142,8 +142,9 @@ namespace character
   {
     return _virtues.vice();
   }
-  void              character::set_virtue(virtues::vice_enum v, unsigned int vice_value)
+  void              character::set_vice(virtues::vice_enum v, unsigned int vice_value)
   {
+    _virtues.set_vice_type(v);
     _virtues.set_vice_value(vice_value);
   }
 
@@ -167,7 +168,7 @@ namespace character
 
   exalt::caste character::caste() const
   {
-    return static_cast<exalt::caste>(_character_caste);
+    return _character_caste;
   }
 
   character::~character() {}

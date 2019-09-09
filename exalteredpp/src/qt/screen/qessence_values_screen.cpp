@@ -16,8 +16,6 @@ namespace qt {
                                                    QWidget *parent)
       : QWidget(parent)
     {
-
-      QWidget *form_widget = new QWidget, *essence_widget = new QWidget;
       QGroupBox *essence_form_widget = new QGroupBox(ESSENCE_TITLE);
       QFormLayout* essence_form = new QFormLayout;
       QVBoxLayout *v_layout = new QVBoxLayout;

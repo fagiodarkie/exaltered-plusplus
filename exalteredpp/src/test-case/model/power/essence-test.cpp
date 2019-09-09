@@ -127,18 +127,21 @@ TEST_CASE("essence")
 
     sut.commit_essence(5);
     CHECK(sut.available_personal_essence() == 5);
+    CHECK(sut.committed_personal_essence() == 5);
     CHECK(sut.available_peripheral_essence() == 10);
     sut.commit_spiritual_essence(5);
     CHECK(sut.available_spiritual_essence() == 5);
 
     sut.commit_essence(5);
     CHECK(sut.available_personal_essence() == 0);
+    CHECK(sut.committed_personal_essence() == 10);
     CHECK(sut.available_peripheral_essence() == 10);
     sut.commit_spiritual_essence(5);
     CHECK(sut.available_spiritual_essence() == 0);
 
     sut.commit_essence(5);
     CHECK(sut.available_personal_essence() == 0);
+    CHECK(sut.committed_peripheral_essence() == 5);
     CHECK(sut.available_peripheral_essence() == 5);
     sut.commit_spiritual_essence(5);
     CHECK(sut.available_spiritual_essence() == 0);
