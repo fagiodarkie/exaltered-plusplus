@@ -11,27 +11,60 @@ namespace calculator {
     class common_worker : public abstract_calculator_worker
     {
     public:
-      virtual long int compute_dodge_dv(const character::character& c) const override
+
+      virtual physical_vd compute_physical_vd(const character::character& c, character::ability_names::ability_enum parry_ability) const override
+      {
+        physical_vd result;
+
+        result.dodge_vd = compute_dodge_dv(c);
+        result.parry_vd = compute_parry_dv(c, parry_ability);
+        result.tower_parry_vd = compute_heavy_parry_dv(c, parry_ability);
+
+        result.stance = compute_stance_bonus(c);
+        result.hindrance = compute_hindrance(c);
+        result.bashing_soak = compute_bashing_soak(c);
+        result.lethal_soak = compute_lethal_soak(c);
+        result.aggravated_soak = compute_aggravated_soak(c);
+        result.parry_balance = compute_parry_balance(c);
+        result.dodge_balance = compute_dodge_balance(c);
+
+        return result;
+      }
+
+      virtual mental_vd compute_mental_vd(const character::character& c) const override
+      {
+        mental_vd result;
+
+        result.resilience = compute_resilience(c);
+        result.mental_dodge_vd = compute_mental_dodge_dv(c);
+        result.charisma_parry_vd = compute_mental_parry_dv(c, character::attribute_names::CHARISMA);
+        result.manipulation_parry_vd = compute_mental_parry_dv(c, character::attribute_names::MANIPULATION);
+        result.appearance_parry_vd = compute_mental_parry_dv(c, character::attribute_names::APPEARANCE);
+
+        return result;
+      }
+
+      virtual long int compute_dodge_dv(const character::character& c) const
       {
         return round<round_t>(_dodge_dv(c));
       }
 
-      virtual long int compute_parry_dv(const character::character& c, character::ability_names::ability_enum parry_ability) const override
+      virtual long int compute_parry_dv(const character::character& c, character::ability_names::ability_enum parry_ability) const
       {
         return round<round_t>(_parry_dv(c, parry_ability));
       }
 
-      virtual long int compute_heavy_parry_dv(const character::character& c, character::ability_names::ability_enum parry_ability) const override
+      virtual long int compute_heavy_parry_dv(const character::character& c, character::ability_names::ability_enum parry_ability) const
       {
         return round<round_t>(_heavy_parry_dv(c, parry_ability));
       }
 
-      virtual long int compute_mental_dodge_dv(const character::character& c) const override
+      virtual long int compute_mental_dodge_dv(const character::character& c) const
       {
         return round<round_t>(_mental_dodge_dv(c));
       }
 
-      virtual long int compute_mental_parry_dv(const character::character& c, character::attribute_names::attribute parry_attribute) const override
+      virtual long int compute_mental_parry_dv(const character::character& c, character::attribute_names::attribute parry_attribute) const
       {
         return round<round_t>(_mental_parry_dv(c, parry_attribute));
       }
@@ -46,32 +79,32 @@ namespace calculator {
         return _persona(type, attributes, willpower, essence);
       }
 
-      virtual long int compute_bashing_soak             (const character::character& c)  const override
+      virtual long int compute_bashing_soak             (const character::character& c)  const
       {
         return round<round_t>(_bashing_soak(c));
       }
 
-      virtual long int compute_lethal_soak              (const character::character& c)  const override
+      virtual long int compute_lethal_soak              (const character::character& c)  const
       {
         return round<round_t>(_lethal_soak(c));
       }
 
-      virtual long int compute_aggravated_soak          (const character::character& c)  const override
+      virtual long int compute_aggravated_soak          (const character::character& c)  const
       {
         return round<round_t>(_aggravated_soak(c));
       }
 
-      virtual long int compute_natural_bashing_soak     (const character::character& c)  const override
+      virtual long int compute_natural_bashing_soak     (const character::character& c)  const
       {
         return round<round_t>(_natural_bashing_soak(c));
       }
 
-      virtual long int compute_natural_lethal_soak      (const character::character& c)  const override
+      virtual long int compute_natural_lethal_soak      (const character::character& c)  const
       {
         return round<round_t>(_natural_lethal_soak(c));
       }
 
-      virtual long int compute_natural_aggravated_soak  (const character::character& c)  const override
+      virtual long int compute_natural_aggravated_soak  (const character::character& c)  const
       {
         return round<round_t>(_natural_aggravated_soak(c));
       }
@@ -129,29 +162,29 @@ namespace calculator {
           }
       }
 
-      virtual long int compute_hindrance                (const character::character& c) const  override
+      virtual long int compute_hindrance                (const character::character& c) const
       {
         // TODO not supported
         return 0;
       }
 
-      virtual long int compute_stance_bonus             (const character::character& c) const  override
+      virtual long int compute_stance_bonus             (const character::character& c) const
       {
         // TODO not supported
         return 0;
       }
 
-      virtual long int compute_parry_balance            (const character::character& c) const  override
+      virtual long int compute_parry_balance            (const character::character& c) const
       {
         return c.get_attribute(attribute_t::DEXTERITY) - compute_hindrance(c);
       }
 
-      virtual long int compute_dodge_balance            (const character::character& c) const  override
+      virtual long int compute_dodge_balance            (const character::character& c) const
       {
         return c.get_attribute(attribute_t::CONSTITUTION) + compute_stance_bonus(c);
       }
 
-      virtual long int compute_resilience               (const character::character& c) const  override
+      virtual long int compute_resilience               (const character::character& c) const
       {
         return c.get_ability(ability_t::INTEGRITY) + c.get_willpower().temporary_willpower();
       }

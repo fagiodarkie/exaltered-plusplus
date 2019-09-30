@@ -98,22 +98,25 @@ namespace qt {
           natural_soak        = new QLabel;
         }
 
-      dodge_dv        ->setText(QString::number(_calculator.compute_dodge_dv(*_character)));
-      dodge_balance   ->setText(QString::number(_calculator.compute_dodge_balance(*_character)));
-      parry_dv        ->setText(QString::number(_calculator.compute_parry_dv(*_character, ability)));
-      heavy_parry_dv  ->setText(QString::number(_calculator.compute_heavy_parry_dv(*_character, ability)));
-      parry_balance   ->setText(QString::number(_calculator.compute_parry_balance(*_character)));
+      calculator::worker::physical_vd character_vds = _calculator.compute_physical_vd(*_character, ability);
+      calculator::worker::mental_vd character_mvds = _calculator.compute_mental_vd(*_character);
 
-      mental_dodge_dv ->setText(QString::number(_calculator.compute_mental_dodge_dv(*_character)));
-      charisma_pdv    ->setText(QString::number(_calculator.compute_mental_parry_dv(*_character, CHARISMA)));
-      manipulation_pdv->setText(QString::number(_calculator.compute_mental_parry_dv(*_character, MANIPULATION)));
-      appearance_pdv  ->setText(QString::number(_calculator.compute_mental_parry_dv(*_character, APPEARANCE)));
-      resilience      ->setText(QString::number(_calculator.compute_resilience(*_character)));
+      dodge_dv        ->setText(QString::number(character_vds.dodge_vd));
+      dodge_balance   ->setText(QString::number(character_vds.dodge_balance));
+      parry_dv        ->setText(QString::number(character_vds.parry_vd));
+      heavy_parry_dv  ->setText(QString::number(character_vds.tower_parry_vd));
+      parry_balance   ->setText(QString::number(character_vds.parry_balance));
+
+      mental_dodge_dv ->setText(QString::number(character_mvds.mental_dodge_vd));
+      charisma_pdv    ->setText(QString::number(character_mvds.charisma_parry_vd));
+      manipulation_pdv->setText(QString::number(character_mvds.manipulation_parry_vd));
+      appearance_pdv  ->setText(QString::number(character_mvds.appearance_parry_vd));
+      resilience      ->setText(QString::number(character_mvds.resilience));
 
       natural_soak    ->setText(QString("%1U / %2L / %3A")
-                              .arg(_calculator.compute_natural_bashing_soak(*_character))
-                              .arg(_calculator.compute_natural_lethal_soak(*_character))
-                              .arg(_calculator.compute_natural_aggravated_soak(*_character)));
+                              .arg(character_vds.bashing_soak)
+                              .arg(character_vds.lethal_soak)
+                              .arg(character_vds.aggravated_soak));
     }
   }
 }

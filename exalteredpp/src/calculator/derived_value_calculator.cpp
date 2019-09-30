@@ -9,49 +9,14 @@ namespace calculator {
     calculator_workers[character_type] = worker;
   }
 
-  long int derived_value_calculator::compute_dodge_dv(const character::character& c) const
+  worker::physical_vd derived_value_calculator::compute_physical_vd(const character::character& c, character::ability_names::ability_enum parry_ability) const
   {
-    return calculator_workers.at(c.get_type())->compute_dodge_dv(c);
+    return calculator_workers.at(c.get_type())->compute_physical_vd(c, parry_ability);
   }
 
-  long int derived_value_calculator::compute_parry_dv(const character::character& c, character::ability_names::ability_enum parry_ability) const
+  worker::mental_vd derived_value_calculator::compute_mental_vd(const character::character& c) const
   {
-    return calculator_workers.at(c.get_type())->compute_parry_dv(c, parry_ability);
-  }
-
-  long int derived_value_calculator::compute_heavy_parry_dv(const character::character& c, character::ability_names::ability_enum parry_ability) const
-  {
-    return calculator_workers.at(c.get_type())->compute_heavy_parry_dv(c, parry_ability);
-  }
-
-  long int derived_value_calculator::compute_hindrance                (const character::character& c) const
-  {
-    return calculator_workers.at(c.get_type())->compute_hindrance(c);
-  }
-
-  long int derived_value_calculator::compute_stance_bonus             (const character::character& c) const
-  {
-    return calculator_workers.at(c.get_type())->compute_stance_bonus(c);
-  }
-
-  long int derived_value_calculator::compute_parry_balance            (const character::character& c) const
-  {
-    return calculator_workers.at(c.get_type())->compute_parry_balance(c);
-  }
-
-  long int derived_value_calculator::compute_dodge_balance            (const character::character& c) const
-  {
-    return calculator_workers.at(c.get_type())->compute_dodge_balance(c);
-  }
-
-  long int derived_value_calculator::compute_mental_dodge_dv(const character::character& c) const
-  {
-    return calculator_workers.at(c.get_type())->compute_mental_dodge_dv(c);
-  }
-
-  long int derived_value_calculator::compute_mental_parry_dv(const character::character& c, character::attribute_names::attribute parry_attribute) const
-  {
-    return calculator_workers.at(c.get_type())->compute_mental_parry_dv(c, parry_attribute);
+    return calculator_workers.at(c.get_type())->compute_mental_vd(c);
   }
 
   long int derived_value_calculator::compute_persona(const character::character& c) const
@@ -62,41 +27,6 @@ namespace calculator {
   long int derived_value_calculator::compute_persona                  (const character::creation::character_type& type, const character::attributes& attributes, const character::power::willpower& willpower, const character::power::essence& essence) const
   {
     return calculator_workers.at(type)->compute_persona(type, attributes, willpower, essence);
-  }
-
-  long int derived_value_calculator::compute_resilience               (const character::character& c) const
-  {
-    return calculator_workers.at(c.get_type())->compute_resilience(c);
-  }
-
-  long int derived_value_calculator::compute_bashing_soak             (const character::character& c) const
-  {
-    return calculator_workers.at(c.get_type())->compute_bashing_soak(c);
-  }
-
-  long int derived_value_calculator::compute_lethal_soak              (const character::character& c) const
-  {
-    return calculator_workers.at(c.get_type())->compute_lethal_soak(c);
-  }
-
-  long int derived_value_calculator::compute_aggravated_soak          (const character::character& c) const
-  {
-    return calculator_workers.at(c.get_type())->compute_aggravated_soak(c);
-  }
-
-  long int derived_value_calculator::compute_natural_bashing_soak     (const character::character& c) const
-  {
-    return calculator_workers.at(c.get_type())->compute_natural_bashing_soak(c);
-  }
-
-  long int derived_value_calculator::compute_natural_lethal_soak      (const character::character& c) const
-  {
-    return calculator_workers.at(c.get_type())->compute_natural_lethal_soak(c);
-  }
-
-  long int derived_value_calculator::compute_natural_aggravated_soak  (const character::character& c) const
-  {
-    return calculator_workers.at(c.get_type())->compute_natural_aggravated_soak(c);
   }
 
   long int derived_value_calculator::compute_personal_essence         (const character::character& c) const
