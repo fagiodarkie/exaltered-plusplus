@@ -1,4 +1,5 @@
 #include "power/logos.h"
+#include "errors/invalid_parameter.h"
 
 #include "json_constants.h"
 
@@ -13,6 +14,14 @@ namespace character {
     unsigned int logos::get_logos() const
     {
       return _logos;
+    }
+
+    void logos::set_logos(unsigned int value)
+    {
+      if (value > 6)
+        throw exception::invalid_parameter();
+
+      _logos = value;
     }
 
     unsigned int logos::get_total_qabbalah() const

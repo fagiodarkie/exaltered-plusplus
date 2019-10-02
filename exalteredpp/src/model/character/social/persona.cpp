@@ -137,18 +137,23 @@ namespace character {
 
     void persona::increase_philosophy(std::string philosophy_name, unsigned int increment)
     {
-      auto philosophy_pointer = std::find_if(_philosophies.begin(), _philosophies.end(),
-                                             [philosophy_name](const philosophy& current_p) {
-          return current_p.name() == philosophy_name;
-        });
-
-      if (philosophy_pointer == _philosophies.end())
-        throw new exception::invalid_parameter();
-
+      auto philosophy_pointer = find_philosophy(philosophy_name);
       philosophy_pointer->set_value(std::min(philosophy_pointer->value() + increment, _max_philosophy_value));
     }
 
     void persona::decrease_philosophy(std::string philosophy_name, unsigned int decrement)
+    {
+      auto philosophy_pointer = find_philosophy(philosophy_name);
+      if (philosophy_pointer->value() <= decrement)
+        {
+          _philosophies.erase(philosophy_pointer);
+          return;
+        }
+
+      philosophy_pointer->set_value(philosophy_pointer->value() - decrement);
+    }
+
+    std::vector<philosophy>::iterator persona::find_philosophy(const std::string &philosophy_name)
     {
       auto philosophy_pointer = std::find_if(_philosophies.begin(), _philosophies.end(),
                                              [philosophy_name](const philosophy& current_p) {
@@ -158,13 +163,7 @@ namespace character {
       if (philosophy_pointer == _philosophies.end())
         throw new exception::invalid_parameter();
 
-      if (philosophy_pointer->value() <= decrement)
-        {
-          _philosophies.erase(philosophy_pointer);
-          return;
-        }
-
-      philosophy_pointer->set_value(philosophy_pointer->value() - decrement);
+      return philosophy_pointer;
     }
 
     void persona::serialisation()

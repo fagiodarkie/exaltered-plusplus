@@ -63,5 +63,7 @@ namespace serialisation
     static const std::string SLOT_PHILOSOPHIES        ;
     static const std::string SLOT_EMOTION_BONUS       ;
 
+    static const std::string SLOT_CHARACTER_TYPE      ;
+    static const std::string SLOT_POWER               ;
   };
 }

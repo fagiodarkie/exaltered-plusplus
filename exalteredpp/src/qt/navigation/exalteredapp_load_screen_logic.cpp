@@ -26,6 +26,24 @@ void ExalteredApp::load_abilities_screen()
   setCentralWidget(character_abilities_widget);
 }
 
+void ExalteredApp::load_vd_screen()
+{
+  character_defenses_widget = new qdefense_values_screen(current_character, derived_values_calculator, this);
+  setCentralWidget(character_defenses_widget);
+}
+
+void ExalteredApp::load_essence_screen()
+{
+  character_essence_widget = new qessence_values_screen(current_character, this);
+  setCentralWidget(character_essence_widget);
+}
+
+void ExalteredApp::load_virtues_screen()
+{
+  character_virtues_widget = new qwillpower_virtues_screen(current_character, this);
+  setCentralWidget(character_virtues_widget);
+}
+
 void ExalteredApp::load_main_screen(std::shared_ptr<character::character> character)
 {
   current_character = character;
@@ -37,7 +55,7 @@ void ExalteredApp::load_main_screen(std::shared_ptr<character::character> charac
 
 void ExalteredApp::load_creation_wizard_screen()
 {
-  character_creation_wizard = new qt::wizard::character_creation_wizard(character_manager, this);
+  character_creation_wizard = new qt::wizard::character_creation_wizard(character_manager, derived_values_calculator, this);
   connect(character_creation_wizard, &qt::wizard::character_creation_wizard::character_created, this, &ExalteredApp::load_main_screen);
   connect(character_creation_wizard, &qt::wizard::character_creation_wizard::back_issued, this, &ExalteredApp::init_load_character_screen);
   setCentralWidget(character_creation_wizard);

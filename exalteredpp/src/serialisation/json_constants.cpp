@@ -58,3 +58,6 @@ const std::string serialisation::json_constants::SLOT_MAX_PHILOSOPHIES       = "
 const std::string serialisation::json_constants::SLOT_MAX_PHILOSOPHY_VALUE   = "max_philosophy_value";
 const std::string serialisation::json_constants::SLOT_PHILOSOPHIES           = "philosophies";
 const std::string serialisation::json_constants::SLOT_EMOTION_BONUS          = "emotion_bonus";
+
+const std::string serialisation::json_constants::SLOT_CHARACTER_TYPE      = "character_type";
+const std::string serialisation::json_constants::SLOT_POWER               = "power";

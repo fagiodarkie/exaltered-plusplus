@@ -55,6 +55,8 @@ namespace character {
         _max_philosophies,
         _max_philosophy_value;
 
+
+      std::vector<philosophy>::iterator find_philosophy(const std::string& philosophy_name);
       std::map<emotion, unsigned int> _emotion_bonus;
       std::vector<philosophy> _philosophies;
     };

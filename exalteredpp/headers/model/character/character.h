@@ -35,12 +35,30 @@ namespace character
       creation::character_type get_type() const;
       void set_type(creation::character_type type);
 
+      attributes get_attributes() const;
       attribute get_attribute(attribute_names::attribute name) const;
       void set_attribute(attribute_names::attribute name, attribute attribute);
+      void set_attribute_value(attribute_names::attribute name, int new_val);
 
       ability_group get_ability_group(ability_names::ability_enum name) const;
       ability get_ability(ability_names::ability_enum name, const std::string& ability_declination = ability_names::ability_declination::NO_DECLINATION) const;
       void set_ability(ability_names::ability_enum name, ability_group ability);
+      void set_ability_value(ability_names::ability_enum name, int new_val);
+
+      virtues::virtue get_virtue(virtues::virtue_enum v) const;
+      virtues::virtue& get_virtue(virtues::virtue_enum v);
+      unsigned int get_vice_value() const;
+      virtues::vice_enum get_vice() const;
+      void set_vice(virtues::vice_enum v, unsigned int vice_value);
+
+      power::willpower& get_willpower();
+      power::willpower get_willpower() const;
+      power::essence& get_essence();
+      power::essence get_essence() const;
+      power::logos& get_logos();
+      power::logos  get_logos() const;
+      power::health& get_health();
+      power::health  get_health() const;
 
       unsigned int id() const;
       exalt::caste caste() const;
@@ -49,11 +67,11 @@ namespace character
       virtual ~character();
 
     private:
-      std::string                   _name;
+      std::string               _name;
       creation::character_type  _type;
       unsigned int              _id;
 
-      int                       _character_caste;
+      exalt::caste              _character_caste;
       attributes                _attributes;
       abilities                 _abilities;
       virtues::virtues          _virtues;

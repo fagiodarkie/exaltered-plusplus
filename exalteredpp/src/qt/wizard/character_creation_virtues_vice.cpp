@@ -19,14 +19,6 @@ namespace qt {
     character_creation_virtues_vice::character_creation_virtues_vice(QWidget* parent)
       : QWidget (parent)
     {
-    }
-
-    void character_creation_virtues_vice::update_virtues_limits(virtues virtues, unsigned int max_virtues, unsigned int max_virtue_value)
-    {
-      _virtues = virtues;
-      max_points_on_virtues = max_virtues;
-      this->max_virtue_value = max_virtue_value;
-
       QWidget *virtues_widget = new QWidget;
       QFormLayout *virtues_vice_form = new QFormLayout;
 
@@ -113,9 +105,17 @@ namespace qt {
       outer_layout->addWidget(virtues_widget, layout::QBorderLayout::Center);
       outer_layout->addWidget(buttons, layout::QBorderLayout::South);
 
+      setLayout(outer_layout);
+    }
+
+    void character_creation_virtues_vice::update_virtues_limits(virtues virtues, unsigned int max_virtues, unsigned int max_virtue_value)
+    {
+      _virtues = virtues;
+      max_points_on_virtues = max_virtues;
+      this->max_virtue_value = max_virtue_value;
+
       choose_first_virtue_type();
       update_button_status();
-      setLayout(outer_layout);
     }
 
     void character_creation_virtues_vice::choose_first_virtue_type()

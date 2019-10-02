@@ -29,9 +29,12 @@ INCLUDEPATH += ../../headers \
     ../../headers/model/character \
     ../../headers/serialisation \
     ../../headers/qt \
-    ../../headers/errors
+    ../../headers/errors \
+    ../../headers/calculator
 
 SOURCES += \
+    ../../src/calculator/derived_value_calculator.cpp \
+    ../../src/calculator/worker/exalt_worker.cpp \
     ../../src/errors/ability_not_found_exception.cpp \
     ../../src/errors/characternotfoundexception.cpp \
     ../../src/errors/invalid_parameter.cpp \
@@ -67,6 +70,7 @@ SOURCES += \
     ../../src/qt/screen/qcharacterinfoscreen.cpp \
     ../../src/qt/screen/qloadcharacterscreen.cpp \
     ../../src/qt/screen/qmainscreen.cpp \
+    ../../src/qt/screen/qwillpower_virtues_screen.cpp \
     ../../src/qt/widget/changeable_value_label.cpp \
     ../../src/qt/widget/name_value_widget.cpp \
     ../../src/qt/wizard/attributes_priority_page.cpp \
@@ -78,9 +82,17 @@ SOURCES += \
     ../../src/qt/wizard/character_creation_wizard.cpp \
     ../../src/serialisation/filesystem_db.cpp \
     ../../src/serialisation/json_constants.cpp \
-    ../../src/qt/wizard/character_creation_virtues_vice.cpp
+    ../../src/qt/wizard/character_creation_virtues_vice.cpp \
+    ../../src/qt/screen/qdefense_values_screen.cpp \
+    ../../src/qt/screen/qessence_values_screen.cpp
 
 HEADERS += \
+    ../../headers/calculator/derived_value_calculator.h \
+    ../../headers/calculator/derived_value_definitions.h \
+    ../../headers/calculator/worker/abstract_calculator_worker.h \
+    ../../headers/calculator/worker/common_worker.h \
+    ../../headers/calculator/worker/exalt_worker.h \
+    ../../headers/calculator/worker/rounding_type.h \
     ../../headers/common/reverse_search.h \
     ../../headers/errors/ability_not_found_exception.h \
     ../../headers/errors/characternotfoundexception.h \
@@ -123,6 +135,7 @@ HEADERS += \
     ../../headers/qt/screen/qcharacterinfoscreen.h \
     ../../headers/qt/screen/qloadcharacterscreen.h \
     ../../headers/qt/screen/qmainscreen.h \
+    ../../headers/qt/screen/qwillpower_virtues_screen.h \
     ../../headers/qt/widget/changeable_value_label.h \
     ../../headers/qt/widget/name_value_widget.h \
     ../../headers/qt/wizard/attributes_priority_page.h \
@@ -137,7 +150,10 @@ HEADERS += \
     ../../headers/serialisation/json_constants.h \
     ../../headers/qt/wizard/character_creation_virtues_vice.h \
     ../../headers/qt/widget/std_compatible.h \
-    ../../thirdparty/serialisable/serialisable.hpp
+    ../../thirdparty/serialisable/serialisable.hpp \
+    ../../headers/qt/dependencies.h \
+    ../../headers/qt/screen/qdefense_values_screen.h \
+    ../../headers/qt/screen/qessence_values_screen.h
 
 CONFIG += mobility
 MOBILITY = 

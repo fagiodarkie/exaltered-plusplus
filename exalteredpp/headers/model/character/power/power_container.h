@@ -19,6 +19,11 @@ namespace character {
       health get_health() const;
       logos get_logos() const;
 
+      essence& get_essence();
+      willpower& get_willpower();
+      health& get_health();
+      logos& get_logos();
+
       virtual void serialisation() override;
       virtual ~power_container();
 

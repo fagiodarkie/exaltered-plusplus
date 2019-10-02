@@ -27,8 +27,8 @@ namespace qt
 
       std::shared_ptr<character::character> character;
       manager::character_manager& character_manager;
-      QLineEdit character_name_widget;
-      QPushButton save_button;
+      QLineEdit *character_name_widget;
+      QPushButton *save_button;
 
       void on_text_change(const QString& );
     };
