@@ -21,7 +21,7 @@ The Unit Testing project depends on the single-include version of [`Catch`](http
 ## Project Monitoring Services
 
 ### Continuous Integration Service
-Exaltered++ is developed under Continuous Integration provided by [`buddy.works`](https://buddy.works/) and [`Travis CI`](https://travis-ci.org).
+Exaltered++ is developed under Continuous Integration provided by [`Travis CI`](https://travis-ci.org).
 
 ### Unit Testing
 Unit testing is based on the single-include version of [`Catch`](https://github.com/catchorg/Catch2).
