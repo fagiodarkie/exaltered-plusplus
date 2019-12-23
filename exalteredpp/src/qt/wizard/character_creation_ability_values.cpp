@@ -16,48 +16,6 @@ namespace qt {
     using namespace qt::labels::creation_wizard;
     using namespace qt::labels;
 
-    const char* ability_value_row::REFERRED_ABILITY = "referred_ability";
-
-    ability_value_row::ability_value_row(character::ability_names::ability_enum ability, character::ability_names::ability_category category, const QString& ability_name)
-      : ability(ability), category(category), ability_name(ability_name), value(0), is_favored(false)
-    {
-      label = new QLabel(ability_name + " (999)");
-      label->setTextFormat(Qt::RichText);
-      label->setStyleSheet("font-weight: bold");
-      increase = new QPushButton("+");
-      increase->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
-      increase->setProperty(REFERRED_ABILITY, ability);
-
-      decrease = new QPushButton("-");
-      decrease->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
-      decrease->setProperty(REFERRED_ABILITY, ability);
-    }
-
-    QWidget* ability_value_row::widget() const
-    {
-      QWidget* result = new QWidget;
-
-      QHBoxLayout *buttons = new QHBoxLayout;
-      buttons->addWidget(decrease);
-      buttons->addWidget(increase);
-      result->setLayout(buttons);
-
-      return result;
-    }
-
-    void ability_value_row::update(character::ability_group ability)
-    {
-      value = ability.get_ability();
-      is_favored = ability.is_favourite();
-      update_labels();
-    }
-
-    void ability_value_row::update_labels()
-    {
-      label->setText(creation_wizard::ATTRIBUTE_WITH_POINTS(ability_name, value));
-      label->setStyleSheet(is_favored ? "font-weight: bold" : "");
-    }
-
     character_creation_ability_values::character_creation_ability_values(QWidget *parent)
       : QWidget(parent)
     {

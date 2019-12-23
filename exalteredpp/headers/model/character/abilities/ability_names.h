@@ -37,6 +37,15 @@ namespace character
       { COMBAT, "Combat"}, { SOCIAL, "Social"}, { NARRATIVE, "Narrative" }
     };
 
+    static const std::list<ability_enum> ABILITY_WITH_SUB_ABILITIES = {
+      MANEUVER, TECHNOLOGY, CRAFT
+    };
+
+    bool has_declination(ability_enum ability) {
+      return std::find(ABILITY_WITH_SUB_ABILITIES.begin(), ABILITY_WITH_SUB_ABILITIES.end(), ability)
+          != ABILITY_WITH_SUB_ABILITIES.end();
+    }
+
     namespace ability_declination {
       static const std::string
       NO_DECLINATION = "NONE",
@@ -53,6 +62,22 @@ namespace character
       CHART_MANEUVER    = "Charts",
       FIRSTAGE_MANEUVER = "First Age";
     }
+
+    struct detailed_ability {
+      ability_enum ability;
+      std::string declination;
+
+      detailed_ability(ability_enum ab, std::string dec = ability_declination::NO_DECLINATION)
+        : ability(ab), declination(dec) {}
+
+      detailed_ability(const detailed_ability& other)
+        : ability (other.ability), declination(other.declination) {}
+
+      bool operator==(const detailed_ability& other)
+      {
+        return (other.ability == ability) && (other.declination == declination);
+      }
+    };
 
     static const std::map<ability_enum, std::string> ABILITY_NAME {
       { MELEE,            "Melee"           },

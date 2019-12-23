@@ -37,7 +37,7 @@ namespace qt {
       void load_attributes_priority(const QString&  char_name, character_type type, character::exalt::caste selected_caste);
       void load_attributes_values(const QString& primary_attribute, const QString& secondary_attribute, const QString& tertiary_attribute);
       void load_attribute_points(const character::attributes& points);
-      void load_favored_abilities(const QList<character::ability_names::ability_enum>& favored_abilities);
+      void load_favored_abilities(const QList<character::ability_names::detailed_ability>& favored_abilities);
       void load_ability_values(const character::abilities& abilities);
       void load_virtues(const character::virtues::virtues& virtues);
       void load_persona(const character::social::persona& persona);

@@ -19,9 +19,13 @@ namespace character
 
     std::string get_name() const override;
     std::string get_value() const override;
+
     unsigned int get_ability_value() const;
+    bool is_favourite() const;
 
     void set_value(unsigned int new_value);
+
+    void set_favourite(bool is_favourite);
 
     virtual void serialisation() override;
 
@@ -30,6 +34,7 @@ namespace character
   private:
     std::string _name;
     unsigned int _value;
+    bool _favourite;
   };
 
 }

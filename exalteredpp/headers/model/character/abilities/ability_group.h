@@ -28,20 +28,18 @@ namespace character
 
     bool has_ability(const std::string& ability_name) const;
     bool has_specialisation(const std::string& specialisation_name) const;
-    bool is_favourite() const;
 
     void add_ability(ability new_ability);
     void add_ability(const std::string& new_ability_name, unsigned int new_ability_value = 0);
     void set_ability_value(const std::string& ability_name, unsigned int new_value);
     void increase_ability_value(const std::string& ability_name, unsigned int add_value = 1);
+    void set_favourite(bool is_favourite, const std::string& declination_name = ability_names::ability_declination::NO_DECLINATION);
 
     void add_specialisation(specialisation new_specialisation);
     void add_specialisation(const std::string& new_specialisation_name, unsigned int initial_value = 1);
     void set_specialisation_value(const std::string& specialisation_name, unsigned int new_value);
     void increase_specialisation_value(const std::string& specialisation_name, unsigned int add_value = 1);
     void remove_specialisation(const std::string& specialisation_to_remove);
-
-    void set_favourite(bool is_favourite);
 
     bool has_abilities() const;
 

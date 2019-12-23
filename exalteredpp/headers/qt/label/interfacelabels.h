@@ -22,6 +22,10 @@ namespace qt {
       }
     }
 
+    namespace exalt_labels {
+      static QString CASTE_ABILITIES = "Caste Abilities";
+    }
+
     namespace social_labels {
       static QString EMOTIONS_SPECIFIC      = "Emotions";
       static QString COMPULSIONS_SPECIFIC   = "Compulsions";

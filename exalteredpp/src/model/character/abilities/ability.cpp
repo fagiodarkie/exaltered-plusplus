@@ -15,6 +15,7 @@ namespace character {
   {
     _name = o._name;
     _value = o._value;
+    _favourite = o._favourite;
 
     return *this;
   }
@@ -58,6 +59,16 @@ namespace character {
   bool ability::operator==(const ability& other) const
   {
     return _name == other._name && _value == other._value;
+  }
+
+  bool ability::is_favourite() const
+  {
+    return _favourite;
+  }
+
+  void ability::set_favourite(bool is_favourite)
+  {
+    _favourite = is_favourite;
   }
 
 }

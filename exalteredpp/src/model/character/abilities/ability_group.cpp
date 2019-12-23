@@ -129,6 +129,11 @@ namespace character
         }
     }
 
+    void ability_group::set_favourite(bool is_favourite, const std::string &declination_name)
+    {
+      get_ability_reference(declination_name)->set_favourite(is_favorite);
+    }
+
     void ability_group::add_specialisation(specialisation new_specialisation)
     {
       if (get_specialisation_reference(new_specialisation.get_name()) == specialisations.end())
@@ -190,16 +195,6 @@ namespace character
         {
           return spec.get_name() == name;
         });
-    }
-
-    bool ability_group::is_favourite() const
-    {
-      return is_favorite;
-    }
-
-    void ability_group::set_favourite(bool is_favourite)
-    {
-      is_favorite = is_favourite;
     }
 
     void ability_group::serialisation()

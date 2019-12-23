@@ -1,6 +1,5 @@
 #include "wizard/character_creation_favorite_abilities.h"
 
-#include <QGroupBox>
 #include <QScrollArea>
 
 #include "label/interfacelabels.h"
@@ -21,6 +20,13 @@ namespace qt {
 
       QMap<character::ability_names::ability_category, QGroupBox*> ability_groups;
       QMap<character::ability_names::ability_category, QVBoxLayout*> ability_layouts;
+
+      {
+        caste_category_group = new QGroupBox(exalt_labels::CASTE_ABILITIES);
+        caste_category_group->setLayout(new QVBoxLayout);
+        ability_list->addWidget(caste_category_group);
+      }
+
       for (auto ab_category: character::ability_names::ABILITY_CATEGORIES)
         {
           QGroupBox *category_group = new QGroupBox(character::ability_names::ABILITY_CATEGORY_NAMES.at(ab_category).c_str());
@@ -31,11 +37,12 @@ namespace qt {
 
       for (auto ability_enum : character::ability_names::ABILITIES)
         {
-          QCheckBox *ability_checkbox = new QCheckBox(character::ability_names::ABILITY_NAME.at(ability_enum).c_str());
-          ability_of_button[ability_checkbox] = ability_enum;
+          QWidget* ability_widget = generate_widget(ability_enum);
+          ability_of_button[ability_widget] = ability_enum;
           ability_groups[character::ability_names::CATEGORY_OF_ABILITY(ability_enum)]->layout()->addWidget(ability_checkbox);
           connect(ability_checkbox, &QCheckBox::clicked, this, &character_creation_favorite_abilities::check_current_selection);
         }
+
       abilities->setLayout(ability_list);
       QScrollArea *scroll_abilities = new QScrollArea;
       scroll_abilities->setWidget(abilities);
@@ -82,7 +89,9 @@ namespace qt {
           bool is_caste_ability = abilities_of_caste.contains(ability_of_button[checkbox]);
           checkbox->setChecked(checkbox->isChecked()
                                || is_caste_ability
-                               || _abilities[ability_of_button[checkbox]].is_favourite());
+                               || _abilities[ability_of_button[checkbox]]
+              .get_ability(sub_ability_of_button[checkbox])
+              .is_favourite());
           checkbox->setEnabled(!is_caste_ability);
         }
     }
@@ -92,7 +101,7 @@ namespace qt {
       auto selected = selected_abilities();
       for (character::ability_names::ability_enum ability: character::ability_names::ABILITIES)
         {
-          _abilities[ability].set_favourite(selected.contains(ability));
+          _abilities[ability].set_favourite(selected.contains(ability), );
         }
 
       bool finished_selecting = static_cast<unsigned int>(selected_abilities().size()) == max_favorite + default_favorite;
@@ -101,7 +110,9 @@ namespace qt {
           for (auto checkbox: ability_of_button.keys())
             {
               bool is_caste_ability = abilities_of_caste.contains(ability_of_button[checkbox]);
-              checkbox->setEnabled(!is_caste_ability && _abilities[ability_of_button[checkbox]].is_favourite());
+              checkbox->setEnabled(!is_caste_ability && _abilities[ability_of_button[checkbox]]
+                  .get_ability(sub_ability_of_button[checkbox])
+                  .is_favourite());
             }
 
         }
@@ -116,17 +127,25 @@ namespace qt {
       emit abilities_selected(selected_abilities());
     }
 
-    QList<character::ability_names::ability_enum> character_creation_favorite_abilities::selected_abilities() const
+    QList<character::ability_names::detailed_ability> character_creation_favorite_abilities::selected_abilities() const
     {
-      QList<character::ability_names::ability_enum> selected_favorites;
+      QList<character::ability_names::detailed_ability> selected_favorites;
 
       for (auto checkbox: ability_of_button.keys())
         {
           if (checkbox->isChecked())
-            selected_favorites.push_back(ability_of_button[checkbox]);
+            selected_favorites.push_back(character::ability_names::detailed_ability(ability_of_button[checkbox], sub_ability_of_button[checkbox]));
         }
 
       return selected_favorites;
+    }
+
+    QWidget* character_creation_favorite_abilities::generate_widget(character::ability_names::ability_enum ability)
+    {
+      if (!character::ability_names::has_declination(ability))
+        return new QCheckBox(character::ability_names::ABILITY_NAME.at(ability).c_str());
+
+
     }
 
   }

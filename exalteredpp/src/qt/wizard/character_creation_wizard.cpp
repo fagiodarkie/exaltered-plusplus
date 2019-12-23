@@ -102,11 +102,16 @@ namespace qt {
       advance();
     }
 
-    void character_creation_wizard::load_favored_abilities(const QList<ability_names::ability_enum> &favored_abilities)
+    void character_creation_wizard::load_favored_abilities(const QList<ability_names::detailed_ability> &favored_abilities)
     {
-      for (ability_names::ability_enum ability: ability_names::ABILITIES)
+      // reset
+      for (auto ability: ability_names::ABILITIES)
+        for (auto declination: abilities[ability].get_abilities())
+          abilities[ability].set_favourite(false, declination.get_name());
+
+      for (auto ability: favored_abilities)
         {
-          abilities[ability].set_favourite(favored_abilities.contains(ability));
+          abilities[ability.ability].set_favourite(true, ability.declination);
         }
 
       abilities_page->set_current_abilities(abilities, character_model.starting_ability_points, character_model.min_ability_points_on_favorite_abilities, character_model.max_std_ability_points_on_creation);

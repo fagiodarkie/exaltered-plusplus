@@ -71,8 +71,10 @@ SOURCES += \
     ../../src/qt/screen/qloadcharacterscreen.cpp \
     ../../src/qt/screen/qmainscreen.cpp \
     ../../src/qt/screen/qwillpower_virtues_screen.cpp \
+    ../../src/qt/widget/ability_declination_selector.cpp \
     ../../src/qt/widget/changeable_value_label.cpp \
     ../../src/qt/widget/name_value_widget.cpp \
+    ../../src/qt/wizard/ability_value_row.cpp \
     ../../src/qt/wizard/attributes_priority_page.cpp \
     ../../src/qt/wizard/character_creation_ability_values.cpp \
     ../../src/qt/wizard/character_creation_attribute_points_page.cpp \
@@ -136,8 +138,10 @@ HEADERS += \
     ../../headers/qt/screen/qloadcharacterscreen.h \
     ../../headers/qt/screen/qmainscreen.h \
     ../../headers/qt/screen/qwillpower_virtues_screen.h \
+    ../../headers/qt/widget/ability_declination_selector.h \
     ../../headers/qt/widget/changeable_value_label.h \
     ../../headers/qt/widget/name_value_widget.h \
+    ../../headers/qt/wizard/ability_value_row.h \
     ../../headers/qt/wizard/attributes_priority_page.h \
     ../../headers/qt/wizard/character_creation_ability_values.h \
     ../../headers/qt/wizard/character_creation_attribute_points_page.h \
