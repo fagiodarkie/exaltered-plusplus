@@ -11,13 +11,13 @@ namespace character
   {
   public:
 
-    ability_group(const std::string& name = "", ability_names::ability_category category = ability_names::COMBAT,
+    ability_group(ability_names::ability_enum ability_e = ability_names::WAR,
                   std::vector<ability> abilities = { ability(ability_names::ability_declination::NO_DECLINATION) },
                   std::vector<specialisation> specialisations = {});
     ability_group(const ability_group& o);
     ability_group& operator=(const ability_group& o);
 
-
+    ability_names::ability_enum get_ability_enum() const;
     std::string get_name() const;
     ability get_ability(const std::string& name = ability_names::ability_declination::NO_DECLINATION) const;
     specialisation get_specialisation(const std::string& name) const;
@@ -48,10 +48,9 @@ namespace character
     virtual ~ability_group() = default;
 
   private:
-    std::string group_name;
+    ability_names::ability_enum macro_ability;
     std::vector<ability> actual_abilities;
     std::vector<specialisation> specialisations;
-    ability_names::ability_category category;
     bool is_favorite;
 
     bool can_manage_ability(const std::string& ability_name) const;

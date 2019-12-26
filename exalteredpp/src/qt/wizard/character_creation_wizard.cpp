@@ -20,7 +20,12 @@ namespace qt {
         attributes[attribute_e] = attribute(attribute_names::ATTRIBUTE_NAME.at(attribute_e), 1);
 
       for (auto ability_e : ability_names::ABILITIES)
-        abilities[ability_e] = ability_group(ability_names::ABILITY_NAME.at(ability_e), ability_names::CATEGORY_OF_ABILITY(ability_e));
+        {
+          if (ability_names::has_declination(ability_e))
+              abilities[ability_e] = ability_group(ability_e, {} );
+          else
+            abilities[ability_e] = ability_group(ability_e);
+        }
 
       name_page = new character_creation_name_type_page(this);
       connect(name_page, &character_creation_name_type_page::back_issued, this, &character_creation_wizard::fallback);

@@ -7,39 +7,46 @@
 
 namespace character
 {
-    ability_group::ability_group(const std::string& name, ability_names::ability_category category, std::vector<ability> abilities, std::vector<specialisation> existing_specialisations)
-      : group_name(name), actual_abilities(abilities), specialisations(existing_specialisations), category(category), is_favorite(false)
+    ability_group::ability_group(ability_names::ability_enum ability_e, std::vector<ability> abilities, std::vector<specialisation> existing_specialisations)
+      : macro_ability(ability_e), actual_abilities(abilities), specialisations(existing_specialisations), is_favorite(false)
     { }
 
     ability_group::ability_group(const ability_group& o)
-      : group_name(o.group_name), actual_abilities(o.actual_abilities), specialisations(o.specialisations), category(o.category), is_favorite(o.is_favorite)
+      : macro_ability(o.macro_ability), actual_abilities(o.actual_abilities), specialisations(o.specialisations), is_favorite(o.is_favorite)
     { }
 
     ability_group& ability_group::operator=(const ability_group& o)
     {
-      group_name = o.group_name;
+      macro_ability = o.macro_ability;
       actual_abilities = o.actual_abilities;
       specialisations = o.specialisations;
-      category = o.category;
       is_favorite = o.is_favorite;
 
       return *this;
     }
 
+    ability_names::ability_enum ability_group::get_ability_enum() const
+    {
+      return macro_ability;
+    }
+
     std::string ability_group::get_name() const
     {
-      return group_name;
+      return ability_names::ABILITY_NAME.at(macro_ability);
     }
 
     std::vector<ability> ability_group::get_abilities() const
     {
+      auto group_name = get_name();
       if (!has_abilities())
         return { ability(group_name, get_ability().get_ability_value()) };
 
       std::vector<ability> mod_abilities;
       for (ability a : actual_abilities)
         {
-          mod_abilities.push_back(ability(group_name + " (" + a.get_name() + ")", a.get_ability_value()));
+          auto m_ability = ability(group_name + " (" + a.get_name() + ")", a.get_ability_value());
+          m_ability.set_favourite(a.is_favourite());
+          mod_abilities.push_back(m_ability);
         }
 
       return mod_abilities;
@@ -52,7 +59,7 @@ namespace character
 
     ability_names::ability_category ability_group::get_category() const
     {
-      return category;
+      return ability_names::CATEGORY_OF_ABILITY(macro_ability);
     }
 
     ability ability_group::get_ability(const std::string& name) const
@@ -199,7 +206,7 @@ namespace character
 
     void ability_group::serialisation()
     {
-      synch(serialisation::json_constants::SLOT_NAME     ,      group_name);
+      synch(serialisation::json_constants::SLOT_NAME     ,      macro_ability);
       synch(serialisation::json_constants::SLOT_FAVOURITE,      is_favorite);
       synch(serialisation::json_constants::SLOT_ABILITIES,      actual_abilities);
       synch(serialisation::json_constants::SLOT_SPECIALISATIONS,specialisations);

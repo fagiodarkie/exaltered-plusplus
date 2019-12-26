@@ -69,7 +69,7 @@ namespace character
       ARMOR_CRAFT     = "Armorer",
       LUTE_CRAFT      = "Lutist";
 
-      static std::map<ability_enum, std::list<std::string>> DECLINATIONS_OF_ABILITY = {
+      static std::map<ability_enum, std::vector<std::string>> DECLINATIONS_OF_ABILITY = {
         { TECHNOLOGY, { FIRE_TECH, WATER_TECH, WOOD_TECH, EARTH_TECH, AIR_TECH, NECRO_TECH, SURVIVAL_TECH }},
         { MANEUVER, { BEAST_MANEUVER, SHIP_MANEUVER, CHART_MANEUVER, FIRSTAGE_MANEUVER }},
         { CRAFT, { SMITH_CRAFT, FLETCHER_CRAFT, ENCHANT_CRAFT, ARMOR_CRAFT, LUTE_CRAFT }}

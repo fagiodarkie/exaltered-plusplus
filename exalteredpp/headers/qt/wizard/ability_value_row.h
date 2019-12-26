@@ -32,7 +32,9 @@ namespace qt {
       ability_group _ability;
       void update_labels();
 
-      QMap<character::ability_names::detailed_ability, QPushButton*> increase_ability, decrease_ability;
+      QMap<std::string, QPushButton*> increase_ability_buttons, decrease_ability_buttons, change_declination_buttons;
+      QMap<std::string, QLabel*> ability_value_labels;
+      QPushButton *add_declination;
 
       static const char* REFERRED_ABILITY;
       static const char* REFERRED_SUB_ABILITY;
