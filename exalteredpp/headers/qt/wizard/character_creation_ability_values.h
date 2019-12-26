@@ -27,12 +27,11 @@ namespace qt {
       void ability_points_chosen(const character::abilities& abilities);
 
     private:
-      QMap<character::ability_names::ability_enum, ability_value_row> row_of_ability;
+      QMap<character::ability_names::ability_enum, ability_value_row*> row_of_ability;
       void next_issued();
       void check_current_selection();
 
-      void increase_issued();
-      void decrease_issued();
+      void ability_change(const character::ability_names::detailed_ability& detailed_ability, unsigned int new_value);
 
       QPushButton *next_page, *cancel;
       character::abilities _abilities;

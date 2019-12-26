@@ -35,12 +35,12 @@ namespace qt {
 
       for (auto ability_enum : character::ability_names::ABILITIES)
         {
-          ability_value_row row(ability_enum, character::ability_names::CATEGORY_OF_ABILITY(ability_enum), character::ability_names::ABILITY_NAME.at(ability_enum).c_str());
-          ability_forms[row.category]->addRow(row.label, row.widget());
+          // ability_enum, character::ability_names::CATEGORY_OF_ABILITY(ability_enum), character::ability_names::ABILITY_NAME.at(ability_enum).c_str()
+          ability_value_row *row = new ability_value_row(_abilities[ability_enum]);
+          row->add_rows(ability_forms[character::ability_names::CATEGORY_OF_ABILITY(ability_enum)]);
           row_of_ability.insert(ability_enum, row);
 
-          connect(row.increase, &QPushButton::clicked, this, &character_creation_ability_values::increase_issued);
-          connect(row.decrease, &QPushButton::clicked, this, &character_creation_ability_values::decrease_issued);
+          connect(row, &ability_value_row::ability_change, this, &character_creation_ability_values::ability_change);
         }
 
       for (auto ab_category: character::ability_names::ABILITY_CATEGORIES)
@@ -70,19 +70,9 @@ namespace qt {
       setLayout(outer_layout);
     }
 
-    void character_creation_ability_values::increase_issued()
+    void character_creation_ability_values::ability_change(const character::ability_names::detailed_ability& detailed_ability, unsigned int new_value)
     {
-      character::ability_names::ability_enum sender_ability = static_cast<character::ability_names::ability_enum>(sender()->property(ability_value_row::REFERRED_ABILITY).toInt());
-      row_of_ability[sender_ability].value++;
-      row_of_ability[sender_ability].update_labels();
-      check_current_selection();
-    }
-
-    void character_creation_ability_values::decrease_issued()
-    {
-      character::ability_names::ability_enum sender_ability = static_cast<character::ability_names::ability_enum>(sender()->property(ability_value_row::REFERRED_ABILITY).toInt());
-      row_of_ability[sender_ability].value--;
-      row_of_ability[sender_ability].update_labels();
+      _abilities[detailed_ability.ability].set_ability_value(detailed_ability.declination, new_value);
       check_current_selection();
     }
 
@@ -95,7 +85,7 @@ namespace qt {
 
       for (auto ability_enum : character::ability_names::ABILITIES)
         {
-          row_of_ability[ability_enum].update(_abilities[ability_enum]);
+          row_of_ability[ability_enum]->update(_abilities[ability_enum]);
         }
 
       check_current_selection();
@@ -106,14 +96,14 @@ namespace qt {
       unsigned int points_spent = 0, points_spent_in_favorites = 0;
       for (auto ability_enum : character::ability_names::ABILITIES)
         {
-          auto row = row_of_ability[ability_enum];
-          points_spent += row.value;
-
-          if (row.is_favored)
-            points_spent_in_favorites += row.value;
-
-          row.increase->setEnabled(row.value < max_std_ability_value);
-          row.decrease->setEnabled(row.value > 0);
+          //auto row = row_of_ability[ability_enum];
+          //points_spent += row.value;
+          //
+          //if (row.is_favored)
+          //  points_spent_in_favorites += row.value;
+          //
+          //row.increase->setEnabled(row.value < max_std_ability_value);
+          //row.decrease->setEnabled(row.value > 0);
         }
 
       bool  should_inhibit_all_add = (points_spent == max_ability_points),
@@ -122,10 +112,10 @@ namespace qt {
 
       for (auto ability_enum : character::ability_names::ABILITIES)
         {
-          auto row = row_of_ability[ability_enum];
-          row.increase->setEnabled(row.increase->isEnabled()
-                                   && !should_inhibit_all_add
-                                   && (row.is_favored || !should_inhibit_non_favorites_add));
+          //auto row = row_of_ability[ability_enum];
+          //row.increase->setEnabled(row.increase->isEnabled()
+          //                         && !should_inhibit_all_add
+          //                         && (row.is_favored || !should_inhibit_non_favorites_add));
         }
 
       next_page->setEnabled(max_ability_points == points_spent);
@@ -134,7 +124,7 @@ namespace qt {
     void character_creation_ability_values::next_issued()
     {
       for (auto ability: character::ability_names::ABILITIES)
-        _abilities[ability].set_ability_value(character::ability_names::ability_declination::NO_DECLINATION, row_of_ability[ability].value);
+        _abilities[ability] = row_of_ability[ability]->ability();
 
       emit ability_points_chosen(_abilities);
     }

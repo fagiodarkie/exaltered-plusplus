@@ -41,7 +41,7 @@ namespace character
       MANEUVER, TECHNOLOGY, CRAFT
     };
 
-    bool has_declination(ability_enum ability) {
+    static bool has_declination(ability_enum ability) {
       return std::find(ABILITY_WITH_SUB_ABILITIES.begin(), ABILITY_WITH_SUB_ABILITIES.end(), ability)
           != ABILITY_WITH_SUB_ABILITIES.end();
     }
@@ -50,17 +50,30 @@ namespace character
       static const std::string
       NO_DECLINATION = "NONE",
 
-      FIRE_CRAFT    = "Fire",
-      WATER_CRAFT   = "Water",
-      WOOD_CRAFT    = "Wood",
-      EARTH_CRAFT   = "Earth",
-      AIR_CRAFT     = "Air",
-      NECRO_CRAFT   = "Necrotech",
+      FIRE_TECH    = "Fire",
+      WATER_TECH   = "Water",
+      WOOD_TECH    = "Wood",
+      EARTH_TECH   = "Earth",
+      AIR_TECH     = "Air",
+      NECRO_TECH   = "Necrotech",
+      SURVIVAL_TECH= "Survival",
 
       BEAST_MANEUVER    = "Beasts",
       SHIP_MANEUVER     = "Ships",
       CHART_MANEUVER    = "Charts",
-      FIRSTAGE_MANEUVER = "First Age";
+      FIRSTAGE_MANEUVER = "First Age",
+
+      SMITH_CRAFT     = "Smith",
+      FLETCHER_CRAFT  = "Fletcher",
+      ENCHANT_CRAFT   = "Enchanter",
+      ARMOR_CRAFT     = "Armorer",
+      LUTE_CRAFT      = "Lutist";
+
+      static std::map<ability_enum, std::list<std::string>> DECLINATIONS_OF_ABILITY = {
+        { TECHNOLOGY, { FIRE_TECH, WATER_TECH, WOOD_TECH, EARTH_TECH, AIR_TECH, NECRO_TECH, SURVIVAL_TECH }},
+        { MANEUVER, { BEAST_MANEUVER, SHIP_MANEUVER, CHART_MANEUVER, FIRSTAGE_MANEUVER }},
+        { CRAFT, { SMITH_CRAFT, FLETCHER_CRAFT, ENCHANT_CRAFT, ARMOR_CRAFT, LUTE_CRAFT }}
+      };
     }
 
     struct detailed_ability {

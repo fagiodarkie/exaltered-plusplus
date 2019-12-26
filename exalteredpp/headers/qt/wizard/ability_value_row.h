@@ -15,19 +15,30 @@ using character::ability_group;
 
 namespace qt {
   namespace wizard {
-    class ability_value_row
+    class ability_value_row : public QWidget
     {
+      Q_OBJECT
+
     public:
       ability_value_row(const ability_group& model_ability_group);
       void update(const ability_group& new_ability_group);
+
+      void add_rows(QFormLayout* form) const;
+
+      ability_group ability() const;
 
     private:
 
       ability_group _ability;
       void update_labels();
 
+      QMap<character::ability_names::detailed_ability, QPushButton*> increase_ability, decrease_ability;
+
       static const char* REFERRED_ABILITY;
       static const char* REFERRED_SUB_ABILITY;
+
+    signals:
+      void ability_change(const character::ability_names::detailed_ability& ability, unsigned int new_value);
     };
   }
 }

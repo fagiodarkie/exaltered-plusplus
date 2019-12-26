@@ -79,9 +79,9 @@ namespace qt { namespace widget {
     emit on_ability_selected(ability);
   }
 
-  QList<const QString&> ability_declination_selector::generate_available_abilities() const
+  QStringList ability_declination_selector::generate_available_abilities() const
   {
-    QList<const QString&> result;
+    QStringList result;
     for (auto ability_e : character::ability_names::ABILITIES)
       {
         // expandable abilities are always available
@@ -102,11 +102,16 @@ namespace qt { namespace widget {
     return result;
   }
 
-  QList<const QString&> ability_declination_selector::generate_available_declinations() const
+  QStringList ability_declination_selector::generate_available_declinations() const
   {
-    QList<const QString&> result;
+    QStringList result;
+
+    if (_ability.declination != character::ability_names::ability_declination::NO_DECLINATION)
+      result.append(_ability.declination.c_str());
 
     // cycle available declinations and return those which are not prohibited. Possibly add the selected one.
+    for (auto declination: character::ability_names::ability_declination::DECLINATIONS_OF_ABILITY.at(_ability.ability))
+      result.append(declination.c_str());
 
     return result;
   }

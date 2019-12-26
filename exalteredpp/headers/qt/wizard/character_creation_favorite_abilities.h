@@ -9,6 +9,7 @@
 #include "abilities/abilities.h"
 #include "abilities/ability_names.h"
 #include "exalt/exalt_caste.h"
+#include "widget/ability_declination_selector.h"
 
 namespace qt {
   namespace wizard {
@@ -28,7 +29,7 @@ namespace qt {
 
     private:
       QGroupBox* caste_category_group;
-      QMap<QWidget*, character::ability_names::detailed_ability> ability_of_button;
+      QList<widget::ability_declination_selector*> ability_widgets;
       void next_issued();
       void check_current_selection();
       void allow_check_on_non_caste_abilities();
@@ -41,8 +42,8 @@ namespace qt {
       unsigned int default_favorite;
       QList<character::ability_names::ability_enum> abilities_of_caste;
 
-      QWidget* generate_widget(character::ability_names::ability_enum ability);
-      QWidget* generate_widget(character::ability_names::ability_enum ability, const std::string& sub_ability);
+      widget::ability_declination_selector* generate_widget(character::ability_names::ability_enum ability);
+      widget::ability_declination_selector* generate_widget(character::ability_names::ability_enum ability, const std::string& sub_ability);
     };
   }
 }

@@ -17,6 +17,16 @@ namespace qt { namespace wizard {
       update_labels();
     }
 
+    ability_group ability_value_row::ability() const
+    {
+      return _ability;
+    }
+
+    void ability_value_row::add_rows(QFormLayout *form) const
+    {
+      // TODO
+    }
+
     void ability_value_row::update_labels()
     {
       //label->setText(creation_wizard::ATTRIBUTE_WITH_POINTS(ability_name, value));

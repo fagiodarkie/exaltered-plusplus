@@ -44,8 +44,8 @@ namespace qt { namespace widget {
       QList<detailed_ability> _prohibited_abilities;
       QList<std::string> possible_declinations;
 
-      QList<const QString&> generate_available_abilities() const;
-      QList<const QString&> generate_available_declinations() const;
+      QStringList generate_available_abilities() const;
+      QStringList generate_available_declinations() const;
 
       void generate_widget();
 
