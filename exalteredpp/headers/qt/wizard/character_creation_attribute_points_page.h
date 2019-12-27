@@ -22,7 +22,7 @@ namespace qt {
 
     signals:
       void back_issued();
-      void attribute_points_chosen(const character::attributes& chosen_attributes);
+      void attribute_points_chosen(character::attributes& chosen_attributes);
       void total_changed(character::attribute_names::attribute_category category);
 
     private slots:

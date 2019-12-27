@@ -19,7 +19,10 @@ namespace qt {
     public:
       character_creation_favorite_abilities(QWidget *parent = nullptr);
 
-      void set_current_abilities(const character::abilities& new_abilities, character::exalt::caste selected_caste, unsigned int number_of_default_favorites, unsigned int number_of_favorite_abilities);
+      void set_current_abilities(const character::abilities& new_abilities,
+                                 character::exalt::caste selected_caste,
+                                 unsigned int number_of_default_favorites,
+                                 unsigned int number_of_favorite_abilities);
 
     signals:
       void back_issued();

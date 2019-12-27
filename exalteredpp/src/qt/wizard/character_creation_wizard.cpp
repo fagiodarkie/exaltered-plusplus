@@ -22,7 +22,13 @@ namespace qt {
       for (auto ability_e : ability_names::ABILITIES)
         {
           if (ability_names::has_declination(ability_e))
-              abilities[ability_e] = ability_group(ability_e, {} );
+            {
+              std::vector<ability> group_abilities;
+              for (auto declination : ability_names::ability_declination::DECLINATIONS_OF_ABILITY.at(ability_e))
+                group_abilities.push_back(ability(declination));
+
+              abilities[ability_e] = ability_group(ability_e, group_abilities);
+            }
           else
             abilities[ability_e] = ability_group(ability_e);
         }
@@ -39,13 +45,9 @@ namespace qt {
       connect(attribute_points_page, &character_creation_attribute_points_page::back_issued, this, &character_creation_wizard::fallback);
       connect(attribute_points_page, &character_creation_attribute_points_page::attribute_points_chosen, this, &character_creation_wizard::load_attribute_points);
 
-      favorite_abilities_page = new character_creation_favorite_abilities(this);
-      connect(favorite_abilities_page, &character_creation_favorite_abilities::back_issued, this, &character_creation_wizard::fallback);
-      connect(favorite_abilities_page, &character_creation_favorite_abilities::abilities_selected, this, &character_creation_wizard::load_favored_abilities);
-
       abilities_page = new character_creation_ability_values(this);
       connect(abilities_page, &character_creation_ability_values::back_issued, this, &character_creation_wizard::fallback);
-      connect(abilities_page, &character_creation_ability_values::ability_points_chosen, this, &character_creation_wizard::load_ability_values);
+      connect(abilities_page, &character_creation_ability_values::abilities_chosen, this, &character_creation_wizard::load_ability_values);
 
       virtues_page = new character_creation_virtues_vice(this);
       connect(virtues_page, &character_creation_virtues_vice::back_issued, this, &character_creation_wizard::fallback);
@@ -59,7 +61,6 @@ namespace qt {
       layout->addWidget(name_page);
       layout->addWidget(attribute_priority_page);
       layout->addWidget(attribute_points_page);
-      //layout->addWidget(favorite_abilities_page);
       layout->addWidget(abilities_page);
       layout->addWidget(virtues_page);
       layout->addWidget(persona_page);
@@ -102,24 +103,8 @@ namespace qt {
     {
       attributes = points;
 
-      favorite_abilities_page->set_current_abilities(abilities, caste, character_model.caste_abilities, character_model.favored_abilities);
-
-      advance();
-    }
-
-    void character_creation_wizard::load_favored_abilities(const QList<ability_names::detailed_ability> &favored_abilities)
-    {
-      // reset
-      for (auto ability: ability_names::ABILITIES)
-        for (auto declination: abilities[ability].get_abilities())
-          abilities[ability].set_favourite(false, declination.get_name());
-
-      for (auto ability: favored_abilities)
-        {
-          abilities[ability.ability].set_favourite(true, ability.declination);
-        }
-
-      abilities_page->set_current_abilities(abilities, character_model.starting_ability_points, character_model.min_ability_points_on_favorite_abilities, character_model.max_std_ability_points_on_creation);
+      abilities_page->set_current_abilities(abilities, caste, character_model.caste_abilities, character_model.favored_abilities,
+                                            character_model.starting_ability_points, character_model.min_ability_points_on_favorite_abilities, character_model.max_std_ability_points_on_creation);
 
       advance();
     }

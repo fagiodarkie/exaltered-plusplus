@@ -24,7 +24,7 @@ namespace qt {
 
     signals:
       void back_issued();
-      void virtues_chosen(const virtues& chosen_virtues);
+      void virtues_chosen(virtues& chosen_virtues);
 
     private slots:
       void increase_issued();

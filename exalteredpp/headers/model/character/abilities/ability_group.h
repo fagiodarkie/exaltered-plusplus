@@ -24,6 +24,7 @@ namespace character
     ability_names::ability_category get_category() const;
 
     std::vector<ability> get_abilities() const;
+    std::vector<ability_names::detailed_ability> get_ability_names() const;
     std::vector<specialisation> get_specialisations() const;
 
     bool has_ability(const std::string& ability_name) const;

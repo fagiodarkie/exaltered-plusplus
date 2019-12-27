@@ -22,7 +22,7 @@ namespace qt {
 
   signals:
     void back_issued();
-    void persona_created(const character::social::persona& persona);
+    void persona_created(character::social::persona& persona);
 
   private:
 

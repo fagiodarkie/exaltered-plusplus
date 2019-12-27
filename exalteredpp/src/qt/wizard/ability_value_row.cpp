@@ -1,4 +1,5 @@
 #include "wizard/ability_value_row.h"
+#include "widget/std_compatible.h"
 #include <QVariant>
 
 namespace qt { namespace wizard {
@@ -11,27 +12,24 @@ namespace qt { namespace wizard {
     {
       add_declination = new QPushButton("Add Declination");
 
-      for (auto ability: _ability.get_abilities())
+      for (auto ability: _ability.get_ability_names())
         {
-          detailed_ability det_ability(_ability.get_ability_enum(), ability.get_name());
           QPushButton *increase = new QPushButton("+"), *decrease = new QPushButton("-"), *fav = new QPushButton("*");
-          increase->setProperty(REFERRED_ABILITY, QVariant(det_ability.ability));
-          increase->setProperty(REFERRED_SUB_ABILITY, QVariant(det_ability.declination.c_str()));
-          decrease->setProperty(REFERRED_ABILITY, QVariant(det_ability.ability));
-          decrease->setProperty(REFERRED_SUB_ABILITY, QVariant(det_ability.declination.c_str()));
-          fav->setProperty(REFERRED_ABILITY, QVariant(det_ability.ability));
-          fav->setProperty(REFERRED_SUB_ABILITY, QVariant(det_ability.declination.c_str()));
-          increase_ability_buttons[ability.get_name()] = increase;
-          decrease_ability_buttons[ability.get_name()] = decrease;
-          make_favorite_buttons[ability.get_name()] = fav;
+          increase->setProperty(REFERRED_ABILITY, QVariant(ability.ability));
+          increase->setProperty(REFERRED_SUB_ABILITY, QVariant(ability.declination.c_str()));
+          decrease->setProperty(REFERRED_ABILITY, QVariant(ability.ability));
+          decrease->setProperty(REFERRED_SUB_ABILITY, QVariant(ability.declination.c_str()));
+          fav->setProperty(REFERRED_ABILITY, QVariant(ability.ability));
+          fav->setProperty(REFERRED_SUB_ABILITY, QVariant(ability.declination.c_str()));
+          increase_ability_buttons[ability.declination] = increase;
+          decrease_ability_buttons[ability.declination] = decrease;
+          make_favorite_buttons[ability.declination] = fav;
 
-          widget::ability_declination_selector *declination = new widget::ability_declination_selector(det_ability, false, true);
-          change_declination_buttons[det_ability.declination] = declination;
+          widget::ability_declination_selector *declination = new widget::ability_declination_selector(ability, false, true);
+          change_declination_buttons[ability.declination] = declination;
 
-          QLabel *value = new QLabel(QString::number(ability.get_ability_value()));
-          ability_value_labels[ability.get_name()] = value;
-
-
+          QLabel *value = label(_ability.get_ability(ability.declination).get_value());
+          ability_value_labels[ability.declination] = value;
         }
 
       update_labels();
@@ -50,14 +48,14 @@ namespace qt { namespace wizard {
 
     void ability_value_row::add_rows(QFormLayout *form) const
     {      
-      for (auto ability: _ability.get_abilities())
+      for (auto ability: _ability.get_ability_names())
         {
           QHBoxLayout *buttons_layout = new QHBoxLayout;
-          buttons_layout->addWidget(decrease_ability_buttons[ability.get_name()]);
-          buttons_layout->addWidget(ability_value_labels[ability.get_name()]);
-          buttons_layout->addWidget(increase_ability_buttons[ability.get_name()]);
-          buttons_layout->addWidget(make_favorite_buttons[ability.get_name()]);
-          form->addRow(change_declination_buttons[ability.get_name()], buttons_layout);
+          buttons_layout->addWidget(decrease_ability_buttons  [ability.declination]);
+          buttons_layout->addWidget(ability_value_labels      [ability.declination]);
+          buttons_layout->addWidget(increase_ability_buttons  [ability.declination]);
+          buttons_layout->addWidget(make_favorite_buttons     [ability.declination]);
+          form->addRow(change_declination_buttons[ability.declination], buttons_layout);
         }
 
       if (character::ability_names::has_declination(_ability.get_ability_enum()))

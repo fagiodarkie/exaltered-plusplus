@@ -136,6 +136,16 @@ namespace character
         }
     }
 
+    std::vector<ability_names::detailed_ability> ability_group::get_ability_names() const
+    {
+      std::vector<ability_names::detailed_ability> result;
+
+      for (auto ability: actual_abilities)
+        result.push_back(ability_names::detailed_ability(macro_ability, ability.get_name()));
+
+      return result;
+    }
+
     void ability_group::set_favourite(bool is_favourite, const std::string &declination_name)
     {
       get_ability_reference(declination_name)->set_favourite(is_favorite);

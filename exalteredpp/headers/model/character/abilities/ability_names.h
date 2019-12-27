@@ -76,22 +76,6 @@ namespace character
       };
     }
 
-    struct detailed_ability {
-      ability_enum ability;
-      std::string declination;
-
-      detailed_ability(ability_enum ab, std::string dec = ability_declination::NO_DECLINATION)
-        : ability(ab), declination(dec) {}
-
-      detailed_ability(const detailed_ability& other)
-        : ability (other.ability), declination(other.declination) {}
-
-      bool operator==(const detailed_ability& other)
-      {
-        return (other.ability == ability) && (other.declination == declination);
-      }
-    };
-
     static const std::map<ability_enum, std::string> ABILITY_NAME {
       { MELEE,            "Melee"           },
       { ARCHERY,          "Archery"         },
@@ -129,6 +113,32 @@ namespace character
     {
       return *std::find_if(ABILITY_CATEGORIES.begin(), ABILITY_CATEGORIES.end(), [ability](ability_category category) { return commons::contains(ABILITIES_IN_CATEGORY.at(category), ability); } );
     }
+
+    struct detailed_ability {
+      ability_enum ability;
+      std::string declination;
+
+      detailed_ability(ability_enum ab, std::string dec = ability_declination::NO_DECLINATION)
+        : ability(ab), declination(dec) {}
+
+      detailed_ability(const detailed_ability& other)
+        : ability (other.ability), declination(other.declination) {}
+
+      bool operator==(const detailed_ability& other) const
+      {
+        return (other.ability == ability) && (other.declination == declination);
+      }
+
+      std::string name() const
+      {
+        auto ab_name = ABILITY_NAME.at(ability);
+        if (has_declination(ability))
+          return ab_name;
+
+        return ab_name + " (" + declination + ")";
+      }
+    };
+
 
   }
 }

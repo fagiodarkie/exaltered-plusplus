@@ -27,29 +27,21 @@ namespace qt { namespace widget {
     signals:
       void on_ability_selected(detailed_ability ability);
 
-    public slots:
-      void signal_taken_abilities(const QList<detailed_ability>& taken_abilities);
-
     private:
 
       detailed_ability _ability;
       bool _is_declination_editable, _is_ability_editable;
-      QHBoxLayout *declination_sublayout;
-      QVBoxLayout *ability_and_declination_layout, *widget_layout;
-      QComboBox *ability_selection, *declination_selection;
+      QHBoxLayout *ability_and_declination_layout;
+      QComboBox *ability_selection;
       QWidget *outer_widget;
-      QPushButton *create_declination, *submit_declination;
-      QTextLine *new_declination_name;
+      QPushButton *create_declination;
       QDialog *new_declination_dialog;
-      QList<detailed_ability> _prohibited_abilities;
       QList<std::string> possible_declinations;
 
       QStringList generate_available_abilities() const;
       QStringList generate_available_declinations() const;
 
       void generate_widget();
-
-      static std::string ability_text(detailed_ability ability);
     };
 } }
 

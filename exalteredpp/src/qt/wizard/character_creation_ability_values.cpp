@@ -17,10 +17,39 @@ namespace qt {
     using namespace qt::labels;
 
     character_creation_ability_values::character_creation_ability_values(QWidget *parent)
-      : QWidget(parent)
+      : QWidget(parent) { }
+
+    void character_creation_ability_values::ability_change(const character::ability_names::detailed_ability& detailed_ability, unsigned int new_value)
+    {
+      _abilities[detailed_ability.ability].set_ability_value(detailed_ability.declination, new_value);
+      check_current_selection();
+    }
+
+    void character_creation_ability_values::set_current_abilities(const character::abilities& new_abilities,
+                                                                  character::exalt::caste selected_caste,
+                                                                  unsigned int number_of_caste_favorites,
+                                                                  unsigned int number_of_free_favorites,
+                                                                  unsigned int max_points,
+                                                                  unsigned int min_in_favorites,
+                                                                  unsigned int max_ability_value)
+    {
+      _abilities = new_abilities;
+      _caste = selected_caste;
+      caste_favorites = number_of_caste_favorites;
+      free_favorites = number_of_free_favorites;
+      max_ability_points = max_points;
+      min_points_in_favorites = min_in_favorites;
+      max_std_ability_value = max_ability_value;
+
+      regenerate_abilities();
+
+      check_current_selection();
+    }
+
+    void character_creation_ability_values::regenerate_abilities()
     {
 
-      QWidget* abilities = new QWidget;
+      abilities = new QWidget;
       QVBoxLayout *ability_list = new QVBoxLayout;
 
       QMap<character::ability_names::ability_category, QGroupBox*> ability_groups;
@@ -35,18 +64,17 @@ namespace qt {
 
       for (auto ability_enum : character::ability_names::ABILITIES)
         {
-          // ability_enum, character::ability_names::CATEGORY_OF_ABILITY(ability_enum), character::ability_names::ABILITY_NAME.at(ability_enum).c_str()
           ability_value_row *row = new ability_value_row(_abilities[ability_enum]);
           row->add_rows(ability_forms[character::ability_names::CATEGORY_OF_ABILITY(ability_enum)]);
           row_of_ability.insert(ability_enum, row);
-
-          connect(row, &ability_value_row::ability_change, this, &character_creation_ability_values::ability_change);
+          //connect(row, &ability_value_row::ability_change, this, &character_creation_ability_values::ability_change);
         }
 
       for (auto ab_category: character::ability_names::ABILITY_CATEGORIES)
         ability_groups[ab_category]->setLayout(ability_forms[ab_category]);
 
       abilities->setLayout(ability_list);
+
       QScrollArea *scroll_abilities = new QScrollArea;
       scroll_abilities->setWidget(abilities);
 
@@ -67,28 +95,9 @@ namespace qt {
       outer_layout->addWidget(scroll_abilities, layout::QBorderLayout::Center);
       outer_layout->addWidget(buttons, layout::QBorderLayout::South);
 
+      if (layout())
+        delete layout();
       setLayout(outer_layout);
-    }
-
-    void character_creation_ability_values::ability_change(const character::ability_names::detailed_ability& detailed_ability, unsigned int new_value)
-    {
-      _abilities[detailed_ability.ability].set_ability_value(detailed_ability.declination, new_value);
-      check_current_selection();
-    }
-
-    void character_creation_ability_values::set_current_abilities(const character::abilities &new_abilities, unsigned int max_points, unsigned int min_in_favorites, unsigned int max_ability_value)
-    {
-      _abilities = new_abilities;
-      max_ability_points = max_points;
-      min_points_in_favorites = min_in_favorites;
-      max_std_ability_value = max_ability_value;
-
-      for (auto ability_enum : character::ability_names::ABILITIES)
-        {
-          row_of_ability[ability_enum]->update(_abilities[ability_enum]);
-        }
-
-      check_current_selection();
     }
 
     void character_creation_ability_values::check_current_selection()
@@ -126,7 +135,7 @@ namespace qt {
       for (auto ability: character::ability_names::ABILITIES)
         _abilities[ability] = row_of_ability[ability]->ability();
 
-      emit ability_points_chosen(_abilities);
+      emit abilities_chosen(_abilities);
     }
 
   }
