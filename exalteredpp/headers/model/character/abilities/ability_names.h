@@ -129,6 +129,12 @@ namespace character
         return (other.ability == ability) && (other.declination == declination);
       }
 
+      bool operator< (const detailed_ability& other) const
+      {
+        return ability < other.ability
+            || (ability == other.ability && declination < other.declination);
+      }
+
       std::string name() const
       {
         auto ab_name = ABILITY_NAME.at(ability);
@@ -142,3 +148,8 @@ namespace character
 
   }
 }
+
+//bool operator<(const character::ability_names::detailed_ability& a, const character::ability_names::detailed_ability& b)
+//{
+//  return a.operator<(b);
+//}

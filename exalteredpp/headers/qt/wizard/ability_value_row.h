@@ -23,16 +23,20 @@ namespace qt {
 
     public:
       ability_value_row(const ability_group& model_ability_group);
-      void update(const ability_group& new_ability_group);
 
       void add_rows(QFormLayout* form) const;
 
       ability_group ability() const;
 
+      void update_operations(const std::string& declination, bool allow_increase, bool allow_decrease, bool allow_favorite, bool allow_unfavorite);
+
     private:
 
       ability_group _ability;
-      void update_labels();
+
+      void on_increase();
+      void on_decrease();
+      void on_fav_toggle();
 
       QMap<std::string, QPushButton*> increase_ability_buttons, decrease_ability_buttons, make_favorite_buttons;
       QMap<std::string, widget::ability_declination_selector*> change_declination_buttons;
@@ -43,7 +47,7 @@ namespace qt {
       static const char* REFERRED_SUB_ABILITY;
 
     signals:
-      void ability_change(const character::ability_names::detailed_ability& ability, unsigned int new_value);
+      void ability_change();
     };
   }
 }

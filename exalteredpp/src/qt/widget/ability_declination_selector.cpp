@@ -33,15 +33,16 @@ namespace qt { namespace widget {
     std::string ability_name = character::ability_names::ABILITY_NAME.at(_ability.ability);
     if (!_is_ability_editable)
       {
-        ability_and_declination_layout->addWidget(label(ability_name));
+        ability_name_widget = label(ability_name);
+        ability_and_declination_layout->addWidget(ability_name_widget);
       }
     else
       {
-        ability_selection = new QComboBox();
-        ability_selection->addItems(generate_available_abilities());
-        ability_selection->setCurrentText(ability_name.c_str());
-        ability_selection->setEditable(true);
-        ability_and_declination_layout->addWidget(ability_selection);
+        ability_name_widget = new QComboBox();
+        ((QComboBox*)ability_name_widget)->addItems(generate_available_abilities());
+        ((QComboBox*)ability_name_widget)->setCurrentText(ability_name.c_str());
+        ((QComboBox*)ability_name_widget)->setEditable(true);
+        ability_and_declination_layout->addWidget(ability_name_widget);
       }
 
     if (!character::ability_names::has_declination(_ability.ability))
@@ -52,6 +53,18 @@ namespace qt { namespace widget {
                                          : _ability.declination.c_str());
     create_declination->setEnabled(_is_declination_editable);
     ability_and_declination_layout->addWidget(create_declination);
+  }
+
+  void ability_declination_selector::set_favored(bool favored)
+  {
+    auto style = favored ? "font-weight: bold" : "font-weight: normal";
+
+    ability_name_widget->setStyleSheet(style);
+
+    if (!character::ability_names::has_declination(_ability.ability))
+      return;
+
+    create_declination->setStyleSheet(style);
   }
 
   void ability_declination_selector::set_ability(detailed_ability ability)

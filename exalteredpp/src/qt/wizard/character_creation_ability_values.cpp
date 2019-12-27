@@ -19,12 +19,6 @@ namespace qt {
     character_creation_ability_values::character_creation_ability_values(QWidget *parent)
       : QWidget(parent) { }
 
-    void character_creation_ability_values::ability_change(const character::ability_names::detailed_ability& detailed_ability, unsigned int new_value)
-    {
-      _abilities[detailed_ability.ability].set_ability_value(detailed_ability.declination, new_value);
-      check_current_selection();
-    }
-
     void character_creation_ability_values::set_current_abilities(const character::abilities& new_abilities,
                                                                   character::exalt::caste selected_caste,
                                                                   unsigned int number_of_caste_favorites,
@@ -48,7 +42,6 @@ namespace qt {
 
     void character_creation_ability_values::regenerate_abilities()
     {
-
       abilities = new QWidget;
       QVBoxLayout *ability_list = new QVBoxLayout;
 
@@ -65,9 +58,11 @@ namespace qt {
       for (auto ability_enum : character::ability_names::ABILITIES)
         {
           ability_value_row *row = new ability_value_row(_abilities[ability_enum]);
+
+          connect(row, &ability_value_row::ability_change, this, &character_creation_ability_values::on_ability_change);
+
           row->add_rows(ability_forms[character::ability_names::CATEGORY_OF_ABILITY(ability_enum)]);
           row_of_ability.insert(ability_enum, row);
-          //connect(row, &ability_value_row::ability_change, this, &character_creation_ability_values::ability_change);
         }
 
       for (auto ab_category: character::ability_names::ABILITY_CATEGORIES)
@@ -95,39 +90,87 @@ namespace qt {
       outer_layout->addWidget(scroll_abilities, layout::QBorderLayout::Center);
       outer_layout->addWidget(buttons, layout::QBorderLayout::South);
 
+      on_ability_change();
+
       if (layout())
         delete layout();
       setLayout(outer_layout);
     }
 
-    void character_creation_ability_values::check_current_selection()
+    validation_result character_creation_ability_values::check_current_selection()
     {
-      unsigned int points_spent = 0, points_spent_in_favorites = 0;
+      QMap<character::ability_names::detailed_ability, operation_enabled> result;
+      unsigned int points_spent = 0, points_spent_in_favorites = 0, favorite_abilities = 0, caste_favorite_abilities = 0;
+      auto caste_abilities = character::exalt::exalt_caste::get_caste(_caste).abilities();
       for (auto ability_enum : character::ability_names::ABILITIES)
         {
-          //auto row = row_of_ability[ability_enum];
-          //points_spent += row.value;
-          //
-          //if (row.is_favored)
-          //  points_spent_in_favorites += row.value;
-          //
-          //row.increase->setEnabled(row.value < max_std_ability_value);
-          //row.decrease->setEnabled(row.value > 0);
+          auto row = row_of_ability[ability_enum];
+          for (auto actual_ability: row->ability().get_ability_names())
+            {
+              auto ability = row->ability().get_ability(actual_ability.declination);
+              points_spent += ability.get_ability_value();
+              bool caste_ability = std::find(caste_abilities.begin(), caste_abilities.end(), ability_enum) != caste_abilities.end();
+              if (ability.is_favourite())
+                {
+                  points_spent_in_favorites += ability.get_ability_value();
+                  if (caste_ability)
+                    ++caste_favorite_abilities;
+                  else
+                    ++favorite_abilities;
+                }
+              result[actual_ability].decrease = ability.get_ability_value() > 0;
+              result[actual_ability].increase = ability.get_ability_value() < max_std_ability_value;
+            }
         }
 
       bool  should_inhibit_all_add = (points_spent == max_ability_points),
-            // inhibit non favorites add if the only points left to spend are equal to the points we have to spend on favorites
-            should_inhibit_non_favorites_add = (max_ability_points - points_spent == min_points_in_favorites - points_spent_in_favorites);
+              // inhibit non favorites add if the only points left to spend are equal to the points we have to spend on favorites
+              should_inhibit_non_favorites_add = (max_ability_points - points_spent == min_points_in_favorites - points_spent_in_favorites);
 
       for (auto ability_enum : character::ability_names::ABILITIES)
         {
-          //auto row = row_of_ability[ability_enum];
-          //row.increase->setEnabled(row.increase->isEnabled()
-          //                         && !should_inhibit_all_add
-          //                         && (row.is_favored || !should_inhibit_non_favorites_add));
+          auto row = row_of_ability[ability_enum];
+          for (auto actual_ability: row->ability().get_ability_names())
+            {
+              auto ability = row->ability().get_ability(actual_ability.declination);
+              bool caste_ability = std::find(caste_abilities.begin(), caste_abilities.end(), ability_enum) != caste_abilities.end();
+
+              result[actual_ability].increase &= (!should_inhibit_all_add);
+              if (!ability.is_favourite())
+                result[actual_ability].increase &= (!should_inhibit_non_favorites_add);
+
+              result[actual_ability].favorite = !ability.is_favourite()
+                                                && ((!caste_ability && favorite_abilities < free_favorites)
+                                                    || (caste_ability && caste_favorite_abilities < caste_favorites));
+              result[actual_ability].unfavorite = ability.is_favourite()
+                                                && (!caste_ability || row->ability().has_abilities());
+            }
         }
 
-      next_page->setEnabled(max_ability_points == points_spent);
+      validation_result check;
+      check.operations = result;
+      check.total_spent = points_spent;
+      check.total_spent_in_favorites = points_spent_in_favorites;
+      check.remaining_favorites = free_favorites - favorite_abilities;
+      check.remaining_caste_favorites = caste_favorites - caste_favorite_abilities;
+
+      return check;
+    }
+
+    void character_creation_ability_values::on_ability_change()
+    {
+      auto validation = check_current_selection();
+
+      next_page->setEnabled((max_ability_points == validation.total_spent)
+                            && (validation.remaining_favorites == 0)
+                            && (validation.remaining_caste_favorites == 0));
+
+      for (auto ability: validation.operations.keys())
+        {
+          auto op = validation.operations[ability];
+          row_of_ability[ability.ability]->update_operations(ability.declination, op.increase, op.decrease, op.favorite, op.unfavorite);
+
+        }
     }
 
     void character_creation_ability_values::next_issued()

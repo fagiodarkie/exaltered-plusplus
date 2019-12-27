@@ -19,6 +19,7 @@ namespace qt { namespace widget {
       ability_declination_selector(detailed_ability ability, bool is_ability_editable, bool is_declination_editable, QWidget *parent = nullptr);
 
       void set_ability(detailed_ability ability);
+      void set_favored(bool favored);
 
       detailed_ability value() const;
 
@@ -33,6 +34,7 @@ namespace qt { namespace widget {
       bool _is_declination_editable, _is_ability_editable;
       QHBoxLayout *ability_and_declination_layout;
       QComboBox *ability_selection;
+      QWidget* ability_name_widget;
       QWidget *outer_widget;
       QPushButton *create_declination;
       QDialog *new_declination_dialog;

@@ -15,6 +15,16 @@
 namespace qt {
   namespace wizard {
 
+    struct operation_enabled {
+      bool increase, decrease, favorite, unfavorite;
+    };
+
+    struct validation_result
+    {
+      QMap<character::ability_names::detailed_ability, operation_enabled> operations;
+      unsigned int total_spent, total_spent_in_favorites, remaining_favorites, remaining_caste_favorites;
+    };
+
     class character_creation_ability_values : public QWidget
     {
       Q_OBJECT
@@ -35,10 +45,10 @@ namespace qt {
     private:
       QMap<character::ability_names::ability_enum, ability_value_row*> row_of_ability;
       void next_issued();
-      void check_current_selection();
+      validation_result check_current_selection();
       void regenerate_abilities();
 
-      void ability_change(const character::ability_names::detailed_ability& detailed_ability, unsigned int new_value);
+      void on_ability_change();
 
       QWidget* abilities;
       QPushButton *next_page, *cancel;
