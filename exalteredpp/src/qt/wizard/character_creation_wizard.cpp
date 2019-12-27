@@ -65,6 +65,10 @@ namespace qt {
       layout->addWidget(virtues_page);
       layout->addWidget(persona_page);
 
+      unsigned int total = layout->count();
+      for (unsigned int i = 0; i < total; ++i)
+        dynamic_cast<widget::with_progress_bar*>(layout->itemAt(i))->set_progress_bar_status(i, total);
+
       setLayout(layout);
     }
 

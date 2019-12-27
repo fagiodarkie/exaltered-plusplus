@@ -11,6 +11,7 @@
 #include "abilities/ability_names.h"
 #include "exalt/exalt_caste.h"
 #include "ability_value_row.h"
+#include "widget/with_progress_bar.h"
 
 namespace qt {
   namespace wizard {
@@ -25,7 +26,7 @@ namespace qt {
       unsigned int total_spent, total_spent_in_favorites, remaining_favorites, remaining_caste_favorites;
     };
 
-    class character_creation_ability_values : public QWidget
+    class character_creation_ability_values : public QWidget, public widget::with_progress_bar
     {
       Q_OBJECT
     public:

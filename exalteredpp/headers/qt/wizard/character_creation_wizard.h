@@ -12,7 +12,6 @@
 
 #include "wizard/character_creation_name_type_page.h"
 #include "wizard/attributes_priority_page.h"
-#include "wizard/character_creation_favorite_abilities.h"
 #include "wizard/character_creation_ability_values.h"
 #include "wizard/character_creation_attribute_points_page.h"
 #include "wizard/character_creation_virtues_vice.h"

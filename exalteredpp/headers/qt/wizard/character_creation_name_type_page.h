@@ -6,7 +6,7 @@
 #include <QLabel>
 
 #include "exalt/exalt_caste.h"
-
+#include "widget/with_progress_bar.h"
 #include "creation/character_type_model.h"
 
 namespace qt {
@@ -14,7 +14,7 @@ namespace qt {
 
     using character::creation::character_type;
 
-    class character_creation_name_type_page : public QWidget
+    class character_creation_name_type_page : public QWidget, public widget::with_progress_bar
     {
       Q_OBJECT
 

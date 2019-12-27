@@ -4,12 +4,15 @@
 #include <QPushButton>
 #include <QWidget>
 #include <QMap>
+
 #include "character.h"
+#include "widget/with_progress_bar.h"
+
 
 namespace qt {
   namespace wizard {
 
-  class character_creation_persona : public QWidget
+  class character_creation_persona : public QWidget, public widget::with_progress_bar
   {
     Q_OBJECT
   public:

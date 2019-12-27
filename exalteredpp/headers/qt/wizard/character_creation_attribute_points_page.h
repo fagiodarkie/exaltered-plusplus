@@ -6,11 +6,13 @@
 #include <QMap>
 #include "attributes/attributes.h"
 #include "attributes/attribute_names.h"
+#include "widget/with_progress_bar.h"
+
 
 namespace qt {
   namespace wizard {
 
-    class character_creation_attribute_points_page : public QWidget
+    class character_creation_attribute_points_page : public QWidget, public widget::with_progress_bar
     {
       Q_OBJECT
 

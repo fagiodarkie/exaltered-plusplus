@@ -33,6 +33,7 @@ INCLUDEPATH += ../../headers \
     ../../headers/calculator
 
 SOURCES += \
+    ../../src/qt/widget/with_progress_bar.cpp \
     ../../src/calculator/derived_value_calculator.cpp \
     ../../src/calculator/worker/exalt_worker.cpp \
     ../../src/errors/ability_not_found_exception.cpp \
@@ -78,7 +79,6 @@ SOURCES += \
     ../../src/qt/wizard/attributes_priority_page.cpp \
     ../../src/qt/wizard/character_creation_ability_values.cpp \
     ../../src/qt/wizard/character_creation_attribute_points_page.cpp \
-    ../../src/qt/wizard/character_creation_favorite_abilities.cpp \
     ../../src/qt/wizard/character_creation_name_type_page.cpp \
     ../../src/qt/wizard/character_creation_persona.cpp \
     ../../src/qt/wizard/character_creation_wizard.cpp \
@@ -141,11 +141,11 @@ HEADERS += \
     ../../headers/qt/widget/ability_declination_selector.h \
     ../../headers/qt/widget/changeable_value_label.h \
     ../../headers/qt/widget/name_value_widget.h \
+    ../../headers/qt/widget/with_progress_bar.h \
     ../../headers/qt/wizard/ability_value_row.h \
     ../../headers/qt/wizard/attributes_priority_page.h \
     ../../headers/qt/wizard/character_creation_ability_values.h \
     ../../headers/qt/wizard/character_creation_attribute_points_page.h \
-    ../../headers/qt/wizard/character_creation_favorite_abilities.h \
     ../../headers/qt/wizard/character_creation_name_type_page.h \
     ../../headers/qt/wizard/character_creation_persona.h \
     ../../headers/qt/wizard/character_creation_wizard.h \

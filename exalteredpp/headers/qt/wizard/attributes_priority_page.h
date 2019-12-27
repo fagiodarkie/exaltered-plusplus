@@ -6,11 +6,12 @@
 #include <QPushButton>
 #include <QWidget>
 #include "attributes/attribute_names.h"
+#include "widget/with_progress_bar.h"
 
 namespace qt {
   namespace wizard {
 
-    class attributes_priority_page : public QWidget
+    class attributes_priority_page : public QWidget, public widget::with_progress_bar
     {
       Q_OBJECT
 

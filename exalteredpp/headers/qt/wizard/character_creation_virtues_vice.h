@@ -6,6 +6,7 @@
 #include <QLabel>
 
 #include "virtues/virtues.h"
+#include "widget/with_progress_bar.h"
 
 namespace qt {
   namespace wizard {
@@ -13,7 +14,7 @@ namespace qt {
     using character::virtues::virtues;
     using namespace character::virtues;
 
-    class character_creation_virtues_vice : public QWidget
+    class character_creation_virtues_vice : public QWidget, public widget::with_progress_bar
     {
       Q_OBJECT
 
