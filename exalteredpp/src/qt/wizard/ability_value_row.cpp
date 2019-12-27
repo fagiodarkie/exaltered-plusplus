@@ -77,8 +77,9 @@ namespace qt { namespace wizard {
     {
       increase_ability_buttons[declination]->setEnabled(allow_increase);
       decrease_ability_buttons[declination]->setEnabled(allow_decrease);
-      make_favorite_buttons[declination]->setEnabled((_ability.get_ability(declination).is_favourite() && allow_unfavorite)
-                                                     || (!_ability.get_ability(declination).is_favourite() && allow_favorite));
+      bool allow_fav = (_ability.get_ability(declination).is_favourite() && allow_unfavorite)
+          || (!_ability.get_ability(declination).is_favourite() && allow_favorite);
+      make_favorite_buttons[declination]->setEnabled(allow_fav);
     }
 
     ability_group ability_value_row::ability() const

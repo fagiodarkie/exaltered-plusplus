@@ -5,11 +5,11 @@
 
 namespace character {
 
-  ability::ability() : _name(ability_names::ability_declination::NO_DECLINATION), _value(0) {};
+  ability::ability() : _name(ability_names::ability_declination::NO_DECLINATION), _value(0), _favourite(false) {};
 
-  ability::ability(const std::string& name, unsigned int value) : _name(name), _value(value) {}
+  ability::ability(const std::string& name, unsigned int value) : _name(name), _value(value), _favourite(false) {}
 
-  ability::ability(const ability& o) : _name(o._name), _value(o._value) { }
+  ability::ability(const ability& o) : _name(o._name), _value(o._value), _favourite(o._favourite) { }
 
   ability& ability::operator=(const ability& o)
   {
@@ -54,6 +54,7 @@ namespace character {
   {
     synch(serialisation::json_constants::SLOT_VALUE, _value);
     synch(serialisation::json_constants::SLOT_NAME, _name);
+    synch(serialisation::json_constants::SLOT_FAVOURITE, _favourite);
   }
 
   bool ability::operator==(const ability& other) const

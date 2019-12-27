@@ -36,8 +36,6 @@ namespace qt {
       max_std_ability_value = max_ability_value;
 
       regenerate_abilities();
-
-      check_current_selection();
     }
 
     void character_creation_ability_values::regenerate_abilities()
@@ -161,9 +159,11 @@ namespace qt {
     {
       auto validation = check_current_selection();
 
-      next_page->setEnabled((max_ability_points == validation.total_spent)
-                            && (validation.remaining_favorites == 0)
-                            && (validation.remaining_caste_favorites == 0));
+      bool points = (max_ability_points == validation.total_spent),
+          free_fav = (validation.remaining_favorites == 0),
+          caste_fav = (validation.remaining_caste_favorites == 0);
+
+      next_page->setEnabled(points && free_fav && caste_fav);
 
       for (auto ability: validation.operations.keys())
         {
