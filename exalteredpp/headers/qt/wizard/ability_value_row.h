@@ -7,6 +7,8 @@
 #include <QWidget>
 #include <QMap>
 
+#include "widget/ability_declination_selector.h"
+
 #include "abilities/abilities.h"
 #include "abilities/ability_names.h"
 #include "exalt/exalt_caste.h"
@@ -32,7 +34,8 @@ namespace qt {
       ability_group _ability;
       void update_labels();
 
-      QMap<std::string, QPushButton*> increase_ability_buttons, decrease_ability_buttons, change_declination_buttons;
+      QMap<std::string, QPushButton*> increase_ability_buttons, decrease_ability_buttons, make_favorite_buttons;
+      QMap<std::string, widget::ability_declination_selector*> change_declination_buttons;
       QMap<std::string, QLabel*> ability_value_labels;
       QPushButton *add_declination;
 

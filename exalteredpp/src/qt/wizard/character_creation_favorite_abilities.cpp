@@ -109,10 +109,8 @@ namespace qt {
 
     widget::ability_declination_selector* character_creation_favorite_abilities::generate_widget(character::ability_names::ability_enum ability)
     {
-      if (!character::ability_names::has_declination(ability))
-        return new widget::ability_declination_selector(ability, !abilities_of_caste.contains(ability));
-
-
+      bool is_caste = abilities_of_caste.contains(ability);
+      return new widget::ability_declination_selector(ability, !is_caste, true);
     }
 
   }

@@ -59,7 +59,7 @@ namespace qt {
       layout->addWidget(name_page);
       layout->addWidget(attribute_priority_page);
       layout->addWidget(attribute_points_page);
-      layout->addWidget(favorite_abilities_page);
+      //layout->addWidget(favorite_abilities_page);
       layout->addWidget(abilities_page);
       layout->addWidget(virtues_page);
       layout->addWidget(persona_page);

@@ -5,22 +5,14 @@
 
 namespace qt { namespace widget {
   ability_declination_selector::ability_declination_selector(QWidget *parent)
-    : QWidget(parent), _ability(character::ability_names::WAR, ""), _valid_selection(false), _is_editable(true), _is_caste(false)
+    : QWidget(parent), _ability(character::ability_names::WAR, ""), _is_declination_editable(true), _is_ability_editable(true), outer_widget(new QWidget)
   {
-    outer_widget = new QWidget;
     generate_widget();
   }
 
-  ability_declination_selector::ability_declination_selector(character::ability_names::detailed_ability ability, bool is_editable, QWidget *parent)
-    : QWidget(parent), _ability(ability), _valid_selection(false), _is_editable(is_editable), _is_caste(false)
+  ability_declination_selector::ability_declination_selector(character::ability_names::detailed_ability ability, bool is_ability_editable, bool is_declination_editable, QWidget *parent)
+    : QWidget(parent), _ability(ability), _is_declination_editable(true), _is_ability_editable(true), outer_widget(new QWidget)
   {
-    bool declination_provided = ability.declination != character::ability_names::ability_declination::NO_DECLINATION;
-    _valid_selection = (character::ability_names::has_declination(ability.ability) == declination_provided);
-
-    if (!_valid_selection)
-      _is_editable = true;
-
-    outer_widget = new QWidget;
     generate_widget();
   }
 
@@ -41,7 +33,8 @@ namespace qt { namespace widget {
 
   void ability_declination_selector::generate_widget()
   {
-    if (!_is_editable && _valid_selection)
+    // readonly selector
+    if (!(_is_ability_editable || _is_declination_editable))
       {
         ability_and_declination_layout = new QVBoxLayout;
         ability_and_declination_layout->addWidget(label(ability_text(_ability)));
@@ -55,17 +48,14 @@ namespace qt { namespace widget {
     // pre-fill ability selections
     ability_selection->setCurrentText(ability_text(detailed_ability(_ability.ability)).c_str());
 
-    // prevent ability edit on caste selection
-    if (_is_caste)
-      ability_selection->setEditable(false);
+    ability_selection->setEditable(_is_ability_editable);
 
     ability_and_declination_layout = new QVBoxLayout;
     ability_and_declination_layout->addWidget(ability_selection);
 
     if (character::ability_names::has_declination(_ability.ability))
       {
-        // TODO button text
-        create_declination = new QPushButton;
+        create_declination = new QPushButton("Create declination");
         declination_sublayout = new QHBoxLayout;
         declination_selection = new QComboBox;
         declination_selection->addItems(generate_available_declinations());

@@ -16,7 +16,7 @@ namespace qt { namespace widget {
       Q_OBJECT
     public:
       explicit ability_declination_selector(QWidget *parent = nullptr);
-      ability_declination_selector(detailed_ability ability, bool is_editable, QWidget *parent = nullptr);
+      ability_declination_selector(detailed_ability ability, bool is_ability_editable, bool is_declination_editable, QWidget *parent = nullptr);
 
       void set_ability(detailed_ability ability);
 
@@ -32,6 +32,8 @@ namespace qt { namespace widget {
 
     private:
 
+      detailed_ability _ability;
+      bool _is_declination_editable, _is_ability_editable;
       QHBoxLayout *declination_sublayout;
       QVBoxLayout *ability_and_declination_layout, *widget_layout;
       QComboBox *ability_selection, *declination_selection;
@@ -39,8 +41,6 @@ namespace qt { namespace widget {
       QPushButton *create_declination, *submit_declination;
       QTextLine *new_declination_name;
       QDialog *new_declination_dialog;
-      detailed_ability _ability;
-      bool _valid_selection, _is_editable, _is_caste;
       QList<detailed_ability> _prohibited_abilities;
       QList<std::string> possible_declinations;
 
