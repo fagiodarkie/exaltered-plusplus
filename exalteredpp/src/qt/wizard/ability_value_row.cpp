@@ -2,6 +2,7 @@
 #include "widget/std_compatible.h"
 #include "layout/layout_constants.h"
 #include "layout/qborderlayout.h"
+#include <QDialog>
 #include <QVariant>
 
 namespace qt { namespace wizard {
@@ -13,9 +14,15 @@ namespace qt { namespace wizard {
       :_ability(model_ability_group)
     {
       add_declination = new QPushButton("Add Declination");
+      connect(add_declination, &QPushButton::clicked, this, &ability_value_row::show_declination_wizard);
 
+      declination_dialog = new widget::add_ability_declination_dialog;
+      connect(declination_dialog, &widget::add_ability_declination_dialog::declination_selected, this, &ability_value_row::add_new_declination);
+
+      QList<QString> current_declinations;
       for (auto ability: _ability.get_ability_names())
         {
+          current_declinations.append(ability.declination.c_str());
           QPushButton *increase = new QPushButton("+"), *decrease = new QPushButton("-"), *fav = new QPushButton("*");
           increase->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
           decrease->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
@@ -41,6 +48,18 @@ namespace qt { namespace wizard {
           ability_value_labels[ability.declination] = value;
         }
 
+      declination_dialog->set_prohibited_declinations(current_declinations);
+    }
+
+    void ability_value_row::add_new_declination(const QString& new_declination_name)
+    {
+      _ability.add_ability(character::ability(new_declination_name.toStdString()));
+      emit ability_change();
+    }
+
+    void ability_value_row::show_declination_wizard() const
+    {
+      declination_dialog->show();
     }
 
     void ability_value_row::on_decrease()

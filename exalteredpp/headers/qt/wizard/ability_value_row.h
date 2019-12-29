@@ -12,6 +12,7 @@
 #include "abilities/abilities.h"
 #include "abilities/ability_names.h"
 #include "exalt/exalt_caste.h"
+#include "widget/add_ability_declination_dialog.h"
 
 using character::ability_group;
 
@@ -37,11 +38,14 @@ namespace qt {
       void on_increase();
       void on_decrease();
       void on_fav_toggle();
+      void show_declination_wizard() const;
+      void add_new_declination(const QString& new_declination_name);
 
       QMap<std::string, QPushButton*> increase_ability_buttons, decrease_ability_buttons, make_favorite_buttons;
       QMap<std::string, widget::ability_declination_selector*> change_declination_buttons;
       QMap<std::string, QLabel*> ability_value_labels;
       QPushButton *add_declination;
+      widget::add_ability_declination_dialog *declination_dialog;
 
       static const char* REFERRED_ABILITY;
       static const char* REFERRED_SUB_ABILITY;

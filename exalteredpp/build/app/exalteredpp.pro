@@ -87,7 +87,8 @@ SOURCES += \
     ../../src/qt/wizard/character_creation_virtues_vice.cpp \
     ../../src/qt/screen/qdefense_values_screen.cpp \
     ../../src/qt/screen/qessence_values_screen.cpp \
-    ../../src/qt/widget/with_progress_bar.cpp
+    ../../src/qt/widget/with_progress_bar.cpp \
+    ../../src/qt/widget/add_ability_declination_dialog.cpp
 
 HEADERS += \
     ../../headers/calculator/derived_value_calculator.h \
@@ -158,7 +159,8 @@ HEADERS += \
     ../../thirdparty/serialisable/serialisable.hpp \
     ../../headers/qt/dependencies.h \
     ../../headers/qt/screen/qdefense_values_screen.h \
-    ../../headers/qt/screen/qessence_values_screen.h
+    ../../headers/qt/screen/qessence_values_screen.h \
+    ../../headers/qt/widget/add_ability_declination_dialog.h
 
 CONFIG += mobility
 MOBILITY = 
