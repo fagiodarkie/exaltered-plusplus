@@ -58,16 +58,13 @@ namespace qt {
       connect(persona_page, &character_creation_persona::persona_created, this, &character_creation_wizard::load_persona);
 
       layout = new QStackedLayout;
-      layout->addWidget(name_page);
-      layout->addWidget(attribute_priority_page);
-      layout->addWidget(attribute_points_page);
-      layout->addWidget(abilities_page);
-      layout->addWidget(virtues_page);
-      layout->addWidget(persona_page);
+      QList<QWidget*> pages = { name_page, attribute_priority_page, attribute_points_page, abilities_page, virtues_page, persona_page };
 
-      unsigned int total = layout->count();
-      for (unsigned int i = 0; i < total; ++i)
-        dynamic_cast<widget::with_progress_bar*>(layout->itemAt(i))->set_progress_bar_status(i, total);
+      for (unsigned int i = 0; i < pages.size(); ++i)
+        {
+          layout->addWidget(pages.at(i));
+          dynamic_cast<widget::with_progress_bar*>(pages.at(i))->set_progress_bar_status(i, pages.size());
+        }
 
       setLayout(layout);
     }

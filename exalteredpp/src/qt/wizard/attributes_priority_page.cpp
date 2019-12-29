@@ -32,6 +32,7 @@ namespace qt {
       buttons->setLayout(buttons_layout);
 
       layout::QBorderLayout *outer_layout = new layout::QBorderLayout;
+      outer_layout->addWidget(_progress_bar, layout::QBorderLayout::North);
       outer_layout->addWidget(central_widget, layout::QBorderLayout::Center);
       outer_layout->addWidget(buttons, layout::QBorderLayout::South);
       setLayout(outer_layout);

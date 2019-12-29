@@ -86,7 +86,8 @@ SOURCES += \
     ../../src/serialisation/json_constants.cpp \
     ../../src/qt/wizard/character_creation_virtues_vice.cpp \
     ../../src/qt/screen/qdefense_values_screen.cpp \
-    ../../src/qt/screen/qessence_values_screen.cpp
+    ../../src/qt/screen/qessence_values_screen.cpp \
+    ../../src/qt/widget/with_progress_bar.cpp
 
 HEADERS += \
     ../../headers/calculator/derived_value_calculator.h \

@@ -47,6 +47,7 @@ namespace qt {
       layout::QBorderLayout *outer_layout = new layout::QBorderLayout;
       QScrollArea *scroll_categories = new QScrollArea;
       scroll_categories->setWidget(categories);
+      outer_layout->addWidget(_progress_bar, layout::QBorderLayout::North);
       outer_layout->addWidget(scroll_categories, layout::QBorderLayout::Center);
       outer_layout->addWidget(buttons, layout::QBorderLayout::South);
 
