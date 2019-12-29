@@ -2,6 +2,9 @@
 
 #include <map>
 #include <vector>
+#include <string>
+
+//using namespace std::string_literals;
 
 namespace character {
   namespace virtues {
