@@ -52,6 +52,7 @@ namespace qt {
 
     signals:
       void ability_change();
+      void new_declination();
     };
   }
 }

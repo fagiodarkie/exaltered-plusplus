@@ -58,9 +58,10 @@ namespace qt {
           ability_value_row *row = new ability_value_row(_abilities[ability_enum]);
 
           connect(row, &ability_value_row::ability_change, this, &character_creation_ability_values::on_ability_change);
+          connect(row, &ability_value_row::new_declination, this, &character_creation_ability_values::on_new_declination);
 
           row->add_rows(ability_forms[character::ability_names::CATEGORY_OF_ABILITY(ability_enum)]);
-          row_of_ability.insert(ability_enum, row);
+          row_of_ability[ability_enum] = row;
         }
 
       for (auto ab_category: character::ability_names::ABILITY_CATEGORIES)
@@ -94,6 +95,14 @@ namespace qt {
       if (layout())
         delete layout();
       setLayout(outer_layout);
+    }
+
+    void character_creation_ability_values::on_new_declination()
+    {
+      for (auto ability: character::ability_names::ABILITIES)
+        _abilities[ability] = row_of_ability[ability]->ability();
+
+      regenerate_abilities();
     }
 
     validation_result character_creation_ability_values::check_current_selection()

@@ -50,6 +50,7 @@ namespace qt {
       void regenerate_abilities();
 
       void on_ability_change();
+      void on_new_declination();
 
       QWidget* abilities;
       QPushButton *next_page, *cancel;

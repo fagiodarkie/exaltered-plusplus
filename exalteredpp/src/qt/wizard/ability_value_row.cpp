@@ -53,8 +53,9 @@ namespace qt { namespace wizard {
 
     void ability_value_row::add_new_declination(const QString& new_declination_name)
     {
+      declination_dialog->hide();
       _ability.add_ability(character::ability(new_declination_name.toStdString()));
-      emit ability_change();
+      emit new_declination();
     }
 
     void ability_value_row::show_declination_wizard() const
