@@ -26,6 +26,9 @@ namespace model {
       namespace ability_names {
 
       }
+      static const std::string WILLPOWER = "Willpower";
+      static const std::string ESSENCE = "Essence";
+      static const std::string VICE = "Vice";
     }
   }
 }

@@ -2,34 +2,28 @@
 #define EXPERIENCE_H
 
 #include "../../thirdparty/serialisable/serialisable.hpp"
-#include "abilities/ability_names.h"
-#include "attributes/attribute_names.h"
-#include "virtues/virtue_names.h"
+#include "experience_defines.h"
+#include "abstract_purchase.h"
 
 namespace character { namespace narrative {
-
-    enum experience_expense_type {
-      ATTRIBUTE, ABILITY, SPECIALISATION, CHARM, BACKGROUND, VIRTUE, VICE, WILLPOWER,
-      DUENDE, JABBERWOCKY_ART, EXULTANCY
-    };
 
     class experience : public Serialisable
     {
     public:
-      experience();
+      experience(experience_expense_type expense_type = CHARM, unsigned int cost = 0, std::shared_ptr<abstract_purchase> purchase = nullptr);
 
       void serialisation() override;
+
+      unsigned int cost() const;
+      experience_expense_type purchase_type() const;
+      std::shared_ptr<abstract_purchase> purchase() const;
 
       virtual ~experience();
 
     private:
       experience_expense_type _expense_type;
-      attribute_names::attribute _attribute;
-      ability_names::detailed_ability _ability;
-      std::string _specialisation_name;
-      virtues::virtue_enum _virtue;
-      virtues::vice_enum _vice;
-      unsigned int _upgrade_value;
+      unsigned int _cost;
+      std::shared_ptr<abstract_purchase> _purchase;
     };
 
 }  }

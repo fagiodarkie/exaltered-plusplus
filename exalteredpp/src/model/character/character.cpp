@@ -88,6 +88,11 @@ namespace character
     _abilities[name].set_ability_value(ability_names::ability_declination::NO_DECLINATION, new_val);
   }
 
+  void character::set_ability_value(ability_names::detailed_ability name, int new_val)
+  {
+    _abilities[name.ability].set_ability_value(name.declination, new_val);
+  }
+
   power::willpower& character::get_willpower()
   {
     return _power.get_willpower();

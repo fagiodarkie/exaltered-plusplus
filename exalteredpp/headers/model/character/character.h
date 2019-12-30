@@ -44,6 +44,7 @@ namespace character
       ability get_ability(ability_names::ability_enum name, const std::string& ability_declination = ability_names::ability_declination::NO_DECLINATION) const;
       void set_ability(ability_names::ability_enum name, ability_group ability);
       void set_ability_value(ability_names::ability_enum name, int new_val);
+      void set_ability_value(ability_names::detailed_ability name, int new_val);
 
       virtues::virtue get_virtue(virtues::virtue_enum v) const;
       virtues::virtue& get_virtue(virtues::virtue_enum v);

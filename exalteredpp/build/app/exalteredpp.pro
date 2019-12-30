@@ -33,6 +33,15 @@ INCLUDEPATH += ../../headers \
     ../../headers/calculator
 
 SOURCES += \
+    ../../src/model/character/narrative/ability_purchase.cpp \
+    ../../src/model/character/narrative/attribute_purchase.cpp \
+    ../../src/model/character/narrative/background_purchase.cpp \
+    ../../src/model/character/narrative/charm_purchase.cpp \
+    ../../src/model/character/narrative/essence_purchase.cpp \
+    ../../src/model/character/narrative/specialisation_purchase.cpp \
+    ../../src/model/character/narrative/vice_purchase.cpp \
+    ../../src/model/character/narrative/virtue_purchase.cpp \
+    ../../src/model/character/narrative/willpower_purchase.cpp \
     ../../src/qt/widget/with_progress_bar.cpp \
     ../../src/calculator/derived_value_calculator.cpp \
     ../../src/calculator/worker/exalt_worker.cpp \
@@ -117,7 +126,18 @@ HEADERS += \
     ../../headers/model/character/creation/character_creation_configuration.h \
     ../../headers/model/character/creation/character_type_model.h \
     ../../headers/model/character/exalt/exalt_caste.h \
+    ../../headers/model/character/narrative/abstract_purchase.h \
+    ../../headers/model/character/narrative/attribute_purchase.h \
+    ../../headers/model/character/narrative/background_purchase.h \
     ../../headers/model/character/narrative/backgrounds.h \
+    ../../headers/model/character/narrative/charm_purchase.h \
+    ../../headers/model/character/narrative/ability_purchase.h \
+    ../../headers/model/character/narrative/essence_purchase.h \
+    ../../headers/model/character/narrative/experience_defines.h \
+    ../../headers/model/character/narrative/specialisation_purchase.h \
+    ../../headers/model/character/narrative/vice_purchase.h \
+    ../../headers/model/character/narrative/virtue_purchase.h \
+    ../../headers/model/character/narrative/willpower_purchase.h \
     ../../headers/model/character/power/essence.h \
     ../../headers/model/character/power/health.h \
     ../../headers/model/character/power/logos.h \
