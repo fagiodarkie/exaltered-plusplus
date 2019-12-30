@@ -89,7 +89,8 @@ SOURCES += \
     ../../src/qt/screen/qessence_values_screen.cpp \
     ../../src/qt/widget/with_progress_bar.cpp \
     ../../src/qt/widget/add_ability_declination_dialog.cpp \
-    ../../src/qt/screen/qcharacterexperience.cpp
+    ../../src/qt/screen/qcharacterexperience.cpp \
+    ../../src/model/character/narrative/experience.cpp
 
 HEADERS += \
     ../../headers/calculator/derived_value_calculator.h \
@@ -162,7 +163,8 @@ HEADERS += \
     ../../headers/qt/screen/qdefense_values_screen.h \
     ../../headers/qt/screen/qessence_values_screen.h \
     ../../headers/qt/widget/add_ability_declination_dialog.h \
-    ../../headers/qt/screen/qcharacterexperience.h
+    ../../headers/qt/screen/qcharacterexperience.h \
+    ../../headers/model/character/narrative/experience.h
 
 CONFIG += mobility
 MOBILITY = 
