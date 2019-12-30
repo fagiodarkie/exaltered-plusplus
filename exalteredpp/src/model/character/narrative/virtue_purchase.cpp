@@ -1,5 +1,5 @@
 #include "narrative/virtue_purchase.h"
-
+#include "json_constants.h"
 #include "character.h"
 
 namespace character { namespace narrative {
@@ -16,8 +16,8 @@ namespace character { namespace narrative {
 
     void virtue_purchase::serialisation()
     {
-      synch("amount", _amount);
-      synch("virtue", _virtue);
+      synch(serialisation::json_constants::SLOT_AMOUNT, _amount);
+      synch(serialisation::json_constants::SLOT_VIRTUE, _virtue);
     }
 
     std::string virtue_purchase::description() const

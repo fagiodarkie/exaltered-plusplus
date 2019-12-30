@@ -1,6 +1,7 @@
 #include "narrative/essence_purchase.h"
 #include "character.h"
 #include "text/character_text_constants.h"
+#include "json_constants.h"
 
 namespace character { namespace narrative {
 
@@ -19,7 +20,7 @@ namespace character { namespace narrative {
 
     void essence_purchase::serialisation()
     {
-      synch("amount", _amount);
+      synch(serialisation::json_constants::SLOT_AMOUNT, _amount);
     }
 
     std::string essence_purchase::key() const

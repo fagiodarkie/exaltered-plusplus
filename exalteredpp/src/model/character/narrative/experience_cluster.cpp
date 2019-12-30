@@ -1,4 +1,5 @@
 #include "narrative/experience_cluster.h"
+#include "json_constants.h"
 
 namespace character { namespace narrative {
 
@@ -8,8 +9,8 @@ namespace character { namespace narrative {
 
     void experience_cluster::serialisation()
     {
-      synch("purchases", _experience_purchases);
-      synch("awards", _experience_awards);
+      synch(serialisation::json_constants::SLOT_PURCHASES, _experience_purchases);
+      synch(serialisation::json_constants::SLOT_AWARDS, _experience_awards);
     }
 
     void experience_cluster::purchase(const experience &upgrade)

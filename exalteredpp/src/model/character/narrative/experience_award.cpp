@@ -1,5 +1,7 @@
 #include "narrative/experience_award.h"
 
+#include "json_constants.h"
+
 namespace character { namespace narrative {
 
     experience_award::experience_award(experience_award_type award_type, unsigned int amount, unsigned int session_number)
@@ -14,10 +16,10 @@ namespace character { namespace narrative {
 
     void experience_award::serialisation()
     {
-      synch("award_type", _award_type);
-      synch("amount", _amount);
-      synch("session", _session_number);
-      synch("description", _description);
+      synch(serialisation::json_constants::SLOT_TYPE, _award_type);
+      synch(serialisation::json_constants::SLOT_AMOUNT, _amount);
+      synch(serialisation::json_constants::SLOT_SESSION, _session_number);
+      synch(serialisation::json_constants::SLOT_DESCRIPTION, _description);
     }
 
     std::string experience_award::description() const

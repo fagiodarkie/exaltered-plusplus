@@ -1,5 +1,5 @@
 #include "narrative/specialisation_purchase.h"
-
+#include "json_constants.h"
 #include "character.h"
 #include "abilities/specialisation.h"
 
@@ -12,9 +12,9 @@ namespace character { namespace narrative {
 
     void specialisation_purchase::serialisation()
     {
-      synch("amount", _amount);
-      synch("specialisation", _specialisation);
-      synch("ability", _ability);
+      synch(serialisation::json_constants::SLOT_AMOUNT, _amount);
+      synch(serialisation::json_constants::SLOT_SPECIALISATION, _specialisation);
+      synch(serialisation::json_constants::SLOT_ABILITY, _ability);
     }
 
     void specialisation_purchase::apply(std::shared_ptr<character> c)

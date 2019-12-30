@@ -5,10 +5,14 @@
 #include <string>
 #include <algorithm>
 #include "common/reverse_search.h"
+#include "text/character_text_constants.h"
 
 namespace character
 {
   namespace ability_names {
+
+    using namespace model::text::character::ability_names;
+
     enum ability_enum
     {
       MELEE = 0, ARCHERY, THROWN, MARTIAL_ARTS, WAR,
@@ -34,7 +38,9 @@ namespace character
     static const std::list<ability_category> ABILITY_CATEGORIES = { COMBAT, SOCIAL, NARRATIVE };
 
     static const std::map<ability_category, std::string> ABILITY_CATEGORY_NAMES = {
-      { COMBAT, "Combat"}, { SOCIAL, "Social"}, { NARRATIVE, "Narrative" }
+      { COMBAT,     ABILITY_CATEGORY_SOCIAL    },
+      { SOCIAL,     ABILITY_CATEGORY_COMBAT    },
+      { NARRATIVE,  ABILITY_CATEGORY_NARRATIVE }
     };
 
     static const std::list<ability_enum> ABILITY_WITH_SUB_ABILITIES = {
@@ -77,30 +83,30 @@ namespace character
     }
 
     static const std::map<ability_enum, std::string> ABILITY_NAME {
-      { MELEE,            "Melee"           },
-      { ARCHERY,          "Archery"         },
-      { THROWN,           "Thrown"          },
-      { MARTIAL_ARTS,     "Martial Arts"    },
-      { WAR,              "War"             },
-      { TECHNOLOGY,       "Technology"      },
-      { PERFORMANCE,      "Performance"     },
-      { PRESENCE,         "Presence"        },
-      { RESISTANCE,       "Resistance"      },
-      { INTEGRITY,        "Integrity"       },
-      { MEDITATION,       "Meditation"      },
-      { ACADEMICS,        "Academics"       },
-      { MEDICINE,         "Medicine"        },
-      { INVESTIGATION,    "Investigation"   },
-      { TEACHING,         "Teaching"        },
-      { CRAFT,            "Craft"           },
-      { STEALTH,          "Stealth"         },
-      { AWARENESS,        "Awareness"       },
-      { DODGE,            "Dodge"           },
-      { ATHLETICS,        "Athletics"       },
-      { PRESTIDIGITATION, "Prestidigitation"},
-      { MANEUVER,         "Maneuver"        },
-      { SOCIALISE,        "Socialise"       },
-      { BUREAUCRACY,      "Bureaucracy"     }
+      { MELEE,            ABILITY_MELEE            },
+      { ARCHERY,          ABILITY_ARCHERY          },
+      { THROWN,           ABILITY_THROWN           },
+      { MARTIAL_ARTS,     ABILITY_MARTIAL_ARTS     },
+      { WAR,              ABILITY_WAR              },
+      { TECHNOLOGY,       ABILITY_TECHNOLOGY       },
+      { PERFORMANCE,      ABILITY_PERFORMANCE      },
+      { PRESENCE,         ABILITY_PRESENCE         },
+      { RESISTANCE,       ABILITY_RESISTANCE       },
+      { INTEGRITY,        ABILITY_INTEGRITY        },
+      { MEDITATION,       ABILITY_MEDITATION       },
+      { ACADEMICS,        ABILITY_ACADEMICS        },
+      { MEDICINE,         ABILITY_MEDICINE         },
+      { INVESTIGATION,    ABILITY_INVESTIGATION    },
+      { TEACHING,         ABILITY_TEACHING         },
+      { CRAFT,            ABILITY_CRAFT            },
+      { STEALTH,          ABILITY_STEALTH          },
+      { AWARENESS,        ABILITY_AWARENESS        },
+      { DODGE,            ABILITY_DODGE            },
+      { ATHLETICS,        ABILITY_ATHLETICS        },
+      { PRESTIDIGITATION, ABILITY_PRESTIDIGITATION },
+      { MANEUVER,         ABILITY_MANEUVER         },
+      { SOCIALISE,        ABILITY_SOCIALISE        },
+      { BUREAUCRACY,      ABILITY_BUREAUCRACY      }
     };
 
     static const std::map<ability_category, std::list<ability_enum>> ABILITIES_IN_CATEGORY {
@@ -148,8 +154,3 @@ namespace character
 
   }
 }
-
-//bool operator<(const character::ability_names::detailed_ability& a, const character::ability_names::detailed_ability& b)
-//{
-//  return a.operator<(b);
-//}

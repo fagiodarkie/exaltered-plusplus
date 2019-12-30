@@ -1,5 +1,5 @@
 #include "narrative/vice_purchase.h"
-
+#include "json_constants.h"
 #include "character.h"
 #include "text/character_text_constants.h"
 
@@ -12,7 +12,7 @@ namespace character { namespace narrative {
 
     void vice_purchase::serialisation()
     {
-      synch("amount", _amount);
+      synch(serialisation::json_constants::SLOT_AMOUNT, _amount);
     }
 
     void vice_purchase::apply(std::shared_ptr<character> c)
