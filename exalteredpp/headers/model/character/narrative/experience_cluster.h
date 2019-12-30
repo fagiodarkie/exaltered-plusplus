@@ -23,6 +23,7 @@ namespace character { namespace narrative {
       unsigned int total_cost() const;
       unsigned int total_awarded() const;
       unsigned int awarded_on_session(unsigned int session) const;
+      unsigned int last_session() const;
       std::vector<experience_award> awards_on_session(unsigned int session) const;
 
       virtual ~experience_cluster();

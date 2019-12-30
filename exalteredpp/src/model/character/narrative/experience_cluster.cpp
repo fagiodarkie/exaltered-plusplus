@@ -1,5 +1,6 @@
 #include "narrative/experience_cluster.h"
 #include "json_constants.h"
+#include <algorithm>
 
 namespace character { namespace narrative {
 
@@ -21,6 +22,15 @@ namespace character { namespace narrative {
     void experience_cluster::award(const experience_award &award)
     {
       _experience_awards.push_back(award);
+    }
+
+    unsigned int experience_cluster::last_session() const
+    {
+      unsigned int max = 0;
+      for (auto exp: _experience_awards)
+        max = std::max(max, exp.session());
+
+      return max;
     }
 
     std::vector<experience> experience_cluster::purchases() const
