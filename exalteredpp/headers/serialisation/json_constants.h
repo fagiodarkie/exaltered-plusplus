@@ -65,5 +65,7 @@ namespace serialisation
 
     static const std::string SLOT_CHARACTER_TYPE      ;
     static const std::string SLOT_POWER               ;
+
+    static const std::string SLOT_EXPERIENCE          ;
   };
 }

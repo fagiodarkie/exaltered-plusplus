@@ -153,6 +153,16 @@ namespace character
     _virtues.set_vice_value(vice_value);
   }
 
+  narrative::experience_cluster character::get_experience() const
+  {
+    return _experience;
+  }
+
+  narrative::experience_cluster& character::get_experience()
+  {
+    return _experience;
+  }
+
   void character::serialisation()
   {
     synch(json_constants::SLOT_NAME , _name);
@@ -164,6 +174,7 @@ namespace character
     synch(json_constants::SLOT_VIRTUES, _virtues);
     synch(json_constants::SLOT_POWER,   _power);
     synch(json_constants::SLOT_PERSONA, _persona);
+    synch(json_constants::SLOT_EXPERIENCE, _persona);
   }
 
   unsigned int character::id() const

@@ -24,7 +24,12 @@ namespace character { namespace narrative {
     {
       char amount[1];
       _itoa_s(_amount, amount, 10);
-      return virtues::VIRTUE_NAME.at(_virtue) + " (" + amount + ")";
+      return key() + " (" + amount + ")";
+    }
+
+    std::string virtue_purchase::key() const
+    {
+      return virtues::VIRTUE_NAME.at(_virtue);
     }
 
     unsigned int virtue_purchase::amount() const

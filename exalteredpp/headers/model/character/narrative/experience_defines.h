@@ -11,6 +11,26 @@ namespace character { namespace narrative {
       DUENDE, JABBERWOCKY_ART, EXULTANCY
     };
 
+    enum experience_award_type {
+      PLAYTIME,
+      ROLEPLAY_CHARACTER,
+      ROLEPLAY_TEAMMATES,
+      ROLEPLAY_NARRATOR,
+      MOTIVATION,
+      NARRATION,
+      LONG_TIME_CALIBRATION,
+      STUNT,
+      COOL,
+      INTUITION,
+      MEMENTO_AUDERE_SEMPER,
+      ACTING_OSCAR,
+      BOSSFIGHT,
+      EASTER_EGG,
+      VOLUNTEERING,
+      DIVINE_GAME,
+      COSPLAY
+    };
+
     static const std::map<experience_expense_type, std::string> EXPENSE_NAME = {
       { ATTRIBUTE,       "Attribute"        },
       { ABILITY,         "Ability"          },
@@ -24,6 +44,26 @@ namespace character { namespace narrative {
       { DUENDE,          "Duende"           },
       { JABBERWOCKY_ART, "Jabberwocky Art"  },
       { EXULTANCY,       "Exultancy"        }
+    };
+
+    static const std::map<experience_award_type, std::string> AWARD_NAME = {
+      { PLAYTIME,              "Playtime" },
+      { ROLEPLAY_CHARACTER,    "Roleplay - Character immersion" },
+      { ROLEPLAY_TEAMMATES,    "Roleplay - Teammates" },
+      { ROLEPLAY_NARRATOR,     "Roleplay - Narrator" },
+      { MOTIVATION,            "Motivation" },
+      { NARRATION,             "Narrative goals" },
+      { LONG_TIME_CALIBRATION, "Long time calibration" },
+      { STUNT,                 "Stunt award" },
+      { COOL,                  "Cool award" },
+      { INTUITION,             "Intuition award" },
+      { MEMENTO_AUDERE_SEMPER, "Memento Audere Semper" },
+      { ACTING_OSCAR,          "Acting Oscar" },
+      { BOSSFIGHT,             "Bossfight award" },
+      { EASTER_EGG,            "Easter Egg award" },
+      { VOLUNTEERING,          "Volunteering" },
+      { DIVINE_GAME,           "Divine Game" },
+      { COSPLAY,               "Cosplay award" }
     };
 
 } }

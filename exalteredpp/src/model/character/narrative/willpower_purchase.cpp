@@ -7,6 +7,8 @@ namespace character { namespace narrative {
     willpower_purchase::willpower_purchase(unsigned int amount)
       : _amount(amount) { }
 
+    willpower_purchase::~willpower_purchase() { }
+
     void willpower_purchase::apply(std::shared_ptr<character> c)
     {
       c->get_willpower().set_permanent_willpower(_amount);

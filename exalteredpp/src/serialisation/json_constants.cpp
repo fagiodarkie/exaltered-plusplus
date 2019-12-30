@@ -61,3 +61,5 @@ const std::string serialisation::json_constants::SLOT_EMOTION_BONUS          = "
 
 const std::string serialisation::json_constants::SLOT_CHARACTER_TYPE      = "character_type";
 const std::string serialisation::json_constants::SLOT_POWER               = "power";
+
+const std::string serialisation::json_constants::SLOT_EXPERIENCE          = "experience";

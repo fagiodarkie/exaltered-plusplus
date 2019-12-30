@@ -1,6 +1,36 @@
 #include "narrative/attribute_purchase.h"
 
-attribute_purchase::attribute_purchase()
-{
+#include "character.h"
 
-}
+namespace character { namespace narrative {
+
+
+    attribute_purchase::attribute_purchase(unsigned int amount, attribute_names::attribute attribute)
+      : _amount(amount), _attribute(attribute) { }
+
+    attribute_purchase::~attribute_purchase() { }
+
+    void attribute_purchase::serialisation()
+    {
+      synch("amount", _amount);
+      synch("attribute", _attribute);
+    }
+
+    void attribute_purchase::apply(std::shared_ptr<character> c)
+    {
+      c->get_attribute(_attribute).set_value(_amount);
+    }
+
+    std::string attribute_purchase::key() const
+    {
+      return attribute_names::ATTRIBUTE_NAME.at(_attribute);
+    }
+
+    std::string attribute_purchase::description() const
+    {
+      char amount[2];
+      _itoa_s(_amount, amount, 10);
+      return key() + " (" + amount + ") ";
+    }
+
+} }

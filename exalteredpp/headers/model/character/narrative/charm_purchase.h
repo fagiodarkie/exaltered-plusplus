@@ -12,6 +12,7 @@ namespace character { namespace narrative {
       charm_purchase();
 
       virtual void apply(std::shared_ptr<character> c) override;
+      virtual void serialisation() override;
 
       virtual ~charm_purchase() override;
 

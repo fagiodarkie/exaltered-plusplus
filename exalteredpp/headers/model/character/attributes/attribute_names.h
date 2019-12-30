@@ -24,18 +24,18 @@ namespace character
       SOCIAL, MENTAL, PHYSICAL
     };
 
-    static const std::list<attribute_category> ATTRIBUTE_CATEGORIES = {SOCIAL, MENTAL, PHYSICAL};
+    static const std::list<attribute_category> ATTRIBUTE_CATEGORIES = { PHYSICAL, SOCIAL, MENTAL};
 
     static const std::list<attribute> ATTRIBUTES = {
-      STRENGTH, DEXTERITY, CONSTITUTION,
-      CHARISMA, MANIPULATION, APPEARANCE,
-      INTELLIGENCE, PERCEPTION, WITS
+      STRENGTH,     DEXTERITY,    CONSTITUTION,
+      CHARISMA,     MANIPULATION, APPEARANCE,
+      INTELLIGENCE, PERCEPTION,   WITS
     };
 
     static const std::map<attribute_category, std::list<attribute>> ATTRIBUTES_BY_CATEGORY
-    { { SOCIAL, {CHARISMA, MANIPULATION, APPEARANCE } },
-      { MENTAL, {INTELLIGENCE, PERCEPTION, WITS } },
-      { PHYSICAL, {STRENGTH, DEXTERITY, CONSTITUTION } }
+    { { SOCIAL,   { CHARISMA,     MANIPULATION, APPEARANCE   } },
+      { MENTAL,   { INTELLIGENCE, PERCEPTION,   WITS         } },
+      { PHYSICAL, { STRENGTH,     DEXTERITY,    CONSTITUTION } }
     };
 
     static const std::map<attribute_category, std::string> ATTRIBUTE_CATEGORY_NAME

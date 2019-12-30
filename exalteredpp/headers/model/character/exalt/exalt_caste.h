@@ -7,7 +7,7 @@
 namespace character {
   namespace exalt {
 
-    using character::ability_names::ability_enum;
+    using ability_names::ability_enum;
 
     enum class caste
     {
@@ -31,7 +31,7 @@ namespace character {
     public:
       static exalt_caste get_caste(caste caste_type);
 
-      static const std::map<character::creation::character_type, std::vector<caste>>  CASTES_OF_EXALT_TYPE;
+      static const std::map<creation::character_type, std::vector<caste>>  CASTES_OF_EXALT_TYPE;
       static const std::map<caste, std::string>                                     NAME_OF_CASTE;
 
       std::string name() const;
@@ -49,7 +49,7 @@ namespace character {
       exalt_caste(const std::string& caste_name, std::vector<ability_enum> favorite_abilities);
 
       std::string caste_name;
-      std::vector<character::ability_names::ability_enum> favored_abilities;
+      std::vector<ability_names::ability_enum> favored_abilities;
     };
   }
 }

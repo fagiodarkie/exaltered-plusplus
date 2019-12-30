@@ -9,6 +9,7 @@
 #include "exalt/exalt_caste.h"
 #include "virtues/virtues.h"
 #include "power/power_container.h"
+#include "narrative/experience_cluster.h"
 
 namespace character
 {
@@ -61,6 +62,9 @@ namespace character
       power::health& get_health();
       power::health  get_health() const;
 
+      narrative::experience_cluster& get_experience();
+      narrative::experience_cluster get_experience() const;
+
       unsigned int id() const;
       exalt::caste caste() const;
 
@@ -72,12 +76,13 @@ namespace character
       creation::character_type  _type;
       unsigned int              _id;
 
-      exalt::caste              _character_caste;
-      attributes                _attributes;
-      abilities                 _abilities;
-      virtues::virtues          _virtues;
-      power::power_container    _power;
-      social::persona           _persona;
+      exalt::caste                  _character_caste;
+      attributes                    _attributes;
+      abilities                     _abilities;
+      virtues::virtues              _virtues;
+      power::power_container        _power;
+      social::persona               _persona;
+      narrative::experience_cluster _experience;
 
     };
 }
