@@ -77,6 +77,9 @@ namespace qt { namespace widget {
         for (auto award: character::narrative::AWARD_TYPES)
           {
             auto amount = award_fields[award]->value();
+            if (amount == 0)
+              continue;
+
             auto description = description_fields[award]->text();
             character::narrative::experience_award new_award(award, amount, _session);
             if (!description.isEmpty())

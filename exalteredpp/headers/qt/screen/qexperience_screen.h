@@ -31,6 +31,11 @@ namespace qt { namespace screen {
       void add_session(std::vector<character::narrative::experience_award> awards);
       void refresh() const;
 
+      void refresh_awards() const;
+      void refresh_expenses() const;
+
+      QWidget* awards, *expenses;
+
       std::shared_ptr<character::character> _character;
       manager::character_manager _character_manager;
     };

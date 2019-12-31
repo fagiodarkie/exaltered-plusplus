@@ -174,7 +174,7 @@ namespace character
     synch(json_constants::SLOT_VIRTUES, _virtues);
     synch(json_constants::SLOT_POWER,   _power);
     synch(json_constants::SLOT_PERSONA, _persona);
-    synch(json_constants::SLOT_EXPERIENCE, _persona);
+    synch(json_constants::SLOT_EXPERIENCE, _experience);
   }
 
   unsigned int character::id() const
