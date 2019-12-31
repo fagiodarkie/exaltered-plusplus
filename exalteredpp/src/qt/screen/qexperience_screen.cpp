@@ -17,7 +17,7 @@ namespace qt { namespace screen {
     {
       open_logger = new QPushButton("Add session");
 
-      _logger = new widget::session_experience_logger;
+      _logger = new widget::session_experience_logger(this);
 
       connect(open_logger, &QPushButton::clicked, _logger, &QDialog::show);
       connect(_logger, &widget::session_experience_logger::session_logged, this, &qexperience_screen::add_session);
@@ -87,7 +87,7 @@ namespace qt { namespace screen {
         }
 
       listwidget->setLayout(list);
-      QScrollArea *scroll = new QScrollArea;
+      QScrollArea *scroll = new QScrollArea(awards);
       scroll->setWidget(listwidget);
       outer->addWidget(scroll, layout::QBorderLayout::North);
       outer->addWidget(open_logger, layout::QBorderLayout::South);
@@ -108,7 +108,7 @@ namespace qt { namespace screen {
       QWidget *listwidget = new QWidget;
       listwidget->setLayout(list);
 
-      QScrollArea *scroll = new QScrollArea;
+      QScrollArea *scroll = new QScrollArea(expenses);
       scroll->setWidget(listwidget);
       outer->addWidget(scroll, layout::QBorderLayout::North);
 

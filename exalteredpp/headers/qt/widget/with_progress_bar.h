@@ -9,6 +9,8 @@ namespace qt { namespace widget {
     {
     public:
 
+      with_progress_bar();
+
       void set_progress_bar_status(unsigned int current, unsigned int total);
 
     private:

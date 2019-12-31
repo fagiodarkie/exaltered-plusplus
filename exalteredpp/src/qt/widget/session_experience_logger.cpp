@@ -10,8 +10,7 @@ namespace qt { namespace widget {
 
       session_experience_logger::session_experience_logger(QWidget *parent) : QDialog(parent)
       {
-
-
+        setWindowTitle("New Session Experience Award");
 
         submit = new QPushButton(qt::labels::SUBMIT_LABEL);
         connect(submit, &QPushButton::clicked, this, &session_experience_logger::submit_session);
