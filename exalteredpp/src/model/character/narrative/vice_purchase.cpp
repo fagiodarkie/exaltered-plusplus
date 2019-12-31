@@ -23,7 +23,7 @@ namespace character { namespace narrative {
     std::string vice_purchase::description() const
     {
       char amount[1];
-      _itoa_s(_amount, amount, 10);
+      sprintf(amount, "%d", _amount);
       return model::text::character::VICE + " (" + amount + ")";
     }
 

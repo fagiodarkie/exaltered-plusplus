@@ -28,6 +28,8 @@ namespace qt { namespace screen {
       QPushButton *open_logger;
 
       void recompute_logger_session();
+      void add_session(std::vector<character::narrative::experience_award> awards);
+      void refresh() const;
 
       std::shared_ptr<character::character> _character;
       manager::character_manager _character_manager;

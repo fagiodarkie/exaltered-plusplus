@@ -30,7 +30,7 @@ namespace character { namespace narrative {
     std::string specialisation_purchase::description() const
     {
       char amount[1];
-      _itoa_s(_amount, amount, 10);
+      sprintf(amount, "%d", _amount);
       return ability_names::ABILITY_NAME.at(_ability)
           + " ("
           + _specialisation

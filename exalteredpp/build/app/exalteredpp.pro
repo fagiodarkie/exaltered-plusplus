@@ -46,7 +46,6 @@ SOURCES += \
     ../../src/model/character/narrative/willpower_purchase.cpp \
     ../../src/qt/screen/qexperience_screen.cpp \
     ../../src/qt/widget/session_experience_logger.cpp \
-    ../../src/qt/widget/with_progress_bar.cpp \
     ../../src/calculator/derived_value_calculator.cpp \
     ../../src/calculator/worker/exalt_worker.cpp \
     ../../src/errors/ability_not_found_exception.cpp \

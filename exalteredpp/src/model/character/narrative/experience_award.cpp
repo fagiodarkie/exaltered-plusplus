@@ -40,8 +40,8 @@ namespace character { namespace narrative {
     std::string experience_award::summary() const
     {
       char award[8], session[8];
-      _itoa_s(_amount, award, 10);
-      _itoa_s(_session_number, session, 10);
+      sprintf(award, "%d", _amount);
+      sprintf(session, "%d", _session_number);
 
       std::string desc = _description.empty() ? "" : (" (" + _description + ")");
       return AWARD_NAME.at(_award_type) + " (#" + session + "): +"

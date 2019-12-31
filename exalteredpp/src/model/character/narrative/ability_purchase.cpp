@@ -41,7 +41,7 @@ namespace character { namespace narrative {
           ? " "
           : " (" + _ability.declination + ") ";
       char amount[2];
-      _itoa_s(_amount, amount, 10);
+      sprintf(amount, "%d", _amount);
       return ability_names::ABILITY_NAME.at(_ability.ability)
           + declination
           + amount;

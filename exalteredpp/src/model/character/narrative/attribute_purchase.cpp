@@ -29,7 +29,7 @@ namespace character { namespace narrative {
     std::string attribute_purchase::description() const
     {
       char amount[2];
-      _itoa_s(_amount, amount, 10);
+      sprintf(amount, "%d", _amount);
       return key() + " (" + amount + ") ";
     }
 
