@@ -1,11 +1,13 @@
 #include "wizard/character_creation_name_type_page.h"
 
+#include <QApplication>
 #include <QFormLayout>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
 #include "layout/qborderlayout.h"
 #include "common/reverse_search.h"
+#include "caste_style.h"
 
 #include "qt/label/interfacelabels.h"
 
@@ -67,6 +69,10 @@ namespace qt {
       character_type selected_type = commons::reverse_search_in_map(character::creation::CHARACTER_TYPE_LIST,
                                                                     character::creation::CHARACTER_TYPE_NAMES,
                                                                     combo_box->currentText().toStdString());
+
+      auto window = QApplication::activeWindow();
+      window->setStyleSheet(STYLE_OF(selected_type));
+
       auto available_castes = character::exalt::exalt_caste::CASTES_OF_EXALT_TYPE.at(selected_type);
       if (available_castes.empty() || available_castes.size() == 1)
         {

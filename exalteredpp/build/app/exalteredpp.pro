@@ -191,7 +191,8 @@ HEADERS += \
     ../../headers/qt/screen/qessence_values_screen.h \
     ../../headers/qt/widget/add_ability_declination_dialog.h \
     ../../headers/qt/screen/qcharacterexperience.h \
-    ../../headers/model/character/narrative/experience.h
+    ../../headers/model/character/narrative/experience.h \
+    ../../headers/qt/caste_style.h
 
 CONFIG += mobility
 MOBILITY = 
