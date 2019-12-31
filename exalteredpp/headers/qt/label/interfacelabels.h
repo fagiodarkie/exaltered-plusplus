@@ -8,6 +8,7 @@ namespace qt {
     static QString SAVE_LABEL     = "Save";
     static QString NEW_LABEL      = "New";
     static QString NEXT_LABEL     = "Next";
+    static QString SUBMIT_LABEL   = "Submit";
     static QString CANCEL_LABEL   = "Cancel";
     static QString APP_TITLE      = "Divine Games";
 

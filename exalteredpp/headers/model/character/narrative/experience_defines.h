@@ -3,6 +3,7 @@
 
 #include <map>
 #include <string>
+#include <vector>
 
 namespace character { namespace narrative {
 
@@ -11,7 +12,32 @@ namespace character { namespace narrative {
       DUENDE, JABBERWOCKY_ART, EXULTANCY
     };
 
+    static const std::vector<experience_expense_type> EXPENSE_TYPES = {
+      ATTRIBUTE, ABILITY, SPECIALISATION, CHARM, BACKGROUND, VIRTUE, VICE, WILLPOWER, ESSENCE,
+      DUENDE, JABBERWOCKY_ART, EXULTANCY
+    };
+
     enum experience_award_type {
+      PLAYTIME,
+      ROLEPLAY_CHARACTER,
+      ROLEPLAY_TEAMMATES,
+      ROLEPLAY_NARRATOR,
+      MOTIVATION,
+      NARRATION,
+      LONG_TIME_CALIBRATION,
+      STUNT,
+      COOL,
+      INTUITION,
+      MEMENTO_AUDERE_SEMPER,
+      ACTING_OSCAR,
+      BOSSFIGHT,
+      EASTER_EGG,
+      VOLUNTEERING,
+      DIVINE_GAME,
+      COSPLAY
+    };
+
+    static const std::vector<experience_award_type> AWARD_TYPES = {
       PLAYTIME,
       ROLEPLAY_CHARACTER,
       ROLEPLAY_TEAMMATES,

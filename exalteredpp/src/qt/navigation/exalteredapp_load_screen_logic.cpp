@@ -44,6 +44,12 @@ void ExalteredApp::load_virtues_screen()
   setCentralWidget(character_virtues_widget);
 }
 
+void ExalteredApp::load_experience_screen()
+{
+  character_experience_widget = new qexperience_screen(current_character, character_manager, this);
+  setCentralWidget(character_experience_widget);
+}
+
 void ExalteredApp::load_main_screen(std::shared_ptr<character::character> character)
 {
   current_character = character;

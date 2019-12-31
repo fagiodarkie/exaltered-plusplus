@@ -16,7 +16,6 @@ namespace qt { namespace screen {
     public:
       explicit qexperience_screen(std::shared_ptr<character::character> character,
                                   manager::character_manager &ch_manager,
-                                  unsigned int session_number,
                                   QWidget *parent = nullptr);
 
 
@@ -28,9 +27,10 @@ namespace qt { namespace screen {
       widget::session_experience_logger *_logger;
       QPushButton *open_logger;
 
+      void recompute_logger_session();
+
       std::shared_ptr<character::character> _character;
       manager::character_manager _character_manager;
-      unsigned int _session_number;
     };
 
 } }

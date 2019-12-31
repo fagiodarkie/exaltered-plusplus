@@ -49,6 +49,11 @@ void ExalteredApp::load_menu()
   connect(load_virtues_screen, &QAction::triggered, this, &ExalteredApp::load_virtues_screen);
   load_virtues_screen->setText("Willpower and Virtues");
   charMenu->addAction(load_virtues_screen);
+
+  QAction *load_exp_screen = new QAction(charMenu);
+  connect(load_exp_screen, &QAction::triggered, this, &ExalteredApp::load_experience_screen);
+  load_exp_screen->setText("Experience Management");
+  charMenu->addAction(load_exp_screen);
 }
 
 void ExalteredApp::clear_layout(QWidget* current_layout)
