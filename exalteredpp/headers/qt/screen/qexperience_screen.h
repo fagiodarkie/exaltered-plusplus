@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <QPushButton>
+#include <QVBoxLayout>
+#include <QScrollArea>
 
 #include "character.h"
 #include "widget/session_experience_logger.h"
@@ -28,13 +30,17 @@ namespace qt { namespace screen {
       QPushButton *open_logger;
 
       void recompute_logger_session();
-      void add_session(std::vector<character::narrative::experience_award> awards);
-      void refresh() const;
+      void add_session(const character::narrative::session_awards& new_awards);
+      void refresh();
 
-      void refresh_awards() const;
-      void refresh_expenses() const;
+      void refresh_awards();
+      void refresh_expenses();
+      void add_award_list(unsigned int session_number) const;
 
-      QWidget* awards, *expenses;
+      QWidget *awards, *expenses, *listawards, *listexpenses,
+        *awards_buttons;
+      QVBoxLayout *awards_vbox;
+      QScrollArea *awards_scroll;
 
       std::shared_ptr<character::character> _character;
       manager::character_manager _character_manager;

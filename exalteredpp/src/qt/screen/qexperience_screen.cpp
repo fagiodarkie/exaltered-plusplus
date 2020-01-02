@@ -5,8 +5,6 @@
 #include <QFormLayout>
 #include <QLabel>
 #include <QGroupBox>
-#include <QVBoxLayout>
-#include <QScrollArea>
 #include "widget/std_compatible.h"
 
 namespace qt { namespace screen {
@@ -25,7 +23,9 @@ namespace qt { namespace screen {
       layout::QBorderLayout *outer = new layout::QBorderLayout;
 
       awards = new QWidget;
+
       expenses = new QWidget;
+      listexpenses = new QWidget;
 
       refresh();
 
@@ -44,67 +44,82 @@ namespace qt { namespace screen {
       _logger->set_next_session_number(_character->get_experience().last_session() + 1);
     }
 
-    void qexperience_screen::add_session(std::vector<character::narrative::experience_award> awards)
+    void qexperience_screen::add_session(const character::narrative::session_awards& new_awards)
     {
-      for (auto award: awards)
-        _character->get_experience().award(award);
+      _character->get_experience().award(new_awards);
 
       _character_manager.save_character(_character);
 
       _logger->set_next_session_number(_character->get_experience().last_session() + 1);
       _logger->hide();
 
+      delete awards->layout();
+
       refresh_awards();
     }
 
-    void qexperience_screen::refresh() const
+    void qexperience_screen::refresh()
     {
-        refresh_awards();
-        refresh_expenses();
+      refresh_awards();
+      refresh_expenses();
     }
 
-    void qexperience_screen::refresh_awards() const
+    void qexperience_screen::refresh_awards()
     {
-      qDeleteAll(awards->children());
-      delete awards->layout();
-      QVBoxLayout *list = new QVBoxLayout;
+      listawards = new QWidget;
+      awards_vbox = new QVBoxLayout;
+      awards_scroll = new QScrollArea;
+
+      awards_buttons = new QWidget;
+      awards_buttons->setLayout(new QVBoxLayout);
+      awards_buttons->layout()->addWidget(open_logger);
+
       QWidget *listwidget = new QWidget;
       layout::QBorderLayout* outer = new layout::QBorderLayout;
 
       for (unsigned int i = 0; i <= _character->get_experience().last_session(); ++i)
         {
-          auto entries = _character->get_experience().awards_on_session(i);
-          if (entries.empty())
-            continue;
-
-          QGroupBox *session_group = new QGroupBox(QString("Session #%1").arg(i));
-          QVBoxLayout *inner = new QVBoxLayout;
-          for (auto entry: entries)
-            {
-              auto summary = label(entry.summary());
-              summary->setWordWrap(true);
-              inner->addWidget(summary);
-              summary->adjustSize();
-            }
-
-          session_group->setLayout(inner);
-          session_group->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
-          list->addWidget(session_group);
+          add_award_list(i);
         }
 
-      listwidget->setLayout(list);
-      QScrollArea *scroll = new QScrollArea(awards);
-      scroll->setWidget(listwidget);
-      outer->addWidget(scroll, layout::QBorderLayout::Center);
+      listwidget->setLayout(awards_vbox);
+      listwidget->adjustSize();
+      awards_scroll->setWidget(listwidget);
+      outer->addWidget(awards_scroll, layout::QBorderLayout::Center);
 
-      QWidget* buttons = new QWidget;
-      buttons->setLayout(new QHBoxLayout);
-      buttons->layout()->addWidget(open_logger);
-      outer->addWidget(buttons, layout::QBorderLayout::South);
+      outer->addWidget(awards_buttons, layout::QBorderLayout::South);
       awards->setLayout(outer);
     }
 
-    void qexperience_screen::refresh_expenses() const
+    void qexperience_screen::add_award_list(unsigned int session_number) const
+    {
+      auto entries = _character->get_experience().awards_on_session(session_number);
+      if (entries.empty())
+        return;
+
+      QGroupBox *session_group = new QGroupBox(QString("Session #%1").arg(session_number));
+      session_group->setMinimumWidth(130);
+      QVBoxLayout *inner = new QVBoxLayout;
+      for (auto entry: entries)
+        {
+          if (entry.second.amount() == 0)
+            continue;
+
+          auto summary = label(entry.second.summary());
+          summary->setWordWrap(true);
+          summary->setMinimumWidth(120);
+          summary->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
+          inner->addWidget(summary);
+          summary->adjustSize();
+        }
+
+      session_group->setLayout(inner);
+      session_group->adjustSize();
+      session_group->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
+      awards_vbox->addWidget(session_group);
+    }
+
+    void qexperience_screen::refresh_expenses()
     {
       qDeleteAll(expenses->children());
       delete expenses->layout();
