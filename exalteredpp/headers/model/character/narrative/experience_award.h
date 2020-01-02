@@ -9,11 +9,10 @@ namespace character { namespace narrative {
     class experience_award : public Serialisable
     {
     public:
-      experience_award(experience_award_type award_type = PLAYTIME, unsigned int amount = 0, unsigned int session_number = 0);
+      experience_award(experience_award_type award_type = PLAYTIME, unsigned int amount = 0);
 
       experience_award_type type() const;
       unsigned int amount() const;
-      unsigned int session() const;
       std::string description() const;
       std::string summary() const;
 
@@ -25,7 +24,7 @@ namespace character { namespace narrative {
 
     private:
       experience_award_type _award_type;
-      unsigned int _amount, _session_number;
+      unsigned int _amount;
       std::string _description;
     };
 

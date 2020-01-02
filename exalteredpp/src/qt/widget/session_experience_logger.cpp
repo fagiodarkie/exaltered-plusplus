@@ -71,7 +71,7 @@ namespace qt { namespace widget {
 
       void session_experience_logger::submit_session()
       {
-        std::vector<character::narrative::experience_award> list;
+        character::narrative::session_awards result;
 
         for (auto award: character::narrative::AWARD_TYPES)
           {
@@ -80,13 +80,14 @@ namespace qt { namespace widget {
               continue;
 
             auto description = description_fields[award]->text();
-            character::narrative::experience_award new_award(award, amount, _session);
+            character::narrative::experience_award new_award(award, amount);
             if (!description.isEmpty())
               new_award.set_description(description.toStdString());
-            list.push_back(new_award);
+
+            result[award] = new_award;
           }
 
-        emit session_logged(list);
+        emit session_logged(result);
       }
 
 } }

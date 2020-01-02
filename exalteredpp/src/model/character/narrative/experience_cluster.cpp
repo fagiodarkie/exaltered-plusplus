@@ -14,31 +14,27 @@ namespace character { namespace narrative {
       synch(serialisation::json_constants::SLOT_AWARDS, _experience_awards);
     }
 
-    void experience_cluster::purchase(const experience &upgrade)
+    void experience_cluster::purchase(const experience_purchase &upgrade)
     {
       _experience_purchases.push_back(upgrade);
     }
 
-    void experience_cluster::award(const experience_award &award)
+    void experience_cluster::award(const session_awards &award)
     {
       _experience_awards.push_back(award);
     }
 
     unsigned int experience_cluster::last_session() const
     {
-      unsigned int max = 0;
-      for (auto exp: _experience_awards)
-        max = std::max(max, exp.session());
-
-      return max;
+      return _experience_awards.size();
     }
 
-    std::vector<experience> experience_cluster::purchases() const
+    std::vector<experience_purchase> experience_cluster::purchases() const
     {
       return _experience_purchases;
     }
 
-    std::vector<experience_award> experience_cluster::awards() const
+    std::vector<session_awards> experience_cluster::awards() const
     {
       return _experience_awards;
     }
@@ -55,8 +51,9 @@ namespace character { namespace narrative {
     unsigned int experience_cluster::total_awarded() const
     {
       unsigned int total = 0;
-      for (auto exp: _experience_awards)
-        total += exp.amount();
+      for (auto session: _experience_awards)
+      for (auto exp: session)
+        total += exp.second.amount();
 
       return total;
     }
@@ -64,22 +61,18 @@ namespace character { namespace narrative {
     unsigned int experience_cluster::awarded_on_session(unsigned int session) const
     {
       unsigned int total = 0;
-      for (auto exp: _experience_awards)
-        if (exp.session() == session)
-          total += exp.amount();
+      for (auto exp: awards_on_session(session))
+        total += exp.second.amount();
 
       return total;
     }
 
-    std::vector<experience_award> experience_cluster::awards_on_session(unsigned int session) const
+    session_awards experience_cluster::awards_on_session(unsigned int session) const
     {
-      std::vector<experience_award> result;
+      if (session > 0)
+        return _experience_awards.at(session - 1);
 
-      for (auto exp: _experience_awards)
-        if (exp.session() == session)
-          result.push_back(exp);
-
-      return result;
+      return session_awards();
     }
 
 

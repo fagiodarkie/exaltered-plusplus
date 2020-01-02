@@ -6,7 +6,7 @@
 #include <QLineEdit>
 #include <QSpinBox>
 #include <vector>
-#include "narrative/experience_award.h"
+#include "narrative/session_awards.h"
 
 namespace qt { namespace widget {
 
@@ -20,7 +20,7 @@ namespace qt { namespace widget {
 
     signals:
 
-      void session_logged(std::vector<character::narrative::experience_award> awards);
+      void session_logged(const character::narrative::session_awards& awards);
 
     public slots:
 

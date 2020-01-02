@@ -14,12 +14,12 @@
 
 namespace character { namespace narrative {
 
-    experience::experience(experience_expense_type expense_type, unsigned int cost, std::shared_ptr<abstract_purchase> purchase)
+    experience_purchase::experience_purchase(experience_expense_type expense_type, unsigned int cost, std::shared_ptr<abstract_purchase> purchase)
       : _expense_type(expense_type), _cost(cost), _purchase(purchase) { }
 
-    experience::~experience() { }
+    experience_purchase::~experience_purchase() { }
 
-    void experience::serialisation()
+    void experience_purchase::serialisation()
     {
       synch(serialisation::json_constants::SLOT_TYPE, _expense_type);
       synch(serialisation::json_constants::SLOT_COST, _cost);
@@ -49,17 +49,17 @@ namespace character { namespace narrative {
         }
     }
 
-    unsigned int experience::cost() const
+    unsigned int experience_purchase::cost() const
     {
       return _cost;
     }
 
-    experience_expense_type experience::purchase_type() const
+    experience_expense_type experience_purchase::purchase_type() const
     {
       return _expense_type;
     }
 
-    std::shared_ptr<abstract_purchase> experience::purchase() const
+    std::shared_ptr<abstract_purchase> experience_purchase::purchase() const
     {
       return _purchase;
     }

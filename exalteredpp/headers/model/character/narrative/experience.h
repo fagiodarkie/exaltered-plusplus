@@ -7,10 +7,10 @@
 
 namespace character { namespace narrative {
 
-    class experience : public Serialisable
+    class experience_purchase : public Serialisable
     {
     public:
-      experience(experience_expense_type expense_type = CHARM, unsigned int cost = 0, std::shared_ptr<abstract_purchase> purchase = nullptr);
+      experience_purchase(experience_expense_type expense_type = CHARM, unsigned int cost = 0, std::shared_ptr<abstract_purchase> purchase = nullptr);
 
       void serialisation() override;
 
@@ -18,7 +18,7 @@ namespace character { namespace narrative {
       experience_expense_type purchase_type() const;
       std::shared_ptr<abstract_purchase> purchase() const;
 
-      virtual ~experience();
+      virtual ~experience_purchase();
 
     private:
       experience_expense_type _expense_type;
