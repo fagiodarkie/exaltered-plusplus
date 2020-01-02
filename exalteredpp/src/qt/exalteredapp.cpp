@@ -17,7 +17,7 @@ ExalteredApp::ExalteredApp(manager::character_manager& c_manager,
   //QApplication::setFont(FONT);
   //QApplication::font().setStyleHint(QFont::Helvetica);
 
-  setStyleSheet(STYLE_OF(character::creation::TYPE_SOLAR_EXALT));
+  setStyleSheet(qt::style::STYLE_OF(character::creation::TYPE_SOLAR_EXALT));
 }
 
 ExalteredApp::~ExalteredApp()

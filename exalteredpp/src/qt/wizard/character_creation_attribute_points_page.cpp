@@ -173,17 +173,14 @@ namespace qt {
           if (!label_by_attribute.contains(attribute))
             {
               label_by_attribute[attribute] = new QLabel(text);
-              label_by_attribute[attribute]->setSizePolicy(QSizePolicy(QSizePolicy::Policy::Maximum, QSizePolicy::Expanding));
+              label_by_attribute[attribute]->setFixedHeight(layout::SQUARE_BUTTON_STD_SIZE.height());
+              label_by_attribute[attribute]->setAlignment(Qt::AlignVCenter);
             }
           else
             label_by_attribute[attribute]->setText(text);
 
           max_width = label_by_attribute[attribute]->width() > max_width ? label_by_attribute[attribute]->width() : max_width;
         }
-
-      //for (auto attribute:character::attribute_names::ATTRIBUTES_BY_CATEGORY.at(category))
-      //  label_by_attribute[attribute]->setFixedWidth(max_width);
-
     }
 
     QWidget* character_creation_attribute_points_page::generate_category_group(attribute_category category)

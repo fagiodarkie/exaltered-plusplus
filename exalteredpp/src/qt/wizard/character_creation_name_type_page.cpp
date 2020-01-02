@@ -70,8 +70,7 @@ namespace qt {
                                                                     character::creation::CHARACTER_TYPE_NAMES,
                                                                     combo_box->currentText().toStdString());
 
-      auto window = QApplication::activeWindow();
-      window->setStyleSheet(STYLE_OF(selected_type));
+      QApplication::activeWindow()->setStyleSheet(qt::style::STYLE_OF(selected_type));
 
       auto available_castes = character::exalt::exalt_caste::CASTES_OF_EXALT_TYPE.at(selected_type);
       if (available_castes.empty() || available_castes.size() == 1)
@@ -96,9 +95,12 @@ namespace qt {
           char_type = combo_box->currentText();
 
       character_type type = commons::reverse_search_in_map(character::creation::CHARACTER_TYPE_LIST, character::creation::CHARACTER_TYPE_NAMES, char_type.toStdString());
-      character::exalt::caste caste_type = caste_combo_box->isHidden() ? character::exalt::caste::NO_CASTE : commons::reverse_search_in_map(character::exalt::exalt_caste::CASTES_OF_EXALT_TYPE.at(type),
-                                                                                                             character::exalt::exalt_caste::NAME_OF_CASTE,
-                                                                                                             caste_combo_box->currentText().toStdString());
+      character::exalt::caste caste_type = caste_combo_box->isHidden()
+          ? character::exalt::caste::NO_CASTE
+          : commons::reverse_search_in_map(character::exalt::exalt_caste::CASTES_OF_EXALT_TYPE.at(type),
+              character::exalt::exalt_caste::NAME_OF_CASTE,
+              caste_combo_box->currentText().toStdString());
+
       emit character_type_chosen(char_name, type, caste_type);
     }
 
