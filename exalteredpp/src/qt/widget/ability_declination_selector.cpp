@@ -10,8 +10,8 @@ namespace qt { namespace widget {
     generate_widget();
   }
 
-  ability_declination_selector::ability_declination_selector(character::ability_names::detailed_ability ability, bool is_ability_editable, bool is_declination_editable, QWidget *parent)
-    : QWidget(parent), _ability(ability), _is_declination_editable(is_declination_editable), _is_ability_editable(is_ability_editable), outer_widget(new QWidget)
+  ability_declination_selector::ability_declination_selector(character::ability_names::detailed_ability ability, bool is_ability_editable, bool is_declination_editable, bool is_favored, QWidget *parent)
+    : QWidget(parent), _ability(ability), _is_declination_editable(is_declination_editable), _is_ability_editable(is_ability_editable), _is_favored(is_favored), outer_widget(new QWidget)
   {
     generate_widget();
   }
@@ -45,26 +45,35 @@ namespace qt { namespace widget {
         ability_and_declination_layout->addWidget(ability_name_widget);
       }
 
+
     if (!character::ability_names::has_declination(_ability.ability))
-      return;
+      {
+        set_favored(_is_favored);
+        return;
+      }
 
     create_declination = new QPushButton(_ability.declination == character::ability_names::ability_declination::NO_DECLINATION
                                          ? "Create declination"
                                          : _ability.declination.c_str());
     create_declination->setEnabled(_is_declination_editable);
+    set_favored(_is_favored);
     ability_and_declination_layout->addWidget(create_declination);
   }
 
   void ability_declination_selector::set_favored(bool favored)
   {
+    _is_favored = favored;
+
     auto style = favored ? "font-weight: bold" : "font-weight: normal";
 
     ability_name_widget->setStyleSheet(style);
+    ability_name_widget->adjustSize();
 
     if (!character::ability_names::has_declination(_ability.ability))
       return;
 
     create_declination->setStyleSheet(style);
+    create_declination->adjustSize();
   }
 
   void ability_declination_selector::set_ability(detailed_ability ability)

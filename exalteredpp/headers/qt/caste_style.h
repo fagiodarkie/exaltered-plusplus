@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QMap>
+#include <QFont>
 #include "creation/character_type_model.h"
 
 namespace qt { namespace style {
@@ -17,19 +18,24 @@ namespace qt { namespace style {
 } }
 
 static const QString STYLE = "QWidget { background-color: #%1; color: #%3; selection-background-color: #%2; }"
-                "QGroupBox { border: 2px inset #%4; padding: 4px; margin: 3px; } "
-                "QGroupBox::title { subcontrol-origin: margin; left: 10px; padding: 0 3px 0 3px; }"
-                "QVBoxLayout { border: 1px inset #%2; } "
-                "QScrollArea { border: 1px inset #%2; } "
-                "QBorderLayout { border: 1px inset #%2; } "
-                "QTabWidget::pane { border: 1px inset #%2; } "
-                "QTabBar::tab { background-color: #%1; border: 2px inset #%2; } "
-                "QPushButton { background-color: #%2; color: #%4; border: 2px inset #%4; } "
-                "QPushButton:disabled { background-color: #%3; color: #%2; }"
-                "QSpinBox { border: 3 inset #%2; } "
-                "QLabel { border-width: 0px; } "
-                "QLineEdit { border: 1px inset #%2; background: #%2; } "
-                "QPushButton:pressed { background-color: #%3; }";
+                             "QGroupBox { border: 2px inset #%4; padding: 4px; margin: 3px; } "
+                             "QGroupBox::title { subcontrol-origin: margin; left: 10px; padding: 0 3px 0 3px; }"
+                             "QVBoxLayout { border: 1px inset #%2; } "
+                             "QScrollArea { border: 1px inset #%2; } "
+                             "QBorderLayout { border: 1px inset #%2; } "
+                             "QTabWidget::pane { border: 1px inset #%2; } "
+                             "QTabBar::tab { background-color: #%1; border: 2px inset #%2; } "
+                             "QPushButton { background-color: #%2; color: #%4; border: 2px inset #%4; } "
+                             "QPushButton:disabled { background-color: #%3; color: #%2; border: 1px inset #%2; }"
+                             "QPushButton:pressed { background-color: #%3; }"
+                             "QSpinBox { border: 3 inset #%2; } "
+                             "QLabel { border-width: 0px; } "
+                             "QLineEdit { border: 1px inset #%2; background: #%2; } "
+                             "QComboBox:disabled { border: 1px inset #%2 } "
+                             "QProgressBar:horizontal { background: #%1 } "
+                             "QProgressBar::chunk:horizontal { background: #%4 } "
+                             "";
+
 
 static const QMap<character::creation::character_type, qt::style::theme> THEME_OF_CASTE = {
   { character::creation::TYPE_MORTAL_EXTRA,      qt::style::theme("b4b4ba", "949499", "1e1515", "423329") },
@@ -39,6 +45,8 @@ static const QMap<character::creation::character_type, qt::style::theme> THEME_O
   { character::creation::TYPE_ABYSSAL_EXALT,     qt::style::theme("15161c", "050607", "acaeb7", "6d231f") },
   { character::creation::TYPE_INFERNAL_EXALT,    qt::style::theme("15161c", "050607", "acaeb7", "345e4a") }
 };
+
+static QFont FONT("");
 
 static const QString STYLE_OF(character::creation::character_type type)
 {

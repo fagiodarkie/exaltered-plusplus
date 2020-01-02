@@ -52,7 +52,6 @@ namespace character
     ability_names::ability_enum macro_ability;
     std::vector<ability> actual_abilities;
     std::vector<specialisation> specialisations;
-    bool is_favorite;
 
     bool can_manage_ability(const std::string& ability_name) const;
     std::vector<ability>::iterator get_ability_reference(const std::string& name);

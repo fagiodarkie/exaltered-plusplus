@@ -8,11 +8,11 @@
 namespace character
 {
     ability_group::ability_group(ability_names::ability_enum ability_e, std::vector<ability> abilities, std::vector<specialisation> existing_specialisations)
-      : macro_ability(ability_e), actual_abilities(abilities), specialisations(existing_specialisations), is_favorite(false)
+      : macro_ability(ability_e), actual_abilities(abilities), specialisations(existing_specialisations)
     { }
 
     ability_group::ability_group(const ability_group& o)
-      : macro_ability(o.macro_ability), actual_abilities(o.actual_abilities), specialisations(o.specialisations), is_favorite(o.is_favorite)
+      : macro_ability(o.macro_ability), actual_abilities(o.actual_abilities), specialisations(o.specialisations)
     { }
 
     ability_group& ability_group::operator=(const ability_group& o)
@@ -20,8 +20,6 @@ namespace character
       macro_ability = o.macro_ability;
       actual_abilities = o.actual_abilities;
       specialisations = o.specialisations;
-      is_favorite = o.is_favorite;
-
       return *this;
     }
 
@@ -148,7 +146,7 @@ namespace character
 
     void ability_group::set_favourite(bool is_favourite, const std::string &declination_name)
     {
-      get_ability_reference(declination_name)->set_favourite(is_favorite);
+      get_ability_reference(declination_name)->set_favourite(is_favourite);
     }
 
     void ability_group::add_specialisation(specialisation new_specialisation)
@@ -217,7 +215,6 @@ namespace character
     void ability_group::serialisation()
     {
       synch(serialisation::json_constants::SLOT_NAME     ,      macro_ability);
-      synch(serialisation::json_constants::SLOT_FAVOURITE,      is_favorite);
       synch(serialisation::json_constants::SLOT_ABILITIES,      actual_abilities);
       synch(serialisation::json_constants::SLOT_SPECIALISATIONS,specialisations);
     }

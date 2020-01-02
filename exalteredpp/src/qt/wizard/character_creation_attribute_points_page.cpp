@@ -165,24 +165,34 @@ namespace qt {
 
     void character_creation_attribute_points_page::generate_attribute_labels_for_category(attribute_category category)
     {
+      int max_width = 0;
       for (auto attribute:character::attribute_names::ATTRIBUTES_BY_CATEGORY.at(category))
         {
+          auto text = qt::labels::creation_wizard::ATTRIBUTE_WITH_POINTS(character::attribute_names::ATTRIBUTE_NAME.at(attribute).c_str(),
+                                                                         static_cast<int>(chosen_attributes[attribute]));
           if (!label_by_attribute.contains(attribute))
-            label_by_attribute[attribute] = new QLabel();
+            {
+              label_by_attribute[attribute] = new QLabel(text);
+              label_by_attribute[attribute]->setSizePolicy(QSizePolicy(QSizePolicy::Policy::Maximum, QSizePolicy::Expanding));
+            }
+          else
+            label_by_attribute[attribute]->setText(text);
+
+          max_width = label_by_attribute[attribute]->width() > max_width ? label_by_attribute[attribute]->width() : max_width;
         }
 
-      for (auto attribute:character::attribute_names::ATTRIBUTES_BY_CATEGORY.at(category))
-        label_by_attribute[attribute]->setText(
-              qt::labels::creation_wizard::ATTRIBUTE_WITH_POINTS(character::attribute_names::ATTRIBUTE_NAME.at(attribute).c_str(),
-                                                                 static_cast<int>(chosen_attributes[attribute])));
+      //for (auto attribute:character::attribute_names::ATTRIBUTES_BY_CATEGORY.at(category))
+      //  label_by_attribute[attribute]->setFixedWidth(max_width);
+
     }
 
     QWidget* character_creation_attribute_points_page::generate_category_group(attribute_category category)
     {
       QGroupBox* category_box = group_label_by_category[category];
 
-      QFormLayout* form = new QFormLayout;
+      QGridLayout* form = new QGridLayout;
 
+      int row = 0;
       for (auto attribute : character::attribute_names::ATTRIBUTES_BY_CATEGORY.at(category))
         {
           auto add_button = generate_add_button();
@@ -194,7 +204,10 @@ namespace qt {
           increase_buttons_by_attribute[attribute] = add_button;
           decrease_buttons_by_attribute[attribute] = subtract_button;
 
-          form->addRow(label_by_attribute[attribute], generate_plusminus_buttons_widget(add_button, subtract_button));
+          auto buttons = generate_plusminus_buttons_widget(add_button, subtract_button);
+          form->addWidget(label_by_attribute[attribute], row, 0, 1, 2);
+          form->addWidget(buttons, row, 2, 1, 1);
+          ++row;
         }
 
       category_box->setLayout(form);

@@ -4,6 +4,7 @@
 #include "layout/qborderlayout.h"
 #include <QDialog>
 #include <QVariant>
+#include <QApplication>
 
 namespace qt { namespace wizard {
 
@@ -16,7 +17,7 @@ namespace qt { namespace wizard {
       add_declination = new QPushButton("Add Declination");
       connect(add_declination, &QPushButton::clicked, this, &ability_value_row::show_declination_wizard);
 
-      declination_dialog = new widget::add_ability_declination_dialog;
+      declination_dialog = new widget::add_ability_declination_dialog(QApplication::activeWindow());
       connect(declination_dialog, &widget::add_ability_declination_dialog::declination_selected, this, &ability_value_row::add_new_declination);
 
       QList<QString> current_declinations;
@@ -40,7 +41,8 @@ namespace qt { namespace wizard {
           decrease_ability_buttons[ability.declination] = decrease;
           make_favorite_buttons[ability.declination] = fav;
 
-          widget::ability_declination_selector *declination = new widget::ability_declination_selector(ability, false, false);
+          widget::ability_declination_selector *declination = new widget::ability_declination_selector(ability,
+                                                false, false, _ability.get_ability(ability.declination).is_favourite());
           change_declination_buttons[ability.declination] = declination;
 
           QLabel *value = label(_ability.get_ability(ability.declination).get_value());

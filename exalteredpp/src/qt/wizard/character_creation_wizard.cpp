@@ -104,6 +104,27 @@ namespace qt {
     {
       attributes = points;
 
+      for (auto fav_ability : exalt::exalt_caste::get_caste(caste).abilities())
+        {
+          // take a default declination
+          auto declination = ability_names::has_declination(fav_ability)
+              ? ability_names::ability_declination::DECLINATIONS_OF_ABILITY.at(fav_ability).at(0)
+              : ability_names::ability_declination::NO_DECLINATION;
+
+          // if there is no favorite ability, set one.
+          bool has_at_least_one = false;
+          for (auto ab: abilities.at(fav_ability).get_abilities())
+            if (ab.is_favourite())
+              {
+                has_at_least_one = true;
+                break;
+              }
+
+          if (!has_at_least_one)
+            abilities[fav_ability].set_favourite(true, declination);
+
+        }
+
       abilities_page->set_current_abilities(abilities, caste, character_model.caste_abilities, character_model.favored_abilities,
                                             character_model.starting_ability_points, character_model.min_ability_points_on_favorite_abilities, character_model.max_std_ability_points_on_creation);
 

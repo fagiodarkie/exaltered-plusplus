@@ -80,17 +80,27 @@ namespace qt { namespace screen {
           QGroupBox *session_group = new QGroupBox(QString("Session #%1").arg(i));
           QVBoxLayout *inner = new QVBoxLayout;
           for (auto entry: entries)
-            inner->addWidget(label(entry.summary()));
+            {
+              auto summary = label(entry.summary());
+              summary->setWordWrap(true);
+              inner->addWidget(summary);
+              summary->adjustSize();
+            }
 
           session_group->setLayout(inner);
+          session_group->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
           list->addWidget(session_group);
         }
 
       listwidget->setLayout(list);
       QScrollArea *scroll = new QScrollArea(awards);
       scroll->setWidget(listwidget);
-      outer->addWidget(scroll, layout::QBorderLayout::North);
-      outer->addWidget(open_logger, layout::QBorderLayout::South);
+      outer->addWidget(scroll, layout::QBorderLayout::Center);
+
+      QWidget* buttons = new QWidget;
+      buttons->setLayout(new QHBoxLayout);
+      buttons->layout()->addWidget(open_logger);
+      outer->addWidget(buttons, layout::QBorderLayout::South);
       awards->setLayout(outer);
     }
 
