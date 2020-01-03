@@ -3,7 +3,6 @@
 #include <QGridLayout>
 #include <QMenuBar>
 #include <QToolBar>
-#include <screen/qmainscreen.h>
 #include <screen/qloadcharacterscreen.h>
 #include <screen/qcharacterattributes.h>
 

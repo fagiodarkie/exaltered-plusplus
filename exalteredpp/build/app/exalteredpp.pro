@@ -83,7 +83,6 @@ SOURCES += \
     ../../src/qt/screen/qcharacterattributes.cpp \
     ../../src/qt/screen/qcharacterinfoscreen.cpp \
     ../../src/qt/screen/qloadcharacterscreen.cpp \
-    ../../src/qt/screen/qmainscreen.cpp \
     ../../src/qt/screen/qwillpower_virtues_screen.cpp \
     ../../src/qt/widget/ability_declination_selector.cpp \
     ../../src/qt/widget/changeable_value_label.cpp \
@@ -167,7 +166,6 @@ HEADERS += \
     ../../headers/qt/screen/qcharacterinfoscreen.h \
     ../../headers/qt/screen/qexperience_screen.h \
     ../../headers/qt/screen/qloadcharacterscreen.h \
-    ../../headers/qt/screen/qmainscreen.h \
     ../../headers/qt/screen/qwillpower_virtues_screen.h \
     ../../headers/qt/widget/ability_declination_selector.h \
     ../../headers/qt/widget/changeable_value_label.h \

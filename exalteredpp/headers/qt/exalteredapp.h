@@ -12,7 +12,6 @@
 #include "screen/qwillpower_virtues_screen.h"
 #include "screen/qexperience_screen.h"
 #include "wizard/character_creation_wizard.h"
-#include "screen/qmainscreen.h"
 
 #include "derived_value_calculator.h"
 
@@ -48,7 +47,6 @@ class ExalteredApp : public QMainWindow
 
     // screens
     qloadcharacterscreen*                       load_character_screen_widget;
-    qmainscreen*                                main_screen_widget;
 
     qcharacterinfoscreen*                       character_info_screen_widget;
     qcharacterattributes*                       character_attributes_widget;

@@ -36,6 +36,7 @@ namespace qt { namespace screen {
       void refresh_awards();
       void refresh_expenses();
       void add_award_list(unsigned int session_number) const;
+      void add_expense(const character::narrative::experience_purchase& purchase) const;
 
       QWidget *awards, *expenses, *listawards, *listexpenses,
         *awards_buttons;

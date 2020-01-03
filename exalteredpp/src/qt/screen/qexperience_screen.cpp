@@ -99,6 +99,7 @@ namespace qt { namespace screen {
 
       QGroupBox *session_group = new QGroupBox(QString("Session #%1").arg(session_number));
       session_group->setMinimumWidth(130);
+
       QVBoxLayout *inner = new QVBoxLayout;
       for (auto entry: entries)
         {
