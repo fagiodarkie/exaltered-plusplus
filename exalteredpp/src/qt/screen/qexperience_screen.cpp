@@ -13,11 +13,14 @@ namespace qt { namespace screen {
                                            QWidget *parent) : QWidget(parent), _character(character), _character_manager(ch_manager)
     {
       open_logger = new QPushButton("Add session");
-
       _logger = new widget::session_experience_logger(this);
-
       connect(open_logger, &QPushButton::clicked, _logger, &QDialog::show);
       connect(_logger, &widget::session_experience_logger::session_logged, this, &qexperience_screen::add_session);
+
+      open_expense_logger = new QPushButton("Add expense");
+      _purchase_logger = new widget::experience_purchase_widget(this);
+      connect(open_expense_logger, &QPushButton::clicked, _purchase_logger, &QDialog::show);
+      connect(_purchase_logger, &widget::experience_purchase_widget::purchased, this, &qexperience_screen::add_expense);
 
       layout::QBorderLayout *outer = new layout::QBorderLayout;
 
@@ -62,6 +65,12 @@ namespace qt { namespace screen {
       status->setText(text);
       status->setMargin(2);
       status->adjustSize();
+    }
+
+    void qexperience_screen::add_expense(const character::narrative::experience_purchase &purchase) const
+    {
+      _purchase_logger->hide();
+      // TODO
     }
 
     void qexperience_screen::add_session(const character::narrative::session_awards& new_awards)
@@ -142,8 +151,10 @@ namespace qt { namespace screen {
 
     void qexperience_screen::refresh_expenses()
     {
-      qDeleteAll(expenses->children());
       delete expenses->layout();
+
+
+
       QFormLayout *list = new QFormLayout;
       layout::QBorderLayout* outer = new layout::QBorderLayout;
 
@@ -156,7 +167,13 @@ namespace qt { namespace screen {
 
       QScrollArea *scroll = new QScrollArea(expenses);
       scroll->setWidget(listwidget);
-      outer->addWidget(scroll, layout::QBorderLayout::North);
+      outer->addWidget(scroll, layout::QBorderLayout::Center);
+
+      QVBoxLayout *button_layout = new QVBoxLayout;
+      button_layout->addWidget(open_expense_logger);
+      QWidget* button_widget_outer = new QWidget;
+      button_widget_outer->setLayout(button_layout);
+      outer->addWidget(button_widget_outer, layout::QBorderLayout::South);
 
       expenses->setLayout(outer);
     }

@@ -24,8 +24,8 @@ namespace qt { namespace style {
       "QScrollArea                     { border-width: 0px inset #%2; } "
       "QBorderLayout                   { border-width: 0px inset #%2; } "
       "QTabWidget::pane                { border-width: 0px inset #%2; } "
-      "QTabBar::tab                    { background-color: #%2; border: 1px inset #%1; padding: 2px; } "
-      "QTabBar::tab:selected           { background-color: #%1; border: 1px inset #%2; padding: 2px; } "
+      "QTabBar::tab                    { background-color: #%2; border: 2px inset #%1; padding: 2px; } "
+      "QTabBar::tab:selected           { background-color: #%1; border: 2px inset #%2; padding: 2px; border-bottom-color: #%1; } "
       "QPushButton                     { background-color: #%4; color: #%1; border: 0px inset #%4; } "
       "QPushButton:disabled            { background-color: #%3; color: #%2; border: 0px inset #%2; }"
       "QPushButton:pressed             { background-color: #%3; }"
@@ -34,8 +34,8 @@ namespace qt { namespace style {
       "QLineEdit                       { border: 0px inset #%2; background: #%2; } "
       "QComboBox:editable              { background: #%2; } "
       "QComboBox:disabled              { background: #%1; } "
-      "QProgressBar:horizontal         { background: #%1 } "
-      "QProgressBar::chunk:horizontal  { background: #%4 } "
+      "QProgressBar:horizontal         { background: #%1; } "
+      "QProgressBar::chunk:horizontal  { background: #%4; } "
       "";
 
 

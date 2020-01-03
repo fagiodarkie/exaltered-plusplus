@@ -13,6 +13,7 @@ namespace qt { namespace widget {
     class session_experience_logger : public QDialog
     {
       Q_OBJECT
+
     public:
       explicit session_experience_logger(QWidget *parent = nullptr);
 
@@ -21,9 +22,6 @@ namespace qt { namespace widget {
     signals:
 
       void session_logged(const character::narrative::session_awards& awards);
-
-    public slots:
-
 
     private:
 

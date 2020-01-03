@@ -43,6 +43,7 @@ namespace character
 
       ability_group get_ability_group(ability_names::ability_enum name) const;
       ability get_ability(ability_names::ability_enum name, const std::string& ability_declination = ability_names::ability_declination::NO_DECLINATION) const;
+      ability get_ability(const ability_names::detailed_ability& detailed_ability) const;
       void set_ability(ability_names::ability_enum name, ability_group ability);
       void set_ability_value(ability_names::ability_enum name, int new_val);
       void set_ability_value(ability_names::detailed_ability name, int new_val);

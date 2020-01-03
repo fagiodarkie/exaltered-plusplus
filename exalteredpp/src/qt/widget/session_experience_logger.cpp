@@ -3,6 +3,7 @@
 #include <QLabel>
 #include <QFormLayout>
 #include <QHBoxLayout>
+#include <QScrollArea>
 #include "layout/qborderlayout.h"
 #include "qt/label/interfacelabels.h"
 
@@ -45,10 +46,13 @@ namespace qt { namespace widget {
 
         auto form_widget = new QWidget;
         form_widget->setLayout(form);
+        QScrollArea *scroll = new QScrollArea(this);
+        scroll->setWidget(form_widget);
+
 
         layout::QBorderLayout *outer = new layout::QBorderLayout;
 
-        outer->addWidget(form_widget, layout::QBorderLayout::Center);
+        outer->addWidget(scroll, layout::QBorderLayout::Center);
         outer->addWidget(submit, layout::QBorderLayout::South);
 
         setLayout(outer);

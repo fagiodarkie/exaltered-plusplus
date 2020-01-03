@@ -9,6 +9,7 @@
 
 #include "character.h"
 #include "widget/session_experience_logger.h"
+#include "widget/experience_purchase_widget.h"
 #include "managers/character_manager.h"
 
 namespace qt { namespace screen {
@@ -28,7 +29,8 @@ namespace qt { namespace screen {
 
     private:
       widget::session_experience_logger *_logger;
-      QPushButton *open_logger;
+      widget::experience_purchase_widget *_purchase_logger;
+      QPushButton *open_logger, *open_expense_logger;
 
       void recompute_logger_session();
       void add_session(const character::narrative::session_awards& new_awards);

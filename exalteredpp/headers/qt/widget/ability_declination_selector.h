@@ -4,9 +4,10 @@
 #include <QWidget>
 #include <QComboBox>
 #include <QPushButton>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
+#include <QGridLayout>
 #include "abilities/ability_names.h"
+#include "character.h"
+#include <memory>
 
 using character::ability_names::detailed_ability;
 
@@ -17,13 +18,12 @@ namespace qt { namespace widget {
     public:
       explicit ability_declination_selector(QWidget *parent = nullptr);
       ability_declination_selector(detailed_ability ability, bool is_ability_editable, bool is_declination_editable, bool is_favored, QWidget *parent = nullptr);
+      ability_declination_selector(std::shared_ptr<character::character> character, QWidget *parent = nullptr);
 
       void set_ability(detailed_ability ability);
       void set_favored(bool favored);
 
       detailed_ability value() const;
-
-      QWidget* widget() const;
 
     signals:
       void on_ability_selected(detailed_ability ability);
@@ -31,19 +31,21 @@ namespace qt { namespace widget {
     private:
 
       detailed_ability _ability;
-      bool _is_declination_editable, _is_ability_editable, _is_favored;
-      QHBoxLayout *ability_and_declination_layout;
-      QComboBox *ability_selection;
-      QWidget* ability_name_widget;
-      QWidget *outer_widget;
-      QPushButton *create_declination;
-      QDialog *new_declination_dialog;
-      QList<std::string> possible_declinations;
+      std::shared_ptr<character::character> _character_reference;
 
-      QStringList generate_available_abilities() const;
-      QStringList generate_available_declinations() const;
+      bool _is_declination_editable, _is_ability_editable, _is_favored;
+      QGridLayout *ability_and_declination_layout;
+      QComboBox *ability_selection, *declination_selection;
+
+      void generate_available_abilities() const;
+      void generate_available_declinations() const;
+
+      character::ability_names::ability_enum selected_ability() const;
 
       void generate_widget();
+      void refresh();
+      void update_ability();
+      void repaint(const QList<QWidget*> &widgets_in_layout);
     };
 } }
 
