@@ -12,14 +12,15 @@ namespace qt { namespace widget {
     using namespace character::narrative;
     using namespace character;
 
-    experience_purchase_widget::experience_purchase_widget(QWidget* parent) : QDialog(parent)
+    experience_purchase_widget::experience_purchase_widget(std::shared_ptr<class character> character, QWidget* parent)
+      : QDialog(parent), _character(character)
     {
       setWindowTitle("Purchase");
 
       attribute_dropdown = new QComboBox;
       virtue_dropdown = new QComboBox;
       purchase_type_dropdown = new QComboBox;
-      ability_selector = new widget::ability_declination_selector(ability_names::WAR, true, true, false);
+      ability_selector = new widget::ability_declination_selector(_character);
       specialty_freetext = new QLineEdit;
       cost_label = new QLabel("Total cost: gnegne");
       purchase_submit = new QPushButton("Purchase!");
@@ -91,7 +92,10 @@ namespace qt { namespace widget {
       list->addWidget(purchase_type_dropdown);
 
       for (auto widget: widgets_in_list)
-        list->addWidget(widget);
+        {
+          list->addWidget(widget);
+          widget->adjustSize();
+        }
 
       list->addWidget(cost_label);
       list->setAlignment(Qt::AlignTop | Qt::AlignHCenter);

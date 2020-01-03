@@ -17,7 +17,7 @@ namespace qt { namespace widget {
       Q_OBJECT
 
     public:
-      experience_purchase_widget(QWidget* parent = nullptr);
+      experience_purchase_widget(std::shared_ptr<character::character> character, QWidget* parent = nullptr);
 
     signals:
       void purchased(const character::narrative::experience_purchase& purchase);
@@ -34,7 +34,7 @@ namespace qt { namespace widget {
       QLineEdit *specialty_freetext;
       QLabel *cost_label;
       QPushButton *purchase_submit;
-
+      std::shared_ptr<character::character> _character;
     };
 
 }}

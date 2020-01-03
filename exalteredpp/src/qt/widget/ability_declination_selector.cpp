@@ -62,19 +62,19 @@ namespace qt { namespace widget {
 
     ability_selection = new QComboBox;
     generate_available_abilities();
-    ability_selection->setEditable(_is_ability_editable);
+    ability_selection->setEnabled(_is_ability_editable);
     ability_selection->setCurrentText(character::ability_names::ABILITY_NAME.at(_ability.ability).c_str());
 
     declination_selection = new QComboBox;
-    declination_selection->setEditable(_is_declination_editable);
+    declination_selection->setEnabled(_is_declination_editable);
     if (character::ability_names::has_declination(_ability.ability))
       {
         generate_available_declinations();
         declination_selection->setCurrentText(_ability.declination.c_str());
       }
 
-    connect (ability_selection, &QComboBox::editTextChanged, this, &ability_declination_selector::refresh);
-    connect (declination_selection, &QComboBox::editTextChanged, this, &ability_declination_selector::update_ability);
+    connect (ability_selection, &QComboBox::currentTextChanged, this, &ability_declination_selector::on_ability_change);
+    connect (declination_selection, &QComboBox::currentTextChanged, this, &ability_declination_selector::update_ability);
 
     refresh();
   }
@@ -83,7 +83,22 @@ namespace qt { namespace widget {
   {
     _ability.ability = selected_ability();
     if (character::ability_names::has_declination(_ability.ability))
-      _ability.declination = declination_selection->currentText().toStdString();
+      {
+        auto current_declination = declination_selection->currentText().toStdString();
+        if (current_declination != character::ability_names::ability_declination::NO_DECLINATION
+            && !current_declination.empty()
+            && (!_character_reference || _character_reference->get_ability_group(_ability.ability).has_ability(current_declination)))
+        _ability.declination = current_declination;
+      }
+    else {
+        _ability.declination = character::ability_names::ability_declination::NO_DECLINATION;
+      }
+  }
+
+  void ability_declination_selector::on_ability_change()
+  {
+    generate_available_declinations();
+    refresh();
   }
 
   void ability_declination_selector::refresh()
@@ -110,10 +125,12 @@ namespace qt { namespace widget {
         if (_is_declination_editable)
           {
             generate_available_declinations();
+            declination_selection->show();
             to_display.push_back(declination_selection);
           }
         else
           {
+            declination_selection->hide();
             to_display.push_back(label(_ability.declination));
           }
       }

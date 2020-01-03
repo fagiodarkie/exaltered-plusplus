@@ -18,7 +18,7 @@ namespace qt { namespace screen {
       connect(_logger, &widget::session_experience_logger::session_logged, this, &qexperience_screen::add_session);
 
       open_expense_logger = new QPushButton("Add expense");
-      _purchase_logger = new widget::experience_purchase_widget(this);
+      _purchase_logger = new widget::experience_purchase_widget(_character, this);
       connect(open_expense_logger, &QPushButton::clicked, _purchase_logger, &QDialog::show);
       connect(_purchase_logger, &widget::experience_purchase_widget::purchased, this, &qexperience_screen::add_expense);
 
