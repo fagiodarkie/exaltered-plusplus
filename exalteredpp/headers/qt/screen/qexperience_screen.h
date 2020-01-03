@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QScrollArea>
+#include <QLabel>
 
 #include "character.h"
 #include "widget/session_experience_logger.h"
@@ -37,11 +38,13 @@ namespace qt { namespace screen {
       void refresh_expenses();
       void add_award_list(unsigned int session_number) const;
       void add_expense(const character::narrative::experience_purchase& purchase) const;
+      void update_status_label() const;
 
       QWidget *awards, *expenses, *listawards, *listexpenses,
         *awards_buttons;
       QVBoxLayout *awards_vbox;
       QScrollArea *awards_scroll;
+      QLabel *status;
 
       std::shared_ptr<character::character> _character;
       manager::character_manager _character_manager;

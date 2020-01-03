@@ -3,7 +3,6 @@
 
 #include <QTabWidget>
 #include <QFormLayout>
-#include <QLabel>
 #include <QGroupBox>
 #include "widget/std_compatible.h"
 
@@ -22,6 +21,9 @@ namespace qt { namespace screen {
 
       layout::QBorderLayout *outer = new layout::QBorderLayout;
 
+      status = new QLabel;
+      update_status_label();
+
       awards = new QWidget;
 
       expenses = new QWidget;
@@ -33,6 +35,8 @@ namespace qt { namespace screen {
       center->setTabPosition(QTabWidget::TabPosition::North);
       center->addTab(expenses, "Experience Purchases");
       center->addTab(awards, "Experience Awards");
+
+      outer->addWidget(status, layout::QBorderLayout::North);
       outer->addWidget(center, layout::QBorderLayout::Center);
 
       recompute_logger_session();
@@ -42,6 +46,22 @@ namespace qt { namespace screen {
     void qexperience_screen::recompute_logger_session()
     {
       _logger->set_next_session_number(_character->get_experience().last_session() + 1);
+    }
+
+    void qexperience_screen::update_status_label() const
+    {
+      unsigned int total_cost = _character->get_experience().total_cost(),
+          total_award = _character->get_experience().total_awarded(),
+          remaining = total_award - total_cost;
+      auto text = QString("Experience spent: %1\r\n"
+                          "Total Experience: %2\r\n"
+                          "Remaining Experience: %3")
+          .arg(total_cost)
+          .arg(total_award)
+          .arg(remaining);
+      status->setText(text);
+      status->setMargin(2);
+      status->adjustSize();
     }
 
     void qexperience_screen::add_session(const character::narrative::session_awards& new_awards)

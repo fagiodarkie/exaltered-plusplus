@@ -46,6 +46,7 @@ SOURCES += \
     ../../src/model/character/narrative/virtue_purchase.cpp \
     ../../src/model/character/narrative/willpower_purchase.cpp \
     ../../src/qt/screen/qexperience_screen.cpp \
+    ../../src/qt/widget/experience_purchase_widget.cpp \
     ../../src/qt/widget/session_experience_logger.cpp \
     ../../src/calculator/derived_value_calculator.cpp \
     ../../src/calculator/worker/exalt_worker.cpp \
@@ -169,6 +170,7 @@ HEADERS += \
     ../../headers/qt/screen/qwillpower_virtues_screen.h \
     ../../headers/qt/widget/ability_declination_selector.h \
     ../../headers/qt/widget/changeable_value_label.h \
+    ../../headers/qt/widget/experience_purchase_widget.h \
     ../../headers/qt/widget/name_value_widget.h \
     ../../headers/qt/widget/session_experience_logger.h \
     ../../headers/qt/widget/with_progress_bar.h \

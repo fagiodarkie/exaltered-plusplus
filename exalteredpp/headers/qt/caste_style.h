@@ -15,25 +15,28 @@ namespace qt { namespace style {
       QString background, shade, text, color;
     };
 
-    static const QString STYLE = "QWidget { background-color: #%1; color: #%3; selection-background-color: #%2; }"
-                                 "QGroupBox { border: 1px inset #%4; padding: 4px; margin: 3px; } "
-                                 "QGroupBox::title  { subcontrol-origin: margin; left: 10px; padding: 0 3px 0 3px; }"
-                                 "QVBoxLayout       { border: 0px inset #%2; } "
-                                 "QScrollArea       { border: 0px inset #%2; } "
-                                 "QBorderLayout     { border: 0px inset #%2; } "
-                                 "QTabWidget::pane  { border: 0px inset #%2; } "
-                                 "QTabBar::tab { background-color: #%1; border: 0px inset #%2; } "
-                                 "QPushButton { background-color: #%2; color: #%4; border: 0px inset #%4; } "
-                                 "QPushButton:disabled { background-color: #%3; color: #%2; border: 0px inset #%2; }"
-                                 "QPushButton:pressed { background-color: #%3; }"
-                                 "QSpinBox          { border: 0 inset #%2; } "
-                                 "QLabel            { border-width: 0px; padding: 2px; } "
-                                 "QLineEdit { border: 0px inset #%2; background: #%2; } "
-                                 "QComboBox:editable { background: #%2; } "
-                                 "QComboBox:disabled { background: #%1; } "
-                                 "QProgressBar:horizontal { background: #%1 } "
-                                 "QProgressBar::chunk:horizontal { background: #%4 } "
-                                 "";
+    static const QString STYLE =
+      "QWidget                         { background-color: #%1; color: #%3;"
+      "                                  selection-background-color: #%2; }"
+      "QGroupBox                       { border: 1px inset #%4; padding: 4px; margin: 3px; } "
+      "QGroupBox::title                { subcontrol-origin: margin; left: 10px; padding: 0 3px 0 3px; }"
+      "QVBoxLayout                     { border-width: 0px inset #%2; } "
+      "QScrollArea                     { border-width: 0px inset #%2; } "
+      "QBorderLayout                   { border-width: 0px inset #%2; } "
+      "QTabWidget::pane                { border-width: 0px inset #%2; } "
+      "QTabBar::tab                    { background-color: #%2; border: 1px inset #%1; padding: 2px; } "
+      "QTabBar::tab:selected           { background-color: #%1; border: 1px inset #%2; padding: 2px; } "
+      "QPushButton                     { background-color: #%4; color: #%1; border: 0px inset #%4; } "
+      "QPushButton:disabled            { background-color: #%3; color: #%2; border: 0px inset #%2; }"
+      "QPushButton:pressed             { background-color: #%3; }"
+      "QSpinBox                        { border: 0 inset #%2; } "
+      "QLabel                          { border-width: 0px; } "
+      "QLineEdit                       { border: 0px inset #%2; background: #%2; } "
+      "QComboBox:editable              { background: #%2; } "
+      "QComboBox:disabled              { background: #%1; } "
+      "QProgressBar:horizontal         { background: #%1 } "
+      "QProgressBar::chunk:horizontal  { background: #%4 } "
+      "";
 
 
     static const QMap<character::creation::character_type, qt::style::theme> THEME_OF_CASTE = {
