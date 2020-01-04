@@ -27,6 +27,7 @@ namespace qt { namespace widget {
       void compute_purchase() const;
       void compute_cost() const;
       int selected_purchase_type() const;
+      void validate() const;
       void redraw(const QList<QWidget*> widgets_in_list);
 
       QComboBox *attribute_dropdown, *virtue_dropdown, *purchase_type_dropdown;

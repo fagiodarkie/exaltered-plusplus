@@ -99,6 +99,13 @@ namespace qt { namespace widget {
   {
     generate_available_declinations();
     refresh();
+    emit on_ability_selected(_ability);
+  }
+
+  void ability_declination_selector::on_declination_change()
+  {
+    update_ability();
+    emit on_ability_selected(_ability);
   }
 
   void ability_declination_selector::refresh()

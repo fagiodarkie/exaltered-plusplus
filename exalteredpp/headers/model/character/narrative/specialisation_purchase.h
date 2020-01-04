@@ -14,6 +14,9 @@ namespace character { namespace narrative {
 
       virtual void apply(std::shared_ptr<character> c) override;
 
+      ability_names::ability_enum ability() const;
+      std::string specialisation_name() const;
+
       virtual void serialisation() override;
       virtual std::string description() const override;
       virtual std::string key() const override;

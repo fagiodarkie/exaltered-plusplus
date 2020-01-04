@@ -46,6 +46,7 @@ namespace qt { namespace widget {
       void refresh();
       void update_ability();
       void on_ability_change();
+      void on_declination_change();
       void repaint(const QList<QWidget*> &widgets_in_layout);
     };
 } }

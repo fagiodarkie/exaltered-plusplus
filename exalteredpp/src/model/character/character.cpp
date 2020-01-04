@@ -78,6 +78,11 @@ namespace character
     return get_ability(detailed_ability.ability, detailed_ability.declination);
   }
 
+  bool character::has_ability(const ability_names::detailed_ability& detailed_ability) const
+  {
+    return _abilities.at(detailed_ability.ability).has_ability(detailed_ability.declination);
+  }
+
   ability_group character::get_ability_group(ability_names::ability_enum name) const
   {
     return _abilities.at(name);
