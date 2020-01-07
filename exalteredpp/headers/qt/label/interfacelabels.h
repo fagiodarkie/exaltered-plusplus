@@ -90,9 +90,14 @@ namespace qt {
       static QString CASTE                = "Caste";
       static QString VICE_SELECTOR        = "Vice";
 
-      static QString ATTRIBUTE_LABEL_WITH_TOTAL_POINTS(const QString& label, int points)
+      static QString ATTRIBUTE_LABEL_WITH_TOTAL_POINTS(const QString& label, int current_points, int total_points)
       {
-        return QString("%1 (total points: %2)").arg(label, QString::number(points));
+        return QString("%1 (%2 / %3)").arg(label, QString::number(current_points), QString::number(total_points));
+      }
+
+      static QString ATTRIBUTE_LABEL_WITH_TOTAL_POINTS(const QString& label, int total_points)
+      {
+        return QString("%1 (total points: %2)").arg(label, QString::number(total_points));
       }
 
       static QString ATTRIBUTE_WITH_POINTS(const QString& label, int points)

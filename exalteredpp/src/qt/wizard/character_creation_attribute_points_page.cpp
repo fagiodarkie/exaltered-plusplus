@@ -30,6 +30,7 @@ namespace qt {
       categories->setLayout(categories_layout);
 
       connect(this, &character_creation_attribute_points_page::total_changed, this, &character_creation_attribute_points_page::rethink_button_enable);
+      connect(this, &character_creation_attribute_points_page::total_changed, this, &character_creation_attribute_points_page::generate_group_labels);
 
       QHBoxLayout* buttons_layout = new QHBoxLayout;
       next_page = new QPushButton(NEXT_LABEL);
@@ -152,9 +153,20 @@ namespace qt {
         }
 
       for (auto category:character::attribute_names::ATTRIBUTE_CATEGORIES)
-        group_label_by_category[category]->setTitle(
+        {
+          int current_category_point = 0;
+          if (!chosen_attributes.empty())
+            {
+              current_category_point = -3;
+              for (auto attribute: character::attribute_names::ATTRIBUTES_BY_CATEGORY.at(category))
+                current_category_point += chosen_attributes.at(attribute);
+            }
+
+          group_label_by_category[category]->setTitle(
               qt::labels::creation_wizard::ATTRIBUTE_LABEL_WITH_TOTAL_POINTS(character::attribute_names::ATTRIBUTE_CATEGORY_NAME.at(category).c_str(),
+                                                                 current_category_point,
                                                                  static_cast<int>(points_per_category[category])));
+        }
     }
 
     void character_creation_attribute_points_page::generate_attribute_labels()

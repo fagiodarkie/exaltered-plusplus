@@ -141,6 +141,7 @@ namespace qt { namespace widget {
   void ability_declination_selector::set_favored(bool favored)
   {
     _is_favored = favored;
+    refresh();
   }
 
   void ability_declination_selector::set_ability(detailed_ability ability)

@@ -1,7 +1,5 @@
 #include "wizard/character_creation_ability_values.h"
 
-#include <QtDebug>
-
 #include <QFormLayout>
 #include <QGroupBox>
 #include <QScrollArea>
@@ -41,6 +39,7 @@ namespace qt {
     void character_creation_ability_values::regenerate_abilities()
     {
       abilities = new QWidget;
+      summary = new QLabel;
       QVBoxLayout *ability_list = new QVBoxLayout;
 
       QMap<character::ability_names::ability_category, QGroupBox*> ability_groups;
@@ -85,8 +84,15 @@ namespace qt {
       QWidget* buttons = new QWidget;
       buttons->setLayout(buttons_layout);
 
+      QVBoxLayout *upper = new QVBoxLayout;
+      upper->setAlignment(Qt::AlignTop);
+      upper->addWidget(_progress_bar);
+      upper->addWidget(summary);
+      QWidget* upper_widget = new QWidget;
+      upper_widget->setLayout(upper);
+
       layout::QBorderLayout *outer_layout = new layout::QBorderLayout;
-      outer_layout->addWidget(_progress_bar, layout::QBorderLayout::North);
+      outer_layout->addWidget(upper_widget, layout::QBorderLayout::North);
       outer_layout->addWidget(scroll_abilities, layout::QBorderLayout::Center);
       outer_layout->addWidget(buttons, layout::QBorderLayout::South);
 
@@ -168,6 +174,16 @@ namespace qt {
     void character_creation_ability_values::on_ability_change()
     {
       auto validation = check_current_selection();
+
+      QString text = "Overall points spent: %1 / %2.\r\n"
+                     "Points spent in favored abilities: %3 / %4.\r\n"
+                     "Caste abilities to favor left: %5.\r\n"
+                     "Abilities to favor left: %6.";
+
+      summary->setWordWrap(true);
+      summary->setText(text.arg(validation.total_spent).arg(max_ability_points)
+                       .arg(validation.total_spent_in_favorites).arg(min_points_in_favorites)
+                       .arg(validation.remaining_caste_favorites).arg(validation.remaining_favorites));
 
       bool points = (max_ability_points == validation.total_spent),
           free_fav = (validation.remaining_favorites == 0),

@@ -53,6 +53,7 @@ namespace qt {
       void on_new_declination();
 
       QWidget* abilities;
+      QLabel *summary;
       QPushButton *next_page, *cancel;
       character::abilities _abilities;
       character::exalt::caste _caste;
