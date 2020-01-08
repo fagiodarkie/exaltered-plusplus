@@ -65,12 +65,21 @@ namespace qt { namespace screen {
       status->setText(text);
       status->setMargin(2);
       status->adjustSize();
+
+      _purchase_logger->set_available_experience(remaining);
+      open_expense_logger->setEnabled(remaining > 0);
     }
 
-    void qexperience_screen::add_expense(const character::narrative::experience_purchase &purchase) const
+    void qexperience_screen::add_expense(const character::narrative::experience_purchase &purchase)
     {
       _purchase_logger->hide();
-      // TODO
+      _character->get_experience().purchase(purchase);
+      purchase.purchase()->apply(_character);
+      _character_manager.save_character(_character);
+
+      delete expenses->layout();
+      update_status_label();
+      refresh_expenses();
     }
 
     void qexperience_screen::add_session(const character::narrative::session_awards& new_awards)
@@ -83,7 +92,7 @@ namespace qt { namespace screen {
       _logger->hide();
 
       delete awards->layout();
-
+      update_status_label();
       refresh_awards();
     }
 

@@ -2,11 +2,10 @@
 #define CHARM_PURCHASE_H
 
 #include "abstract_purchase.h"
-#include "../../thirdparty/serialisable/serialisable.hpp"
 
 namespace character { namespace narrative {
 
-    class charm_purchase : public abstract_purchase, public Serialisable
+    class charm_purchase : public abstract_purchase
     {
     public:
       charm_purchase();

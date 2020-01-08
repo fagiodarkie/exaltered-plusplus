@@ -2,12 +2,11 @@
 #define ABILITY_PURCHASE_H
 
 #include "abstract_purchase.h"
-#include "../../thirdparty/serialisable/serialisable.hpp"
 #include "abilities/ability_names.h"
 
 namespace character { namespace narrative {
 
-    class ability_purchase : public abstract_purchase, public Serialisable
+    class ability_purchase : public abstract_purchase
     {
     public:
       ability_purchase(ability_names::detailed_ability ability = ability_names::MELEE, unsigned int amount = 1);

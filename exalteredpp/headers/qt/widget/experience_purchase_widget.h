@@ -19,6 +19,8 @@ namespace qt { namespace widget {
     public:
       experience_purchase_widget(std::shared_ptr<character::character> character, QWidget* parent = nullptr);
 
+      void set_available_experience(unsigned int experience);
+
     signals:
       void purchased(const character::narrative::experience_purchase& purchase);
 
@@ -28,6 +30,7 @@ namespace qt { namespace widget {
       void compute_cost_label() const;
       unsigned int compute_cost(character::narrative::experience_expense_type purchase_type, std::shared_ptr<character::narrative::abstract_purchase> purchase) const;
       int selected_purchase_type() const;
+      void submit_purchase();
 
       character::attribute_names::attribute selected_attribute() const;
       character::ability_names::detailed_ability selected_ability() const;
@@ -42,6 +45,7 @@ namespace qt { namespace widget {
       QLabel *cost_label;
       QPushButton *purchase_submit;
       std::shared_ptr<character::character> _character;
+      unsigned int available;
     };
 
 }}

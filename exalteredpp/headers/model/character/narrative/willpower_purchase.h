@@ -2,11 +2,10 @@
 #define WILLPOWER_PURCHASE_H
 
 #include "abstract_purchase.h"
-#include "../../thirdparty/serialisable/serialisable.hpp"
 
 namespace character { namespace narrative {
 
-    class willpower_purchase : public abstract_purchase, public Serialisable
+    class willpower_purchase : public abstract_purchase
     {
     public:
       willpower_purchase(unsigned int amount = 1);

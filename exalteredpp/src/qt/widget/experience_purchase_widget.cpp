@@ -23,7 +23,7 @@ namespace qt { namespace widget {
     using namespace character;
 
     experience_purchase_widget::experience_purchase_widget(std::shared_ptr<class character> character, QWidget* parent)
-      : QDialog(parent), _character(character)
+      : QDialog(parent), _character(character), available(0)
     {
       setWindowTitle("Purchase");
 
@@ -34,6 +34,7 @@ namespace qt { namespace widget {
       specialty_freetext = new QLineEdit;
       cost_label = new QLabel("Total cost: gnegne");
       purchase_submit = new QPushButton("Purchase!");
+      purchase_submit->setEnabled(false);
 
       for (auto purchase_type: EXPENSE_TYPES)
         purchase_type_dropdown->addItem(EXPENSE_NAME.at(purchase_type).c_str(), purchase_type);
@@ -57,12 +58,19 @@ namespace qt { namespace widget {
       connect(ability_selector, &widget::ability_declination_selector::on_ability_selected, this, &experience_purchase_widget::validate);
       connect(ability_selector, &widget::ability_declination_selector::on_ability_selected, this, &experience_purchase_widget::compute_cost_label);
 
+      connect(purchase_submit, &QPushButton::clicked, this, &experience_purchase_widget::submit_purchase);
+
       purchase_type_selected();
     }
 
     int experience_purchase_widget::selected_purchase_type() const
     {
       return purchase_type_dropdown->currentData().toInt();
+    }
+
+    void experience_purchase_widget::set_available_experience(unsigned int experience)
+    {
+      available = experience;
     }
 
     void experience_purchase_widget::purchase_type_selected()
@@ -100,6 +108,11 @@ namespace qt { namespace widget {
       redraw(widgets_in_list);
     }
 
+    void experience_purchase_widget::submit_purchase()
+    {
+      emit purchased(compute_purchase());
+    }
+
     void experience_purchase_widget::redraw(const QList<QWidget*> widgets_in_list)
     {
       delete layout();
@@ -134,6 +147,8 @@ namespace qt { namespace widget {
     {
       auto purchase = compute_purchase();
       cost_label->setText(QString("Cost: %1 xp").arg(purchase.cost()));
+
+      purchase_submit->setEnabled(purchase.cost() <= available);
     }
 
     unsigned int experience_purchase_widget::compute_cost(narrative::experience_expense_type purchase_type, std::shared_ptr<narrative::abstract_purchase> purchase) const
