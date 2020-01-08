@@ -4,6 +4,7 @@
 #include <QPushButton>
 #include <QWidget>
 #include <QLabel>
+#include <QGroupBox>
 
 #include "virtues/virtues.h"
 #include "widget/with_progress_bar.h"
@@ -41,6 +42,7 @@ namespace qt {
       virtues _virtues;
       QComboBox *vice_selector;
       QLabel *vice_label;
+      QGroupBox *virtuesbox, *vicebox;
       QMap<virtue_enum, QComboBox*> virtue_type;
       QMap<virtue_enum, QLabel*> virtue_label;
       QMap<virtue_enum, QPushButton*> add_to_virtues_or_vice, remove_from_virtues_or_vice;
@@ -55,6 +57,7 @@ namespace qt {
       void update_vice_label();
       void update_button_status();
       void update_vice();
+      void update_group_titles();
     };
   }
 }

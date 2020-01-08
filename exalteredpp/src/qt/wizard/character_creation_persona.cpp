@@ -3,7 +3,6 @@
 #include <layout/qborderlayout.h>
 #include <QDebug>
 #include <QFormLayout>
-#include <QGroupBox>
 #include "label/interfacelabels.h"
 #include "layout/layout_constants.h"
 
@@ -21,12 +20,12 @@ namespace qt {
     character_creation_persona::character_creation_persona(QWidget *parent) : QWidget(parent)
     {
       QWidget* central_persona = new QWidget;
-      QVBoxLayout *specifics_and_emotions = new QVBoxLayout;
+      QVBoxLayout *specifics_and_emotions = new QVBoxLayout, *emotion_boxes = new QVBoxLayout;
 
-      QGroupBox *specifics = new QGroupBox(social_labels::PERSONA_VALUE), *emotion_bonuses = new QGroupBox(social_labels::EMOTION_BONUS_VALUE);
-      QFormLayout *specifics_form = new QFormLayout, *emotions_form = new QFormLayout;
+      persona_box = new QGroupBox(social_labels::PERSONA_VALUE);
+      QGroupBox *emotion_bonuses = new QGroupBox(social_labels::EMOTION_BONUS_VALUE);
+      QFormLayout *specifics_form = new QFormLayout;
       specifics_form->setSizeConstraint(QLayout::SetMinimumSize);
-      emotions_form->setSizeConstraint(QLayout::SetMinimumSize);
       specifics_and_emotions->setSizeConstraint(QLayout::SetMinimumSize);
 
       for (QString specific : {
@@ -54,31 +53,41 @@ namespace qt {
           buttons->addWidget(increase);
           specifics_form->addRow(label_of_persona_specific[specific], buttons);
         }
+      persona_box->setLayout(specifics_form);
 
-      for (character::social::emotion emotion : character::social::BASE_EMOTIONS)
+      for (character::virtues::virtue_enum virtue: character::virtues::VIRTUE_LIST)
         {
-          label_of_emotion[emotion] = new QLabel;
-          label_of_emotion[emotion]->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
-          QPushButton *increase = new QPushButton("+"), *decrease = new QPushButton("-");
-          increase->setProperty(EMOTION_PROPERTY, static_cast<int>(emotion));
-          increase->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
-          increase_emotion_bonus.insert(emotion, increase);
-          connect(increase, &QPushButton::clicked, this, &character_creation_persona::increase_issued);
+          emotions_of_virtue[virtue] = new QGroupBox;
+          QFormLayout *emotions = new QFormLayout;
 
-          decrease->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
-          decrease->setProperty(EMOTION_PROPERTY, static_cast<int>(emotion));
-          decrease_emotion_bonus.insert(emotion, decrease);
-          connect(decrease, &QPushButton::clicked, this, &character_creation_persona::decrease_issued);
+          for (character::social::emotion emotion: character::social::EMOTION_UNDER_VIRTUE.at(virtue))
+            {
+              label_of_emotion[emotion] = new QLabel;
+              label_of_emotion[emotion]->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
+              QPushButton *increase = new QPushButton("+"), *decrease = new QPushButton("-");
+              increase->setProperty(EMOTION_PROPERTY, static_cast<int>(emotion));
+              increase->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
+              increase_emotion_bonus.insert(emotion, increase);
+              connect(increase, &QPushButton::clicked, this, &character_creation_persona::increase_issued);
 
-          QHBoxLayout *buttons = new QHBoxLayout;
-          buttons->addWidget(decrease);
-          buttons->addWidget(increase);
-          emotions_form->addRow(label_of_emotion[emotion], buttons);
+              decrease->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
+              decrease->setProperty(EMOTION_PROPERTY, static_cast<int>(emotion));
+              decrease_emotion_bonus.insert(emotion, decrease);
+              connect(decrease, &QPushButton::clicked, this, &character_creation_persona::decrease_issued);
+
+              QHBoxLayout *buttons = new QHBoxLayout;
+              buttons->addWidget(decrease);
+              buttons->addWidget(increase);
+              emotions->addRow(label_of_emotion[emotion], buttons);
+            }
+
+          emotions_of_virtue[virtue]->setLayout(emotions);
+          emotion_boxes->addWidget(emotions_of_virtue[virtue]);
         }
 
-      specifics->setLayout(specifics_form);
-      emotion_bonuses->setLayout(emotions_form);
-      specifics_and_emotions->addWidget(specifics);
+      emotion_boxes->setAlignment(Qt::AlignTop);
+      emotion_bonuses->setLayout(emotion_boxes);
+      specifics_and_emotions->addWidget(persona_box);
       specifics_and_emotions->addWidget(emotion_bonuses);
       central_persona->setLayout(specifics_and_emotions);
       QScrollArea *scroll = new QScrollArea;
@@ -102,7 +111,30 @@ namespace qt {
       outer_layout->addWidget(scroll, layout::QBorderLayout::Center);
       outer_layout->addWidget(buttons, layout::QBorderLayout::South);
 
+      update_titles();
       setLayout(outer_layout);
+    }
+
+    void character_creation_persona::update_titles()
+    {
+      unsigned int total_specifics = _persona.get_emotions_specific()
+          + _persona.get_illusions_specific()
+          + _persona.get_motivations_specific()
+          + _persona.get_compulsions_specific()
+          + _persona.get_serfdom_specific();
+      persona_box->setTitle(QString("Persona values (%1 / %2 points spent)")
+                            .arg(total_specifics).arg(_persona.get_persona()));
+
+      for (character::virtues::virtue_enum virtue: character::virtues::VIRTUE_LIST)
+        {
+          int spent_on_emotion = 0;
+          for (character::social::emotion emotion: character::social::EMOTION_UNDER_VIRTUE.at(virtue))
+            spent_on_emotion += _persona.get_emotion_bonus_for(emotion);
+
+          emotions_of_virtue[virtue]->setTitle(QString("Emotions of %1 (%2 / %3 points spent)")
+                                               .arg(character::virtues::VIRTUE_NAME.at(virtue).c_str())
+                                               .arg(spent_on_emotion).arg(_virtues.value(virtue).value()));
+        }
     }
 
     void character_creation_persona::increase_issued()
@@ -206,6 +238,7 @@ namespace qt {
           decrease_emotion_bonus[emotion]->setEnabled(_persona.get_emotion_bonus_for(emotion) > 0);
         }
 
+      update_titles();
       next_page->setEnabled(chose_specifics && chose_all_emotion_bonus);
     }
 

@@ -4,6 +4,7 @@
 #include <QPushButton>
 #include <QWidget>
 #include <QMap>
+#include <QGroupBox>
 
 #include "character.h"
 #include "widget/with_progress_bar.h"
@@ -33,6 +34,7 @@ namespace qt {
 
     void next_issued();
     void check_current_selection();
+    void update_titles();
 
     void increase_issued();
     void decrease_issued();
@@ -41,6 +43,9 @@ namespace qt {
     void change_emotion(int emotion_value, int delta);
 
     QPushButton *next_page, *cancel;
+    QLabel *summary;
+    QGroupBox* persona_box;
+    QMap<character::virtues::virtue_enum, QGroupBox*> emotions_of_virtue;
     QMap<character::social::emotion, QLabel*> label_of_emotion;
     QMap<QString, QLabel*> label_of_persona_specific;
     QMap<QString, QPushButton*> increase_specific, decrease_specific;

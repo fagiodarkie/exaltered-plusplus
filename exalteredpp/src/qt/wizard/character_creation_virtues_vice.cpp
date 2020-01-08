@@ -20,7 +20,10 @@ namespace qt {
       : QWidget (parent)
     {
       QWidget *virtues_widget = new QWidget;
-      QFormLayout *virtues_vice_form = new QFormLayout;
+      QFormLayout *virtues_form = new QFormLayout;
+      QHBoxLayout *vice_layout = new QHBoxLayout;
+      virtuesbox = new QGroupBox;
+      vicebox = new QGroupBox;
 
       for (virtue_enum v: VIRTUE_LIST)
         {
@@ -53,8 +56,9 @@ namespace qt {
           row->addWidget(remove);
           row->addWidget(add);
           row->addWidget(virtue_cbox);
-          virtues_vice_form->addRow(virtue_label.value(v), row);
+          virtues_form->addRow(virtue_label.value(v), row);
         }
+      virtuesbox->setLayout(virtues_form);
 
       connect(virtue_type[VIRTUE_LIST.at(0)], &QComboBox::currentTextChanged, this, &character_creation_virtues_vice::choose_first_virtue_type);
       connect(virtue_type[VIRTUE_LIST.at(1)], &QComboBox::currentTextChanged, this, &character_creation_virtues_vice::choose_second_virtue_type);
@@ -80,13 +84,18 @@ namespace qt {
         update_vice_label();
 
         QHBoxLayout *row = new QHBoxLayout;
+        row->addWidget(vice_label);
+        row->addWidget(vice_selector);
         row->addWidget(remove_vice);
         row->addWidget(add_vice);
-        row->addWidget(vice_selector);
-        virtues_vice_form->addRow(vice_label, row);
+        vicebox->setLayout(row);
       }
-      virtues_widget->setLayout(virtues_vice_form);
 
+      QVBoxLayout *virtues_vice = new QVBoxLayout;
+      virtues_vice->setAlignment(Qt::AlignTop);
+      virtues_vice->addWidget(virtuesbox);
+      virtues_vice->addWidget(vicebox);
+      virtues_widget->setLayout(virtues_vice);
 
       QHBoxLayout* buttons_layout = new QHBoxLayout;
       next_page = new QPushButton(NEXT_LABEL);
@@ -105,6 +114,7 @@ namespace qt {
       outer_layout->addWidget(_progress_bar, layout::QBorderLayout::North);
       outer_layout->addWidget(virtues_widget, layout::QBorderLayout::Center);
       outer_layout->addWidget(buttons, layout::QBorderLayout::South);
+      update_group_titles();
 
       setLayout(outer_layout);
     }
@@ -116,6 +126,7 @@ namespace qt {
       this->max_virtue_value = max_virtue_value;
 
       choose_first_virtue_type();
+      update_group_titles();
       update_button_status();
     }
 
@@ -222,6 +233,19 @@ namespace qt {
       emit virtues_chosen(_virtues);
     }
 
+    void character_creation_virtues_vice::update_group_titles()
+    {
+      unsigned int remaining = 0;
+      for (auto virtue: VIRTUE_LIST)
+        if (_virtues.value(virtue).value() > 0)
+          remaining += _virtues.value(virtue).value() - 1;
+      if (_virtues.vice_value() > 0)
+        remaining += _virtues.vice_value() - 1;
+
+      virtuesbox->setTitle(QString("Virtues (%1 / %2 points spent)").arg(remaining).arg(max_points_on_virtues));
+      vicebox->setTitle(QString("Vice (%1 / %2 points spent)").arg(remaining).arg(max_points_on_virtues));
+    }
+
     void character_creation_virtues_vice::increase_issued()
     {
       QVariant sender_variant = sender()->property(AFFECTED_VIRTUE_VICE_PROPERTY);
@@ -238,6 +262,7 @@ namespace qt {
           update_vice_label();
         }
       update_button_status();
+      update_group_titles();
     }
 
     void character_creation_virtues_vice::decrease_issued()
@@ -256,6 +281,7 @@ namespace qt {
           update_vice_label();
         }
       update_button_status();
+      update_group_titles();
     }
 
     void character_creation_virtues_vice::update_vice()

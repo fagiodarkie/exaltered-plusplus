@@ -157,9 +157,8 @@ namespace qt {
           int current_category_point = 0;
           if (!chosen_attributes.empty())
             {
-              current_category_point = -3;
               for (auto attribute: character::attribute_names::ATTRIBUTES_BY_CATEGORY.at(category))
-                current_category_point += chosen_attributes.at(attribute);
+                current_category_point += (chosen_attributes.at(attribute) > 0 ? chosen_attributes.at(attribute) - 1 : 0);
             }
 
           group_label_by_category[category]->setTitle(
