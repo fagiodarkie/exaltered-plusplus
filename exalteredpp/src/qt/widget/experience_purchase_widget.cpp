@@ -35,6 +35,17 @@ namespace qt { namespace widget {
         virtue_dropdown->addItem(virtues::VIRTUE_NAME.at(virtue).c_str(), virtue);
 
       connect(purchase_type_dropdown, &QComboBox::currentTextChanged, this, &experience_purchase_widget::purchase_type_selected);
+      connect(purchase_type_dropdown, &QComboBox::currentTextChanged, this, &experience_purchase_widget::compute_cost);
+      connect(specialty_freetext, &QLineEdit::textEdited, this, &experience_purchase_widget::validate);
+
+      connect(attribute_dropdown, &QComboBox::currentTextChanged, this, &experience_purchase_widget::validate);
+      connect(attribute_dropdown, &QComboBox::currentTextChanged, this, &experience_purchase_widget::compute_cost);
+
+      connect(virtue_dropdown, &QComboBox::currentTextChanged, this, &experience_purchase_widget::validate);
+      connect(virtue_dropdown, &QComboBox::currentTextChanged, this, &experience_purchase_widget::compute_cost);
+
+      connect(ability_selector, &widget::ability_declination_selector::on_ability_selected, this, &experience_purchase_widget::validate);
+      connect(ability_selector, &widget::ability_declination_selector::on_ability_selected, this, &experience_purchase_widget::compute_cost);
 
       purchase_type_selected();
     }
@@ -47,11 +58,6 @@ namespace qt { namespace widget {
     void experience_purchase_widget::purchase_type_selected()
     {
       auto purchase_type = selected_purchase_type();
-
-      // attribute_dropdown->hide();
-      // virtue_dropdown->hide();
-      // ability_selector->hide();
-      // specialty_freetext->hide();
 
       QList<QWidget*> widgets_in_list;
 
@@ -122,6 +128,20 @@ namespace qt { namespace widget {
     void experience_purchase_widget::compute_purchase() const
     {
       // TODO
+    }
+
+    void experience_purchase_widget::validate() const
+    {
+      auto purchase_type = selected_purchase_type();
+      switch (purchase_type)
+        {
+        case narrative::SPECIALISATION:
+          purchase_submit->setEnabled(!specialty_freetext->text().isEmpty());
+          break;
+
+        default:
+          purchase_submit->setEnabled(true);
+        }
     }
 
 } }

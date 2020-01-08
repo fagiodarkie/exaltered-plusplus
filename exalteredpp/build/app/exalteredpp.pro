@@ -102,7 +102,14 @@ SOURCES += \
     ../../src/qt/screen/qessence_values_screen.cpp \
     ../../src/qt/widget/with_progress_bar.cpp \
     ../../src/qt/widget/add_ability_declination_dialog.cpp \
-    ../../src/model/character/narrative/experience.cpp
+    ../../src/model/character/narrative/experience.cpp \
+    ../../src/calculator/experience_purchase_cost_calculator.cpp \
+    ../../src/calculator/cost_worker/attribute_cost_worker.cpp \
+    ../../src/calculator/cost_worker/specialisation_cost_worker.cpp \
+    ../../src/calculator/cost_worker/virtue_cost_worker.cpp \
+    ../../src/calculator/cost_worker/essence_cost_worker.cpp \
+    ../../src/calculator/cost_worker/willpower_cost_worker.cpp \
+    ../../src/calculator/cost_worker/ability_cost_worker.cpp
 
 HEADERS += \
     ../../headers/calculator/derived_value_calculator.h \
@@ -192,7 +199,15 @@ HEADERS += \
     ../../headers/qt/screen/qessence_values_screen.h \
     ../../headers/qt/widget/add_ability_declination_dialog.h \
     ../../headers/model/character/narrative/experience.h \
-    ../../headers/qt/caste_style.h
+    ../../headers/qt/caste_style.h \
+    ../../headers/calculator/experience_purchase_cost_calculator.h \
+    ../../headers/calculator/cost_worker/abstract_cost_worker.h \
+    ../../headers/calculator/cost_worker/attribute_cost_worker.h \
+    ../../headers/calculator/cost_worker/specialisation_cost_worker.h \
+    ../../headers/calculator/cost_worker/ability_cost_worker.h \
+    ../../headers/calculator/cost_worker/virtue_cost_worker.h \
+    ../../headers/calculator/cost_worker/essence_cost_worker.h \
+    ../../headers/calculator/cost_worker/willpower_cost_worker.h
 
 CONFIG += mobility
 MOBILITY = 

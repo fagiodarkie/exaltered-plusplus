@@ -26,6 +26,11 @@ namespace character { namespace narrative {
       return attribute_names::ATTRIBUTE_NAME.at(_attribute);
     }
 
+    attribute_names::attribute attribute_purchase::attribute() const
+    {
+      return _attribute;
+    }
+
     std::string attribute_purchase::description() const
     {
       char amount[2];

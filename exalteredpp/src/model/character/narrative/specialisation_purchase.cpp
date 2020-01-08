@@ -22,6 +22,16 @@ namespace character { namespace narrative {
       c->get_ability_group(_ability).add_specialisation(specialisation(_specialisation, _amount));
     }
 
+    ability_names::ability_enum specialisation_purchase::ability() const
+    {
+      return _ability;
+    }
+
+    std::string specialisation_purchase::specialisation_name() const
+    {
+      return _specialisation;
+    }
+
     std::string specialisation_purchase::key() const
     {
       return ability_names::ABILITY_NAME.at(_ability) + _specialisation;

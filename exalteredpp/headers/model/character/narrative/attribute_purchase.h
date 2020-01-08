@@ -17,6 +17,7 @@ namespace character { namespace narrative {
       virtual void serialisation() override;
       virtual std::string description() const override;
       virtual std::string key() const override;
+      attribute_names::attribute attribute() const;
 
       virtual ~attribute_purchase() override;
 
