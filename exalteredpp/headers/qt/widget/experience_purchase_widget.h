@@ -24,9 +24,15 @@ namespace qt { namespace widget {
 
     private:
       void purchase_type_selected();
-      void compute_purchase() const;
-      void compute_cost() const;
+      character::narrative::experience_purchase compute_purchase() const;
+      void compute_cost_label() const;
+      unsigned int compute_cost(character::narrative::experience_expense_type purchase_type, std::shared_ptr<character::narrative::abstract_purchase> purchase) const;
       int selected_purchase_type() const;
+
+      character::attribute_names::attribute selected_attribute() const;
+      character::ability_names::detailed_ability selected_ability() const;
+      character::virtues::virtue_enum selected_virtue() const;
+
       void validate() const;
       void redraw(const QList<QWidget*> widgets_in_list);
 

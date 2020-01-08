@@ -4,7 +4,7 @@
 
 namespace calculator { namespace cost {
 
-    unsigned int ability_cost_worker::cost_for(std::shared_ptr<character::character> character) const
+    unsigned int virtue_cost_worker::cost_for(std::shared_ptr<character::character> character) const
     {
       auto ability = dynamic_cast<character::narrative::virtue_purchase*>(_purchase.get());
 

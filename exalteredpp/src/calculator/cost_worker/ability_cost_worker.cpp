@@ -10,7 +10,8 @@ namespace calculator { namespace cost {
 
       auto ability_name = ability->ability();
 
-      if (!character->has_ability(ability_name))
+      if (!character->has_ability(ability_name)
+          || (character->get_ability(ability_name) == 0))
         return FIRST_DOT;
 
       auto current_ability = character->get_ability(ability_name);

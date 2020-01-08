@@ -5,7 +5,7 @@
 namespace character { namespace narrative {
 
 
-    attribute_purchase::attribute_purchase(unsigned int amount, attribute_names::attribute attribute)
+    attribute_purchase::attribute_purchase(attribute_names::attribute attribute, unsigned int amount)
       : _amount(amount), _attribute(attribute) { }
 
     attribute_purchase::~attribute_purchase() { }

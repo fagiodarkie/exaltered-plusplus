@@ -4,6 +4,16 @@
 #include "attributes/attribute_names.h"
 #include "virtues/virtue_names.h"
 
+#include "narrative/attribute_purchase.h"
+#include "narrative/ability_purchase.h"
+#include "narrative/specialisation_purchase.h"
+#include "narrative/virtue_purchase.h"
+#include "narrative/vice_purchase.h"
+#include "narrative/essence_purchase.h"
+#include "narrative/willpower_purchase.h"
+
+#include "calculator/experience_purchase_cost_calculator.h"
+
 #include "layout/qborderlayout.h"
 #include <QVBoxLayout>
 
@@ -35,17 +45,17 @@ namespace qt { namespace widget {
         virtue_dropdown->addItem(virtues::VIRTUE_NAME.at(virtue).c_str(), virtue);
 
       connect(purchase_type_dropdown, &QComboBox::currentTextChanged, this, &experience_purchase_widget::purchase_type_selected);
-      connect(purchase_type_dropdown, &QComboBox::currentTextChanged, this, &experience_purchase_widget::compute_cost);
+      connect(purchase_type_dropdown, &QComboBox::currentTextChanged, this, &experience_purchase_widget::compute_cost_label);
       connect(specialty_freetext, &QLineEdit::textEdited, this, &experience_purchase_widget::validate);
 
       connect(attribute_dropdown, &QComboBox::currentTextChanged, this, &experience_purchase_widget::validate);
-      connect(attribute_dropdown, &QComboBox::currentTextChanged, this, &experience_purchase_widget::compute_cost);
+      connect(attribute_dropdown, &QComboBox::currentTextChanged, this, &experience_purchase_widget::compute_cost_label);
 
       connect(virtue_dropdown, &QComboBox::currentTextChanged, this, &experience_purchase_widget::validate);
-      connect(virtue_dropdown, &QComboBox::currentTextChanged, this, &experience_purchase_widget::compute_cost);
+      connect(virtue_dropdown, &QComboBox::currentTextChanged, this, &experience_purchase_widget::compute_cost_label);
 
       connect(ability_selector, &widget::ability_declination_selector::on_ability_selected, this, &experience_purchase_widget::validate);
-      connect(ability_selector, &widget::ability_declination_selector::on_ability_selected, this, &experience_purchase_widget::compute_cost);
+      connect(ability_selector, &widget::ability_declination_selector::on_ability_selected, this, &experience_purchase_widget::compute_cost_label);
 
       purchase_type_selected();
     }
@@ -86,7 +96,7 @@ namespace qt { namespace widget {
         default: { }
         }
 
-      compute_cost();
+      compute_cost_label();
       redraw(widgets_in_list);
     }
 
@@ -120,14 +130,79 @@ namespace qt { namespace widget {
       setLayout(outer);
     }
 
-    void experience_purchase_widget::compute_cost() const
+    void experience_purchase_widget::compute_cost_label() const
     {
-      // TODO
+      auto purchase = compute_purchase();
+      cost_label->setText(QString("Cost: %1 xp").arg(purchase.cost()));
     }
 
-    void experience_purchase_widget::compute_purchase() const
+    unsigned int experience_purchase_widget::compute_cost(narrative::experience_expense_type purchase_type, std::shared_ptr<narrative::abstract_purchase> purchase) const
     {
-      // TODO
+      return calculator::purchase_cost_calculator::cost_of(purchase_type, purchase)
+             .for_who(_character);
+    }
+
+    narrative::experience_purchase experience_purchase_widget::compute_purchase() const
+    {
+      auto purchase_type = selected_purchase_type();
+      std::shared_ptr<abstract_purchase> purchase;
+      switch (purchase_type)
+        {
+        case narrative::ATTRIBUTE: {
+          auto attribute = selected_attribute();
+          purchase = std::make_shared<attribute_purchase>(attribute,_character->get_attribute(attribute) + 1);
+          break;
+        }
+        case narrative::ABILITY: {
+          auto ability = selected_ability();
+          purchase = std::make_shared<ability_purchase>(ability, _character->get_ability(ability) + 1);
+          break;
+        }
+        case narrative::SPECIALISATION: {
+          auto ability = selected_ability().ability;
+          auto specialisation = specialty_freetext->text().trimmed().toStdString();
+          unsigned int current_value = _character->get_ability_group(ability).has_specialisation(specialisation)
+              ? _character->get_ability_group(ability).get_specialisation(specialisation).get_specialisation_value()
+              : 0;
+          purchase = std::make_shared<specialisation_purchase>(current_value + 1, ability, specialisation);
+          break;
+        }
+        case narrative::VIRTUE: {
+          auto virtue = selected_virtue();
+          purchase = std::make_shared<virtue_purchase>(_character->get_virtue(virtue).value() + 1, virtue);
+          break;
+        }
+        case narrative::VICE: {
+          purchase = std::make_shared<vice_purchase>(_character->get_vice_value() + 1);
+          break;
+        }
+        case narrative::ESSENCE: {
+          purchase = std::make_shared<essence_purchase>(_character->get_essence().permanent_essence() + 1);
+          break;
+        }
+        case narrative::WILLPOWER: {
+          purchase = std::make_shared<willpower_purchase>(_character->get_willpower().permanent_willpower() + 1);
+          break;
+        }
+        }
+
+      auto purchase_type_enum = static_cast<narrative::experience_expense_type>(purchase_type);
+      return narrative::experience_purchase(purchase_type_enum, compute_cost(purchase_type_enum, purchase), purchase);
+    }
+
+    attribute_names::attribute experience_purchase_widget::selected_attribute() const
+    {
+      return static_cast<attribute_names::attribute>(attribute_dropdown->currentData().toInt());
+    }
+
+    ability_names::detailed_ability experience_purchase_widget::selected_ability() const
+    {
+      return ability_selector->value();
+    }
+
+    virtues::virtue_enum experience_purchase_widget::selected_virtue() const
+    {
+      return static_cast<virtues::virtue_enum>(virtue_dropdown->currentData().toInt());
     }
 
     void experience_purchase_widget::validate() const

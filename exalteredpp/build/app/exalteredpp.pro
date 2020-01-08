@@ -33,6 +33,7 @@ INCLUDEPATH += ../../headers \
     ../../headers/calculator
 
 SOURCES += \
+    ../../src/calculator/cost_worker/vice_cost_worker.cpp \
     ../../src/model/character/narrative/ability_purchase.cpp \
     ../../src/model/character/narrative/attribute_purchase.cpp \
     ../../src/model/character/narrative/background_purchase.cpp \
@@ -112,6 +113,7 @@ SOURCES += \
     ../../src/calculator/cost_worker/ability_cost_worker.cpp
 
 HEADERS += \
+    ../../headers/calculator/cost_worker/vice_cost_worker.h \
     ../../headers/calculator/derived_value_calculator.h \
     ../../headers/calculator/derived_value_definitions.h \
     ../../headers/calculator/worker/abstract_calculator_worker.h \
