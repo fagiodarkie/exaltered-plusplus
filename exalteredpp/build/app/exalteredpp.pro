@@ -110,7 +110,8 @@ SOURCES += \
     ../../src/calculator/cost_worker/virtue_cost_worker.cpp \
     ../../src/calculator/cost_worker/essence_cost_worker.cpp \
     ../../src/calculator/cost_worker/willpower_cost_worker.cpp \
-    ../../src/calculator/cost_worker/ability_cost_worker.cpp
+    ../../src/calculator/cost_worker/ability_cost_worker.cpp \
+    ../../thirdparty/darkstyle/DarkStyle.cpp
 
 HEADERS += \
     ../../headers/calculator/cost_worker/vice_cost_worker.h \
@@ -195,6 +196,7 @@ HEADERS += \
     ../../headers/serialisation/json_constants.h \
     ../../headers/qt/wizard/character_creation_virtues_vice.h \
     ../../headers/qt/widget/std_compatible.h \
+    ../../thirdparty/darkstyle/DarkStyle.h \
     ../../thirdparty/serialisable/serialisable.hpp \
     ../../headers/qt/dependencies.h \
     ../../headers/qt/screen/qdefense_values_screen.h \

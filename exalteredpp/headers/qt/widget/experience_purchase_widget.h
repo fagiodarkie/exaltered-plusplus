@@ -36,7 +36,7 @@ namespace qt { namespace widget {
       character::ability_names::detailed_ability selected_ability() const;
       character::virtues::virtue_enum selected_virtue() const;
 
-      void validate() const;
+      void validate(unsigned int cost) const;
       void redraw(const QList<QWidget*> widgets_in_list);
 
       QComboBox *attribute_dropdown, *virtue_dropdown, *purchase_type_dropdown;

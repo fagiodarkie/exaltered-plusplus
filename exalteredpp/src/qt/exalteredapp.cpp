@@ -14,10 +14,7 @@ ExalteredApp::ExalteredApp(manager::character_manager& c_manager,
   init_load_character_screen();
   setWindowTitle(labels::APP_TITLE);
 
-  //QApplication::setFont(FONT);
-  //QApplication::font().setStyleHint(QFont::Helvetica);
-
-  setStyleSheet(qt::style::STYLE_OF(character::creation::TYPE_SOLAR_EXALT));
+  //setStyleSheet(qt::style::STYLE_OF(character::creation::TYPE_SOLAR_EXALT));
 }
 
 ExalteredApp::~ExalteredApp()

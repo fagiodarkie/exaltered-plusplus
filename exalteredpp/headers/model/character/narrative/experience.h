@@ -35,7 +35,8 @@ namespace character { namespace narrative {
             auto purchase_pointer = dynamic_cast<T*>(_purchase.get());
             synch(serialisation::json_constants::SLOT_PURCHASE, purchase_pointer);
           }
-        else {
+        else
+          {
             // loading
             T *purchase_pointer;
             synch(serialisation::json_constants::SLOT_PURCHASE, purchase_pointer);

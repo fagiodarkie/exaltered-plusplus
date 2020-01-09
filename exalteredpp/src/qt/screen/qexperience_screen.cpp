@@ -162,14 +162,18 @@ namespace qt { namespace screen {
     {
       delete expenses->layout();
 
-
-
-      QFormLayout *list = new QFormLayout;
+      QGridLayout *list = new QGridLayout;
       layout::QBorderLayout* outer = new layout::QBorderLayout;
 
+      int row = 0;
       for (auto purchase: _character->get_experience().purchases())
-          list->addRow(character::narrative::EXPENSE_NAME.at(purchase.purchase_type()).c_str(),
-                       label(purchase.purchase()->description()));
+        {
+          list->addWidget(label(character::narrative::EXPENSE_NAME.at(purchase.purchase_type())), row, 0);
+          list->addWidget(label(purchase.purchase()->description()), row, 1, 1, 3);
+          list->addWidget(new QLabel(QString::number(purchase.cost())), row, 4);
+
+          ++row;
+        }
 
       QWidget *listwidget = new QWidget;
       listwidget->setLayout(list);

@@ -47,15 +47,8 @@ namespace qt { namespace widget {
 
       connect(purchase_type_dropdown, &QComboBox::currentTextChanged, this, &experience_purchase_widget::purchase_type_selected);
       connect(purchase_type_dropdown, &QComboBox::currentTextChanged, this, &experience_purchase_widget::compute_cost_label);
-      connect(specialty_freetext, &QLineEdit::textEdited, this, &experience_purchase_widget::validate);
-
-      connect(attribute_dropdown, &QComboBox::currentTextChanged, this, &experience_purchase_widget::validate);
-      connect(attribute_dropdown, &QComboBox::currentTextChanged, this, &experience_purchase_widget::compute_cost_label);
-
-      connect(virtue_dropdown, &QComboBox::currentTextChanged, this, &experience_purchase_widget::validate);
-      connect(virtue_dropdown, &QComboBox::currentTextChanged, this, &experience_purchase_widget::compute_cost_label);
-
-      connect(ability_selector, &widget::ability_declination_selector::on_ability_selected, this, &experience_purchase_widget::validate);
+      connect(attribute_dropdown,     &QComboBox::currentTextChanged, this, &experience_purchase_widget::compute_cost_label);
+      connect(virtue_dropdown,        &QComboBox::currentTextChanged, this, &experience_purchase_widget::compute_cost_label);
       connect(ability_selector, &widget::ability_declination_selector::on_ability_selected, this, &experience_purchase_widget::compute_cost_label);
 
       connect(purchase_submit, &QPushButton::clicked, this, &experience_purchase_widget::submit_purchase);
@@ -148,7 +141,7 @@ namespace qt { namespace widget {
       auto purchase = compute_purchase();
       cost_label->setText(QString("Cost: %1 xp").arg(purchase.cost()));
 
-      purchase_submit->setEnabled(purchase.cost() <= available);
+      validate(purchase.cost());
     }
 
     unsigned int experience_purchase_widget::compute_cost(narrative::experience_expense_type purchase_type, std::shared_ptr<narrative::abstract_purchase> purchase) const
@@ -220,9 +213,15 @@ namespace qt { namespace widget {
       return static_cast<virtues::virtue_enum>(virtue_dropdown->currentData().toInt());
     }
 
-    void experience_purchase_widget::validate() const
+    void experience_purchase_widget::validate(unsigned int cost) const
     {
       auto purchase_type = selected_purchase_type();
+      if (cost < available)
+        {
+          purchase_submit->setEnabled(true);
+          return;
+        }
+
       switch (purchase_type)
         {
         case narrative::SPECIALISATION:
