@@ -2,10 +2,11 @@
 #define ESSENCE_PURCHASE_H
 
 #include "abstract_purchase.h"
+#include "../../thirdparty/serialisable/serialisable.hpp"
 
 namespace character { namespace narrative {
 
-    class essence_purchase : public abstract_purchase
+    class essence_purchase : public abstract_purchase, public Serialisable
     {
     public:
       essence_purchase(unsigned int amount = 1);

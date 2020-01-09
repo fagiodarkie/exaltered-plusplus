@@ -2,10 +2,11 @@
 #define VICE_PURCHASE_H
 
 #include "abstract_purchase.h"
+#include "../../thirdparty/serialisable/serialisable.hpp"
 
 namespace character { namespace narrative {
 
-    class vice_purchase : public abstract_purchase
+    class vice_purchase : public abstract_purchase, public Serialisable
     {
     public:
       vice_purchase(unsigned int amount = 1);

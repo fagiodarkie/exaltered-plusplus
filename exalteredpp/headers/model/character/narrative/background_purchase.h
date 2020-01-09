@@ -2,10 +2,11 @@
 #define BACKGROUND_PURCHASE_H
 
 #include "abstract_purchase.h"
+#include "../../thirdparty/serialisable/serialisable.hpp"
 
 namespace character { namespace narrative {
 
-    class background_purchase : public abstract_purchase
+    class background_purchase : public abstract_purchase, public Serialisable
     {
     public:
       background_purchase();

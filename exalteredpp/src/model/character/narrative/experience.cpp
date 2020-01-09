@@ -10,7 +10,6 @@
 #include "narrative/specialisation_purchase.h"
 #include "narrative/essence_purchase.h"
 
-#include "json_constants.h"
 
 namespace character { namespace narrative {
 
@@ -23,9 +22,22 @@ namespace character { namespace narrative {
     {
       synch(serialisation::json_constants::SLOT_TYPE, _expense_type);
       synch(serialisation::json_constants::SLOT_COST, _cost);
-      auto purchase_pointer = _purchase.get();
-      synch(serialisation::json_constants::SLOT_PURCHASE, purchase_pointer);
+
+      switch(_expense_type)
+        {
+        case ABILITY:         { synch_purchase<ability_purchase       >(); break; }
+        case ATTRIBUTE:       { synch_purchase<attribute_purchase     >(); break; }
+        case SPECIALISATION:  { synch_purchase<specialisation_purchase>(); break; }
+        case BACKGROUND:      { synch_purchase<background_purchase    >(); break; }
+        case VIRTUE:          { synch_purchase<virtue_purchase        >(); break; }
+        case VICE:            { synch_purchase<vice_purchase          >(); break; }
+        case WILLPOWER:       { synch_purchase<willpower_purchase     >(); break; }
+        case ESSENCE:         { synch_purchase<essence_purchase       >(); break; }
+        default:
+          break;
+        }
     }
+
 
     unsigned int experience_purchase::cost() const
     {

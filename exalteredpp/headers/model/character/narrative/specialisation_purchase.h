@@ -2,11 +2,12 @@
 #define SPECIALISATION_PURCHASE_H
 
 #include "abstract_purchase.h"
+#include "../../thirdparty/serialisable/serialisable.hpp"
 #include "abilities/ability_names.h"
 
 namespace character { namespace narrative {
 
-    class specialisation_purchase : public abstract_purchase
+    class specialisation_purchase : public abstract_purchase, public Serialisable
     {
     public:
       specialisation_purchase(unsigned int amount = 0, ability_names::ability_enum ability = ability_names::MELEE, const std::string& specialisation = "");

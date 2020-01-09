@@ -2,11 +2,12 @@
 #define ATTRIBUTE_PURCHASE_H
 
 #include "abstract_purchase.h"
+#include "../../thirdparty/serialisable/serialisable.hpp"
 #include "attributes/attribute_names.h"
 
 namespace character { namespace narrative {
 
-    class attribute_purchase : public abstract_purchase
+    class attribute_purchase : public abstract_purchase, public Serialisable
     {
     public:
       attribute_purchase(attribute_names::attribute attribute = attribute_names::STRENGTH, unsigned int amount = 1);

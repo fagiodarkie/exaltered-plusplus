@@ -4,6 +4,7 @@
 #include "../../thirdparty/serialisable/serialisable.hpp"
 #include "experience_defines.h"
 #include "abstract_purchase.h"
+#include "json_constants.h"
 
 namespace character { namespace narrative {
 
@@ -24,6 +25,23 @@ namespace character { namespace narrative {
       experience_expense_type _expense_type;
       unsigned int _cost;
       std::shared_ptr<abstract_purchase> _purchase;
+
+      template<typename T>
+      void synch_purchase()
+      {
+        if (saving())
+          {
+            // saving
+            auto purchase_pointer = dynamic_cast<T*>(_purchase.get());
+            synch(serialisation::json_constants::SLOT_PURCHASE, purchase_pointer);
+          }
+        else {
+            // loading
+            T *purchase_pointer;
+            synch(serialisation::json_constants::SLOT_PURCHASE, purchase_pointer);
+            _purchase = std::shared_ptr<abstract_purchase>(purchase_pointer);
+          }
+      }
     };
 
 }  }
