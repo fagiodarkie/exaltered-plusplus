@@ -27,7 +27,7 @@ namespace character { namespace narrative {
       std::shared_ptr<abstract_purchase> _purchase;
 
       template<typename T>
-      void synch_purchase()
+      std::enable_if_t<std::is_base_of<abstract_purchase, T>::value, void> synch_purchase()
       {
         if (saving())
           {
