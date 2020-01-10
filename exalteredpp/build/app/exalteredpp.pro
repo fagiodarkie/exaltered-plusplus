@@ -46,6 +46,7 @@ SOURCES += \
     ../../src/model/character/narrative/vice_purchase.cpp \
     ../../src/model/character/narrative/virtue_purchase.cpp \
     ../../src/model/character/narrative/willpower_purchase.cpp \
+    ../../src/qt/caste_style.cpp \
     ../../src/qt/screen/qexperience_screen.cpp \
     ../../src/qt/widget/experience_purchase_widget.cpp \
     ../../src/qt/widget/session_experience_logger.cpp \

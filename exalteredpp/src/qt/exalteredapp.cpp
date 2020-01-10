@@ -1,7 +1,6 @@
 #include "qt/exalteredapp.h"
 
 #include "qt/label/interfacelabels.h"
-#include "caste_style.h"
 #include <QApplication>
 #include <QGridLayout>
 
@@ -13,8 +12,6 @@ ExalteredApp::ExalteredApp(manager::character_manager& c_manager,
 {
   init_load_character_screen();
   setWindowTitle(labels::APP_TITLE);
-
-  //setStyleSheet(qt::style::STYLE_OF(character::creation::TYPE_SOLAR_EXALT));
 }
 
 ExalteredApp::~ExalteredApp()

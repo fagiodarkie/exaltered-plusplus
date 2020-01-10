@@ -1,14 +1,15 @@
 #include "qt/exalteredapp.h"
 #include <QApplication>
 
-#include "../thirdparty/darkstyle/DarkStyle.h"
+#include "caste_style.h"
 
 #include "dependencies.h"
 
 int main(int argc, char *argv[])
 {
   QApplication a(argc, argv);
-  a.setStyle(new DarkStyle);
+  qt::style::application(a);
+  qt::style::SET_CASTE(character::creation::character_type::TYPE_SOLAR_EXALT);
   ExalteredApp w(dependency::s_character_manager, dependency::derived_values);
   w.show();
   return a.exec();

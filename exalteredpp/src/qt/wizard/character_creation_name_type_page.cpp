@@ -70,7 +70,7 @@ namespace qt {
                                                                     character::creation::CHARACTER_TYPE_NAMES,
                                                                     combo_box->currentText().toStdString());
 
-      QApplication::activeWindow()->setStyleSheet(qt::style::STYLE_OF(selected_type));
+      qt::style::SET_CASTE(selected_type);
 
       auto available_castes = character::exalt::exalt_caste::CASTES_OF_EXALT_TYPE.at(selected_type);
       if (available_castes.empty() || available_castes.size() == 1)
