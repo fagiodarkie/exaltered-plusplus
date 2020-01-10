@@ -1,5 +1,6 @@
 #include "screen/qexperience_screen.h"
 #include "layout/qborderlayout.h"
+#include "caste_style.h"
 
 #include <QTabWidget>
 #include <QFormLayout>
@@ -16,11 +17,13 @@ namespace qt { namespace screen {
       _logger = new widget::session_experience_logger(this);
       connect(open_logger, &QPushButton::clicked, _logger, &QDialog::show);
       connect(_logger, &widget::session_experience_logger::session_logged, this, &qexperience_screen::add_session);
+      qt::style::foreground(open_logger);
 
       open_expense_logger = new QPushButton("Add expense");
       _purchase_logger = new widget::experience_purchase_widget(_character, this);
       connect(open_expense_logger, &QPushButton::clicked, _purchase_logger, &QDialog::show);
       connect(_purchase_logger, &widget::experience_purchase_widget::purchased, this, &qexperience_screen::add_expense);
+      qt::style::foreground(open_expense_logger);
 
       layout::QBorderLayout *outer = new layout::QBorderLayout;
 

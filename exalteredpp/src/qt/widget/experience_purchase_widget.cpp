@@ -3,6 +3,7 @@
 #include "narrative/experience_defines.h"
 #include "attributes/attribute_names.h"
 #include "virtues/virtue_names.h"
+#include "caste_style.h"
 
 #include "narrative/attribute_purchase.h"
 #include "narrative/ability_purchase.h"
@@ -35,6 +36,7 @@ namespace qt { namespace widget {
       cost_label = new QLabel("Total cost: gnegne");
       purchase_submit = new QPushButton("Purchase!");
       purchase_submit->setEnabled(false);
+      qt::style::foreground(purchase_submit);
 
       for (auto purchase_type: EXPENSE_TYPES)
         purchase_type_dropdown->addItem(EXPENSE_NAME.at(purchase_type).c_str(), purchase_type);
@@ -64,6 +66,7 @@ namespace qt { namespace widget {
     void experience_purchase_widget::set_available_experience(unsigned int experience)
     {
       available = experience;
+      compute_cost_label();
     }
 
     void experience_purchase_widget::purchase_type_selected()
@@ -216,9 +219,9 @@ namespace qt { namespace widget {
     void experience_purchase_widget::validate(unsigned int cost) const
     {
       auto purchase_type = selected_purchase_type();
-      if (cost < available)
+      if (cost > available)
         {
-          purchase_submit->setEnabled(true);
+          purchase_submit->setEnabled(false);
           return;
         }
 

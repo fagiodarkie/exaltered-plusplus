@@ -1,6 +1,7 @@
 #include "wizard/attributes_priority_page.h"
 #include "qt/label/interfacelabels.h"
 #include "qt/layout/qborderlayout.h"
+#include "caste_style.h"
 
 namespace qt {
   namespace wizard {
@@ -20,6 +21,7 @@ namespace qt {
       central_widget->setLayout(attributes_form);
 
       next_page = new QPushButton(NEXT_LABEL);
+      qt::style::foreground(next_page);
       cancel = new QPushButton(CANCEL_LABEL);
 
       connect(next_page, &QPushButton::clicked, this, &attributes_priority_page::chose_all);

@@ -15,6 +15,8 @@ namespace qt {
 
     static void application(QApplication& app);
 
+    static void foreground(QPushButton* button);
+
   private:
 
     static const QMap<character::creation::character_type, QColor> MAIN_COLOR_OF_CASTE;

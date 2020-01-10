@@ -49,6 +49,15 @@ void DarkStyle::setDark(bool isDark)
     }
 }
 
+void DarkStyle::foreground(QPushButton *button)
+{
+  auto palette = button->palette();
+  polish(palette);
+  palette.setColor(QPalette::Button,          main_color);
+  palette.setColor(QPalette::Disabled, QPalette::Button,           dark127);
+  button->setPalette(palette);
+}
+
 QStyle *DarkStyle::baseStyle() const { return styleBase(); }
 
 void DarkStyle::polish(QPalette &palette) {
@@ -62,7 +71,7 @@ void DarkStyle::polish(QPalette &palette) {
   palette.setColor(QPalette::Text,            text);
   palette.setColor(QPalette::Dark,            darker);
   palette.setColor(QPalette::Shadow,          darkest);
-  palette.setColor(QPalette::Button,          main_color);
+  palette.setColor(QPalette::Button,          lighter);
   palette.setColor(QPalette::ButtonText,      text);
   palette.setColor(QPalette::BrightText,      text_bright);
   palette.setColor(QPalette::Link,            link);

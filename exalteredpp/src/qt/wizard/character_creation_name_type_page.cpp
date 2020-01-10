@@ -48,6 +48,7 @@ namespace qt {
       buttons_layout->addWidget(cancel);
       buttons_layout->addWidget(next_page);
 
+      qt::style::foreground(next_page);
       next_page->setEnabled(false);
       connect(next_page, &QPushButton::clicked, this, &character_creation_name_type_page::chose_all);
       connect(cancel, &QPushButton::clicked, this, &character_creation_name_type_page::back_issued);

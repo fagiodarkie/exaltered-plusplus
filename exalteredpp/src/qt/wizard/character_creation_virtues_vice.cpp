@@ -8,6 +8,7 @@
 
 #include "label/interfacelabels.h"
 #include "common/reverse_search.h"
+#include "caste_style.h"
 
 namespace qt {
   namespace wizard {
@@ -99,6 +100,7 @@ namespace qt {
 
       QHBoxLayout* buttons_layout = new QHBoxLayout;
       next_page = new QPushButton(NEXT_LABEL);
+      qt::style::foreground(next_page);
       cancel = new QPushButton(CANCEL_LABEL);
       buttons_layout->addWidget(cancel);
       buttons_layout->addWidget(next_page);

@@ -6,6 +6,7 @@
 #include <QScrollArea>
 #include "layout/qborderlayout.h"
 #include "qt/label/interfacelabels.h"
+#include "caste_style.h"
 
 namespace qt { namespace widget {
 
@@ -14,6 +15,7 @@ namespace qt { namespace widget {
         setWindowTitle("New Session Experience Award");
 
         submit = new QPushButton(qt::labels::SUBMIT_LABEL);
+        qt::style::foreground(submit);
         connect(submit, &QPushButton::clicked, this, &session_experience_logger::submit_session);
 
         QFormLayout *form = new QFormLayout;

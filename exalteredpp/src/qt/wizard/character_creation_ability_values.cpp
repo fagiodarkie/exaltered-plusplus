@@ -7,6 +7,7 @@
 #include "label/interfacelabels.h"
 #include "layout/qborderlayout.h"
 #include "layout/layout_constants.h"
+#include "caste_style.h"
 
 namespace qt {
   namespace wizard {
@@ -15,7 +16,10 @@ namespace qt {
     using namespace qt::labels;
 
     character_creation_ability_values::character_creation_ability_values(QWidget *parent)
-      : QWidget(parent) { }
+      : QWidget(parent)
+    {
+      summary = new QLabel;
+    }
 
     void character_creation_ability_values::set_current_abilities(const character::abilities& new_abilities,
                                                                   character::exalt::caste selected_caste,
@@ -39,7 +43,6 @@ namespace qt {
     void character_creation_ability_values::regenerate_abilities()
     {
       abilities = new QWidget;
-      summary = new QLabel;
       QVBoxLayout *ability_list = new QVBoxLayout;
 
       QMap<character::ability_names::ability_category, QGroupBox*> ability_groups;
@@ -73,6 +76,7 @@ namespace qt {
 
       QHBoxLayout* buttons_layout = new QHBoxLayout;
       next_page = new QPushButton(NEXT_LABEL);
+      qt::style::foreground(next_page);
       cancel = new QPushButton(CANCEL_LABEL);
       buttons_layout->addWidget(cancel);
       buttons_layout->addWidget(next_page);

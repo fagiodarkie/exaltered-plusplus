@@ -20,6 +20,11 @@ namespace qt {
      { character::creation::TYPE_INFERNAL_EXALT,    QColor(52, 94, 74)    }
    };
 
+  void style::foreground(QPushButton *button)
+  {
+    STYLE->foreground(button);
+  }
+
   void style::SET_CASTE(character::creation::character_type caste)
   {
     if (!STYLE || !APP)

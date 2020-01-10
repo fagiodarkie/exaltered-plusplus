@@ -18,6 +18,7 @@
 #include <QFile>
 #include <QFont>
 #include <QProxyStyle>
+#include <QPushButton>
 #include <QStyleFactory>
 
 class DarkStyle : public QProxyStyle {
@@ -34,6 +35,7 @@ class DarkStyle : public QProxyStyle {
 
   void setMainColor(const QColor& color);
   void setDark(bool isDark);
+  void foreground(QPushButton* button);
 
  private:
   QStyle *styleBase(QStyle *style = Q_NULLPTR) const;

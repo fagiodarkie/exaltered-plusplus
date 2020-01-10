@@ -2,6 +2,7 @@
 
 #include <layout/qborderlayout.h>
 #include "label/interfacelabels.h"
+#include "caste_style.h"
 #include <QLabel>
 
 namespace qt
@@ -35,6 +36,7 @@ namespace qt
       outerLayout->addWidget(save_button,            QBorderLayout::South);
 
       save_button->setEnabled(false);
+      qt::style::foreground(save_button);
       connect(character_name_widget, &QLineEdit::textEdited, this, &qcharacterinfoscreen::on_text_change);
       connect(save_button, &QPushButton::clicked, this, &qcharacterinfoscreen::save_character);
 
