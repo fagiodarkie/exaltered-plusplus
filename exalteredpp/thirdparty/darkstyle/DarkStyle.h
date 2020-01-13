@@ -24,7 +24,7 @@
 class DarkStyle : public QProxyStyle {
   Q_OBJECT
 
- public:
+public:
   DarkStyle();
   explicit DarkStyle(QStyle *style);
 
@@ -36,9 +36,12 @@ class DarkStyle : public QProxyStyle {
   void setMainColor(const QColor& color);
   void setDark(bool isDark);
   void foreground(QPushButton* button);
+  void forget(QPushButton* button);
 
- private:
+private:
   QStyle *styleBase(QStyle *style = Q_NULLPTR) const;
+
+  void _makeForeground(QPushButton* button) ;
 
   QColor  dark20      = QColor(20 , 20 , 20 ),
           dark35      = QColor(35 , 35 , 35 ),
@@ -86,6 +89,7 @@ class DarkStyle : public QProxyStyle {
 
     //
   };
+  QList<QPushButton*> foregroundButtons;
 };
 
 #endif  // DARKSTYLE_HPP

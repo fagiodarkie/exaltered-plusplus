@@ -22,6 +22,7 @@ namespace qt { namespace screen {
                                   manager::character_manager &ch_manager,
                                   QWidget *parent = nullptr);
 
+      ~qexperience_screen();
 
     signals:
 

@@ -153,6 +153,8 @@ namespace character
     {
       if (get_specialisation_reference(new_specialisation.get_name()) == specialisations.end())
         specialisations.push_back(new_specialisation);
+      else
+        get_specialisation_reference(new_specialisation.get_name())->set_value(new_specialisation.get_specialisation_value());
     }
 
     void ability_group::add_specialisation(const std::string& new_specialisation_name, unsigned int initial_value)

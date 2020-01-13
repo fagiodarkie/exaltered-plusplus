@@ -19,7 +19,7 @@ namespace character { namespace narrative {
 
     void specialisation_purchase::apply(std::shared_ptr<character> c)
     {
-      c->get_ability_group(_ability).add_specialisation(specialisation(_specialisation, _amount));
+      c->add_ability_specialisation(_ability, specialisation(_specialisation, _amount));
     }
 
     ability_names::ability_enum specialisation_purchase::ability() const
@@ -39,13 +39,15 @@ namespace character { namespace narrative {
 
     std::string specialisation_purchase::description() const
     {
-      char amount[1];
-      sprintf(amount, "%d", _amount);
-      return ability_names::ABILITY_NAME.at(_ability)
-          + " ("
-          + _specialisation
-          + ") "
-          + amount;
+      return ability_string() + progress(_amount);
+    }
+
+
+    std::string specialisation_purchase::ability_string() const
+    {
+      std::string specialisation = " (" + _specialisation + ") ";
+
+      return ability_names::ABILITY_NAME.at(_ability) + specialisation;
     }
 
 } }

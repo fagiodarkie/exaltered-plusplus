@@ -60,6 +60,11 @@ namespace qt { namespace widget {
         setLayout(outer);
       }
 
+      session_experience_logger::~session_experience_logger()
+      {
+        qt::style::forget(submit);
+      }
+
       void session_experience_logger::set_next_session_number(unsigned int session_number)
       {
         _session = session_number;

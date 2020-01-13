@@ -28,6 +28,11 @@ namespace qt {
     STYLE->foreground(button);
   }
 
+  void style::forget(QPushButton *button)
+  {
+    STYLE->forget(button);
+  }
+
   void style::SET_CASTE(character::creation::character_type caste)
   {
     if (!STYLE || !APP)

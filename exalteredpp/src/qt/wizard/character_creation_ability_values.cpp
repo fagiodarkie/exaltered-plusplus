@@ -21,6 +21,11 @@ namespace qt {
       summary = new QLabel;
     }
 
+    character_creation_ability_values::~character_creation_ability_values()
+    {
+      qt::style::forget(next_page);
+    }
+
     void character_creation_ability_values::set_current_abilities(const character::abilities& new_abilities,
                                                                   character::exalt::caste selected_caste,
                                                                   unsigned int number_of_caste_favorites,

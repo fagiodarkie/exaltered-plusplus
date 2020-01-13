@@ -18,6 +18,7 @@ namespace qt { namespace widget {
 
     public:
       experience_purchase_widget(std::shared_ptr<character::character> character, QWidget* parent = nullptr);
+      ~experience_purchase_widget();
 
       void set_available_experience(unsigned int experience);
 
@@ -42,7 +43,7 @@ namespace qt { namespace widget {
       QComboBox *attribute_dropdown, *virtue_dropdown, *purchase_type_dropdown;
       widget::ability_declination_selector *ability_selector;
       QLineEdit *specialty_freetext;
-      QLabel *cost_label;
+      QLabel *cost_label, *newvalue_label;
       QPushButton *purchase_submit;
       std::shared_ptr<character::character> _character;
       unsigned int available;

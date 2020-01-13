@@ -117,6 +117,11 @@ namespace qt {
       setLayout(outer_layout);
     }
 
+    character_creation_persona::~character_creation_persona()
+    {
+      qt::style::forget(next_page);
+    }
+
     void character_creation_persona::update_titles()
     {
       unsigned int total_specifics = _persona.get_emotions_specific()

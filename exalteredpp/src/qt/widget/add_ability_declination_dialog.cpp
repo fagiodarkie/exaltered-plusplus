@@ -1,7 +1,7 @@
 #include "widget/add_ability_declination_dialog.h"
 
 #include "layout/qborderlayout.h"
-
+#include "caste_style.h"
 #include <QLabel>
 
 namespace qt { namespace widget {
@@ -9,6 +9,7 @@ namespace qt { namespace widget {
     add_ability_declination_dialog::add_ability_declination_dialog(QWidget *parent) : QDialog(parent)
     {
       submit_declination = new QPushButton("Submit");
+      qt::style::foreground(submit_declination);
       submit_declination->setEnabled(false);
       connect(submit_declination, &QPushButton::clicked, this, &add_ability_declination_dialog::submit);
 
@@ -21,6 +22,11 @@ namespace qt { namespace widget {
       outer->addWidget(declination_text, layout::QBorderLayout::Center);
       outer->addWidget(submit_declination, layout::QBorderLayout::South);
       setLayout(outer);
+    }
+
+    add_ability_declination_dialog::~add_ability_declination_dialog()
+    {
+      qt::style::forget(submit_declination);
     }
 
     void add_ability_declination_dialog::set_prohibited_declinations(QList<QString> declinations)

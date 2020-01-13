@@ -19,6 +19,18 @@ namespace character {
       virtual std::string key() const = 0;
 
       virtual ~abstract_purchase() {}
+
+    protected:
+      std::string progress(unsigned int new_value) const
+      {
+        if (new_value == 0)
+          return "0";
+
+        char oldval[2], newval[2];
+        sprintf(oldval, "%d", new_value - 1);
+        sprintf(newval, "%d", new_value);
+        return std::string(oldval) + " -> " + newval;
+      }
     };
 
 }}

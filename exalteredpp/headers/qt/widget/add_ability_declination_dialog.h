@@ -10,7 +10,7 @@ namespace qt { namespace widget {
       Q_OBJECT
     public:
       explicit add_ability_declination_dialog(QWidget *parent = nullptr);
-
+      ~add_ability_declination_dialog();
       void set_prohibited_declinations(QList<QString> declinations);
 
     signals:

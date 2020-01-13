@@ -16,6 +16,7 @@ namespace qt {
     static void application(QApplication& app);
 
     static void foreground(QPushButton* button);
+    static void forget(QPushButton* button);
 
   private:
 

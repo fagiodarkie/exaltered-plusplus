@@ -33,7 +33,8 @@ namespace qt { namespace widget {
       purchase_type_dropdown = new QComboBox;
       ability_selector = new widget::ability_declination_selector(_character);
       specialty_freetext = new QLineEdit;
-      cost_label = new QLabel("Total cost: gnegne");
+      cost_label = new QLabel;
+      newvalue_label = new QLabel;
       purchase_submit = new QPushButton("Purchase!");
       purchase_submit->setEnabled(false);
       qt::style::foreground(purchase_submit);
@@ -51,6 +52,7 @@ namespace qt { namespace widget {
       connect(purchase_type_dropdown, &QComboBox::currentTextChanged, this, &experience_purchase_widget::compute_cost_label);
       connect(attribute_dropdown,     &QComboBox::currentTextChanged, this, &experience_purchase_widget::compute_cost_label);
       connect(virtue_dropdown,        &QComboBox::currentTextChanged, this, &experience_purchase_widget::compute_cost_label);
+      connect(specialty_freetext,     &QLineEdit::textEdited        , this, &experience_purchase_widget::compute_cost_label);
       connect(ability_selector, &widget::ability_declination_selector::on_ability_selected, this, &experience_purchase_widget::compute_cost_label);
 
       connect(purchase_submit, &QPushButton::clicked, this, &experience_purchase_widget::submit_purchase);
@@ -62,6 +64,7 @@ namespace qt { namespace widget {
                                      ability_selector,
                                      virtue_dropdown,
                                      specialty_freetext,
+                                     newvalue_label,
                                      cost_label };
       for (QWidget* widget: all_widgets)
         {
@@ -84,6 +87,11 @@ namespace qt { namespace widget {
       setLayout(outer);
 
       purchase_type_selected();
+    }
+
+    experience_purchase_widget::~experience_purchase_widget()
+    {
+      qt::style::forget(purchase_submit);
     }
 
     int experience_purchase_widget::selected_purchase_type() const
@@ -158,6 +166,8 @@ namespace qt { namespace widget {
     {
       auto purchase = compute_purchase();
       cost_label->setText(QString("Cost: %1 xp").arg(purchase.cost()));
+
+      newvalue_label->setText(purchase.purchase()->description().c_str());
 
       validate(purchase.cost());
     }

@@ -103,6 +103,11 @@ namespace character
     _abilities[name.ability].set_ability_value(name.declination, new_val);
   }
 
+  void character::add_ability_specialisation(ability_names::ability_enum name, specialisation specialisation)
+  {
+    _abilities[name].add_specialisation(specialisation);
+  }
+
   power::willpower& character::get_willpower()
   {
     return _power.get_willpower();

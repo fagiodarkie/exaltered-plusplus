@@ -17,6 +17,9 @@ namespace qt {
 
     public:
       attributes_priority_page(QWidget *parent = nullptr);
+
+      ~attributes_priority_page();
+
       void set_attribute_values(int primary_value, int secondary_value, int tertiary_value);
 
     signals:

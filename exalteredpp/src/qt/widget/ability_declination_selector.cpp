@@ -71,7 +71,7 @@ namespace qt { namespace widget {
     setLayout(ability_and_declination_layout);
 
     connect (ability_selection, &QComboBox::currentTextChanged, this, &ability_declination_selector::on_ability_change);
-    connect (declination_selection, &QComboBox::currentTextChanged, this, &ability_declination_selector::update_ability);
+    connect (declination_selection, &QComboBox::currentTextChanged, this, &ability_declination_selector::on_declination_change);
 
     refresh();
   }

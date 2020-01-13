@@ -27,6 +27,18 @@ void DarkStyle::setMainColor(const QColor &color)
 {
   main_color = color;
   link = color;
+
+  for (auto button: foregroundButtons)
+    {
+      if (button == nullptr)
+        continue;
+
+      try {
+        _makeForeground(button);
+      } catch (...) {
+
+      }
+    }
 }
 
 void DarkStyle::setDark(bool isDark)
@@ -50,6 +62,19 @@ void DarkStyle::setDark(bool isDark)
 }
 
 void DarkStyle::foreground(QPushButton *button)
+{
+  _makeForeground(button);
+
+  if (!foregroundButtons.contains(button))
+    foregroundButtons.push_back(button);
+}
+
+void DarkStyle::forget(QPushButton *button)
+{
+  foregroundButtons.removeOne(button);
+}
+
+void DarkStyle::_makeForeground(QPushButton *button)
 {
   auto palette = button->palette();
   polish(palette);

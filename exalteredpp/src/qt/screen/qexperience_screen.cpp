@@ -49,6 +49,12 @@ namespace qt { namespace screen {
       setLayout(outer);
     }
 
+    qexperience_screen::~qexperience_screen()
+    {
+      qt::style::forget(open_logger);
+      qt::style::forget(open_expense_logger);
+    }
+
     void qexperience_screen::recompute_logger_session()
     {
       _logger->set_next_session_number(_character->get_experience().last_session() + 1);

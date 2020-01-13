@@ -16,6 +16,7 @@ namespace qt { namespace widget {
 
     public:
       explicit session_experience_logger(QWidget *parent = nullptr);
+      ~session_experience_logger();
 
       void set_next_session_number(unsigned int session_number);
 

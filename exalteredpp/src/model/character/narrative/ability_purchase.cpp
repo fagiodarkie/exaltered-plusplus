@@ -37,14 +37,17 @@ namespace character { namespace narrative {
 
     std::string ability_purchase::description() const
     {
+      return ability_string() + progress(_amount);
+    }
+
+    std::string ability_purchase::ability_string() const
+    {
       std::string declination = _ability.declination == ability_names::ability_declination::NO_DECLINATION
           ? " "
           : " (" + _ability.declination + ") ";
-      char amount[2];
-      sprintf(amount, "%d", _amount);
+
       return ability_names::ABILITY_NAME.at(_ability.ability)
-          + declination
-          + amount;
+          + declination;
     }
 
     ability_purchase::~ability_purchase() {}

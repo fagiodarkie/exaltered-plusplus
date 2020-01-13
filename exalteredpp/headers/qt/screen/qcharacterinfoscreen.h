@@ -18,6 +18,8 @@ namespace qt
                              manager::character_manager &ch_manager,
                              QWidget *parent = nullptr);
 
+      ~qcharacterinfoscreen();
+
     signals:
 
     public slots:

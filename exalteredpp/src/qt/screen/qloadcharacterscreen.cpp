@@ -21,6 +21,11 @@ namespace qt {
       init();
     }
 
+    qloadcharacterscreen::~qloadcharacterscreen()
+    {
+      qt::style::forget(load_character_button);
+    }
+
     void qloadcharacterscreen::enable_load_button()
     {
       load_character_button->setEnabled(true);

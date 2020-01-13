@@ -31,6 +31,7 @@ namespace qt {
       Q_OBJECT
     public:
       character_creation_ability_values(QWidget *parent = nullptr);
+      ~character_creation_ability_values();
       void set_current_abilities(const character::abilities& new_abilities,
                                  character::exalt::caste selected_caste,
                                  unsigned int number_of_caste_favorites,

@@ -43,6 +43,11 @@ namespace qt
       setLayout(outerLayout);
     }
 
+    qcharacterinfoscreen::~qcharacterinfoscreen()
+    {
+      qt::style::forget(save_button);
+    }
+
     void qcharacterinfoscreen::on_text_change(const QString& new_character_name)
     {
       save_button->setEnabled(new_character_name.toStdString() != character->get_name());

@@ -27,6 +27,8 @@ namespace character { namespace narrative {
       unsigned int _amount;
       ability_names::ability_enum _ability;
       std::string _specialisation;
+
+      std::string ability_string() const;
     };
 }}
 #endif // SPECIALISATION_PURCHASE_H

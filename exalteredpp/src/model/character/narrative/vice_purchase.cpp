@@ -22,9 +22,7 @@ namespace character { namespace narrative {
 
     std::string vice_purchase::description() const
     {
-      char amount[1];
-      sprintf(amount, "%d", _amount);
-      return model::text::character::VICE + " (" + amount + ")";
+      return model::text::character::VICE + " " + progress(_amount);
     }
 
     std::string vice_purchase::key() const

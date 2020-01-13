@@ -33,9 +33,7 @@ namespace character { namespace narrative {
 
     std::string attribute_purchase::description() const
     {
-      char amount[2];
-      sprintf(amount, "%d", _amount);
-      return key() + " (" + amount + ") ";
+      return key() + " " + progress(_amount);
     }
 
 } }

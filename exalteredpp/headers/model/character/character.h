@@ -48,6 +48,7 @@ namespace character
       void set_ability(ability_names::ability_enum name, ability_group ability);
       void set_ability_value(ability_names::ability_enum name, int new_val);
       void set_ability_value(ability_names::detailed_ability name, int new_val);
+      void add_ability_specialisation(ability_names::ability_enum name, specialisation specialisation);
 
       virtues::virtue get_virtue(virtues::virtue_enum v) const;
       virtues::virtue& get_virtue(virtues::virtue_enum v);

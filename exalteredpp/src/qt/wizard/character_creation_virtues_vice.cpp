@@ -121,6 +121,11 @@ namespace qt {
       setLayout(outer_layout);
     }
 
+    character_creation_virtues_vice::~character_creation_virtues_vice()
+    {
+      qt::style::forget(next_page);
+    }
+
     void character_creation_virtues_vice::update_virtues_limits(virtues virtues, unsigned int max_virtues, unsigned int max_virtue_value)
     {
       _virtues = virtues;

@@ -40,6 +40,11 @@ namespace qt {
       setLayout(outer_layout);
     }
 
+    attributes_priority_page::~attributes_priority_page()
+    {
+      qt::style::forget(next_page);
+    }
+
     void attributes_priority_page::create_attributes()
     {
       primary_select = new QComboBox;

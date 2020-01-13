@@ -26,6 +26,8 @@ namespace character { namespace narrative {
     private:
       ability_names::detailed_ability _ability;
       unsigned int _amount;
+
+      std::string ability_string() const;
     };
 
 }}

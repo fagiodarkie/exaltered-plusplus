@@ -20,6 +20,7 @@ namespace qt {
 
     public:
       character_creation_name_type_page(QWidget *parent = nullptr);
+      ~character_creation_name_type_page();
 
     signals:
       void character_type_chosen(const QString& character_name, character_type type, character::exalt::caste caste);

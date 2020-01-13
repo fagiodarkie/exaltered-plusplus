@@ -32,9 +32,7 @@ namespace character { namespace narrative {
 
     std::string willpower_purchase::description() const
     {
-      char amount[2];
-      sprintf(amount, "%d", _amount);
-      return model::text::character::WILLPOWER + " (" + amount + ")";
+      return model::text::character::WILLPOWER + progress(_amount);
     }
 
 }}

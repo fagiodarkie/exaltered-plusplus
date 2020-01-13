@@ -24,6 +24,8 @@ namespace qt {
                              const character::attributes& attributes,
                              const character::power::power_container& power);
 
+    ~character_creation_persona();
+
   signals:
     void back_issued();
     void persona_created(character::social::persona& persona);

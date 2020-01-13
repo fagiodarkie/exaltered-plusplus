@@ -64,6 +64,11 @@ namespace qt {
       hide_show_caste_box();
     }
 
+    character_creation_name_type_page::~character_creation_name_type_page()
+    {
+      qt::style::forget(next_page);
+    }
+
     void character_creation_name_type_page::hide_show_caste_box()
     {
       character_type selected_type = commons::reverse_search_in_map(character::creation::CHARACTER_TYPE_LIST,
@@ -71,7 +76,6 @@ namespace qt {
                                                                     combo_box->currentText().toStdString());
 
       qt::style::SET_CASTE(selected_type);
-      qt::style::foreground(next_page);
 
       auto available_castes = character::exalt::exalt_caste::CASTES_OF_EXALT_TYPE.at(selected_type);
       if (available_castes.empty() || available_castes.size() == 1)

@@ -59,6 +59,11 @@ namespace qt {
       setLayout(outer_layout);
     }
 
+    character_creation_attribute_points_page::~character_creation_attribute_points_page()
+    {
+      qt::style::forget(next_page);
+    }
+
     void character_creation_attribute_points_page::set_total_points(QMap<attribute_category, unsigned int> points_per_category)
     {
       this->points_per_category = points_per_category;

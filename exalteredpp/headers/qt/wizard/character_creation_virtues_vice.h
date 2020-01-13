@@ -23,6 +23,7 @@ namespace qt {
       character_creation_virtues_vice(QWidget* parent = nullptr);
       void update_virtues_limits(virtues virtues, unsigned int max_virtues, unsigned int max_virtue_value);
 
+      ~character_creation_virtues_vice();
 
     signals:
       void back_issued();

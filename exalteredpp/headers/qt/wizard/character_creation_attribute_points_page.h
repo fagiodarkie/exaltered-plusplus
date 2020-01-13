@@ -18,6 +18,7 @@ namespace qt {
 
     public:
       explicit character_creation_attribute_points_page(QWidget *parent = nullptr);
+      ~character_creation_attribute_points_page();
 
       void set_total_points(QMap<character::attribute_names::attribute_category, unsigned int> points_per_category);
       void set_current_attributes(const character::attributes& attributes);

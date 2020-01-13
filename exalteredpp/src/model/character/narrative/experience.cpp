@@ -38,7 +38,6 @@ namespace character { namespace narrative {
         }
     }
 
-
     unsigned int experience_purchase::cost() const
     {
       return _cost;
