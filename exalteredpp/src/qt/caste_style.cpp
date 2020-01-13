@@ -22,6 +22,9 @@ namespace qt {
 
   void style::foreground(QPushButton *button)
   {
+    if (button == nullptr)
+      return;
+
     STYLE->foreground(button);
   }
 
@@ -37,6 +40,7 @@ namespace qt {
     auto palette = APP->palette();
     STYLE->polish(palette);
     APP->setPalette(palette);
+
   }
 
   void style::application(QApplication& app)

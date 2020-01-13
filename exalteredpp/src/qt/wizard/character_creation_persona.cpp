@@ -137,6 +137,7 @@ namespace qt {
                                                .arg(character::virtues::VIRTUE_NAME.at(virtue).c_str())
                                                .arg(spent_on_emotion).arg(_virtues.value(virtue).value()));
         }
+      qt::style::foreground(next_page);
     }
 
     void character_creation_persona::increase_issued()

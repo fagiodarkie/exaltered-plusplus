@@ -61,8 +61,8 @@ namespace qt { namespace widget {
     if (character::ability_names::has_declination(_ability.ability))
       {
         generate_available_declinations();
-        declination_selection->setCurrentText(_ability.declination.c_str());
       }
+    declination_selection->setCurrentText(_ability.declination.c_str());
 
     ability_and_declination_layout->addWidget(ability_name, 0, 0);
     ability_and_declination_layout->addWidget(declination_name, 0, 1);
@@ -78,6 +78,9 @@ namespace qt { namespace widget {
 
   void ability_declination_selector::update_ability()
   {
+    if (!_is_ability_editable && !_is_declination_editable)
+      return;
+
     _ability.ability = selected_ability();
     if (character::ability_names::has_declination(_ability.ability))
       {

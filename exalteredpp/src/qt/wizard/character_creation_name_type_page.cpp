@@ -36,7 +36,6 @@ namespace qt {
       caste_combo_box = new QComboBox;
       caste_label = new QLabel(labels::creation_wizard::CASTE);
       form->addRow(caste_label, caste_combo_box);
-      hide_show_caste_box();
 
       connect(combo_box, &QComboBox::currentTextChanged, this, &character_creation_name_type_page::hide_show_caste_box);
       QWidget* central_widget = new QWidget;
@@ -62,7 +61,7 @@ namespace qt {
       outer_layout->addWidget(buttons, layout::QBorderLayout::South);
 
       setLayout(outer_layout);
-
+      hide_show_caste_box();
     }
 
     void character_creation_name_type_page::hide_show_caste_box()
@@ -72,6 +71,7 @@ namespace qt {
                                                                     combo_box->currentText().toStdString());
 
       qt::style::SET_CASTE(selected_type);
+      qt::style::foreground(next_page);
 
       auto available_castes = character::exalt::exalt_caste::CASTES_OF_EXALT_TYPE.at(selected_type);
       if (available_castes.empty() || available_castes.size() == 1)

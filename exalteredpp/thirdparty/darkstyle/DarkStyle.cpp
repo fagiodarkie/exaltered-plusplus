@@ -53,8 +53,8 @@ void DarkStyle::foreground(QPushButton *button)
 {
   auto palette = button->palette();
   polish(palette);
-  palette.setColor(QPalette::Button,          main_color);
-  palette.setColor(QPalette::Disabled, QPalette::Button,           dark127);
+  palette.setColor(QPalette::Button,                        main_color);
+  palette.setColor(QPalette::Disabled, QPalette::Button,    dark127);
   button->setPalette(palette);
 }
 

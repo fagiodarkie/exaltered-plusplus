@@ -127,6 +127,7 @@ namespace qt {
       max_points_on_virtues = max_virtues;
       this->max_virtue_value = max_virtue_value;
 
+      qt::style::foreground(next_page);
       choose_first_virtue_type();
       update_group_titles();
       update_button_status();

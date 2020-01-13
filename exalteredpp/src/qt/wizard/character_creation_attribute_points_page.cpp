@@ -16,6 +16,8 @@ namespace qt {
     using character::attribute_names::attribute_category;
     using character::attribute;
 
+    const QString character_creation_attribute_points_page::ATTRIBUTE = "ATTRIBUTE";
+
     character_creation_attribute_points_page::character_creation_attribute_points_page(QWidget *parent)
       : QWidget(parent)
     {
@@ -61,22 +63,29 @@ namespace qt {
     {
       this->points_per_category = points_per_category;
       generate_group_labels();
+      qt::style::foreground(next_page);
+      generate_group_labels();
+      rethink_button_enable(character::attribute_names::SOCIAL);
+      rethink_button_enable(character::attribute_names::PHYSICAL);
+      rethink_button_enable(character::attribute_names::MENTAL);
     }
 
-    QPushButton* character_creation_attribute_points_page::generate_add_button()
+    QPushButton* character_creation_attribute_points_page::generate_add_button(character::attribute_names::attribute attribute)
     {
       QPushButton* button = new QPushButton("+");
       button->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
+      button->setProperty(ATTRIBUTE.toStdString().c_str(), attribute);
 
       connect(button, &QPushButton::clicked, this, &character_creation_attribute_points_page::increase_attribute);
 
       return button;
     }
 
-    QPushButton* character_creation_attribute_points_page::generate_subtract_button()
+    QPushButton* character_creation_attribute_points_page::generate_subtract_button(character::attribute_names::attribute attribute)
     {
       QPushButton* button = new QPushButton("-");
       button->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
+      button->setProperty(ATTRIBUTE.toStdString().c_str(), attribute);
 
       connect(button, &QPushButton::clicked, this, &character_creation_attribute_points_page::decrease_attribute);
 
@@ -104,17 +113,7 @@ namespace qt {
     {
       QObject* event_sender = sender();
 
-      auto attribute_iterator = std::find_if(character::attribute_names::ATTRIBUTES.begin(), character::attribute_names::ATTRIBUTES.end(),
-                                             [this, event_sender](character::attribute_names::attribute attr) -> bool { return increase_buttons_by_attribute[attr] == event_sender; });
-
-      if (attribute_iterator == character::attribute_names::ATTRIBUTES.end())
-        attribute_iterator = std::find_if(character::attribute_names::ATTRIBUTES.begin(), character::attribute_names::ATTRIBUTES.end(),
-                                             [this, event_sender](character::attribute_names::attribute attr) -> bool { return decrease_buttons_by_attribute[attr] == event_sender; });
-
-      if (attribute_iterator == character::attribute_names::ATTRIBUTES.end())
-        throw new exception::invalid_parameter();
-
-      return *attribute_iterator;
+      return static_cast<character::attribute_names::attribute>(event_sender->property(ATTRIBUTE.toStdString().c_str()).toInt());
     }
 
     void character_creation_attribute_points_page::rethink_button_enable(attribute_category category)
@@ -205,8 +204,8 @@ namespace qt {
       int row = 0;
       for (auto attribute : character::attribute_names::ATTRIBUTES_BY_CATEGORY.at(category))
         {
-          auto add_button = generate_add_button();
-          auto subtract_button = generate_subtract_button();
+          auto add_button = generate_add_button(attribute);
+          auto subtract_button = generate_subtract_button(attribute);
 
           increase_buttons_by_category[category].append(add_button);
           decrease_buttons_by_category[category].append(subtract_button);
@@ -229,6 +228,11 @@ namespace qt {
     {
       chosen_attributes = attributes;
       generate_attribute_labels();
+      generate_group_labels();
+      qt::style::foreground(next_page);
+      rethink_button_enable(character::attribute_names::SOCIAL);
+      rethink_button_enable(character::attribute_names::PHYSICAL);
+      rethink_button_enable(character::attribute_names::MENTAL);
     }
 
     QWidget* character_creation_attribute_points_page::generate_plusminus_buttons_widget(QPushButton* add, QPushButton* subtract)

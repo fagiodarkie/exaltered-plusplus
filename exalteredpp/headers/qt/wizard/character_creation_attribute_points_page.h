@@ -46,8 +46,8 @@ namespace qt {
       unsigned int total_points_for_category(character::attribute_names::attribute_category att_category);
       unsigned int max_points_for_category(character::attribute_names::attribute_category att_category);
 
-      QPushButton* generate_add_button();
-      QPushButton* generate_subtract_button();
+      QPushButton* generate_add_button(character::attribute_names::attribute attribute);
+      QPushButton* generate_subtract_button(character::attribute_names::attribute attribute);
       QPushButton *next_page, *cancel;
 
       void chose_points();
@@ -60,6 +60,8 @@ namespace qt {
 
       QWidget* generate_category_group(character::attribute_names::attribute_category category);
       QWidget* generate_plusminus_buttons_widget(QPushButton* add, QPushButton* subtract);
+
+      const static QString ATTRIBUTE;
     };
   }
 }

@@ -38,6 +38,7 @@ namespace qt {
       max_std_ability_value = max_ability_value;
 
       regenerate_abilities();
+      qt::style::foreground(next_page);
     }
 
     void character_creation_ability_values::regenerate_abilities()
