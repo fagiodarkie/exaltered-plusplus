@@ -107,7 +107,6 @@ namespace qt { namespace screen {
 
     void qexperience_screen::refresh_awards()
     {
-      listawards = new QWidget;
       awards_vbox = new QVBoxLayout;
       awards_scroll = new QScrollArea;
 

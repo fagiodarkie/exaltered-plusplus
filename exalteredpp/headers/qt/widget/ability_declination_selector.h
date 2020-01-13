@@ -5,6 +5,7 @@
 #include <QComboBox>
 #include <QPushButton>
 #include <QGridLayout>
+#include <QLabel>
 #include "abilities/ability_names.h"
 #include "character.h"
 #include <memory>
@@ -36,6 +37,7 @@ namespace qt { namespace widget {
       bool _is_declination_editable, _is_ability_editable, _is_favored;
       QGridLayout *ability_and_declination_layout;
       QComboBox *ability_selection, *declination_selection;
+      QLabel *ability_name, *declination_name;
 
       void generate_available_abilities() const;
       void generate_available_declinations() const;

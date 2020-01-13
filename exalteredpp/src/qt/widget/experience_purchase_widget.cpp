@@ -55,6 +55,34 @@ namespace qt { namespace widget {
 
       connect(purchase_submit, &QPushButton::clicked, this, &experience_purchase_widget::submit_purchase);
 
+      QVBoxLayout *list = new QVBoxLayout;
+
+      QList<QWidget*> all_widgets = { purchase_type_dropdown,
+                                     attribute_dropdown,
+                                     ability_selector,
+                                     virtue_dropdown,
+                                     specialty_freetext,
+                                     cost_label };
+      for (QWidget* widget: all_widgets)
+        {
+          list->addWidget(widget);
+        }
+
+      list->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
+      QWidget *list_widget = new QWidget;
+      list_widget->setLayout(list);
+      list_widget->adjustSize();
+
+      QVBoxLayout *buttons = new QVBoxLayout;
+      buttons->addWidget(purchase_submit);
+      QWidget *buttons_widget = new QWidget;
+      buttons_widget->setLayout(buttons);
+
+      layout::QBorderLayout *outer = new layout::QBorderLayout;
+      outer->addWidget(buttons_widget, layout::QBorderLayout::South);
+      outer->addWidget(list_widget, layout::QBorderLayout::Center);
+      setLayout(outer);
+
       purchase_type_selected();
     }
 
@@ -111,32 +139,19 @@ namespace qt { namespace widget {
 
     void experience_purchase_widget::redraw(const QList<QWidget*> widgets_in_list)
     {
-      delete layout();
-
-      QVBoxLayout *list = new QVBoxLayout;
-      list->addWidget(purchase_type_dropdown);
-
-      for (auto widget: widgets_in_list)
+      QList<QWidget*> all_widgets = { attribute_dropdown,
+                                     ability_selector,
+                                     virtue_dropdown,
+                                     specialty_freetext };
+      for (QWidget* widget: all_widgets)
         {
-          list->addWidget(widget);
-          widget->adjustSize();
+          widget->hide();
         }
 
-      list->addWidget(cost_label);
-      list->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
-      QWidget *list_widget = new QWidget;
-      list_widget->setLayout(list);
-      list_widget->adjustSize();
-
-      QVBoxLayout *buttons = new QVBoxLayout;
-      buttons->addWidget(purchase_submit);
-      QWidget *buttons_widget = new QWidget;
-      buttons_widget->setLayout(buttons);
-
-      layout::QBorderLayout *outer = new layout::QBorderLayout;
-      outer->addWidget(buttons_widget, layout::QBorderLayout::South);
-      outer->addWidget(list_widget, layout::QBorderLayout::Center);
-      setLayout(outer);
+      for (QWidget* widget: widgets_in_list)
+        {
+          widget->show();
+        }
     }
 
     void experience_purchase_widget::compute_cost_label() const

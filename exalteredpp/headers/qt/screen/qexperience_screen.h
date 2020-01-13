@@ -42,7 +42,7 @@ namespace qt { namespace screen {
       void add_expense(const character::narrative::experience_purchase& purchase);
       void update_status_label() const;
 
-      QWidget *awards, *expenses, *listawards, *listexpenses,
+      QWidget *awards, *expenses, *listexpenses,
         *awards_buttons;
       QVBoxLayout *awards_vbox;
       QScrollArea *awards_scroll;

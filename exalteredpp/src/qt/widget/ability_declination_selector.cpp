@@ -29,36 +29,27 @@ namespace qt { namespace widget {
 
   void ability_declination_selector::repaint(const QList<QWidget*> &widgets_in_layout)
   {
-    delete layout();
-
-    ability_and_declination_layout = new QGridLayout;
+    ability_name->hide();
+    ability_selection->hide();
+    declination_name->hide();
+    declination_selection->hide();
 
     for (auto widget: widgets_in_layout)
       {
+        widget->show();
         if (_is_favored)
           widget->setStyleSheet("font-weight: bold");
         else
           widget->setStyleSheet("font-weight: normal");
-
-        widget->adjustSize();
       }
-
-    if (widgets_in_layout.size() == 2)
-      {
-        ability_and_declination_layout->addWidget(widgets_in_layout.at(0), 0, 0);
-        ability_and_declination_layout->addWidget(widgets_in_layout.at(1), 0, 1);
-      }
-    else
-      {
-        ability_and_declination_layout->addWidget(widgets_in_layout.at(0), 0, 0, 1, 2);
-      }
-
-    setLayout(ability_and_declination_layout);
   }
 
   void ability_declination_selector::generate_widget()
   {
     ability_and_declination_layout = new QGridLayout;
+
+    ability_name = new QLabel;
+    declination_name = new QLabel;
 
     ability_selection = new QComboBox;
     generate_available_abilities();
@@ -72,6 +63,12 @@ namespace qt { namespace widget {
         generate_available_declinations();
         declination_selection->setCurrentText(_ability.declination.c_str());
       }
+
+    ability_and_declination_layout->addWidget(ability_name, 0, 0);
+    ability_and_declination_layout->addWidget(declination_name, 0, 1);
+    ability_and_declination_layout->addWidget(ability_selection, 1, 0);
+    ability_and_declination_layout->addWidget(declination_selection, 1, 1);
+    setLayout(ability_and_declination_layout);
 
     connect (ability_selection, &QComboBox::currentTextChanged, this, &ability_declination_selector::on_ability_change);
     connect (declination_selection, &QComboBox::currentTextChanged, this, &ability_declination_selector::update_ability);
@@ -116,29 +113,30 @@ namespace qt { namespace widget {
     if (_character_reference)
       _is_favored = _character_reference->get_ability(_ability).is_favourite();
 
-    std::string ability_name = character::ability_names::ABILITY_NAME.at(_ability.ability);
+    std::string ability_name_str = character::ability_names::ABILITY_NAME.at(_ability.ability);
+    ability_name->setText(ability_name_str.c_str());
+    ability_selection->setCurrentText(ability_name_str.c_str());
+
     if (!_is_ability_editable)
       {
-        to_display.push_back(label(ability_name));
+        to_display.push_back(ability_name);
       }
     else
       {
-        ability_selection->setCurrentText(ability_name.c_str());
         to_display.push_back(ability_selection);
       }
 
     if (character::ability_names::has_declination(_ability.ability))
       {
+        declination_name->setText(_ability.declination.c_str());
         if (_is_declination_editable)
           {
             generate_available_declinations();
-            declination_selection->show();
             to_display.push_back(declination_selection);
           }
         else
           {
-            declination_selection->hide();
-            to_display.push_back(label(_ability.declination));
+            to_display.push_back(declination_name);
           }
       }
 
