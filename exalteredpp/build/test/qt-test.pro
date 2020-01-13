@@ -29,6 +29,21 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    ../../headers/calculator/cost_worker/ability_cost_worker.h \
+    ../../headers/calculator/cost_worker/abstract_cost_worker.h \
+    ../../headers/calculator/cost_worker/attribute_cost_worker.h \
+    ../../headers/calculator/cost_worker/essence_cost_worker.h \
+    ../../headers/calculator/cost_worker/specialisation_cost_worker.h \
+    ../../headers/calculator/cost_worker/vice_cost_worker.h \
+    ../../headers/calculator/cost_worker/virtue_cost_worker.h \
+    ../../headers/calculator/cost_worker/willpower_cost_worker.h \
+    ../../headers/calculator/derived_value_calculator.h \
+    ../../headers/calculator/derived_value_definitions.h \
+    ../../headers/calculator/experience_purchase_cost_calculator.h \
+    ../../headers/calculator/worker/abstract_calculator_worker.h \
+    ../../headers/calculator/worker/common_worker.h \
+    ../../headers/calculator/worker/exalt_worker.h \
+    ../../headers/calculator/worker/rounding_type.h \
     ../../headers/common/reverse_search.h \
     ../../headers/errors/ability_not_found_exception.h \
     ../../headers/errors/characternotfoundexception.h \
@@ -39,6 +54,8 @@ HEADERS += \
     ../../headers/model/character/abilities/ability.h \
     ../../headers/model/character/abilities/ability_group.h \
     ../../headers/model/character/abilities/ability_names.h \
+    ../../headers/model/character/abilities/abstract_ability_factory.h \
+    ../../headers/model/character/abilities/default_ability_factory.h \
     ../../headers/model/character/abilities/specialisation.h \
     ../../headers/model/character/attributes/attribute.h \
     ../../headers/model/character/attributes/attribute_names.h \
@@ -47,7 +64,22 @@ HEADERS += \
     ../../headers/model/character/creation/character_creation_configuration.h \
     ../../headers/model/character/creation/character_type_model.h \
     ../../headers/model/character/exalt/exalt_caste.h \
+    ../../headers/model/character/narrative/ability_purchase.h \
+    ../../headers/model/character/narrative/abstract_purchase.h \
+    ../../headers/model/character/narrative/attribute_purchase.h \
+    ../../headers/model/character/narrative/background_purchase.h \
     ../../headers/model/character/narrative/backgrounds.h \
+    ../../headers/model/character/narrative/charm_purchase.h \
+    ../../headers/model/character/narrative/essence_purchase.h \
+    ../../headers/model/character/narrative/experience.h \
+    ../../headers/model/character/narrative/experience_award.h \
+    ../../headers/model/character/narrative/experience_cluster.h \
+    ../../headers/model/character/narrative/experience_defines.h \
+    ../../headers/model/character/narrative/session_awards.h \
+    ../../headers/model/character/narrative/specialisation_purchase.h \
+    ../../headers/model/character/narrative/vice_purchase.h \
+    ../../headers/model/character/narrative/virtue_purchase.h \
+    ../../headers/model/character/narrative/willpower_purchase.h \
     ../../headers/model/character/power/essence.h \
     ../../headers/model/character/power/health.h \
     ../../headers/model/character/power/logos.h \
@@ -62,20 +94,33 @@ HEADERS += \
     ../../headers/model/character/virtues/virtues.h \
     ../../headers/model/managers/character_manager.h \
     ../../headers/model/text/character_text_constants.h \
+    ../../headers/qt-test/quick_chargen.h \
     ../../headers/serialisation/db_abstraction.h \
     ../../headers/serialisation/filesystem_db.h \
     ../../headers/serialisation/json_constants.h \
     ../../headers/serialisation/serialisable.h \
     ../../headers/test-case/db_abstraction_mock.h \
-    ../../headers/qt-test/quick_chargen.h
+    ../../thirdparty/catch/catch.hpp \
+    ../../thirdparty/serialisable/serialisable.hpp
 
 SOURCES += \
+    ../../src/calculator/cost_worker/ability_cost_worker.cpp \
+    ../../src/calculator/cost_worker/attribute_cost_worker.cpp \
+    ../../src/calculator/cost_worker/essence_cost_worker.cpp \
+    ../../src/calculator/cost_worker/specialisation_cost_worker.cpp \
+    ../../src/calculator/cost_worker/vice_cost_worker.cpp \
+    ../../src/calculator/cost_worker/virtue_cost_worker.cpp \
+    ../../src/calculator/cost_worker/willpower_cost_worker.cpp \
+    ../../src/calculator/derived_value_calculator.cpp \
+    ../../src/calculator/experience_purchase_cost_calculator.cpp \
+    ../../src/calculator/worker/exalt_worker.cpp \
     ../../src/errors/ability_not_found_exception.cpp \
     ../../src/errors/characternotfoundexception.cpp \
     ../../src/errors/invalid_parameter.cpp \
     ../../src/model/character/abilities/abilities.cpp \
     ../../src/model/character/abilities/ability.cpp \
     ../../src/model/character/abilities/ability_group.cpp \
+    ../../src/model/character/abilities/default_ability_factory.cpp \
     ../../src/model/character/abilities/specialisation.cpp \
     ../../src/model/character/attributes/attribute.cpp \
     ../../src/model/character/attributes/attributes.cpp \
@@ -84,7 +129,20 @@ SOURCES += \
     ../../src/model/character/creation/character_type_model.cpp \
     ../../src/model/character/exalt/exalt_caste.cpp \
     ../../src/model/character/exalt/exalt_caste_abilities.cpp \
+    ../../src/model/character/narrative/ability_purchase.cpp \
+    ../../src/model/character/narrative/attribute_purchase.cpp \
+    ../../src/model/character/narrative/background_purchase.cpp \
     ../../src/model/character/narrative/backgrounds.cpp \
+    ../../src/model/character/narrative/charm_purchase.cpp \
+    ../../src/model/character/narrative/essence_purchase.cpp \
+    ../../src/model/character/narrative/experience.cpp \
+    ../../src/model/character/narrative/experience_award.cpp \
+    ../../src/model/character/narrative/experience_cluster.cpp \
+    ../../src/model/character/narrative/session_awards.cpp \
+    ../../src/model/character/narrative/specialisation_purchase.cpp \
+    ../../src/model/character/narrative/vice_purchase.cpp \
+    ../../src/model/character/narrative/virtue_purchase.cpp \
+    ../../src/model/character/narrative/willpower_purchase.cpp \
     ../../src/model/character/power/essence.cpp \
     ../../src/model/character/power/health.cpp \
     ../../src/model/character/power/logos.cpp \
@@ -99,7 +157,10 @@ SOURCES += \
     ../../src/qt-test/quick_chargen.cpp \
     ../../src/serialisation/filesystem_db.cpp \
     ../../src/serialisation/json_constants.cpp \
+    ../../src/test-case/calculator/worker/common-worker-test.cpp \
+    ../../src/test-case/common/reverse-search-tests.cpp \
     ../../src/test-case/errors/exceptions-test.cpp \
+    ../../src/test-case/managers/ability-factory-test.cpp \
     ../../src/test-case/managers/character_manager-test.cpp \
     ../../src/test-case/managers/filesystem_db-test.cpp \
     ../../src/test-case/model/abilities/abilities-test.cpp \
@@ -120,6 +181,7 @@ SOURCES += \
     ../../src/test-case/model/virtues/virtues-test.cpp \
     ../../src/test-case/model/power/power-container-test.cpp \
     ../../src/test-case/model/power/willpower-test.cpp
+
 
 
 

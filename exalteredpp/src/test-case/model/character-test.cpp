@@ -33,7 +33,7 @@ TEST_CASE("Character")
   SECTION("should accept a new ability group")
   {
     character::character sut = STANDARD_CHARACTER;
-    sut.set_ability(character::ability_names::WAR, character::ability_group(TEST_ATTRIBUTE_NAME, character::ability_names::COMBAT));
+    sut.set_ability(character::ability_names::WAR, character::ability_group());
     character::ability_group saved_ability = sut.get_ability_group(character::ability_names::WAR);
     REQUIRE(saved_ability.get_name() == TEST_ATTRIBUTE_NAME);
   }
@@ -48,10 +48,10 @@ TEST_CASE("Character")
   SECTION("should save and retrieve correct abilities")
   {
     character::character sut = STANDARD_CHARACTER;
-    sut.set_ability(character::ability_names::CRAFT, character::ability_group("craft", character::ability_names::NARRATIVE, { character::ability("new_ability", 1) }));
-    sut.set_ability(character::ability_names::WAR, character::ability_group("war", character::ability_names::COMBAT));
+    sut.set_ability(character::ability_names::CRAFT, character::ability_group(character::ability_names::CRAFT, { character::ability("new_ability", 1) }));
+    sut.set_ability(character::ability_names::WAR, character::ability_group(character::ability_names::WAR));
     sut.set_ability_value(character::ability_names::MELEE, 5);
-    REQUIRE(sut.get_ability_group(character::ability_names::WAR).get_name() == "war");
+    REQUIRE(sut.get_ability_group(character::ability_names::WAR).get_name() == "War");
     REQUIRE(sut.get_ability(character::ability_names::WAR).get_name() == character::ability_names::ability_declination::NO_DECLINATION);
     REQUIRE(sut.get_ability(character::ability_names::WAR).get_ability_value() == 0);
     REQUIRE(sut.get_ability(character::ability_names::CRAFT, "new_ability").get_name() == "new_ability");

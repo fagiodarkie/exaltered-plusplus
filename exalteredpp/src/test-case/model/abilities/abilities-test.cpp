@@ -17,7 +17,7 @@ TEST_CASE("Abilities")
   {
     character::ability ability(TEST_ABILITY_NAME, TEST_ABILITY_VALUE);
     character::abilities sut;
-    sut[WAR] = character::ability_group(TEST_ABILITY_NAME, ability_category::COMBAT, {ability});
+    sut[WAR] = character::ability_group(WAR, {ability});
     REQUIRE(sut[WAR].get_name() == TEST_ABILITY_NAME);
   }
 
@@ -25,7 +25,7 @@ TEST_CASE("Abilities")
   {
     character::abilities stub;
     character::ability ability(TEST_ABILITY_NAME, TEST_ABILITY_VALUE);
-    stub[WAR] = character::ability_group(TEST_ABILITY_NAME, ability_category::COMBAT, {ability}, {character::specialisation("")});
+    stub[WAR] = character::ability_group(WAR, {ability}, {character::specialisation("")});
 
     character::abilities sut;
     sut.deserialise(stub.serialise());
