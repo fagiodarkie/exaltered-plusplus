@@ -14,6 +14,11 @@ namespace narrative {
       _description = description;
     }
 
+    experience_award_type experience_award::type() const
+    {
+      return _award_type;
+    }
+
     void experience_award::serialisation()
     {
       synch(serialisation::json_constants::SLOT_TYPE, _award_type);

@@ -173,6 +173,9 @@ SOURCES += \
     ../../src/test-case/model/narrative/ability-purchase-test.cpp \
     ../../src/test-case/model/narrative/attribute-purchase-test.cpp \
     ../../src/test-case/model/narrative/essence-purchase-test.cpp \
+    ../../src/test-case/model/narrative/experience-award-test.cpp \
+    ../../src/test-case/model/narrative/experience-cluster-test.cpp \
+    ../../src/test-case/model/narrative/experience-purchase-test.cpp \
     ../../src/test-case/model/narrative/specialisation-purchase-test.cpp \
     ../../src/test-case/model/narrative/vice-purchase-test.cpp \
     ../../src/test-case/model/narrative/virtue-purchase-test.cpp \

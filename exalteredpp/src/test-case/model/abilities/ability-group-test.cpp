@@ -201,4 +201,19 @@ TEST_CASE("Ability group")
     REQUIRE_NOTHROW(stub.set_ability_value("invalid_ability", 4));
     REQUIRE_NOTHROW(stub.set_specialisation_value("invalid_specialisation", 2));
   }
+
+  SECTION("should retrieve the ability type")
+  {
+    ability::ability_group sut(ability::WAR);
+    REQUIRE(sut.get_ability_enum() == ability::WAR);
+  }
+
+  SECTION("should list subabilities")
+  {
+    ability::ability_group sut(ability::WAR, {ability::ability("a1"), ability::ability("a2")});
+    auto result = sut.get_detailed_abilities();
+    REQUIRE(result.size() == 2);
+    REQUIRE(result[0].name() == "War (a1)");
+    REQUIRE(result[1].name() == "War (a2)");
+  }
 }
