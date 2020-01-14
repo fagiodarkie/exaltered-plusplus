@@ -22,7 +22,6 @@ namespace qt {
     {
       QWidget *virtues_widget = new QWidget;
       QFormLayout *virtues_form = new QFormLayout;
-      QHBoxLayout *vice_layout = new QHBoxLayout;
       virtuesbox = new QGroupBox;
       vicebox = new QGroupBox;
 
