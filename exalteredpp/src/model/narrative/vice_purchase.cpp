@@ -20,6 +20,11 @@ namespace narrative {
       c->set_vice(c->get_vice(), _amount);
     }
 
+    unsigned int vice_purchase::amount() const
+    {
+      return _amount;
+    }
+
     std::string vice_purchase::description() const
     {
       return model::text::VICE + " " + progress(_amount);

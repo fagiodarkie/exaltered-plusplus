@@ -5,7 +5,7 @@
 
 TEST_CASE("Specialisation Purchase")
 {
-  SECTION("should create new ability purchase")
+  SECTION("should create new Specialisation purchase")
   {
     narrative::specialisation_purchase sut(3, ability::MEDICINE, "On the field");
 

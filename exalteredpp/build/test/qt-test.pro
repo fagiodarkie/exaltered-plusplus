@@ -170,8 +170,13 @@ SOURCES += \
     ../../src/test-case/model/character-test.cpp \
     ../../src/test-case/model/creation/character-type-model-test.cpp \
     ../../src/test-case/model/exalt/exalt-caste-test.cpp \
-    ../../src/test-case/model/narrative/ability_purchase-test.cpp \
-    ../../src/test-case/model/narrative/specialisation_purchase-test.cpp \
+    ../../src/test-case/model/narrative/ability-purchase-test.cpp \
+    ../../src/test-case/model/narrative/attribute-purchase-test.cpp \
+    ../../src/test-case/model/narrative/essence-purchase-test.cpp \
+    ../../src/test-case/model/narrative/specialisation-purchase-test.cpp \
+    ../../src/test-case/model/narrative/vice-purchase-test.cpp \
+    ../../src/test-case/model/narrative/virtue-purchase-test.cpp \
+    ../../src/test-case/model/narrative/willpower-purchase-test.cpp \
     ../../src/test-case/model/power/essence-test.cpp \
     ../../src/test-case/model/power/health-test.cpp \
     ../../src/test-case/model/power/logos-test.cpp \
