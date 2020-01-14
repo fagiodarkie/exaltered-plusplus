@@ -15,7 +15,7 @@ namespace commons {
         return names_map.at(iterator) == name;
       });
     if (result != iterable.end()) return *result;
-    throw std::exception("item not in map");
+    throw std::runtime_error("item not in map");
   }
 
   template<class T>
@@ -31,7 +31,7 @@ namespace commons {
         return names_map.at(iterator) == name;
       });
     if (result != iterable.end()) return *result;
-    throw std::exception("item not in map");
+    throw std::runtime_error("item not in map");
   }
 
   template<class T>
