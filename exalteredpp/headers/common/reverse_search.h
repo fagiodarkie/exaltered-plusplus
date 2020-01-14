@@ -5,6 +5,7 @@
 #include <vector>
 #include <list>
 #include <algorithm>
+#include <exception>
 
 namespace commons {
   template<class T>
