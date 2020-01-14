@@ -35,7 +35,7 @@ TEST_CASE("Character")
     character::character sut = STANDARD_CHARACTER;
     sut.set_ability(character::ability_names::WAR, character::ability_group());
     character::ability_group saved_ability = sut.get_ability_group(character::ability_names::WAR);
-    REQUIRE(saved_ability.get_name() == TEST_ATTRIBUTE_NAME);
+    REQUIRE(saved_ability.get_name() == "War");
   }
 
   SECTION("should change name when change is issued")

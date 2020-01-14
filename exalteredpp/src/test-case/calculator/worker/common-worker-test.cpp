@@ -9,14 +9,21 @@ TEST_CASE("common worker")
 {
   human_worker sut;
   character::character test_character = generate_character("name", 0);
+  test_character.set_attribute_value(character::attribute_names::DEXTERITY, 4);
+  test_character.set_attribute_value(character::attribute_names::STRENGTH, 3);
+  test_character.set_attribute_value(character::attribute_names::CONSTITUTION, 3);
+  test_character.set_attribute_value(character::attribute_names::INTELLIGENCE, 3);
+  test_character.set_attribute_value(character::attribute_names::CHARISMA, 3);
+  test_character.set_attribute_value(character::attribute_names::MANIPULATION, 3);
+  test_character.set_attribute_value(character::attribute_names::APPEARANCE, 3);
+  test_character.set_attribute_value(character::attribute_names::WITS, 3);
+  test_character.set_ability_value(character::ability_names::MELEE, 3);
+  test_character.set_ability_value(character::ability_names::DODGE, 3);
+  test_character.set_ability_value(character::ability_names::RESISTANCE, 3);
+  test_character.set_ability_value(character::ability_names::INTEGRITY, 3);
 
   SECTION("should compute human values rounding down")
   {
-    test_character.set_attribute_value(character::attribute_names::DEXTERITY, 4);
-    test_character.set_attribute_value(character::attribute_names::STRENGTH, 3);
-    test_character.set_ability_value(character::ability_names::MELEE, 3);
-    test_character.set_ability_value(character::ability_names::DODGE, 3);
-
     // parry is ((dex + str) / 2 + ability) / 2. In this case it's ((4 + 3) / 2 + 3) / 2, which should yield 3 instead of 4 since it rounds down
     REQUIRE(sut.compute_parry_dv(test_character, character::ability_names::MELEE) == 3);
     // same for dodge, (4 + 3) / 2 = 3
@@ -59,7 +66,7 @@ TEST_CASE("exalt worker")
   exalt_worker sut;
   character::character test_character = generate_character("name", 0);
 
-  SECTION("should compute human values rounding down")
+  SECTION("should compute human values rounding up")
   {
     test_character.set_attribute_value(character::attribute_names::DEXTERITY, 4);
     test_character.set_attribute_value(character::attribute_names::STRENGTH, 3);

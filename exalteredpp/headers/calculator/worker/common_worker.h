@@ -16,17 +16,17 @@ namespace calculator {
       {
         physical_vd result;
 
-        result.dodge_vd = compute_dodge_dv(c);
-        result.parry_vd = compute_parry_dv(c, parry_ability);
-        result.tower_parry_vd = compute_heavy_parry_dv(c, parry_ability);
+        result.dodge_vd         = compute_dodge_dv(c);
+        result.parry_vd         = compute_parry_dv(c, parry_ability);
+        result.tower_parry_vd   = compute_heavy_parry_dv(c, parry_ability);
 
-        result.stance = compute_stance_bonus(c);
-        result.hindrance = compute_hindrance(c);
-        result.bashing_soak = compute_bashing_soak(c);
-        result.lethal_soak = compute_lethal_soak(c);
-        result.aggravated_soak = compute_aggravated_soak(c);
-        result.parry_balance = compute_parry_balance(c);
-        result.dodge_balance = compute_dodge_balance(c);
+        result.stance           = compute_stance_bonus(c);
+        result.hindrance        = compute_hindrance(c);
+        result.bashing_soak     = compute_bashing_soak(c);
+        result.lethal_soak      = compute_lethal_soak(c);
+        result.aggravated_soak  = compute_aggravated_soak(c);
+        result.parry_balance    = compute_parry_balance(c);
+        result.dodge_balance    = compute_dodge_balance(c);
 
         return result;
       }
@@ -46,12 +46,14 @@ namespace calculator {
 
       virtual long int compute_dodge_dv(const character::character& c) const
       {
-        return round<round_t>(_dodge_dv(c));
+        auto result = _dodge_dv(c);
+        return round<round_t>(result);
       }
 
       virtual long int compute_parry_dv(const character::character& c, character::ability_names::ability_enum parry_ability) const
       {
-        return round<round_t>(_parry_dv(c, parry_ability));
+        auto parry = _parry_dv(c, parry_ability);
+        return round<round_t>(parry);
       }
 
       virtual long int compute_heavy_parry_dv(const character::character& c, character::ability_names::ability_enum parry_ability) const
@@ -238,13 +240,16 @@ namespace calculator {
 
       virtual double _dodge_dv(const character::character& c) const
       {
-        return half(c, attribute_t::DEXTERITY, ability_t::DODGE);
+        auto res = half(c, attribute_t::DEXTERITY, ability_t::DODGE);
+        return res;
       }
 
       // TODO parry computations must take into account weapon DV!
       virtual double _parry_dv(const character::character& c, character::ability_names::ability_enum parry_ability) const
       {
-        return half(c, attribute_t::STRENGTH, attribute_t::DEXTERITY) + c.get_ability(parry_ability) / 2;
+        auto att = half(c, attribute_t::STRENGTH, attribute_t::DEXTERITY);
+        auto ab = c.get_ability(parry_ability);
+        return (att + ab) / 2;
       }
 
       virtual double _heavy_parry_dv(const character::character& c, character::ability_names::ability_enum parry_ability) const

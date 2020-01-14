@@ -166,7 +166,7 @@ TEST_CASE("Ability group")
 
     REQUIRE(sut.get_name()                            == stub.get_name()                           );
     REQUIRE(sut.get_category()                        == stub.get_category()                       );
-    REQUIRE(sut.get_ability().is_favourite()          == stub.get_ability().is_favourite()         );
+    REQUIRE(sut.get_ability("a1").is_favourite()      == stub.get_ability("a1").is_favourite()     );
     REQUIRE(sut.get_ability("a1").get_ability_value() == stub.get_ability("a1").get_ability_value());
     REQUIRE(sut.get_ability("a2").get_ability_value() == stub.get_ability("a2").get_ability_value());
     REQUIRE(sut.get_specialisation("s1").get_value()  == stub.get_specialisation("s1").get_value() );
@@ -181,14 +181,14 @@ TEST_CASE("Ability group")
 
     REQUIRE(sut_1.get_name()                            == stub.get_name()                           );
     REQUIRE(sut_1.get_category()                        == stub.get_category()                       );
-    REQUIRE(sut_1.get_ability().is_favourite()          == stub.get_ability().is_favourite()         );
+    REQUIRE(sut_1.get_ability("a1").is_favourite()      == stub.get_ability("a1").is_favourite()     );
     REQUIRE(sut_1.get_ability("a1").get_ability_value() == stub.get_ability("a1").get_ability_value());
     REQUIRE(sut_1.get_ability("a2").get_ability_value() == stub.get_ability("a2").get_ability_value());
     REQUIRE(sut_1.get_specialisation("s1").get_value()  == stub.get_specialisation("s1").get_value() );
 
     REQUIRE(sut_2.get_name()                            == stub.get_name()                           );
     REQUIRE(sut_2.get_category()                        == stub.get_category()                       );
-    REQUIRE(sut_2.get_ability().is_favourite()          == stub.get_ability().is_favourite()         );
+    REQUIRE(sut_2.get_ability("a1").is_favourite()      == stub.get_ability("a1").is_favourite()     );
     REQUIRE(sut_2.get_ability("a1").get_ability_value() == stub.get_ability("a1").get_ability_value());
     REQUIRE(sut_2.get_ability("a2").get_ability_value() == stub.get_ability("a2").get_ability_value());
     REQUIRE(sut_2.get_specialisation("s1").get_value()  == stub.get_specialisation("s1").get_value() );

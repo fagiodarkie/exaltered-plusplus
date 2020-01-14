@@ -18,7 +18,7 @@ TEST_CASE("Abilities")
     character::ability ability(TEST_ABILITY_NAME, TEST_ABILITY_VALUE);
     character::abilities sut;
     sut[WAR] = character::ability_group(WAR, {ability});
-    REQUIRE(sut[WAR].get_name() == TEST_ABILITY_NAME);
+    REQUIRE(sut[WAR].get_ability(TEST_ABILITY_NAME).get_name() == TEST_ABILITY_NAME);
   }
 
   SECTION("should create correctly from JSON")
@@ -30,7 +30,7 @@ TEST_CASE("Abilities")
     character::abilities sut;
     sut.deserialise(stub.serialise());
 
-    REQUIRE(sut[WAR].get_name() == TEST_ABILITY_NAME);
+    REQUIRE(sut[WAR].get_ability(TEST_ABILITY_NAME).get_name() == TEST_ABILITY_NAME);
     REQUIRE(sut[WAR].get_abilities().size() == 1);
     REQUIRE(sut[WAR].get_specialisations().size() == 1);
   }

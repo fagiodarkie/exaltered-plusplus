@@ -10,9 +10,11 @@ namespace commons {
   template<class T>
   T reverse_search_in_map(std::list<T> iterable, std::map<T, std::string> names_map, std::string name)
   {
-    return *std::find_if(iterable.begin(), iterable.end(), [names_map, name](T iterator) {
-      return names_map.at(iterator) == name;
-    });
+    auto result = std::find_if(iterable.begin(), iterable.end(), [names_map, name](T iterator) {
+        return names_map.at(iterator) == name;
+      });
+    if (result != iterable.end()) return *result;
+    throw std::exception("item not in map");
   }
 
   template<class T>
@@ -24,9 +26,11 @@ namespace commons {
   template<class T>
   T reverse_search_in_map(std::vector<T> iterable, std::map<T, std::string> names_map, std::string name)
   {
-    return *std::find_if(iterable.begin(), iterable.end(), [names_map, name](T iterator) {
-      return names_map.at(iterator) == name;
-    });
+    auto result = std::find_if(iterable.begin(), iterable.end(), [names_map, name](T iterator) {
+        return names_map.at(iterator) == name;
+      });
+    if (result != iterable.end()) return *result;
+    throw std::exception("item not in map");
   }
 
   template<class T>
