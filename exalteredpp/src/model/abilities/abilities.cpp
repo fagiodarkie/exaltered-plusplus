@@ -1,11 +1,11 @@
 #include "abilities/abilities.h"
-#include "abilities/ability_names.h"
+#include "abilities/ability.h"
 
-namespace character {
+namespace ability {
 
   void abilities::serialisation()
   {
-    for (auto ability: ability_names::ABILITIES)
-      synch(ability_names::ABILITY_NAME.at(ability), operator[](ability));
+    for (auto ability: ABILITIES)
+      synch(ABILITY_NAME.at(ability), operator[](ability));
   }
 }

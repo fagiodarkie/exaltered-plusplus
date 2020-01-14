@@ -1,7 +1,6 @@
 #include "attributes/attributes.h"
 
-namespace character {
-  using namespace attribute_names;
+namespace attribute {
 
   void attributes::serialisation()
   {

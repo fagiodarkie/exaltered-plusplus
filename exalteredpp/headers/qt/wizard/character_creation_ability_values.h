@@ -8,7 +8,7 @@
 #include <QMap>
 
 #include "abilities/abilities.h"
-#include "abilities/ability_names.h"
+#include "abilities/ability.h"
 #include "exalt/exalt_caste.h"
 #include "ability_value_row.h"
 #include "widget/with_progress_bar.h"
@@ -22,7 +22,7 @@ namespace qt {
 
     struct validation_result
     {
-      QMap<character::ability_names::detailed_ability, operation_enabled> operations;
+      QMap<ability::detailed_ability, operation_enabled> operations;
       unsigned int total_spent, total_spent_in_favorites, remaining_favorites, remaining_caste_favorites;
     };
 
@@ -32,7 +32,7 @@ namespace qt {
     public:
       character_creation_ability_values(QWidget *parent = nullptr);
       ~character_creation_ability_values();
-      void set_current_abilities(const character::abilities& new_abilities,
+      void set_current_abilities(const ability::abilities& new_abilities,
                                  character::exalt::caste selected_caste,
                                  unsigned int number_of_caste_favorites,
                                  unsigned int number_of_free_favorites,
@@ -42,10 +42,10 @@ namespace qt {
 
     signals:
       void back_issued();
-      void abilities_chosen(character::abilities& abilities);
+      void abilities_chosen(ability::abilities& abilities);
 
     private:
-      QMap<character::ability_names::ability_enum, ability_value_row*> row_of_ability;
+      QMap<ability::ability_enum, ability_value_row*> row_of_ability;
       void next_issued();
       validation_result check_current_selection();
       void regenerate_abilities();
@@ -56,7 +56,7 @@ namespace qt {
       QWidget* abilities;
       QLabel *summary;
       QPushButton *next_page, *cancel;
-      character::abilities _abilities;
+      ability::abilities _abilities;
       character::exalt::caste _caste;
       unsigned int caste_favorites, free_favorites, max_ability_points, min_points_in_favorites, max_std_ability_value;
     };

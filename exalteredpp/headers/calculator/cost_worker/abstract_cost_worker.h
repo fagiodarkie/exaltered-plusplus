@@ -9,7 +9,7 @@ namespace calculator { namespace cost {
     {
     public:
 
-      void with_purchase(std::shared_ptr<character::narrative::abstract_purchase> purchase)
+      void with_purchase(std::shared_ptr<narrative::abstract_purchase> purchase)
       {
         _purchase = purchase;
       }
@@ -19,7 +19,7 @@ namespace calculator { namespace cost {
       virtual ~abstract_cost_worker() {}
 
     protected:
-      std::shared_ptr<character::narrative::abstract_purchase> _purchase;
+      std::shared_ptr<narrative::abstract_purchase> _purchase;
     };
 }
 }

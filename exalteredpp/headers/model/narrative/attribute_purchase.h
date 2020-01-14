@@ -5,26 +5,26 @@
 #include "../../thirdparty/serialisable/serialisable.hpp"
 #include "attributes/attribute_names.h"
 
-namespace character { namespace narrative {
+namespace narrative {
 
     class attribute_purchase : public abstract_purchase, public Serialisable
     {
     public:
-      attribute_purchase(attribute_names::attribute attribute = attribute_names::STRENGTH, unsigned int amount = 1);
+      attribute_purchase(attribute::attribute_enum attribute = attribute::STRENGTH, unsigned int amount = 1);
 
-      virtual void apply(std::shared_ptr<character> c) override;
+      virtual void apply(std::shared_ptr<character::character> c) override;
 
       virtual void serialisation() override;
       virtual std::string description() const override;
       virtual std::string key() const override;
-      attribute_names::attribute attribute() const;
+      attribute::attribute_enum attribute() const;
 
       virtual ~attribute_purchase() override;
 
     private:
       unsigned int _amount;
-      attribute_names::attribute _attribute;
+      attribute::attribute_enum _attribute;
     };
 
-} }
+}
 #endif // ATTRIBUTE_PURCHASE_H

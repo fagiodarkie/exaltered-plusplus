@@ -4,7 +4,7 @@
 #include "abstract_purchase.h"
 #include "../../thirdparty/serialisable/serialisable.hpp"
 
-namespace character { namespace narrative {
+namespace narrative {
 
     class essence_purchase : public abstract_purchase, public Serialisable
     {
@@ -12,7 +12,7 @@ namespace character { namespace narrative {
       essence_purchase(unsigned int amount = 1);
       unsigned int amount() const;
 
-      virtual void apply(std::shared_ptr<character> c) override;
+      virtual void apply(std::shared_ptr<character::character> c) override;
 
       virtual void serialisation() override;
       virtual std::string description() const override;
@@ -25,5 +25,5 @@ namespace character { namespace narrative {
 
     };
 
-}}
+}
 #endif // ESSENCE_PURCHASE_H

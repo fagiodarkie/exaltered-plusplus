@@ -4,14 +4,14 @@
 #include "abstract_purchase.h"
 #include "../../thirdparty/serialisable/serialisable.hpp"
 
-namespace character { namespace narrative {
+namespace narrative {
 
     class willpower_purchase : public abstract_purchase, public Serialisable
     {
     public:
       willpower_purchase(unsigned int amount = 1);
 
-      virtual void apply(std::shared_ptr<character> c) override;
+      virtual void apply(std::shared_ptr<character::character> c) override;
 
       unsigned int amount() const;
 
@@ -25,5 +25,5 @@ namespace character { namespace narrative {
       unsigned int _amount;
 
     };
-}}
+}
 #endif // WILLPOWER_PURCHASE_H

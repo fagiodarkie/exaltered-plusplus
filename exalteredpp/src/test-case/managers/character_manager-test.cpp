@@ -37,9 +37,9 @@ TEST_CASE("character_manager")
   SECTION("should create a new character if requested")
   {
     try {
-      auto attributes = character::attributes();
-      attributes[character::attribute_names::CONSTITUTION].set_value(2);
-      auto generated = sut.create_character(calculator::worker::human_worker(), "name", character::creation::TYPE_MORTAL_HERO, character::exalt::caste::NO_CASTE, attributes, character::abilities(), character::virtues::virtues(), character::power::power_container());
+      auto attributes = attribute::attributes();
+      attributes[attribute::CONSTITUTION].set_value(2);
+      auto generated = sut.create_character(calculator::worker::human_worker(), "name", character::creation::TYPE_MORTAL_HERO, character::exalt::caste::NO_CASTE, attributes, ability::abilities(), virtues::virtues(), power::power_container());
       REQUIRE(generated);
     }
     catch(...)

@@ -4,7 +4,7 @@
 
 #define CHARACTER_NAME "test-name"
 #define TEST_ATTRIBUTE_NAME "test-attribute"
-#define STANDARD_CHARACTER character::character(CHARACTER_NAME, character::creation::TYPE_MORTAL_HERO, character::exalt::caste::NO_CASTE, character::attributes(), character::abilities(), character::virtues::virtues(), character::power::power_container())
+#define STANDARD_CHARACTER character::character(CHARACTER_NAME, character::creation::TYPE_MORTAL_HERO, character::exalt::caste::NO_CASTE, attribute::attributes(), ability::abilities(), virtues::virtues(), power::power_container())
 
 TEST_CASE("Character")
 {
@@ -25,16 +25,16 @@ TEST_CASE("Character")
   SECTION("should accept a new attribute")
   {
     character::character sut = STANDARD_CHARACTER;
-    sut.set_attribute(character::attribute_names::attribute::STRENGTH, character::attribute(TEST_ATTRIBUTE_NAME));
-    character::attribute saved_attribute = sut.get_attribute(character::attribute_names::attribute::STRENGTH);
+    sut.set_attribute(attribute::STRENGTH, attribute::attribute(TEST_ATTRIBUTE_NAME));
+    attribute::attribute saved_attribute = sut.get_attribute(attribute::STRENGTH);
     REQUIRE(saved_attribute.get_name() == TEST_ATTRIBUTE_NAME);
   }
 
   SECTION("should accept a new ability group")
   {
     character::character sut = STANDARD_CHARACTER;
-    sut.set_ability(character::ability_names::WAR, character::ability_group());
-    character::ability_group saved_ability = sut.get_ability_group(character::ability_names::WAR);
+    sut.set_ability(ability::WAR, ability::ability_group());
+    ability::ability_group saved_ability = sut.get_ability_group(ability::WAR);
     REQUIRE(saved_ability.get_name() == "War");
   }
 
@@ -48,15 +48,15 @@ TEST_CASE("Character")
   SECTION("should save and retrieve correct abilities")
   {
     character::character sut = STANDARD_CHARACTER;
-    sut.set_ability(character::ability_names::CRAFT, character::ability_group(character::ability_names::CRAFT, { character::ability("new_ability", 1) }));
-    sut.set_ability(character::ability_names::WAR, character::ability_group(character::ability_names::WAR));
-    sut.set_ability_value(character::ability_names::MELEE, 5);
-    REQUIRE(sut.get_ability_group(character::ability_names::WAR).get_name() == "War");
-    REQUIRE(sut.get_ability(character::ability_names::WAR).get_name() == character::ability_names::ability_declination::NO_DECLINATION);
-    REQUIRE(sut.get_ability(character::ability_names::WAR).get_ability_value() == 0);
-    REQUIRE(sut.get_ability(character::ability_names::CRAFT, "new_ability").get_name() == "new_ability");
-    REQUIRE(sut.get_ability(character::ability_names::CRAFT, "new_ability").get_ability_value() == 1);
-    REQUIRE(sut.get_ability(character::ability_names::MELEE).get_ability_value() == 5);
+    sut.set_ability(ability::CRAFT, ability::ability_group(ability::CRAFT, { ability::ability("new_ability", 1) }));
+    sut.set_ability(ability::WAR, ability::ability_group(ability::WAR));
+    sut.set_ability_value(ability::MELEE, 5);
+    REQUIRE(sut.get_ability_group(ability::WAR).get_name() == "War");
+    REQUIRE(sut.get_ability(ability::WAR).get_name() == ability::ability_declination::NO_DECLINATION);
+    REQUIRE(sut.get_ability(ability::WAR).get_ability_value() == 0);
+    REQUIRE(sut.get_ability(ability::CRAFT, "new_ability").get_name() == "new_ability");
+    REQUIRE(sut.get_ability(ability::CRAFT, "new_ability").get_ability_value() == 1);
+    REQUIRE(sut.get_ability(ability::MELEE).get_ability_value() == 5);
   }
 
   SECTION("should retrieve caste correctly")
@@ -69,18 +69,18 @@ TEST_CASE("Character")
   {
     character::character sut = STANDARD_CHARACTER;
 
-    sut.set_vice(character::virtues::vice_enum::ENVY, 3);
-    sut.get_virtue(character::virtues::virtue_enum::VALOR       ).set_value(1);
-    sut.get_virtue(character::virtues::virtue_enum::COMPASSION  ).set_value(2);
-    sut.get_virtue(character::virtues::virtue_enum::TEMPERANCE  ).set_value(3);
-    sut.get_virtue(character::virtues::virtue_enum::CONVINCTION ).set_value(4);
+    sut.set_vice(  virtues::vice_enum::ENVY, 3);
+    sut.get_virtue(virtues::virtue_enum::VALOR       ).set_value(1);
+    sut.get_virtue(virtues::virtue_enum::COMPASSION  ).set_value(2);
+    sut.get_virtue(virtues::virtue_enum::TEMPERANCE  ).set_value(3);
+    sut.get_virtue(virtues::virtue_enum::CONVINCTION ).set_value(4);
 
-    REQUIRE(sut.get_vice() == character::virtues::vice_enum::ENVY);
+    REQUIRE(sut.get_vice() == virtues::vice_enum::ENVY);
     REQUIRE(sut.get_vice_value() == 3);
-    REQUIRE(sut.get_virtue(character::virtues::virtue_enum::VALOR       ).value() == 1);
-    REQUIRE(sut.get_virtue(character::virtues::virtue_enum::COMPASSION  ).value() == 2);
-    REQUIRE(sut.get_virtue(character::virtues::virtue_enum::TEMPERANCE  ).value() == 3);
-    REQUIRE(sut.get_virtue(character::virtues::virtue_enum::CONVINCTION ).value() == 4);
+    REQUIRE(sut.get_virtue(virtues::virtue_enum::VALOR       ).value() == 1);
+    REQUIRE(sut.get_virtue(virtues::virtue_enum::COMPASSION  ).value() == 2);
+    REQUIRE(sut.get_virtue(virtues::virtue_enum::TEMPERANCE  ).value() == 3);
+    REQUIRE(sut.get_virtue(virtues::virtue_enum::CONVINCTION ).value() == 4);
   }
 
   SECTION("should allow direct access to health, willpower, essence and logos")

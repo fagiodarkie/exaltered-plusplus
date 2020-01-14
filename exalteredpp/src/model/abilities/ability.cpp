@@ -1,11 +1,12 @@
 #include "abilities/ability.h"
 
 #include "json_constants.h"
+#include "abilities/ability.h"
 #include "abilities/ability_names.h"
 
-namespace character {
+namespace ability {
 
-  ability::ability() : _name(ability_names::ability_declination::NO_DECLINATION), _value(0), _favourite(false) {};
+  ability::ability() : _name(ability_declination::NO_DECLINATION), _value(0), _favourite(false) {};
 
   ability::ability(const std::string& name, unsigned int value) : _name(name), _value(value), _favourite(false) {}
 

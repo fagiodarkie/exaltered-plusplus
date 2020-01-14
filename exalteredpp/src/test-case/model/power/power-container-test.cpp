@@ -5,12 +5,12 @@ TEST_CASE("power_container")
 {
   SECTION("should read and write correctly to JSON")
   {
-    character::power::power_container stub(character::power::essence(),
-                                           character::power::willpower(),
-                                           character::power::health(10, 5),
-                                           character::power::logos());
+    power::power_container stub(power::essence(),
+                                           power::willpower(),
+                                           power::health(10, 5),
+                                           power::logos());
 
-    character::power::power_container sut;
+    power::power_container sut;
     sut.deserialise(stub.serialise());
 
     REQUIRE(sut.get_essence().permanent_essence()     == stub.get_essence().permanent_essence()     );
@@ -25,10 +25,10 @@ TEST_CASE("power_container")
 
   SECTION("should allow object update via reference getters")
   {
-    character::power::power_container sut(character::power::essence(),
-                                           character::power::willpower(),
-                                           character::power::health(10, 5),
-                                           character::power::logos());
+    power::power_container sut(power::essence(),
+                                           power::willpower(),
+                                           power::health(10, 5),
+                                           power::logos());
 
     REQUIRE_FALSE(sut.get_logos().get_logos() == 5);
     REQUIRE_FALSE(sut.get_willpower().permanent_willpower() == 15);
@@ -49,10 +49,10 @@ TEST_CASE("power_container")
 
   SECTION("should use const getters when the object is const")
   {
-    const character::power::power_container sut(character::power::essence(),
-                                           character::power::willpower(),
-                                           character::power::health(10, 5),
-                                           character::power::logos());
+    const power::power_container sut(power::essence(),
+                                           power::willpower(),
+                                           power::health(10, 5),
+                                           power::logos());
 
     // these getters create copy objects which are then modified
     REQUIRE_NOTHROW(sut.get_logos().set_logos(5)                   );

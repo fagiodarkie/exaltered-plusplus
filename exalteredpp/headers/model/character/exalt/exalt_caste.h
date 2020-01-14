@@ -1,13 +1,14 @@
 #pragma once
 
-#include "abilities/ability_names.h"
+#include "abilities/ability.h"
 #include "creation/character_type_model.h"
+#include "abilities/ability_names.h"
 #include <vector>
 
 namespace character {
   namespace exalt {
 
-    using ability_names::ability_enum;
+    using ability::ability_enum;
 
     enum class caste
     {
@@ -49,7 +50,7 @@ namespace character {
       exalt_caste(const std::string& caste_name, std::vector<ability_enum> favorite_abilities);
 
       std::string caste_name;
-      std::vector<ability_names::ability_enum> favored_abilities;
+      std::vector<ability::ability_enum> favored_abilities;
     };
   }
 }

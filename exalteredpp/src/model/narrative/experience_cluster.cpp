@@ -2,7 +2,7 @@
 #include "json_constants.h"
 #include <algorithm>
 
-namespace character { namespace narrative {
+namespace narrative {
 
     experience_cluster::experience_cluster() { }
 
@@ -76,4 +76,4 @@ namespace character { namespace narrative {
     }
 
 
-} }
+}

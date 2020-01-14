@@ -4,7 +4,7 @@
 #include "../thirdparty/serialisable/serialisable.hpp"
 #include "behavioral/name_value_pair.h"
 
-namespace character {
+namespace ability {
   class specialisation : public model::name_value_pair, public Serialisable
   {
   public:

@@ -56,7 +56,7 @@ namespace qt {
         }
       persona_box->setLayout(specifics_form);
 
-      for (character::virtues::virtue_enum virtue: character::virtues::VIRTUE_LIST)
+      for (virtues::virtue_enum virtue: virtues::VIRTUE_LIST)
         {
           emotions_of_virtue[virtue] = new QGroupBox;
           QFormLayout *emotions = new QFormLayout;
@@ -132,14 +132,14 @@ namespace qt {
       persona_box->setTitle(QString("Persona values (%1 / %2 points spent)")
                             .arg(total_specifics).arg(_persona.get_persona()));
 
-      for (character::virtues::virtue_enum virtue: character::virtues::VIRTUE_LIST)
+      for (virtues::virtue_enum virtue: virtues::VIRTUE_LIST)
         {
           int spent_on_emotion = 0;
           for (character::social::emotion emotion: character::social::EMOTION_UNDER_VIRTUE.at(virtue))
             spent_on_emotion += _persona.get_emotion_bonus_for(emotion);
 
           emotions_of_virtue[virtue]->setTitle(QString("Emotions of %1 (%2 / %3 points spent)")
-                                               .arg(character::virtues::VIRTUE_NAME.at(virtue).c_str())
+                                               .arg(virtues::VIRTUE_NAME.at(virtue).c_str())
                                                .arg(spent_on_emotion).arg(_virtues.value(virtue).value()));
         }
       qt::style::foreground(next_page);
@@ -227,10 +227,10 @@ namespace qt {
       increase_specific[social_labels::COMPULSIONS_SPECIFIC ]->setEnabled(can_up_specifics);
       increase_specific[social_labels::SERFDOM_SPECIFIC     ]->setEnabled(can_up_specifics);
 
-      QMap<character::virtues::virtue_enum, unsigned int> current_available;
+      QMap<virtues::virtue_enum, unsigned int> current_available;
       bool chose_all_emotion_bonus = true;
 
-      for (auto virtue: character::virtues::VIRTUE_LIST) {
+      for (auto virtue: virtues::VIRTUE_LIST) {
         current_available[virtue] = _virtues[virtue].value();
 
         for (auto emotion: character::social::EMOTION_UNDER_VIRTUE.at(virtue))
@@ -255,11 +255,11 @@ namespace qt {
       emit persona_created(_persona);
     }
 
-    void character_creation_persona::set_current_persona(const character::virtues::virtues& new_virtues,
+    void character_creation_persona::set_current_persona(const virtues::virtues& new_virtues,
                                                          const character::social::persona& new_persona,
                                                          const character::creation::character_type_model &model,
-                                                         const character::attributes& attributes,
-                                                         const character::power::power_container& power)
+                                                         const attribute::attributes& attributes,
+                                                         const power::power_container& power)
     {
       _persona = new_persona;
       _virtues = new_virtues;

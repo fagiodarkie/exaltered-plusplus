@@ -10,11 +10,11 @@
 #include "widget/ability_declination_selector.h"
 
 #include "abilities/abilities.h"
-#include "abilities/ability_names.h"
+#include "abilities/ability.h"
 #include "exalt/exalt_caste.h"
 #include "widget/add_ability_declination_dialog.h"
 
-using character::ability_group;
+using ability::ability_group;
 
 namespace qt {
   namespace wizard {

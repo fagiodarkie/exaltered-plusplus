@@ -34,13 +34,13 @@ namespace qt { namespace screen {
       QPushButton *open_logger, *open_expense_logger;
 
       void recompute_logger_session();
-      void add_session(const character::narrative::session_awards& new_awards);
+      void add_session(const narrative::session_awards& new_awards);
       void refresh();
 
       void refresh_awards();
       void refresh_expenses();
       void add_award_list(unsigned int session_number) const;
-      void add_expense(const character::narrative::experience_purchase& purchase);
+      void add_expense(const narrative::experience_purchase& purchase);
       void update_status_label() const;
 
       QWidget *awards, *expenses, *listexpenses,

@@ -20,7 +20,7 @@ namespace calculator {
     {
     public:
 
-      virtual physical_vd compute_physical_vd(const character::character& c, character::ability_names::ability_enum parry_ability) const = 0;
+      virtual physical_vd compute_physical_vd(const character::character& c, ability::ability_enum parry_ability) const = 0;
       virtual mental_vd   compute_mental_vd(const character::character& c) const = 0;
 
       // Essence & Logos
@@ -29,7 +29,7 @@ namespace calculator {
       virtual long int compute_spiritual_essence        (const character::character& c) const = 0;
       virtual long int compute_celestial_portion        (const character::character& c) const = 0;
       virtual unsigned int compute_life_points          (const character::character& c) const = 0;
-      virtual long int compute_persona                  (const character::creation::character_type& type, const character::attributes& attributes, const character::power::willpower& willpower, const character::power::essence& essence) const = 0;
+      virtual long int compute_persona                  (const character::creation::character_type& type, const attribute::attributes& attribute, const power::willpower& willpower, const power::essence& essence) const = 0;
       virtual long int compute_persona                  (const character::character& c) const = 0;
 
       // starting values

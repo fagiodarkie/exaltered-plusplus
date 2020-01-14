@@ -4,18 +4,18 @@
 #include "abstract_purchase.h"
 #include "../../thirdparty/serialisable/serialisable.hpp"
 
-namespace character { namespace narrative {
+namespace narrative {
 
     class charm_purchase : public abstract_purchase, public Serialisable
     {
     public:
       charm_purchase();
 
-      virtual void apply(std::shared_ptr<character> c) override;
+      virtual void apply(std::shared_ptr<character::character> c) override;
       virtual void serialisation() override;
 
       virtual ~charm_purchase() override;
 
     };
-}}
+}
 #endif // CHARM_PURCHASE_H

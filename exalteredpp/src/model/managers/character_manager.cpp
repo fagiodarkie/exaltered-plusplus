@@ -19,7 +19,7 @@ namespace manager {
     return result;
   }
 
-  std::shared_ptr<character::character> character_manager::create_character(const calculator::worker::abstract_calculator_worker& calculator, const std::string name, const character::creation::character_type type, const character::exalt::caste caste, const character::attributes attributes, const character::abilities abilities, const character::virtues::virtues virtues, const character::power::power_container power_container)
+  std::shared_ptr<character::character> character_manager::create_character(const calculator::worker::abstract_calculator_worker& calculator, const std::string name, const character::creation::character_type type, const character::exalt::caste caste, const attribute::attributes attributes, const ability::abilities abilities, const virtues::virtues virtues, const power::power_container power_container)
   {
     // finishing touches for the character
     power_container.get_logos().set_logos(calculator.starting_logos(type));

@@ -10,7 +10,7 @@
 
 namespace calculator {
 
-  using namespace character::narrative;
+  using namespace narrative;
 
   purchase_cost_calculator::experience_cost_inner_computation purchase_cost_calculator::cost_of(
       experience_expense_type purchase_type,
@@ -19,7 +19,7 @@ namespace calculator {
     return experience_cost_inner_computation(purchase_type, purchase);
   }
 
-  const std::map< character::narrative::experience_expense_type,
+  const std::map< narrative::experience_expense_type,
                   std::shared_ptr<calculator::cost::abstract_cost_worker>>
   purchase_cost_calculator::experience_cost_inner_computation::COST_WORKER_BY_EXPENSE_TYPE = {
 

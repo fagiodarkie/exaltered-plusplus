@@ -6,7 +6,7 @@
 #include "experience.h"
 #include "experience_award.h"
 
-namespace character { namespace narrative {
+namespace narrative {
 
     class session_awards : public Serialisable, public std::map<experience_award_type, experience_award>
     {
@@ -16,5 +16,5 @@ namespace character { namespace narrative {
 
       virtual ~session_awards() {}
     };
-}}
+}
 #endif // SESSION_AWARDS_H

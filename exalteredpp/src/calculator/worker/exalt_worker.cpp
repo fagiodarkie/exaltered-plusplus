@@ -6,13 +6,13 @@ namespace calculator {
 
     exalt_worker::~exalt_worker() {}
 
-    long int exalt_worker::compute_persona(const character::creation::character_type& type, const character::attributes& attributes, const character::power::willpower& willpower, const character::power::essence& essence) const
+    long int exalt_worker::compute_persona(const character::creation::character_type& type, const attribute::attributes& attributes, const power::willpower& willpower, const power::essence& essence) const
     {
       std::vector<unsigned int> all_values;
       all_values.push_back(willpower.permanent_willpower());
       all_values.push_back(essence.permanent_essence());
 
-      for (auto social_attribute : character::attribute_names::ATTRIBUTES_BY_CATEGORY.at(character::attribute_names::SOCIAL))
+      for (auto social_attribute : attribute::ATTRIBUTES_BY_CATEGORY.at(attribute::SOCIAL))
         all_values.push_back(attributes.at(social_attribute));
 
       std::sort(all_values.begin(), all_values.end());

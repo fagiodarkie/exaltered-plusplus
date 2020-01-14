@@ -22,28 +22,28 @@ namespace qt { namespace widget {
 
     signals:
 
-      void session_logged(const character::narrative::session_awards& awards);
+      void session_logged(const narrative::session_awards& awards);
 
     private:
 
-      QMap<character::narrative::experience_award_type, unsigned int> MAX_VALUE = {
-        { character::narrative::PLAYTIME,              24 },
-        { character::narrative::ROLEPLAY_CHARACTER,    5 },
-        { character::narrative::ROLEPLAY_TEAMMATES,    5 },
-        { character::narrative::ROLEPLAY_NARRATOR,     5 },
-        { character::narrative::MOTIVATION,            11 },
-        { character::narrative::NARRATION,             1000 },
-        { character::narrative::LONG_TIME_CALIBRATION, 1000 },
-        { character::narrative::STUNT,                 3 },
-        { character::narrative::COOL,                  3 },
-        { character::narrative::INTUITION,             3 },
-        { character::narrative::MEMENTO_AUDERE_SEMPER, 5 },
-        { character::narrative::ACTING_OSCAR,          5 },
-        { character::narrative::BOSSFIGHT,             20 },
-        { character::narrative::EASTER_EGG,            20 },
-        { character::narrative::VOLUNTEERING,          50 },
-        { character::narrative::DIVINE_GAME,           100 },
-        { character::narrative::COSPLAY,               51 }
+      QMap<narrative::experience_award_type, unsigned int> MAX_VALUE = {
+        { narrative::PLAYTIME,              24 },
+        { narrative::ROLEPLAY_CHARACTER,    5 },
+        { narrative::ROLEPLAY_TEAMMATES,    5 },
+        { narrative::ROLEPLAY_NARRATOR,     5 },
+        { narrative::MOTIVATION,            11 },
+        { narrative::NARRATION,             1000 },
+        { narrative::LONG_TIME_CALIBRATION, 1000 },
+        { narrative::STUNT,                 3 },
+        { narrative::COOL,                  3 },
+        { narrative::INTUITION,             3 },
+        { narrative::MEMENTO_AUDERE_SEMPER, 5 },
+        { narrative::ACTING_OSCAR,          5 },
+        { narrative::BOSSFIGHT,             20 },
+        { narrative::EASTER_EGG,            20 },
+        { narrative::VOLUNTEERING,          50 },
+        { narrative::DIVINE_GAME,           100 },
+        { narrative::COSPLAY,               51 }
       };
 
       void submit_session();
@@ -51,8 +51,8 @@ namespace qt { namespace widget {
 
       unsigned int _session;
       QPushButton *submit;
-      QMap<character::narrative::experience_award_type, QLineEdit*> description_fields;
-      QMap<character::narrative::experience_award_type, QSpinBox*> award_fields;
+      QMap<narrative::experience_award_type, QLineEdit*> description_fields;
+      QMap<narrative::experience_award_type, QSpinBox*> award_fields;
     };
 
 } }

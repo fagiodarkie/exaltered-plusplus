@@ -40,8 +40,8 @@ namespace mock_tests {
     std::shared_ptr<character> create_character(const std::string& name,
                                                const creation::character_type type,
                                                const exalt::caste caste,
-                                               const attributes attributes,
-                                               const abilities abilities,
+                                               const attribute::attributes attributes,
+                                               const ability::abilities abilities,
                                                const virtues::virtues virtues,
                                                const power::power_container power_container)
     {

@@ -9,7 +9,7 @@ namespace calculator {
     calculator_workers[character_type] = worker;
   }
 
-  worker::physical_vd derived_value_calculator::compute_physical_vd(const character::character& c, character::ability_names::ability_enum parry_ability) const
+  worker::physical_vd derived_value_calculator::compute_physical_vd(const character::character& c, ability::ability_enum parry_ability) const
   {
     return calculator_workers.at(c.get_type())->compute_physical_vd(c, parry_ability);
   }
@@ -24,7 +24,7 @@ namespace calculator {
     return calculator_workers.at(c.get_type())->compute_persona(c);
   }
 
-  long int derived_value_calculator::compute_persona                  (const character::creation::character_type& type, const character::attributes& attributes, const character::power::willpower& willpower, const character::power::essence& essence) const
+  long int derived_value_calculator::compute_persona                  (const character::creation::character_type& type, const attribute::attributes& attributes, const power::willpower& willpower, const power::essence& essence) const
   {
     return calculator_workers.at(type)->compute_persona(type, attributes, willpower, essence);
   }

@@ -11,27 +11,26 @@
 
 TEST_CASE("Abilities")
 {
-  using namespace character::ability_names;
 
   SECTION("should save ability in map")
   {
-    character::ability ability(TEST_ABILITY_NAME, TEST_ABILITY_VALUE);
-    character::abilities sut;
-    sut[WAR] = character::ability_group(WAR, {ability});
-    REQUIRE(sut[WAR].get_ability(TEST_ABILITY_NAME).get_name() == TEST_ABILITY_NAME);
+    ability::ability ability(TEST_ABILITY_NAME, TEST_ABILITY_VALUE);
+    ability::abilities sut;
+    sut[ability::WAR] = ability::ability_group(ability::WAR, {ability});
+    REQUIRE(sut[ability::WAR].get_ability(TEST_ABILITY_NAME).get_name() == TEST_ABILITY_NAME);
   }
 
   SECTION("should create correctly from JSON")
   {
-    character::abilities stub;
-    character::ability ability(TEST_ABILITY_NAME, TEST_ABILITY_VALUE);
-    stub[WAR] = character::ability_group(WAR, {ability}, {character::specialisation("")});
+    ability::abilities stub;
+    ability::ability ability(TEST_ABILITY_NAME, TEST_ABILITY_VALUE);
+    stub[ability::WAR] = ability::ability_group(ability::WAR, {ability}, {ability::specialisation("")});
 
-    character::abilities sut;
+    ability::abilities sut;
     sut.deserialise(stub.serialise());
 
-    REQUIRE(sut[WAR].get_ability(TEST_ABILITY_NAME).get_name() == TEST_ABILITY_NAME);
-    REQUIRE(sut[WAR].get_abilities().size() == 1);
-    REQUIRE(sut[WAR].get_specialisations().size() == 1);
+    REQUIRE(sut[ability::WAR].get_ability(TEST_ABILITY_NAME).get_name() == TEST_ABILITY_NAME);
+    REQUIRE(sut[ability::WAR].get_abilities().size() == 1);
+    REQUIRE(sut[ability::WAR].get_specialisations().size() == 1);
   }
 }

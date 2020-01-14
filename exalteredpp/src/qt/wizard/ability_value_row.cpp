@@ -21,7 +21,7 @@ namespace qt { namespace wizard {
       connect(declination_dialog, &widget::add_ability_declination_dialog::declination_selected, this, &ability_value_row::add_new_declination);
 
       QList<QString> current_declinations;
-      for (auto ability: _ability.get_ability_names())
+      for (auto ability: _ability.get_detailed_abilities())
         {
           current_declinations.append(ability.declination.c_str());
           QPushButton *increase = new QPushButton("+"), *decrease = new QPushButton("-"), *fav = new QPushButton("*");
@@ -56,7 +56,7 @@ namespace qt { namespace wizard {
     void ability_value_row::add_new_declination(const QString& new_declination_name)
     {
       declination_dialog->hide();
-      _ability.add_ability(character::ability(new_declination_name.toStdString()));
+      _ability.add_ability(ability::ability(new_declination_name.toStdString()));
       emit new_declination();
     }
 
@@ -111,7 +111,7 @@ namespace qt { namespace wizard {
 
     void ability_value_row::add_rows(QFormLayout *form) const
     {      
-      for (auto ability: _ability.get_ability_names())
+      for (auto ability: _ability.get_detailed_abilities())
         {
           QHBoxLayout *buttons_layout = new QHBoxLayout;
           buttons_layout->addWidget(decrease_ability_buttons  [ability.declination]);
@@ -122,7 +122,7 @@ namespace qt { namespace wizard {
           form->addRow(change_declination_buttons[ability.declination], buttons_layout);
         }
 
-      if (character::ability_names::has_declination(_ability.get_ability_enum()))
+      if (ability::has_declination(_ability.get_ability_enum()))
         {
           form->addRow(add_declination, new QWidget);
         }

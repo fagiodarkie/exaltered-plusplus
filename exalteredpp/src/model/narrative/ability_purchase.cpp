@@ -2,12 +2,12 @@
 #include "character.h"
 #include "json_constants.h"
 
-namespace character { namespace narrative {
+namespace narrative {
 
-    ability_purchase::ability_purchase(ability_names::detailed_ability ability, unsigned int amount)
+    ability_purchase::ability_purchase(ability::detailed_ability ability, unsigned int amount)
       : _ability(ability), _amount(amount) { }
 
-    ability_names::detailed_ability ability_purchase::ability() const
+    ability::detailed_ability ability_purchase::ability() const
     {
       return  _ability;
     }
@@ -17,7 +17,7 @@ namespace character { namespace narrative {
       return _amount;
     }
 
-    void ability_purchase::apply(std::shared_ptr<character> c)
+    void ability_purchase::apply(std::shared_ptr<character::character> c)
     {
       c->set_ability_value(_ability, _amount);
     }
@@ -31,7 +31,7 @@ namespace character { namespace narrative {
 
     std::string ability_purchase::key() const
     {
-      return ability_names::ABILITY_NAME.at(_ability.ability)
+      return ability::ABILITY_NAME.at(_ability.ability)
           + _ability.declination;
     }
 
@@ -42,13 +42,13 @@ namespace character { namespace narrative {
 
     std::string ability_purchase::ability_string() const
     {
-      std::string declination = _ability.declination == ability_names::ability_declination::NO_DECLINATION
+      std::string declination = _ability.declination == ability::ability_declination::NO_DECLINATION
           ? " "
           : " (" + _ability.declination + ") ";
 
-      return ability_names::ABILITY_NAME.at(_ability.ability)
+      return ability::ABILITY_NAME.at(_ability.ability)
           + declination;
     }
 
     ability_purchase::~ability_purchase() {}
-}}
+}

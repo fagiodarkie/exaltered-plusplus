@@ -8,7 +8,7 @@ namespace qt {
 
     using namespace qt::labels;
     using namespace qt::labels::creation_wizard;
-    using namespace character::attribute_names;
+    using namespace attribute;
 
     attributes_priority_page::attributes_priority_page(QWidget* parent)
       : QWidget(parent)

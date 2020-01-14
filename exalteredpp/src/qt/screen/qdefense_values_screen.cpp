@@ -9,8 +9,7 @@
 namespace qt {
   namespace screen {
 
-    using namespace character::ability_names;
-    using namespace character::attribute_names;
+    using namespace ability;
     using namespace labels::dv_labels;
 
     qdefense_values_screen::qdefense_values_screen(const std::shared_ptr<character::character> c,

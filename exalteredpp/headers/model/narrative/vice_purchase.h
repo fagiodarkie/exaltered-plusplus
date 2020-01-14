@@ -4,14 +4,14 @@
 #include "abstract_purchase.h"
 #include "../../thirdparty/serialisable/serialisable.hpp"
 
-namespace character { namespace narrative {
+namespace narrative {
 
     class vice_purchase : public abstract_purchase, public Serialisable
     {
     public:
       vice_purchase(unsigned int amount = 1);
 
-      virtual void apply(std::shared_ptr<character>) override;
+      virtual void apply(std::shared_ptr<character::character>) override;
 
       unsigned int amount() const;
 
@@ -24,5 +24,5 @@ namespace character { namespace narrative {
     private:
       unsigned int _amount;
     };
-}}
+}
 #endif // VICE_PURCHASE_H

@@ -4,7 +4,7 @@
 #include "../../thirdparty/serialisable/serialisable.hpp"
 #include "experience_defines.h"
 
-namespace character { namespace narrative {
+namespace narrative {
 
     class experience_award : public Serialisable
     {
@@ -28,6 +28,6 @@ namespace character { namespace narrative {
       std::string _description;
     };
 
-} }
+}
 
 #endif // EXPERIENCE_AWARD_H

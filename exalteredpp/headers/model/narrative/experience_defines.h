@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-namespace character { namespace narrative {
+namespace narrative {
 
     enum experience_expense_type {
       ATTRIBUTE, ABILITY, SPECIALISATION, CHARM, BACKGROUND, VIRTUE, VICE, WILLPOWER, ESSENCE,
@@ -92,5 +92,5 @@ namespace character { namespace narrative {
       { COSPLAY,               "Cosplay award" }
     };
 
-} }
+}
 #endif // EXPERIENCE_DEFINES_H

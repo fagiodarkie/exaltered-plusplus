@@ -2,7 +2,7 @@
 
 #include "json_constants.h"
 
-namespace character { namespace narrative {
+namespace narrative {
 
     experience_award::experience_award(experience_award_type award_type, unsigned int amount)
       : _award_type(award_type), _amount(amount) { }
@@ -42,4 +42,4 @@ namespace character { namespace narrative {
     }
 
 
-}}
+}

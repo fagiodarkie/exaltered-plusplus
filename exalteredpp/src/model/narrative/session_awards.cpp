@@ -1,6 +1,6 @@
 #include "narrative/session_awards.h"
 
-namespace character { namespace narrative {
+namespace narrative {
 
     void session_awards::serialisation()
     {
@@ -15,4 +15,4 @@ namespace character { namespace narrative {
           synch(AWARD_NAME.at(award_type), (*this)[award_type]);
     }
 
-} }
+}

@@ -2,7 +2,7 @@
 
 #include "json_constants.h"
 
-namespace character {
+namespace ability {
   specialisation::specialisation(const std::string& name, unsigned int initial_value)
     : name(name), value(initial_value) {};
 

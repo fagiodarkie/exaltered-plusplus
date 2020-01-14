@@ -29,7 +29,7 @@ namespace qt { namespace widget {
           form->addRow("Experience Item", headbox);
         }
 
-        for (auto award: character::narrative::AWARD_TYPES)
+        for (auto award: narrative::AWARD_TYPES)
           {
             award_fields[award] = new QSpinBox;
             award_fields[award]->setMinimum(0);
@@ -43,7 +43,7 @@ namespace qt { namespace widget {
             hbox->addWidget(award_fields[award]);
             hbox->addWidget(description_fields[award]);
 
-            form->addRow(character::narrative::AWARD_NAME.at(award).c_str(), hbox);
+            form->addRow(narrative::AWARD_NAME.at(award).c_str(), hbox);
           }
 
         auto form_widget = new QWidget;
@@ -73,7 +73,7 @@ namespace qt { namespace widget {
 
       void session_experience_logger::refresh()
       {
-        for (auto award: character::narrative::AWARD_TYPES)
+        for (auto award: narrative::AWARD_TYPES)
           {
             award_fields[award]->setValue(0);
             description_fields[award]->setText("");
@@ -82,16 +82,16 @@ namespace qt { namespace widget {
 
       void session_experience_logger::submit_session()
       {
-        character::narrative::session_awards result;
+        narrative::session_awards result;
 
-        for (auto award: character::narrative::AWARD_TYPES)
+        for (auto award: narrative::AWARD_TYPES)
           {
             auto amount = award_fields[award]->value();
             if (amount == 0)
               continue;
 
             auto description = description_fields[award]->text();
-            character::narrative::experience_award new_award(award, amount);
+            narrative::experience_award new_award(award, amount);
             if (!description.isEmpty())
               new_award.set_description(description.toStdString());
 

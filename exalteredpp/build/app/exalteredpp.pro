@@ -56,8 +56,7 @@ SOURCES += \
     ../../src/model/character/creation/character_creation_configuration.cpp \
     ../../src/model/character/creation/character_type_model.cpp \
     ../../src/model/character/exalt/exalt_caste.cpp \
-    ../../src/model/character/narrative/experience.cpp \
-    ../../src/model/exalt/exalt_caste_abilities.cpp \
+    ../../src/model/character/exalt/exalt_caste_abilities.cpp \
     ../../src/model/managers/character_manager.cpp \
     ../../src/model/narrative/ability_purchase.cpp \
     ../../src/model/narrative/attribute_purchase.cpp \
@@ -65,6 +64,7 @@ SOURCES += \
     ../../src/model/narrative/backgrounds.cpp \
     ../../src/model/narrative/charm_purchase.cpp \
     ../../src/model/narrative/essence_purchase.cpp \
+    ../../src/model/narrative/experience.cpp \
     ../../src/model/narrative/experience_award.cpp \
     ../../src/model/narrative/experience_cluster.cpp \
     ../../src/model/narrative/session_awards.cpp \
@@ -139,7 +139,7 @@ HEADERS += \
     ../../headers/model/abilities/abilities.h \
     ../../headers/model/abilities/ability.h \
     ../../headers/model/abilities/ability_group.h \
-    ../../headers/model/abilities/ability_names.h \
+    ../../headers/model/abilities/ability.h \
     ../../headers/model/abilities/specialisation.h \
     ../../headers/model/attributes/attribute.h \
     ../../headers/model/attributes/attribute_names.h \

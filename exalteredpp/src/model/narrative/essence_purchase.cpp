@@ -3,7 +3,7 @@
 #include "text/character_text_constants.h"
 #include "json_constants.h"
 
-namespace character { namespace narrative {
+namespace narrative {
 
     essence_purchase::essence_purchase(unsigned int amount)
       : _amount(amount) { }
@@ -13,7 +13,7 @@ namespace character { namespace narrative {
       return _amount;
     }
 
-    void essence_purchase::apply(std::shared_ptr<character> c)
+    void essence_purchase::apply(std::shared_ptr<character::character> c)
     {
       c->get_essence().set_permanent_essence(_amount);
     }
@@ -25,7 +25,7 @@ namespace character { namespace narrative {
 
     std::string essence_purchase::key() const
     {
-      return model::text::character::ESSENCE;
+      return model::text::ESSENCE;
     }
 
     std::string essence_purchase::description() const
@@ -34,4 +34,4 @@ namespace character { namespace narrative {
     }
 
     essence_purchase::~essence_purchase() {}
-}}
+}

@@ -26,7 +26,7 @@ namespace qt {
       qt::style::forget(next_page);
     }
 
-    void character_creation_ability_values::set_current_abilities(const character::abilities& new_abilities,
+    void character_creation_ability_values::set_current_abilities(const ability::abilities& new_abilities,
                                                                   character::exalt::caste selected_caste,
                                                                   unsigned int number_of_caste_favorites,
                                                                   unsigned int number_of_free_favorites,
@@ -51,28 +51,28 @@ namespace qt {
       abilities = new QWidget;
       QVBoxLayout *ability_list = new QVBoxLayout;
 
-      QMap<character::ability_names::ability_category, QGroupBox*> ability_groups;
-      QMap<character::ability_names::ability_category, QFormLayout*> ability_forms;
-      for (auto ab_category: character::ability_names::ABILITY_CATEGORIES)
+      QMap<ability::ability_category, QGroupBox*> ability_groups;
+      QMap<ability::ability_category, QFormLayout*> ability_forms;
+      for (auto ab_category: ability::ABILITY_CATEGORIES)
         {
-          QGroupBox *category_group = new QGroupBox(character::ability_names::ABILITY_CATEGORY_NAMES.at(ab_category).c_str());
+          QGroupBox *category_group = new QGroupBox(ability::ABILITY_CATEGORY_NAMES.at(ab_category).c_str());
           ability_groups[ab_category] = category_group;
           ability_list->addWidget(category_group);
           ability_forms[ab_category] = new QFormLayout;
         }
 
-      for (auto ability_enum : character::ability_names::ABILITIES)
+      for (auto ability_enum : ability::ABILITIES)
         {
           ability_value_row *row = new ability_value_row(_abilities[ability_enum]);
 
           connect(row, &ability_value_row::ability_change, this, &character_creation_ability_values::on_ability_change);
           connect(row, &ability_value_row::new_declination, this, &character_creation_ability_values::on_new_declination);
 
-          row->add_rows(ability_forms[character::ability_names::CATEGORY_OF_ABILITY(ability_enum)]);
+          row->add_rows(ability_forms[ability::CATEGORY_OF_ABILITY(ability_enum)]);
           row_of_ability[ability_enum] = row;
         }
 
-      for (auto ab_category: character::ability_names::ABILITY_CATEGORIES)
+      for (auto ab_category: ability::ABILITY_CATEGORIES)
         ability_groups[ab_category]->setLayout(ability_forms[ab_category]);
 
       abilities->setLayout(ability_list);
@@ -115,7 +115,7 @@ namespace qt {
 
     void character_creation_ability_values::on_new_declination()
     {
-      for (auto ability: character::ability_names::ABILITIES)
+      for (auto ability: ability::ABILITIES)
         _abilities[ability] = row_of_ability[ability]->ability();
 
       regenerate_abilities();
@@ -123,13 +123,13 @@ namespace qt {
 
     validation_result character_creation_ability_values::check_current_selection()
     {
-      QMap<character::ability_names::detailed_ability, operation_enabled> result;
+      QMap<ability::detailed_ability, operation_enabled> result;
       unsigned int points_spent = 0, points_spent_in_favorites = 0, favorite_abilities = 0, caste_favorite_abilities = 0;
       auto caste_abilities = character::exalt::exalt_caste::get_caste(_caste).abilities();
-      for (auto ability_enum : character::ability_names::ABILITIES)
+      for (auto ability_enum : ability::ABILITIES)
         {
           auto row = row_of_ability[ability_enum];
-          for (auto actual_ability: row->ability().get_ability_names())
+          for (auto actual_ability: row->ability().get_detailed_abilities())
             {
               auto ability = row->ability().get_ability(actual_ability.declination);
               points_spent += ability.get_ability_value();
@@ -151,10 +151,10 @@ namespace qt {
               // inhibit non favorites add if the only points left to spend are equal to the points we have to spend on favorites
               should_inhibit_non_favorites_add = (max_ability_points - points_spent == min_points_in_favorites - points_spent_in_favorites);
 
-      for (auto ability_enum : character::ability_names::ABILITIES)
+      for (auto ability_enum : ability::ABILITIES)
         {
           auto row = row_of_ability[ability_enum];
-          for (auto actual_ability: row->ability().get_ability_names())
+          for (auto actual_ability: row->ability().get_detailed_abilities())
             {
               auto ability = row->ability().get_ability(actual_ability.declination);
               bool caste_ability = std::find(caste_abilities.begin(), caste_abilities.end(), ability_enum) != caste_abilities.end();
@@ -211,7 +211,7 @@ namespace qt {
 
     void character_creation_ability_values::next_issued()
     {
-      for (auto ability: character::ability_names::ABILITIES)
+      for (auto ability: ability::ABILITIES)
         _abilities[ability] = row_of_ability[ability]->ability();
 
       emit abilities_chosen(_abilities);

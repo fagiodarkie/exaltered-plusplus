@@ -2,14 +2,14 @@
 #include "json_constants.h"
 #include "character.h"
 
-namespace character { namespace narrative {
+namespace narrative {
 
     virtue_purchase::virtue_purchase(unsigned int amount, virtues::virtue_enum virtue)
       : _amount(amount), _virtue(virtue) { }
 
     virtue_purchase::~virtue_purchase() { }
 
-    void virtue_purchase::apply(std::shared_ptr<character> c)
+    void virtue_purchase::apply(std::shared_ptr<character::character> c)
     {
       c->get_virtue(_virtue).set_value(_amount);
     }
@@ -40,4 +40,4 @@ namespace character { namespace narrative {
       return _virtue;
     }
 
-}}
+}

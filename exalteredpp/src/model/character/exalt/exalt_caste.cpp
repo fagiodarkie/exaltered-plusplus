@@ -3,7 +3,7 @@
 namespace character {
   namespace exalt {
 
-    exalt_caste::exalt_caste(const std::string& caste_name, std::vector<ability_names::ability_enum> favorite_abilities)
+    exalt_caste::exalt_caste(const std::string& caste_name, std::vector<ability::ability_enum> favorite_abilities)
       : caste_name(caste_name), favored_abilities(favorite_abilities)
     {
     }

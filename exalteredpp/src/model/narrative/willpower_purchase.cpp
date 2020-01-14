@@ -3,14 +3,14 @@
 #include "text/character_text_constants.h"
 #include "json_constants.h"
 
-namespace character { namespace narrative {
+namespace narrative {
 
     willpower_purchase::willpower_purchase(unsigned int amount)
       : _amount(amount) { }
 
     willpower_purchase::~willpower_purchase() { }
 
-    void willpower_purchase::apply(std::shared_ptr<character> c)
+    void willpower_purchase::apply(std::shared_ptr<character::character> c)
     {
       c->get_willpower().set_permanent_willpower(_amount);
     }
@@ -27,12 +27,12 @@ namespace character { namespace narrative {
 
     std::string willpower_purchase::key() const
     {
-      return model::text::character::WILLPOWER;
+      return model::text::WILLPOWER;
     }
 
     std::string willpower_purchase::description() const
     {
-      return model::text::character::WILLPOWER + progress(_amount);
+      return model::text::WILLPOWER + progress(_amount);
     }
 
-}}
+}

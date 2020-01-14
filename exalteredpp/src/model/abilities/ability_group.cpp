@@ -5,9 +5,9 @@
 
 #include <algorithm>
 
-namespace character
+namespace ability
 {
-    ability_group::ability_group(ability_names::ability_enum ability_e, std::vector<ability> abilities, std::vector<specialisation> existing_specialisations)
+    ability_group::ability_group(ability_enum ability_e, std::vector<ability> abilities, std::vector<specialisation> existing_specialisations)
       : macro_ability(ability_e), actual_abilities(abilities), specialisations(existing_specialisations)
     { }
 
@@ -23,21 +23,21 @@ namespace character
       return *this;
     }
 
-    ability_names::ability_enum ability_group::get_ability_enum() const
+    ability_enum ability_group::get_ability_enum() const
     {
       return macro_ability;
     }
 
     std::string ability_group::get_name() const
     {
-      return ability_names::ABILITY_NAME.at(macro_ability);
+      return ABILITY_NAME.at(macro_ability);
     }
 
     std::vector<ability> ability_group::get_abilities() const
     {
       auto group_name = get_name();
       if (!has_abilities())
-        return { ability(group_name, get_ability().get_ability_value()) };
+        return { ability(group_name, get_ability(ability_declination::NO_DECLINATION).get_ability_value()) };
 
       std::vector<ability> mod_abilities;
       for (ability a : actual_abilities)
@@ -55,9 +55,9 @@ namespace character
       return specialisations;
     }
 
-    ability_names::ability_category ability_group::get_category() const
+    ability_category ability_group::get_category() const
     {
-      return ability_names::CATEGORY_OF_ABILITY(macro_ability);
+      return CATEGORY_OF_ABILITY(macro_ability);
     }
 
     ability ability_group::get_ability(const std::string& name) const
@@ -134,12 +134,12 @@ namespace character
         }
     }
 
-    std::vector<ability_names::detailed_ability> ability_group::get_ability_names() const
+    std::vector<detailed_ability> ability_group::get_detailed_abilities() const
     {
-      std::vector<ability_names::detailed_ability> result;
+      std::vector<detailed_ability> result;
 
       for (auto ability: actual_abilities)
-        result.push_back(ability_names::detailed_ability(macro_ability, ability.get_name()));
+        result.push_back(detailed_ability(macro_ability, ability.get_name()));
 
       return result;
     }
@@ -188,12 +188,12 @@ namespace character
     bool ability_group::has_abilities() const
     {
       return (actual_abilities.size() > 1)
-          || (actual_abilities.begin()->get_name() != ability_names::ability_declination::NO_DECLINATION);
+          || (actual_abilities.begin()->get_name() != ability_declination::NO_DECLINATION);
     }
 
     bool ability_group::can_manage_ability(const std::string& ability_name) const
     {
-      return has_abilities() || ability_name == ability_names::ability_declination::NO_DECLINATION;
+      return has_abilities() || ability_name == ability_declination::NO_DECLINATION;
     }
 
     std::vector<ability>::iterator ability_group::get_ability_reference(const std::string &name)

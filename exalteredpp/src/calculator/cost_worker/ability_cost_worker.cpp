@@ -6,7 +6,7 @@ namespace calculator { namespace cost {
 
     unsigned int ability_cost_worker::cost_for(std::shared_ptr<character::character> character) const
     {
-      auto ability = dynamic_cast<character::narrative::ability_purchase*>(_purchase.get());
+      auto ability = dynamic_cast<narrative::ability_purchase*>(_purchase.get());
 
       auto ability_name = ability->ability();
 

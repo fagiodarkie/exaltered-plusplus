@@ -15,6 +15,8 @@ namespace qt {
 
     using namespace labels;
 
+    using namespace virtues;
+
     const char* character_creation_virtues_vice::AFFECTED_VIRTUE_VICE_PROPERTY = "affected-virtue";
 
     character_creation_virtues_vice::character_creation_virtues_vice(QWidget* parent)
@@ -125,7 +127,7 @@ namespace qt {
       qt::style::forget(next_page);
     }
 
-    void character_creation_virtues_vice::update_virtues_limits(virtues virtues, unsigned int max_virtues, unsigned int max_virtue_value)
+    void character_creation_virtues_vice::update_virtues_limits(class virtues virtues, unsigned int max_virtues, unsigned int max_virtue_value)
     {
       _virtues = virtues;
       max_points_on_virtues = max_virtues;

@@ -54,7 +54,7 @@ HEADERS += \
     ../../headers/model/abilities/abilities.h \
     ../../headers/model/abilities/ability.h \
     ../../headers/model/abilities/ability_group.h \
-    ../../headers/model/abilities/ability_names.h \
+    ../../headers/model/abilities/ability.h \
     ../../headers/model/abilities/abstract_ability_factory.h \
     ../../headers/model/abilities/specialisation.h \
     ../../headers/model/attributes/attribute.h \

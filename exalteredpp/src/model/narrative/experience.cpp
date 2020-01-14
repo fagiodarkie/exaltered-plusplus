@@ -11,7 +11,7 @@
 #include "narrative/essence_purchase.h"
 
 
-namespace character { namespace narrative {
+namespace narrative {
 
     experience_purchase::experience_purchase(experience_expense_type expense_type, unsigned int cost, std::shared_ptr<abstract_purchase> purchase)
       : _expense_type(expense_type), _cost(cost), _purchase(purchase) { }
@@ -53,4 +53,4 @@ namespace character { namespace narrative {
       return _purchase;
     }
 
-}}
+}

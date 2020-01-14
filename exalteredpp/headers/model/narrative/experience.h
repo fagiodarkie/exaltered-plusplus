@@ -6,7 +6,7 @@
 #include "abstract_purchase.h"
 #include "json_constants.h"
 
-namespace character { namespace narrative {
+namespace narrative {
 
     class experience_purchase : public Serialisable
     {
@@ -45,6 +45,6 @@ namespace character { namespace narrative {
       }
     };
 
-}  }
+}
 
 #endif // EXPERIENCE_H

@@ -2,10 +2,10 @@
 #include "json_constants.h"
 #include "character.h"
 
-namespace character { namespace narrative {
+namespace narrative {
 
 
-    attribute_purchase::attribute_purchase(attribute_names::attribute attribute, unsigned int amount)
+    attribute_purchase::attribute_purchase(attribute::attribute_enum attribute, unsigned int amount)
       : _amount(amount), _attribute(attribute) { }
 
     attribute_purchase::~attribute_purchase() { }
@@ -16,17 +16,17 @@ namespace character { namespace narrative {
       synch(serialisation::json_constants::SLOT_ATTRIBUTE, _attribute);
     }
 
-    void attribute_purchase::apply(std::shared_ptr<character> c)
+    void attribute_purchase::apply(std::shared_ptr<character::character> c)
     {
       c->get_attribute(_attribute).set_value(_amount);
     }
 
     std::string attribute_purchase::key() const
     {
-      return attribute_names::ATTRIBUTE_NAME.at(_attribute);
+      return attribute::ATTRIBUTE_NAME.at(_attribute);
     }
 
-    attribute_names::attribute attribute_purchase::attribute() const
+    attribute::attribute_enum attribute_purchase::attribute() const
     {
       return _attribute;
     }
@@ -36,4 +36,4 @@ namespace character { namespace narrative {
       return key() + " " + progress(_amount);
     }
 
-} }
+}

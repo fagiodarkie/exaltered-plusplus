@@ -13,7 +13,7 @@ namespace qt {
 
     using namespace labels::will_virtue_labels;
     using namespace labels;
-    using namespace character::virtues;
+    using namespace virtues;
 
     qwillpower_virtues_screen::qwillpower_virtues_screen(const std::shared_ptr<character::character> c,
                                                    QWidget *parent)

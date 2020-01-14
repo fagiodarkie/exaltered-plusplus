@@ -17,10 +17,10 @@ namespace manager {
                                                           const std::string name,
                                                           const character::creation::character_type type,
                                                           const character::exalt::caste caste,
-                                                          const character::attributes attributes,
-                                                          const character::abilities abilities,
-                                                          const character::virtues::virtues virtues,
-                                                          const character::power::power_container power_container);
+                                                          const attribute::attributes attribute,
+                                                          const ability::abilities abilities,
+                                                          const virtues::virtues virtues,
+                                                          const power::power_container power_container);
     void save_character(std::shared_ptr<character::character>& character) const;
 
   private:

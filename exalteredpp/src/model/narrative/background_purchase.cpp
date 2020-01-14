@@ -1,13 +1,13 @@
 #include "narrative/background_purchase.h"
 #include "json_constants.h"
 
-namespace character { namespace narrative {
+namespace narrative {
 
     background_purchase::background_purchase() : _amount(0) { }
 
     background_purchase::~background_purchase() { }
 
-    void background_purchase::apply(std::shared_ptr<character>) { }
+    void background_purchase::apply(std::shared_ptr<character::character>) { }
 
     void background_purchase::serialisation()
     {
@@ -24,4 +24,4 @@ namespace character { namespace narrative {
       return key();
     }
 
-}}
+}

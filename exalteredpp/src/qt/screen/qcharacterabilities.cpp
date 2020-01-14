@@ -7,7 +7,7 @@
 #include "widget/std_compatible.h"
 #include "behavioral/name_value_pair.h"
 #include "widget/name_value_widget.h"
-#include "abilities/ability_names.h"
+#include "abilities/ability.h"
 
 namespace qt
 {
@@ -21,13 +21,13 @@ namespace qt
 
       v_layout->addWidget(label("Abilities of " + character->get_name()));
 
-      for (auto category: character::ability_names::ABILITY_CATEGORIES)
+      for (auto category: ability::ABILITY_CATEGORIES)
         {
-          QGroupBox *category_group = new QGroupBox(character::ability_names::ABILITY_CATEGORY_NAMES.at(category).c_str());
+          QGroupBox *category_group = new QGroupBox(ability::ABILITY_CATEGORY_NAMES.at(category).c_str());
           QFormLayout *category_form = new QFormLayout;
-          for (auto ability_name: character::ability_names::ABILITIES_IN_CATEGORY.at(category))
+          for (auto ability_name: ability::ABILITIES_IN_CATEGORY.at(category))
           {
-            for (character::ability ability : character->get_ability_group(ability_name).get_abilities())
+            for (ability::ability ability : character->get_ability_group(ability_name).get_abilities())
               {
                 category_form->addRow(ability.get_name().c_str(), new QLabel(QString::number(ability.get_ability_value())));
               }

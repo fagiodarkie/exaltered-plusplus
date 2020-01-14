@@ -79,7 +79,7 @@ namespace qt { namespace screen {
       open_expense_logger->setEnabled(remaining > 0);
     }
 
-    void qexperience_screen::add_expense(const character::narrative::experience_purchase &purchase)
+    void qexperience_screen::add_expense(const narrative::experience_purchase &purchase)
     {
       _purchase_logger->hide();
       _character->get_experience().purchase(purchase);
@@ -91,7 +91,7 @@ namespace qt { namespace screen {
       refresh_expenses();
     }
 
-    void qexperience_screen::add_session(const character::narrative::session_awards& new_awards)
+    void qexperience_screen::add_session(const narrative::session_awards& new_awards)
     {
       _character->get_experience().award(new_awards);
 
@@ -176,7 +176,7 @@ namespace qt { namespace screen {
       int row = 0;
       for (auto purchase: _character->get_experience().purchases())
         {
-          list->addWidget(label(character::narrative::EXPENSE_NAME.at(purchase.purchase_type())), row, 0);
+          list->addWidget(label(narrative::EXPENSE_NAME.at(purchase.purchase_type())), row, 0);
           list->addWidget(label(purchase.purchase()->description()), row, 1, 1, 3);
           list->addWidget(new QLabel(QString::number(purchase.cost())), row, 4);
 

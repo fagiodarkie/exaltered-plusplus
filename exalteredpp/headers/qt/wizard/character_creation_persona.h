@@ -18,11 +18,11 @@ namespace qt {
     Q_OBJECT
   public:
     character_creation_persona(QWidget *parent = nullptr);
-    void set_current_persona(const character::virtues::virtues& new_virtues,
+    void set_current_persona(const virtues::virtues& new_virtues,
                              const character::social::persona& new_persona,
                              const character::creation::character_type_model &model,
-                             const character::attributes& attributes,
-                             const character::power::power_container& power);
+                             const attribute::attributes& attribute,
+                             const power::power_container& power);
 
     ~character_creation_persona();
 
@@ -47,13 +47,13 @@ namespace qt {
     QPushButton *next_page, *cancel;
     QLabel *summary;
     QGroupBox* persona_box;
-    QMap<character::virtues::virtue_enum, QGroupBox*> emotions_of_virtue;
+    QMap<virtues::virtue_enum, QGroupBox*> emotions_of_virtue;
     QMap<character::social::emotion, QLabel*> label_of_emotion;
     QMap<QString, QLabel*> label_of_persona_specific;
     QMap<QString, QPushButton*> increase_specific, decrease_specific;
     QMap<character::social::emotion, QPushButton*> increase_emotion_bonus, decrease_emotion_bonus;
     character::social::persona _persona;
-    character::virtues::virtues _virtues;
+    virtues::virtues _virtues;
   };
 
   }

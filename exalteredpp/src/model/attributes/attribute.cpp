@@ -1,7 +1,7 @@
 #include "attributes/attribute.h"
 #include "serialisation/json_constants.h"
 
-namespace character
+namespace attribute
 {
   attribute::attribute(std::string name) : _value(0), _name(name) {}
 

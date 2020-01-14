@@ -6,11 +6,11 @@
 #include <QPushButton>
 #include <QGridLayout>
 #include <QLabel>
-#include "abilities/ability_names.h"
+#include "abilities/ability.h"
 #include "character.h"
 #include <memory>
 
-using character::ability_names::detailed_ability;
+using ability::detailed_ability;
 
 namespace qt { namespace widget {
     class ability_declination_selector : public QWidget
@@ -42,7 +42,7 @@ namespace qt { namespace widget {
       void generate_available_abilities() const;
       void generate_available_declinations() const;
 
-      character::ability_names::ability_enum selected_ability() const;
+      ability::ability_enum selected_ability() const;
 
       void generate_widget();
       void refresh();

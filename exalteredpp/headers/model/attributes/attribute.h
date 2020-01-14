@@ -4,7 +4,7 @@
 #include "behavioral/name_value_pair.h"
 #include "../thirdparty/serialisable/serialisable.hpp"
 
-namespace character
+namespace attribute
 {
   class attribute : public model::name_value_pair, public Serialisable
   {

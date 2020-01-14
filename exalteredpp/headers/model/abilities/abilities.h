@@ -2,12 +2,13 @@
 
 #include <map>
 #include "../thirdparty/serialisable/serialisable.hpp"
-#include "ability_names.h"
+#include "ability.h"
 #include "ability_group.h"
+#include "ability_names.h"
 
-namespace character
+namespace ability
 {
-  class abilities : public std::map<ability_names::ability_enum, ability_group>, public Serialisable
+  class abilities : public std::map<ability_enum, ability_group>, public Serialisable
   {
 
   public:

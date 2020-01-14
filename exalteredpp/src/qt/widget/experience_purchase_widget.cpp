@@ -20,7 +20,7 @@
 
 namespace qt { namespace widget {
 
-    using namespace character::narrative;
+    using namespace narrative;
     using namespace character;
 
     experience_purchase_widget::experience_purchase_widget(std::shared_ptr<class character> character, QWidget* parent)
@@ -42,8 +42,8 @@ namespace qt { namespace widget {
       for (auto purchase_type: EXPENSE_TYPES)
         purchase_type_dropdown->addItem(EXPENSE_NAME.at(purchase_type).c_str(), purchase_type);
 
-      for (auto attribute: attribute_names::ATTRIBUTES)
-        attribute_dropdown->addItem(attribute_names::ATTRIBUTE_NAME.at(attribute).c_str(), attribute);
+      for (auto attribute: attribute::ATTRIBUTES)
+        attribute_dropdown->addItem(attribute::ATTRIBUTE_NAME.at(attribute).c_str(), attribute);
 
       for (auto virtue: virtues::VIRTUE_LIST)
         virtue_dropdown->addItem(virtues::VIRTUE_NAME.at(virtue).c_str(), virtue);
@@ -226,12 +226,12 @@ namespace qt { namespace widget {
       return narrative::experience_purchase(purchase_type_enum, compute_cost(purchase_type_enum, purchase), purchase);
     }
 
-    attribute_names::attribute experience_purchase_widget::selected_attribute() const
+    attribute::attribute_enum experience_purchase_widget::selected_attribute() const
     {
-      return static_cast<attribute_names::attribute>(attribute_dropdown->currentData().toInt());
+      return static_cast<attribute::attribute_enum>(attribute_dropdown->currentData().toInt());
     }
 
-    ability_names::detailed_ability experience_purchase_widget::selected_ability() const
+    ability::detailed_ability experience_purchase_widget::selected_ability() const
     {
       return ability_selector->value();
     }

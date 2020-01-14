@@ -16,16 +16,16 @@ namespace qt {
         calculator(worker)
     {
       // initialise character specs
-      for (auto attribute_e : attribute_names::ATTRIBUTES)
-        attributes[attribute_e] = attribute(attribute_names::ATTRIBUTE_NAME.at(attribute_e), 1);
+      for (auto attribute_e : attribute::ATTRIBUTES)
+        attributes[attribute_e] = attribute::attribute(attribute::ATTRIBUTE_NAME.at(attribute_e), 1);
 
-      for (auto ability_e : ability_names::ABILITIES)
+      for (auto ability_e : ability::ABILITIES)
         {
-          if (ability_names::has_declination(ability_e))
+          if (ability::has_declination(ability_e))
             {
-              std::vector<ability> group_abilities;
-              for (auto declination : ability_names::ability_declination::DECLINATIONS_OF_ABILITY.at(ability_e))
-                group_abilities.push_back(ability(declination));
+              std::vector<ability::ability> group_abilities;
+              for (auto declination : ability::ability_declination::DECLINATIONS_OF_ABILITY.at(ability_e))
+                group_abilities.push_back(ability::ability(declination));
 
               abilities[ability_e] = ability_group(ability_e, group_abilities);
             }
@@ -90,9 +90,9 @@ namespace qt {
     void character_creation_wizard::load_attributes_values(const QString& primary_attribute, const QString& secondary_attribute, const QString& tertiary_attribute)
     {
       points_per_category.clear();
-      points_per_category.insert(attribute_names::ATTRIBUTE_CATEGORY_BY_NAME(primary_attribute  .toStdString()), character_model.primary_category_attribute_value);
-      points_per_category.insert(attribute_names::ATTRIBUTE_CATEGORY_BY_NAME(secondary_attribute.toStdString()), character_model.secondary_category_attribute_value);
-      points_per_category.insert(attribute_names::ATTRIBUTE_CATEGORY_BY_NAME(tertiary_attribute .toStdString()), character_model.tertiary_category_attribute_value);
+      points_per_category.insert(attribute::ATTRIBUTE_CATEGORY_BY_NAME(primary_attribute  .toStdString()), character_model.primary_category_attribute_value);
+      points_per_category.insert(attribute::ATTRIBUTE_CATEGORY_BY_NAME(secondary_attribute.toStdString()), character_model.secondary_category_attribute_value);
+      points_per_category.insert(attribute::ATTRIBUTE_CATEGORY_BY_NAME(tertiary_attribute .toStdString()), character_model.tertiary_category_attribute_value);
 
       attribute_points_page->set_total_points(points_per_category);
       attribute_points_page->set_current_attributes(attributes);
@@ -100,16 +100,16 @@ namespace qt {
       advance();
     }
 
-    void character_creation_wizard::load_attribute_points(const class attributes &points)
+    void character_creation_wizard::load_attribute_points(const attribute::attributes &points)
     {
       attributes = points;
 
       for (auto fav_ability : exalt::exalt_caste::get_caste(caste).abilities())
         {
           // take a default declination
-          auto declination = ability_names::has_declination(fav_ability)
-              ? ability_names::ability_declination::DECLINATIONS_OF_ABILITY.at(fav_ability).at(0)
-              : ability_names::ability_declination::NO_DECLINATION;
+          auto declination = ability::has_declination(fav_ability)
+              ? ability::ability_declination::DECLINATIONS_OF_ABILITY.at(fav_ability).at(0)
+              : ability::ability_declination::NO_DECLINATION;
 
           // if there is no favorite ability, set one.
           bool has_at_least_one = false;
@@ -131,7 +131,7 @@ namespace qt {
       advance();
     }
 
-    void character_creation_wizard::load_ability_values(const class abilities &abilities)
+    void character_creation_wizard::load_ability_values(const class ability::abilities &abilities)
     {
       this->abilities = abilities;
 
@@ -140,7 +140,7 @@ namespace qt {
       advance();
     }
 
-    void character_creation_wizard::load_virtues(const virtues &virtues)
+    void character_creation_wizard::load_virtues(const virtues::virtues &virtues)
     {
       character_virtues = virtues;
       persona.set_persona(calculator.compute_persona(new_character_type, attributes, power.get_willpower(), power.get_essence()));

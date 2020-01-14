@@ -6,7 +6,7 @@
 #include "experience_award.h"
 #include "session_awards.h"
 
-namespace character { namespace narrative {
+namespace narrative {
 
     class experience_cluster : public Serialisable
     {
@@ -34,5 +34,5 @@ namespace character { namespace narrative {
       std::vector<session_awards> _experience_awards;
     };
 
-} }
+}
 #endif // EXPERIENCE_CLUSTER_H

@@ -20,13 +20,13 @@ namespace qt
 
       v_layout->addWidget(new QLabel(QString("Attributes of ") + character->get_name().c_str()));
 
-      for (auto attribute_category: character::attribute_names::ATTRIBUTE_CATEGORIES)
+      for (auto attribute_category: attribute::ATTRIBUTE_CATEGORIES)
         {
-          QGroupBox *attribute_category_group = new QGroupBox(character::attribute_names::ATTRIBUTE_CATEGORY_NAME.at(attribute_category).c_str());
+          QGroupBox *attribute_category_group = new QGroupBox(attribute::ATTRIBUTE_CATEGORY_NAME.at(attribute_category).c_str());
           QFormLayout *attribute_form = new QFormLayout;
-          for (auto attribute_name: character::attribute_names::ATTRIBUTES_BY_CATEGORY.at(attribute_category))
+          for (auto attribute_name: attribute::ATTRIBUTES_BY_CATEGORY.at(attribute_category))
           {
-              attribute_form->addRow(character::attribute_names::ATTRIBUTE_NAME.at(attribute_name).c_str(),
+              attribute_form->addRow(attribute::ATTRIBUTE_NAME.at(attribute_name).c_str(),
                                      new QLabel(character->get_attribute(attribute_name).get_value().c_str()));
           }
           attribute_category_group->setLayout(attribute_form);
