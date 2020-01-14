@@ -170,6 +170,8 @@ SOURCES += \
     ../../src/test-case/model/character-test.cpp \
     ../../src/test-case/model/creation/character-type-model-test.cpp \
     ../../src/test-case/model/exalt/exalt-caste-test.cpp \
+    ../../src/test-case/model/narrative/ability_purchase-test.cpp \
+    ../../src/test-case/model/narrative/specialisation_purchase-test.cpp \
     ../../src/test-case/model/power/essence-test.cpp \
     ../../src/test-case/model/power/health-test.cpp \
     ../../src/test-case/model/power/logos-test.cpp \

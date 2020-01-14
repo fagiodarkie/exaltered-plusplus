@@ -65,6 +65,36 @@ TEST_CASE("Character")
     REQUIRE(sut.caste() == character::exalt::caste::NO_CASTE);
   }
 
+  SECTION("should change type")
+  {
+    character::character sut = STANDARD_CHARACTER;
+    REQUIRE_FALSE(sut.get_type() == character::creation::TYPE_INFERNAL_EXALT);
+    sut.set_type(character::creation::TYPE_INFERNAL_EXALT);
+    REQUIRE(sut.get_type() == character::creation::TYPE_INFERNAL_EXALT);
+  }
+
+  SECTION("should manage abilities by detailed ability")
+  {
+    character::character sut = STANDARD_CHARACTER;
+    ability::detailed_ability strategy(ability::WAR, "Strategy");
+    sut.set_ability(ability::WAR, ability::ability_group(ability::WAR, {ability::ability(strategy.declination, 2)}));
+    REQUIRE(sut.has_ability(strategy));
+    auto ability = sut.get_ability(strategy);
+    REQUIRE(ability.get_ability_value() == 2);
+    REQUIRE(ability.get_name() == strategy.declination);
+    sut.set_ability_value(strategy, 4);
+    REQUIRE(sut.get_ability(strategy) == 4);
+  }
+
+  SECTION("should manage specialisations")
+  {
+    character::character sut = STANDARD_CHARACTER;
+    ability::specialisation spec("mounted", 2);
+    sut.add_ability_specialisation(ability::WAR, spec);
+    REQUIRE(sut.get_ability_group(ability::WAR).has_specialisation(spec.get_name()));
+    REQUIRE(sut.get_ability_group(ability::WAR).get_specialisation(spec.get_name()).get_specialisation_value() == spec.get_specialisation_value());
+  }
+
   SECTION("should allow virtue & vice management")
   {
     character::character sut = STANDARD_CHARACTER;
@@ -91,11 +121,15 @@ TEST_CASE("Character")
     sut.get_essence().set_permanent_essence(5);
     sut.get_willpower().set_permanent_willpower(3);
     sut.get_health().set_total_health(100);
+    narrative::session_awards session;
+    session[narrative::COSPLAY] = narrative::experience_award(narrative::COSPLAY, 3);
+    sut.get_experience().award(session);
 
     REQUIRE(sut.get_logos()     .get_logos()           == 2  );
     REQUIRE(sut.get_essence()   .permanent_essence()   == 5  );
     REQUIRE(sut.get_willpower() .permanent_willpower() == 3  );
     REQUIRE(sut.get_health()    .total_health()        == 100);
+    REQUIRE(sut.get_experience().total_awarded()       == 3  );
 
     const character::character c_sut = STANDARD_CHARACTER;
 
@@ -103,11 +137,13 @@ TEST_CASE("Character")
     c_sut.get_essence().set_permanent_essence(5);
     c_sut.get_willpower().set_permanent_willpower(3);
     c_sut.get_health().set_total_health(100);
+    c_sut.get_experience().award(session);
 
     REQUIRE_FALSE(c_sut.get_logos()     .get_logos()           == 2  );
     REQUIRE_FALSE(c_sut.get_essence()   .permanent_essence()   == 5  );
     REQUIRE_FALSE(c_sut.get_willpower() .permanent_willpower() == 3  );
     REQUIRE_FALSE(c_sut.get_health()    .total_health()        == 100);
+    REQUIRE_FALSE(c_sut.get_experience().total_awarded()       == 3  );
 
   }
 }

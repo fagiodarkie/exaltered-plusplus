@@ -70,6 +70,8 @@ namespace character
 
   ability::ability character::get_ability(ability::ability_enum name, const std::string& ability_declination) const
   {
+    if (_abilities.find(name) == _abilities.end() || !_abilities.at(name).has_ability(ability_declination))
+      return ability::ability(ability::ABILITY_NAME.at(name));
     return _abilities.at(name).get_ability(ability_declination);
   }
 

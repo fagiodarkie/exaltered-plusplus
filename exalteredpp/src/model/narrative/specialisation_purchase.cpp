@@ -17,6 +17,11 @@ namespace narrative {
     synch(serialisation::json_constants::SLOT_ABILITY, _ability);
   }
 
+  int specialisation_purchase::amount() const
+  {
+    return _amount;
+  }
+
   void specialisation_purchase::apply(std::shared_ptr<character::character> c)
   {
     c->add_ability_specialisation(_ability, ability::specialisation(_specialisation, _amount));

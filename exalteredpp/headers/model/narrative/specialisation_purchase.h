@@ -17,6 +17,7 @@ namespace narrative {
 
     ability::ability_enum ability() const;
     std::string specialisation_name() const;
+    int amount() const;
 
     virtual void serialisation() override;
     virtual std::string description() const override;

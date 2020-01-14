@@ -121,7 +121,7 @@ namespace ability
     void ability_group::set_ability_value(const std::string& ability_name, unsigned int new_value)
     {
       if (!has_ability(ability_name))
-        throw exception::ability_not_found_exception();
+        actual_abilities.emplace_back(ability(ability_name, new_value));
 
       get_ability_reference(ability_name)->set_value(new_value);
     }
@@ -165,7 +165,7 @@ namespace ability
     void ability_group::set_specialisation_value(const std::string& specialisation_name, unsigned int new_value)
     {
       if (!has_specialisation(specialisation_name))
-        throw exception::ability_not_found_exception();
+        specialisations.emplace_back(specialisation(specialisation_name, new_value));
 
       get_specialisation_reference(specialisation_name)->set_value(new_value);
     }

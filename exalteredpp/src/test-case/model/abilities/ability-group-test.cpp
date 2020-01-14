@@ -115,10 +115,10 @@ TEST_CASE("Ability group")
     REQUIRE(sut.get_ability("a3") == 4);
   }
 
-  SECTION("should throw if trying to update a non-existing ability")
+  SECTION("should not throw if trying to update a non-existing ability")
   {
     ability::ability_group sut(ability::WAR, { ability::ability("a1", 1), ability::ability("a2", 2) }, {ability::specialisation("s1", 3)});
-    REQUIRE_THROWS(sut.set_ability_value("a3", 4));
+    REQUIRE_NOTHROW(sut.set_ability_value("a3", 4));
   }
 
   SECTION("should allow to modify specialisation values")
@@ -194,11 +194,11 @@ TEST_CASE("Ability group")
     REQUIRE(sut_2.get_specialisation("s1").get_value()  == stub.get_specialisation("s1").get_value() );
   }
 
-  SECTION("should throw if asked to retrieve invalid abilities or specialisation")
+  SECTION("should not throw if asked to retrieve unknown abilities or specialisation")
   {
     ability::ability_group stub(ability::WAR);
 
-    REQUIRE_THROWS(stub.set_ability_value("invalid_ability", 4));
-    REQUIRE_THROWS(stub.set_specialisation_value("invalid_specialisation", 2));
+    REQUIRE_NOTHROW(stub.set_ability_value("invalid_ability", 4));
+    REQUIRE_NOTHROW(stub.set_specialisation_value("invalid_specialisation", 2));
   }
 }
