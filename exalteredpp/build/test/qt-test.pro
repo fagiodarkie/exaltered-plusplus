@@ -51,47 +51,47 @@ HEADERS += \
     ../../headers/errors/error_codes.h \
     ../../headers/errors/invalid_parameter.h \
     ../../headers/model/behavioral/name_value_pair.h \
-    ../../headers/model/character/abilities/abilities.h \
-    ../../headers/model/character/abilities/ability.h \
-    ../../headers/model/character/abilities/ability_group.h \
-    ../../headers/model/character/abilities/ability_names.h \
-    ../../headers/model/character/abilities/abstract_ability_factory.h \
-    ../../headers/model/character/abilities/specialisation.h \
-    ../../headers/model/character/attributes/attribute.h \
-    ../../headers/model/character/attributes/attribute_names.h \
-    ../../headers/model/character/attributes/attributes.h \
+    ../../headers/model/abilities/abilities.h \
+    ../../headers/model/abilities/ability.h \
+    ../../headers/model/abilities/ability_group.h \
+    ../../headers/model/abilities/ability_names.h \
+    ../../headers/model/abilities/abstract_ability_factory.h \
+    ../../headers/model/abilities/specialisation.h \
+    ../../headers/model/attributes/attribute.h \
+    ../../headers/model/attributes/attribute_names.h \
+    ../../headers/model/attributes/attributes.h \
     ../../headers/model/character/character.h \
     ../../headers/model/character/creation/character_creation_configuration.h \
     ../../headers/model/character/creation/character_type_model.h \
     ../../headers/model/character/exalt/exalt_caste.h \
-    ../../headers/model/character/narrative/ability_purchase.h \
-    ../../headers/model/character/narrative/abstract_purchase.h \
-    ../../headers/model/character/narrative/attribute_purchase.h \
-    ../../headers/model/character/narrative/background_purchase.h \
-    ../../headers/model/character/narrative/backgrounds.h \
-    ../../headers/model/character/narrative/charm_purchase.h \
-    ../../headers/model/character/narrative/essence_purchase.h \
-    ../../headers/model/character/narrative/experience.h \
-    ../../headers/model/character/narrative/experience_award.h \
-    ../../headers/model/character/narrative/experience_cluster.h \
-    ../../headers/model/character/narrative/experience_defines.h \
-    ../../headers/model/character/narrative/session_awards.h \
-    ../../headers/model/character/narrative/specialisation_purchase.h \
-    ../../headers/model/character/narrative/vice_purchase.h \
-    ../../headers/model/character/narrative/virtue_purchase.h \
-    ../../headers/model/character/narrative/willpower_purchase.h \
-    ../../headers/model/character/power/essence.h \
-    ../../headers/model/character/power/health.h \
-    ../../headers/model/character/power/logos.h \
-    ../../headers/model/character/power/power_container.h \
-    ../../headers/model/character/power/willpower.h \
-    ../../headers/model/character/social/emotions_names.h \
-    ../../headers/model/character/social/persona.h \
-    ../../headers/model/character/social/philosophy.h \
-    ../../headers/model/character/social/social_specifics.h \
-    ../../headers/model/character/virtues/virtue.h \
-    ../../headers/model/character/virtues/virtue_names.h \
-    ../../headers/model/character/virtues/virtues.h \
+    ../../headers/model/narrative/ability_purchase.h \
+    ../../headers/model/narrative/abstract_purchase.h \
+    ../../headers/model/narrative/attribute_purchase.h \
+    ../../headers/model/narrative/background_purchase.h \
+    ../../headers/model/narrative/backgrounds.h \
+    ../../headers/model/narrative/charm_purchase.h \
+    ../../headers/model/narrative/essence_purchase.h \
+    ../../headers/model/narrative/experience.h \
+    ../../headers/model/narrative/experience_award.h \
+    ../../headers/model/narrative/experience_cluster.h \
+    ../../headers/model/narrative/experience_defines.h \
+    ../../headers/model/narrative/session_awards.h \
+    ../../headers/model/narrative/specialisation_purchase.h \
+    ../../headers/model/narrative/vice_purchase.h \
+    ../../headers/model/narrative/virtue_purchase.h \
+    ../../headers/model/narrative/willpower_purchase.h \
+    ../../headers/model/power/essence.h \
+    ../../headers/model/power/health.h \
+    ../../headers/model/power/logos.h \
+    ../../headers/model/power/power_container.h \
+    ../../headers/model/power/willpower.h \
+    ../../headers/model/social/emotions_names.h \
+    ../../headers/model/social/persona.h \
+    ../../headers/model/social/philosophy.h \
+    ../../headers/model/social/social_specifics.h \
+    ../../headers/model/virtues/virtue.h \
+    ../../headers/model/virtues/virtue_names.h \
+    ../../headers/model/virtues/virtues.h \
     ../../headers/model/managers/character_manager.h \
     ../../headers/model/text/character_text_constants.h \
     ../../headers/qt-test/quick_chargen.h \
@@ -117,40 +117,40 @@ SOURCES += \
     ../../src/errors/ability_not_found_exception.cpp \
     ../../src/errors/characternotfoundexception.cpp \
     ../../src/errors/invalid_parameter.cpp \
-    ../../src/model/character/abilities/abilities.cpp \
-    ../../src/model/character/abilities/ability.cpp \
-    ../../src/model/character/abilities/ability_group.cpp \
-    ../../src/model/character/abilities/specialisation.cpp \
-    ../../src/model/character/attributes/attribute.cpp \
-    ../../src/model/character/attributes/attributes.cpp \
+    ../../src/model/abilities/abilities.cpp \
+    ../../src/model/abilities/ability.cpp \
+    ../../src/model/abilities/ability_group.cpp \
+    ../../src/model/abilities/specialisation.cpp \
+    ../../src/model/attributes/attribute.cpp \
+    ../../src/model/attributes/attributes.cpp \
     ../../src/model/character/character.cpp \
     ../../src/model/character/creation/character_creation_configuration.cpp \
     ../../src/model/character/creation/character_type_model.cpp \
     ../../src/model/character/exalt/exalt_caste.cpp \
     ../../src/model/character/exalt/exalt_caste_abilities.cpp \
-    ../../src/model/character/narrative/ability_purchase.cpp \
-    ../../src/model/character/narrative/attribute_purchase.cpp \
-    ../../src/model/character/narrative/background_purchase.cpp \
-    ../../src/model/character/narrative/backgrounds.cpp \
-    ../../src/model/character/narrative/charm_purchase.cpp \
-    ../../src/model/character/narrative/essence_purchase.cpp \
-    ../../src/model/character/narrative/experience.cpp \
-    ../../src/model/character/narrative/experience_award.cpp \
-    ../../src/model/character/narrative/experience_cluster.cpp \
-    ../../src/model/character/narrative/session_awards.cpp \
-    ../../src/model/character/narrative/specialisation_purchase.cpp \
-    ../../src/model/character/narrative/vice_purchase.cpp \
-    ../../src/model/character/narrative/virtue_purchase.cpp \
-    ../../src/model/character/narrative/willpower_purchase.cpp \
-    ../../src/model/character/power/essence.cpp \
-    ../../src/model/character/power/health.cpp \
-    ../../src/model/character/power/logos.cpp \
-    ../../src/model/character/power/power_container.cpp \
-    ../../src/model/character/power/willpower.cpp \
-    ../../src/model/character/social/persona.cpp \
-    ../../src/model/character/social/philosophy.cpp \
-    ../../src/model/character/virtues/virtue.cpp \
-    ../../src/model/character/virtues/virtues.cpp \
+    ../../src/model/narrative/ability_purchase.cpp \
+    ../../src/model/narrative/attribute_purchase.cpp \
+    ../../src/model/narrative/background_purchase.cpp \
+    ../../src/model/narrative/backgrounds.cpp \
+    ../../src/model/narrative/charm_purchase.cpp \
+    ../../src/model/narrative/essence_purchase.cpp \
+    ../../src/model/narrative/experience.cpp \
+    ../../src/model/narrative/experience_award.cpp \
+    ../../src/model/narrative/experience_cluster.cpp \
+    ../../src/model/narrative/session_awards.cpp \
+    ../../src/model/narrative/specialisation_purchase.cpp \
+    ../../src/model/narrative/vice_purchase.cpp \
+    ../../src/model/narrative/virtue_purchase.cpp \
+    ../../src/model/narrative/willpower_purchase.cpp \
+    ../../src/model/power/essence.cpp \
+    ../../src/model/power/health.cpp \
+    ../../src/model/power/logos.cpp \
+    ../../src/model/power/power_container.cpp \
+    ../../src/model/power/willpower.cpp \
+    ../../src/model/social/persona.cpp \
+    ../../src/model/social/philosophy.cpp \
+    ../../src/model/virtues/virtue.cpp \
+    ../../src/model/virtues/virtues.cpp \
     ../../src/model/managers/character_manager.cpp \
     ../../src/qt-test/main.cpp \
     ../../src/qt-test/quick_chargen.cpp \
@@ -173,12 +173,12 @@ SOURCES += \
     ../../src/test-case/model/power/essence-test.cpp \
     ../../src/test-case/model/power/health-test.cpp \
     ../../src/test-case/model/power/logos-test.cpp \
+    ../../src/test-case/model/power/power-container-test.cpp \
+    ../../src/test-case/model/power/willpower-test.cpp \
     ../../src/test-case/model/social/persona-test.cpp \
     ../../src/test-case/model/social/philosophy-test.cpp \
     ../../src/test-case/model/virtues/virtue-test.cpp \
-    ../../src/test-case/model/virtues/virtues-test.cpp \
-    ../../src/test-case/model/power/power-container-test.cpp \
-    ../../src/test-case/model/power/willpower-test.cpp
+    ../../src/test-case/model/virtues/virtues-test.cpp
 
 
 

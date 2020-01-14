@@ -3,8 +3,8 @@
 #include <string>
 #include "../thirdparty/serialisable/serialisable.hpp"
 #include <social/persona.h>
-#include "character/attributes/attributes.h"
-#include "character/abilities/abilities.h"
+#include "attributes/attributes.h"
+#include "abilities/abilities.h"
 #include "creation/character_type_model.h"
 #include "exalt/exalt_caste.h"
 #include "virtues/virtues.h"

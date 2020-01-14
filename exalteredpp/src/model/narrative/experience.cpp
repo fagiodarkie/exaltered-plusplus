@@ -1,4 +1,4 @@
-#include "character/narrative/experience.h"
+#include "narrative/experience.h"
 
 #include "narrative/ability_purchase.h"
 #include "narrative/attribute_purchase.h"

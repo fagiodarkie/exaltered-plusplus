@@ -1,4 +1,4 @@
-#include "character/narrative/ability_purchase.h"
+#include "narrative/ability_purchase.h"
 #include "character.h"
 #include "json_constants.h"
 
