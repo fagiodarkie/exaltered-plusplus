@@ -70,6 +70,11 @@ TEST_CASE("exalt worker")
   {
     test_character.set_attribute_value(attribute::DEXTERITY, 4);
     test_character.set_attribute_value(attribute::STRENGTH, 3);
+    test_character.set_attribute_value(attribute::MANIPULATION, 5);
+    test_character.set_attribute_value(attribute::CHARISMA, 5);
+    test_character.set_attribute_value(attribute::APPEARANCE, 1);
+    test_character.get_willpower().set_permanent_willpower(5);
+    test_character.get_essence().set_permanent_essence(5);
     test_character.set_ability_value(ability::MELEE, 3);
     test_character.set_ability_value(ability::DODGE, 3);
 
@@ -77,6 +82,9 @@ TEST_CASE("exalt worker")
     REQUIRE(sut.compute_parry_dv(test_character, ability::MELEE) == 4);
     // same for dodge, (4 + 3) / 2 = 4
     REQUIRE(sut.compute_dodge_dv(test_character) == 4);
+
+    // persona should be 20 as essence is 5 and willpower is 5, even if APPEARANCE is 1
+    REQUIRE(sut.compute_persona(test_character.get_type(), test_character.get_attributes(), test_character.get_willpower(), test_character.get_essence()) == 20);
   }
 
 }

@@ -1,12 +1,12 @@
 #include "experience_purchase_cost_calculator.h"
 
-#include "calculator/cost_worker/ability_cost_worker.h"
-#include "calculator/cost_worker/attribute_cost_worker.h"
-#include "calculator/cost_worker/specialisation_cost_worker.h"
-#include "calculator/cost_worker/essence_cost_worker.h"
-#include "calculator/cost_worker/virtue_cost_worker.h"
-#include "calculator/cost_worker/vice_cost_worker.h"
-#include "calculator/cost_worker/willpower_cost_worker.h"
+#include "cost_worker/ability_cost_worker.h"
+#include "cost_worker/attribute_cost_worker.h"
+#include "cost_worker/specialisation_cost_worker.h"
+#include "cost_worker/essence_cost_worker.h"
+#include "cost_worker/virtue_cost_worker.h"
+#include "cost_worker/vice_cost_worker.h"
+#include "cost_worker/willpower_cost_worker.h"
 
 namespace calculator {
 
