@@ -31,16 +31,15 @@ namespace character
       character(const std::string& serialised_data);
 
       // character fields
-      std::string get_name() const;
+      std::string name() const;
       void set_name(const std::string& new_name);
 
-      creation::character_type get_type() const;
+      creation::character_type type() const;
       void set_type(creation::character_type type);
 
-      attribute::attributes get_attributes() const;
-      attribute::attribute get_attribute(attribute::attribute_enum name) const;
-      void set_attribute(attribute::attribute_enum name, attribute::attribute attribute);
-      void set_attribute_value(attribute::attribute_enum name, int new_val);
+      attribute::attributes attributes() const;
+      int attribute(attribute::attribute_enum name) const;
+      void set_attribute(attribute::attribute_enum name, int value);
 
       ability::ability_group get_ability_group(ability::ability_enum name) const;
       ability::ability get_ability(ability::ability_enum name, const std::string& ability_declination = ability::ability_declination::NO_DECLINATION) const;
@@ -51,23 +50,23 @@ namespace character
       void set_ability_value(ability::detailed_ability name, int new_val);
       void add_ability_specialisation(ability::ability_enum name, ability::specialisation specialisation);
 
-      virtues::virtue get_virtue(virtues::virtue_enum v) const;
-      virtues::virtue& get_virtue(virtues::virtue_enum v);
-      unsigned int get_vice_value() const;
-      virtues::vice_enum get_vice() const;
+      virtues::virtue virtue(virtues::virtue_enum v) const;
+      virtues::virtue& virtue(virtues::virtue_enum v);
+      unsigned int vice_value() const;
+      virtues::vice_enum vice() const;
       void set_vice(virtues::vice_enum v, unsigned int vice_value);
 
-      power::willpower& get_willpower();
-      power::willpower get_willpower() const;
-      power::essence& get_essence();
-      power::essence get_essence() const;
-      power::logos& get_logos();
-      power::logos  get_logos() const;
-      power::health& get_health();
-      power::health  get_health() const;
+      power::willpower& willpower();
+      power::willpower willpower() const;
+      power::essence& essence();
+      power::essence essence() const;
+      power::logos& logos();
+      power::logos  logos() const;
+      power::health& health();
+      power::health  health() const;
 
-      narrative::experience_cluster& get_experience();
-      narrative::experience_cluster get_experience() const;
+      narrative::experience_cluster& experience();
+      narrative::experience_cluster experience() const;
 
       unsigned int id() const;
       exalt::caste caste() const;

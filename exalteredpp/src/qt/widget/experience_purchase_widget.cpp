@@ -186,7 +186,7 @@ namespace qt { namespace widget {
         {
         case narrative::ATTRIBUTE: {
           auto attribute = selected_attribute();
-          purchase = std::make_shared<attribute_purchase>(attribute,_character->get_attribute(attribute) + 1);
+          purchase = std::make_shared<attribute_purchase>(attribute,_character->attribute(attribute) + 1);
           break;
         }
         case narrative::ABILITY: {
@@ -198,26 +198,26 @@ namespace qt { namespace widget {
           auto ability = selected_ability().ability;
           auto specialisation = specialty_freetext->text().trimmed().toStdString();
           unsigned int current_value = _character->get_ability_group(ability).has_specialisation(specialisation)
-              ? _character->get_ability_group(ability).get_specialisation(specialisation).get_specialisation_value()
+              ? _character->get_ability_group(ability).get_specialisation(specialisation).value()
               : 0;
           purchase = std::make_shared<specialisation_purchase>(current_value + 1, ability, specialisation);
           break;
         }
         case narrative::VIRTUE: {
           auto virtue = selected_virtue();
-          purchase = std::make_shared<virtue_purchase>(_character->get_virtue(virtue).value() + 1, virtue);
+          purchase = std::make_shared<virtue_purchase>(_character->virtue(virtue).value() + 1, virtue);
           break;
         }
         case narrative::VICE: {
-          purchase = std::make_shared<vice_purchase>(_character->get_vice_value() + 1);
+          purchase = std::make_shared<vice_purchase>(_character->vice_value() + 1);
           break;
         }
         case narrative::ESSENCE: {
-          purchase = std::make_shared<essence_purchase>(_character->get_essence().permanent_essence() + 1);
+          purchase = std::make_shared<essence_purchase>(_character->essence().permanent_essence() + 1);
           break;
         }
         case narrative::WILLPOWER: {
-          purchase = std::make_shared<willpower_purchase>(_character->get_willpower().permanent_willpower() + 1);
+          purchase = std::make_shared<willpower_purchase>(_character->willpower().permanent_willpower() + 1);
           break;
         }
         }

@@ -16,7 +16,7 @@ TEST_CASE("character_manager")
   {
     manager_mock.mock_has_character(true);
     std::shared_ptr<character::character> result = sut.load_character("name");
-    REQUIRE(result->get_name() == CHAR_MAN_TEST_CHAR_NAME);
+    REQUIRE(result->name() == CHAR_MAN_TEST_CHAR_NAME);
   }
 
   SECTION("should save character without errors")
@@ -26,7 +26,7 @@ TEST_CASE("character_manager")
       std::shared_ptr<character::character> to_save = generate_character_pointer("name", 0);
       sut.save_character(to_save);
       std::shared_ptr<character::character> loaded = sut.load_character("name");
-      REQUIRE(to_save->get_name() == loaded->get_name());
+      REQUIRE(to_save->name() == loaded->name());
     }
     catch(...)
     {
@@ -38,7 +38,7 @@ TEST_CASE("character_manager")
   {
     try {
       auto attributes = attribute::attributes();
-      attributes[attribute::CONSTITUTION].set_value(2);
+      attributes[attribute::CONSTITUTION] = 2;
       auto generated = sut.create_character(calculator::worker::human_worker(), "name", character::creation::TYPE_MORTAL_HERO, character::exalt::caste::NO_CASTE, attributes, ability::abilities(), virtues::virtues(), power::power_container());
       REQUIRE(generated);
     }

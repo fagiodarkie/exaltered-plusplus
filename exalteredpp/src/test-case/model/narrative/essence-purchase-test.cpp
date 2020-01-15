@@ -15,10 +15,10 @@ TEST_CASE("Essence Purchase")
   SECTION("should apply successfully to character")
   {
     std::shared_ptr<character::character> c = std::make_shared<character::character>("");
-    REQUIRE(c->get_essence().permanent_essence() == 1);
+    REQUIRE(c->essence().permanent_essence() == 1);
     narrative::essence_purchase sut(3);
     sut.apply(c);
-    REQUIRE(c->get_essence().permanent_essence() == 3);
+    REQUIRE(c->essence().permanent_essence() == 3);
   }
 
   SECTION("should serialise and deserialise successfully")

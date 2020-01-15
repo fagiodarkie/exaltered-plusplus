@@ -18,14 +18,14 @@ namespace qt
     {
       QBorderLayout* outerLayout = new QBorderLayout();
 
-      character_name_widget = new QLineEdit(character->get_name().c_str());
+      character_name_widget = new QLineEdit(character->name().c_str());
       save_button = new QPushButton(labels::SAVE_LABEL);
 
       QVBoxLayout *character_info_layout = new QVBoxLayout;
       character_info_layout->addWidget(character_name_widget);
       character_info_layout->addWidget(new QLabel(
             labels::info_labels::CHARACTER_TYPE_DESCRIPTION(
-                    character::creation::CHARACTER_TYPE_NAMES.at(character->get_type()).c_str(),
+                    character::creation::CHARACTER_TYPE_NAMES.at(character->type()).c_str(),
                     character::exalt::exalt_caste::NAME_OF_CASTE.at(character->caste()).c_str())
       ));
 
@@ -50,7 +50,7 @@ namespace qt
 
     void qcharacterinfoscreen::on_text_change(const QString& new_character_name)
     {
-      save_button->setEnabled(new_character_name.toStdString() != character->get_name());
+      save_button->setEnabled(new_character_name.toStdString() != character->name());
     }
 
     void qcharacterinfoscreen::save_character()

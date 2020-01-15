@@ -17,7 +17,7 @@ namespace narrative {
 
     void vice_purchase::apply(std::shared_ptr<character::character> c)
     {
-      c->set_vice(c->get_vice(), _amount);
+      c->set_vice(c->vice(), _amount);
     }
 
     unsigned int vice_purchase::amount() const

@@ -19,7 +19,7 @@ TEST_CASE("filesystem_db")
     REQUIRE(sut.character_list().size() == 1);
     QString id = sut.character_list().at(0).c_str();
     std::shared_ptr<character::character> result = sut.load_character(id.toStdString());
-    REQUIRE(result->get_name() == stub->get_name());
+    REQUIRE(result->name() == stub->name());
   }
 
   SECTION("should throw an exception if the file isn't there")

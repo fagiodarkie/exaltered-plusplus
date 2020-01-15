@@ -42,7 +42,7 @@ namespace ability
       std::vector<ability> mod_abilities;
       for (ability a : actual_abilities)
         {
-          auto m_ability = ability(group_name + " (" + a.get_name() + ")", a.get_ability_value());
+          auto m_ability = ability(group_name + " (" + a.name() + ")", a.get_ability_value());
           m_ability.set_favourite(a.is_favourite());
           mod_abilities.push_back(m_ability);
         }
@@ -64,7 +64,7 @@ namespace ability
     {
       for (ability ab : actual_abilities)
         {
-          if (ab.get_name() == name)
+          if (ab.name() == name)
             return ab;
         }
       throw exception::ability_not_found_exception();
@@ -74,7 +74,7 @@ namespace ability
     {
       for (specialisation spec : specialisations)
         {
-          if (spec.get_name() == name)
+          if (spec.name() == name)
             return spec;
         }
       throw exception::ability_not_found_exception();
@@ -85,7 +85,7 @@ namespace ability
       auto found_ability = std::find_if(actual_abilities.begin(), actual_abilities.end(),
         [ability_name] (ability ab)
         {
-          return ab.get_name() == ability_name;
+          return ab.name() == ability_name;
         });
 
       return found_ability != actual_abilities.end();
@@ -96,7 +96,7 @@ namespace ability
       auto found_spec = std::find_if(specialisations.begin(), specialisations.end(),
          [specialisation_name] (specialisation spec)
          {
-           return spec.get_name() == specialisation_name;
+           return spec.name() == specialisation_name;
          });
 
       return found_spec != specialisations.end();
@@ -104,11 +104,11 @@ namespace ability
 
     void ability_group::add_ability(ability new_ability)
     {
-      if (!can_manage_ability(new_ability.get_name()))
+      if (!can_manage_ability(new_ability.name()))
         throw exception::invalid_parameter();
 
-      if (has_ability(new_ability.get_name()))
-        set_ability_value(new_ability.get_name(), new_ability.get_ability_value());
+      if (has_ability(new_ability.name()))
+        set_ability_value(new_ability.name(), new_ability.get_ability_value());
       else
         actual_abilities.push_back(new_ability);
     }
@@ -139,7 +139,7 @@ namespace ability
       std::vector<detailed_ability> result;
 
       for (auto ability: actual_abilities)
-        result.push_back(detailed_ability(macro_ability, ability.get_name()));
+        result.push_back(detailed_ability(macro_ability, ability.name()));
 
       return result;
     }
@@ -151,10 +151,10 @@ namespace ability
 
     void ability_group::add_specialisation(specialisation new_specialisation)
     {
-      if (get_specialisation_reference(new_specialisation.get_name()) == specialisations.end())
+      if (get_specialisation_reference(new_specialisation.name()) == specialisations.end())
         specialisations.push_back(new_specialisation);
       else
-        get_specialisation_reference(new_specialisation.get_name())->set_value(new_specialisation.get_specialisation_value());
+        get_specialisation_reference(new_specialisation.name())->set_value(new_specialisation.value());
     }
 
     void ability_group::add_specialisation(const std::string& new_specialisation_name, unsigned int initial_value)
@@ -176,7 +176,7 @@ namespace ability
         throw exception::ability_not_found_exception();
 
       auto specialisation = get_specialisation_reference(specialisation_name);
-      specialisation->set_value(specialisation->get_specialisation_value() + add_value);
+      specialisation->set_value(specialisation->value() + add_value);
     }
 
     void ability_group::remove_specialisation(const std::string& specialisation_to_remove)
@@ -188,7 +188,7 @@ namespace ability
     bool ability_group::has_abilities() const
     {
       return (actual_abilities.size() > 1)
-          || (actual_abilities.begin()->get_name() != ability_declination::NO_DECLINATION);
+          || (actual_abilities.begin()->name() != ability_declination::NO_DECLINATION);
     }
 
     bool ability_group::can_manage_ability(const std::string& ability_name) const
@@ -201,7 +201,7 @@ namespace ability
       return std::find_if(actual_abilities.begin(), actual_abilities.end(),
         [name] (ability ab)
         {
-          return ab.get_name() == name;
+          return ab.name() == name;
         });
     }
 
@@ -210,7 +210,7 @@ namespace ability
       return std::find_if(specialisations.begin(), specialisations.end(),
         [name] (specialisation spec)
         {
-          return spec.get_name() == name;
+          return spec.name() == name;
         });
     }
 

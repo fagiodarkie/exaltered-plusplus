@@ -13,24 +13,24 @@ namespace power {
     power_container();
     power_container(const essence& essence, const willpower& willpower, const health& health, const logos& logos);
 
-    essence get_essence() const;
-    willpower get_willpower() const;
-    health get_health() const;
-    logos get_logos() const;
+    essence essence() const;
+    willpower willpower() const;
+    health health() const;
+    logos logos() const;
 
-    essence& get_essence();
-    willpower& get_willpower();
-    health& get_health();
-    logos& get_logos();
+    class essence& essence();
+    class willpower& willpower();
+    class health& health();
+    class logos& logos();
 
     virtual void serialisation() override;
     virtual ~power_container();
 
   private:
-    essence     _essence;
-    willpower   _willpower;
-    health      _health;
-    logos       _logos;
+    class essence     _essence;
+    class willpower   _willpower;
+    class health      _health;
+    class logos       _logos;
   };
 }
 

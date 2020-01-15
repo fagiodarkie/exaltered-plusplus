@@ -9,24 +9,21 @@ TEST_CASE("Specialisation")
   SECTION("should create new specialisation correctly (name constructor)")
   {
     ability::specialisation sut(TEST_SPEC_NAME);
-    REQUIRE(sut.get_name() == TEST_SPEC_NAME);
-    REQUIRE(sut.get_specialisation_value() == TEST_SPEC_VALUE);
-    REQUIRE(sut.get_value() == "1");
+    REQUIRE(sut.name() == TEST_SPEC_NAME);
+    REQUIRE(sut.value() == TEST_SPEC_VALUE);
   }
 
   SECTION("should create new specialisation correctly (name and value constructor)")
   {
     ability::specialisation sut(TEST_SPEC_NAME, TEST_SPEC_VALUE);
-    REQUIRE(sut.get_name() == TEST_SPEC_NAME);
-    REQUIRE(sut.get_specialisation_value() == TEST_SPEC_VALUE);
-    REQUIRE(sut.get_value() == "1");
+    REQUIRE(sut.name() == TEST_SPEC_NAME);
+    REQUIRE(sut.value() == TEST_SPEC_VALUE);
   }
 
   SECTION("should retrieve correctly name and value strings")
   {
     ability::specialisation sut(TEST_SPEC_NAME, TEST_SPEC_VALUE);
-    REQUIRE(sut.get_name() == TEST_SPEC_NAME);
-    REQUIRE(sut.get_value() == std::to_string(TEST_SPEC_VALUE));
+    REQUIRE(sut.name() == TEST_SPEC_NAME);
   }
 
   SECTION("should compare equal with an specialisation with same name and value")
@@ -44,8 +41,8 @@ TEST_CASE("Specialisation")
     ability::specialisation sut("");
     sut.deserialise(stub.serialise());
 
-    REQUIRE(sut.get_name() == stub.get_name());
-    REQUIRE(sut.get_specialisation_value() == stub.get_specialisation_value());
+    REQUIRE(sut.name() == stub.name());
+    REQUIRE(sut.value() == stub.value());
   }
 
   SECTION("should create correctly via JSON Object")
@@ -55,9 +52,9 @@ TEST_CASE("Specialisation")
     ability::specialisation sut_1(stub), sut_2("a");
     sut_2 = stub;
 
-    REQUIRE(sut_1.get_name() == stub.get_name());
-    REQUIRE(sut_1.get_specialisation_value() == stub.get_specialisation_value());
-    REQUIRE(sut_2.get_name() == stub.get_name());
-    REQUIRE(sut_2.get_specialisation_value() == stub.get_specialisation_value());
+    REQUIRE(sut_1.name() == stub.name());
+    REQUIRE(sut_1.value() == stub.value());
+    REQUIRE(sut_2.name() == stub.name());
+    REQUIRE(sut_2.value() == stub.value());
   }
 }

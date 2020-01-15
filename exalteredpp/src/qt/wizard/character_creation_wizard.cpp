@@ -17,7 +17,7 @@ namespace qt {
     {
       // initialise character specs
       for (auto attribute_e : attribute::ATTRIBUTES)
-        attributes[attribute_e] = attribute::attribute(attribute::ATTRIBUTE_NAME.at(attribute_e), 1);
+        attributes[attribute_e] = 1;
 
       for (auto ability_e : ability::ABILITIES)
         {
@@ -76,9 +76,9 @@ namespace qt {
       caste = selected_caste;
       character_model = creation::character_type_model::get_by_character_type(type);
 
-      power.get_logos().set_logos(calculator.starting_logos(type));
-      power.get_essence().set_khan(calculator.starting_khan(type));
-      power.get_essence().set_permanent_essence(calculator.starting_essence(type));
+      power.logos().set_logos(calculator.starting_logos(type));
+      power.essence().set_khan(calculator.starting_khan(type));
+      power.essence().set_permanent_essence(calculator.starting_essence(type));
 
       attribute_priority_page->set_attribute_values(static_cast<int>(character_model.primary_category_attribute_value),
                                                     static_cast<int>(character_model.secondary_category_attribute_value),
@@ -143,7 +143,7 @@ namespace qt {
     void character_creation_wizard::load_virtues(const virtues::virtues &virtues)
     {
       character_virtues = virtues;
-      persona.set_persona(calculator.compute_persona(new_character_type, attributes, power.get_willpower(), power.get_essence()));
+      persona.set_persona(calculator.compute_persona(new_character_type, attributes, power.willpower(), power.essence()));
 
       persona_page->set_current_persona(virtues, persona, character_model, attributes, power);
 

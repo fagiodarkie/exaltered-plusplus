@@ -73,7 +73,7 @@ namespace calculator {
 
       virtual long int compute_persona(const character::character& c) const override
       {
-        return _persona(c.get_type(), c.get_attributes(), c.get_willpower(), c.get_essence());
+        return _persona(c.type(), c.attributes(), c.willpower(), c.essence());
       }
 
       virtual long int compute_persona                  (const character::creation::character_type& type, const attribute::attributes& attributes, const power::willpower& willpower, const power::essence& essence) const override
@@ -133,15 +133,15 @@ namespace calculator {
 
       virtual unsigned int compute_life_points              (const character::character& c) const override
       {
-        return 10 * c.get_logos().get_logos() + 2 * c.get_attribute(attribute_t::CONSTITUTION);
+        return 10 * c.logos().get_logos() + 2 * c.attribute(attribute_t::CONSTITUTION);
       }
 
       virtual unsigned int starting_willpower               (const character::character& c) const override
       {
-        std::vector<unsigned int> virtue_values = { c.get_virtue(virtues::COMPASSION).value(),
-                                                    c.get_virtue(virtues::CONVINCTION) .value(),
-                                                    c.get_virtue(virtues::VALOR)       .value(),
-                                                    c.get_virtue(virtues::TEMPERANCE)  .value()};
+        std::vector<unsigned int> virtue_values = { c.virtue(virtues::COMPASSION).value(),
+                                                    c.virtue(virtues::CONVINCTION) .value(),
+                                                    c.virtue(virtues::VALOR)       .value(),
+                                                    c.virtue(virtues::TEMPERANCE)  .value()};
 
         std::sort(virtue_values.begin(), virtue_values.end());
 
@@ -178,17 +178,17 @@ namespace calculator {
 
       virtual long int compute_parry_balance            (const character::character& c) const
       {
-        return c.get_attribute(attribute_t::DEXTERITY) - compute_hindrance(c);
+        return c.attribute(attribute_t::DEXTERITY) - compute_hindrance(c);
       }
 
       virtual long int compute_dodge_balance            (const character::character& c) const
       {
-        return c.get_attribute(attribute_t::CONSTITUTION) + compute_stance_bonus(c);
+        return c.attribute(attribute_t::CONSTITUTION) + compute_stance_bonus(c);
       }
 
       virtual long int compute_resilience               (const character::character& c) const
       {
-        return c.get_ability(ability_t::INTEGRITY) + c.get_willpower().temporary_willpower();
+        return c.get_ability(ability_t::INTEGRITY) + c.willpower().temporary_willpower();
       }
 
       virtual unsigned int starting_essence                  (const character::creation::character_type& c) const override
@@ -280,7 +280,7 @@ namespace calculator {
 
       virtual double _bashing_soak             (const character::character& c) const
       {
-        return c.get_attribute(attribute_t::CONSTITUTION);
+        return c.attribute(attribute_t::CONSTITUTION);
       }
 
       virtual double _lethal_soak              (const character::character& c) const
@@ -310,15 +310,15 @@ namespace calculator {
 
       virtual double _personal_essence         (const character::character& c) const
       {
-        unsigned int permanent_essence = c.get_essence().permanent_essence();
+        unsigned int permanent_essence = c.essence().permanent_essence();
         double exp = static_cast<double>(10 + permanent_essence) / 10;
         return (10 - permanent_essence) * std::pow(permanent_essence, exp);
       }
 
       virtual double _peripheral_essence       (const character::character& c) const {
-        unsigned int permanent_essence = c.get_essence().permanent_essence();
+        unsigned int permanent_essence = c.essence().permanent_essence();
         double exp = static_cast<double>(10 + permanent_essence) / 10;
-        return std::pow(permanent_essence, exp) * c.get_essence().khan();
+        return std::pow(permanent_essence, exp) * c.essence().khan();
       }
 
       virtual double _spiritual_essence        (const character::character& c) const
@@ -330,13 +330,13 @@ namespace calculator {
       }
 
       virtual double _celestial_portion        (const character::character& c) const {
-        switch(c.get_type())
+        switch(c.type())
           {
           case character::creation::TYPE_SOLAR_EXALT:
           case character::creation::TYPE_ABYSSAL_EXALT:
           case character::creation::TYPE_INFERNAL_EXALT:
           case character::creation::TYPE_TERRESTRIAL_EXALT:
-            return 0.4 + 0.01 * c.get_essence().permanent_essence();
+            return 0.4 + 0.01 * c.essence().permanent_essence();
           case character::creation::TYPE_MORTAL_HERO:
           case character::creation::TYPE_MORTAL_EXTRA:
             return 0.3;
@@ -345,7 +345,7 @@ namespace calculator {
 
       virtual double half(const character::character& c, attribute_t attribute, ability_t ability) const
       {
-        return static_cast<double>(c.get_attribute(attribute) + c.get_ability(ability)) / 2;
+        return static_cast<double>(c.attribute(attribute) + c.get_ability(ability)) / 2;
       }
 
       virtual double half(const character::character& c, ability_t ability, attribute_t attribute) const
@@ -355,12 +355,12 @@ namespace calculator {
 
       virtual double half(const character::character& c, attribute_t attribute, attribute_t attribute_2) const
       {
-        return static_cast<double>(c.get_attribute(attribute) + c.get_attribute(attribute_2)) / 2;
+        return static_cast<double>(c.attribute(attribute) + c.attribute(attribute_2)) / 2;
       }
 
       virtual double half(const character::character& c, attribute_t attribute) const
       {
-        return static_cast<double>(c.get_attribute(attribute)) / 2;
+        return static_cast<double>(c.attribute(attribute)) / 2;
       }
     };
 

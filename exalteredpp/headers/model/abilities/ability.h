@@ -6,7 +6,7 @@
 namespace ability
 {
 
-  class ability : public model::name_value_pair, public Serialisable
+  class ability : public Serialisable
   {
   public:
     ability();
@@ -16,9 +16,7 @@ namespace ability
 
     operator unsigned int() const;
     operator std::string() const;
-
-    std::string get_name() const override;
-    std::string get_value() const override;
+    std::string name() const;
 
     unsigned int get_ability_value() const;
     bool is_favourite() const;

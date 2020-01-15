@@ -9,22 +9,21 @@ TEST_CASE("Ability")
   SECTION("should create new ability correctly (name constructor)")
   {
     ability::ability sut(TEST_ABILITY_NAME);
-    REQUIRE(sut.get_name() == TEST_ABILITY_NAME);
+    REQUIRE(sut.name() == TEST_ABILITY_NAME);
     REQUIRE(0 == sut);
   }
 
   SECTION("should create new ability correctly (name and value constructor)")
   {
     ability::ability sut(TEST_ABILITY_NAME, TEST_ABILITY_VALUE);
-    REQUIRE(TEST_ABILITY_NAME == sut.get_name());
+    REQUIRE(TEST_ABILITY_NAME == sut.name());
     REQUIRE(TEST_ABILITY_VALUE == sut);
   }
 
   SECTION("should retrieve correctly name and value strings")
   {
     ability::ability sut(TEST_ABILITY_NAME, TEST_ABILITY_VALUE);
-    REQUIRE(sut.get_name() == TEST_ABILITY_NAME);
-    REQUIRE(sut.get_value() == std::to_string(TEST_ABILITY_VALUE));
+    REQUIRE(sut.name() == TEST_ABILITY_NAME);
   }
 
   SECTION("should compare equal with an ability with same name and value")
@@ -41,7 +40,7 @@ TEST_CASE("Ability")
     ability::ability sut;
     sut.deserialise(stub.serialise());
 
-    REQUIRE(stub.get_name() == sut.get_name());
+    REQUIRE(stub.name() == sut.name());
     REQUIRE(stub.get_ability_value() == sut.get_ability_value());
   }
 
@@ -52,9 +51,9 @@ TEST_CASE("Ability")
     ability::ability sut_1(stub), sut_2;
     sut_2 = stub;
 
-    REQUIRE(stub.get_name() == sut_1.get_name());
+    REQUIRE(stub.name() == sut_1.name());
     REQUIRE(stub.get_ability_value() == sut_1.get_ability_value());
-    REQUIRE(stub.get_name() == sut_2.get_name());
+    REQUIRE(stub.name() == sut_2.name());
     REQUIRE(stub.get_ability_value() == sut_2.get_ability_value());
   }
 }

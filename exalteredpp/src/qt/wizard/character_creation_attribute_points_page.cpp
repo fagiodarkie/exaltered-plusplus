@@ -102,16 +102,14 @@ namespace qt {
     void character_creation_attribute_points_page::increase_attribute()
     {
       auto attr = retrieve_attribute_from_call();
-      attribute::attribute new_attribute(chosen_attributes[attr].get_name(), chosen_attributes[attr] + 1);
-      chosen_attributes[attr] = new_attribute;
+      ++chosen_attributes[attr];
       emit total_changed(attribute::CATEGORY_OF_ATTRIBUTE(attr));
     }
 
     void character_creation_attribute_points_page::decrease_attribute()
     {
       attribute_enum attr = retrieve_attribute_from_call();
-      attribute::attribute new_attribute(chosen_attributes[attr].get_name(), chosen_attributes[attr] - 1);
-      chosen_attributes[attr] = new_attribute;
+      --chosen_attributes[attr];
       emit total_changed(attribute::CATEGORY_OF_ATTRIBUTE(attr));
     }
 

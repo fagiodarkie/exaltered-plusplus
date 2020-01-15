@@ -6,45 +6,45 @@ namespace power {
   power_container::power_container()
     : _health(0) {}
 
-  power_container::power_container(const essence& essence, const willpower& willpower, const health& health, const logos& logos)
+  power_container::power_container(const class essence& essence, const class willpower& willpower, const class health& health, const class logos& logos)
     : _essence(essence), _willpower(willpower), _health(health), _logos(logos) { }
 
-  logos power_container::get_logos() const
+  logos power_container::logos() const
   {
     return _logos;
   }
 
-  health power_container::get_health() const
+  health power_container::health() const
   {
     return _health;
   }
 
-  willpower power_container::get_willpower() const
+  willpower power_container::willpower() const
   {
     return _willpower;
   }
 
-  essence power_container::get_essence() const
+  essence power_container::essence() const
   {
     return _essence;
   }
 
-  logos& power_container::get_logos()
+  logos& power_container::logos()
   {
     return _logos;
   }
 
-  health& power_container::get_health()
+  health& power_container::health()
   {
     return _health;
   }
 
-  willpower& power_container::get_willpower()
+  willpower& power_container::willpower()
   {
     return _willpower;
   }
 
-  essence& power_container::get_essence()
+  essence& power_container::essence()
   {
     return _essence;
   }

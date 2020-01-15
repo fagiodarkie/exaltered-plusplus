@@ -15,10 +15,10 @@ TEST_CASE("Willpower Purchase")
   SECTION("should apply successfully to character")
   {
     std::shared_ptr<character::character> c = std::make_shared<character::character>("");
-    REQUIRE(c->get_willpower().permanent_willpower() == 0);
+    REQUIRE(c->willpower().permanent_willpower() == 0);
     narrative::willpower_purchase sut(3);
     sut.apply(c);
-    REQUIRE(c->get_willpower().permanent_willpower() == 3);
+    REQUIRE(c->willpower().permanent_willpower() == 3);
   }
 
   SECTION("should serialise and deserialise successfully")

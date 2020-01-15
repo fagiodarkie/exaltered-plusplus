@@ -57,13 +57,13 @@ namespace qt { namespace screen {
 
     void qexperience_screen::recompute_logger_session()
     {
-      _logger->set_next_session_number(_character->get_experience().last_session() + 1);
+      _logger->set_next_session_number(_character->experience().last_session() + 1);
     }
 
     void qexperience_screen::update_status_label() const
     {
-      unsigned int total_cost = _character->get_experience().total_cost(),
-          total_award = _character->get_experience().total_awarded(),
+      unsigned int total_cost = _character->experience().total_cost(),
+          total_award = _character->experience().total_awarded(),
           remaining = total_award - total_cost;
       auto text = QString("Experience spent: %1\r\n"
                           "Total Experience: %2\r\n"
@@ -82,7 +82,7 @@ namespace qt { namespace screen {
     void qexperience_screen::add_expense(const narrative::experience_purchase &purchase)
     {
       _purchase_logger->hide();
-      _character->get_experience().purchase(purchase);
+      _character->experience().purchase(purchase);
       purchase.purchase()->apply(_character);
       _character_manager.save_character(_character);
 
@@ -93,11 +93,11 @@ namespace qt { namespace screen {
 
     void qexperience_screen::add_session(const narrative::session_awards& new_awards)
     {
-      _character->get_experience().award(new_awards);
+      _character->experience().award(new_awards);
 
       _character_manager.save_character(_character);
 
-      _logger->set_next_session_number(_character->get_experience().last_session() + 1);
+      _logger->set_next_session_number(_character->experience().last_session() + 1);
       _logger->hide();
 
       delete awards->layout();
@@ -123,7 +123,7 @@ namespace qt { namespace screen {
       QWidget *listwidget = new QWidget;
       layout::QBorderLayout* outer = new layout::QBorderLayout;
 
-      for (unsigned int i = 0; i <= _character->get_experience().last_session(); ++i)
+      for (unsigned int i = 0; i <= _character->experience().last_session(); ++i)
         {
           add_award_list(i);
         }
@@ -139,7 +139,7 @@ namespace qt { namespace screen {
 
     void qexperience_screen::add_award_list(unsigned int session_number) const
     {
-      auto entries = _character->get_experience().awards_on_session(session_number);
+      auto entries = _character->experience().awards_on_session(session_number);
       if (entries.empty())
         return;
 
@@ -174,7 +174,7 @@ namespace qt { namespace screen {
       layout::QBorderLayout* outer = new layout::QBorderLayout;
 
       int row = 0;
-      for (auto purchase: _character->get_experience().purchases())
+      for (auto purchase: _character->experience().purchases())
         {
           list->addWidget(label(narrative::EXPENSE_NAME.at(purchase.purchase_type())), row, 0);
           list->addWidget(label(purchase.purchase()->description()), row, 1, 1, 3);

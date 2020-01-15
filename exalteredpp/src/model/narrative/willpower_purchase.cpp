@@ -12,7 +12,7 @@ namespace narrative {
 
     void willpower_purchase::apply(std::shared_ptr<character::character> c)
     {
-      c->get_willpower().set_permanent_willpower(_amount);
+      c->willpower().set_permanent_willpower(_amount);
     }
 
     void willpower_purchase::serialisation()

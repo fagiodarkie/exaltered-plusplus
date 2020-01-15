@@ -4,46 +4,41 @@
 
 namespace ability {
   specialisation::specialisation(const std::string& name, unsigned int initial_value)
-    : name(name), value(initial_value) {};
+    : _name(name), _value(initial_value) {};
 
-  specialisation::specialisation(const specialisation& o) : name(o.name), value(o.value) { }
+  specialisation::specialisation(const specialisation& o) : _name(o._name), _value(o._value) { }
 
   specialisation& specialisation::operator=(const specialisation& o)
   {
-    name = o.name;
-    value = o.value;
+    _name  = o._name;
+    _value = o._value;
 
     return *this;
   }
 
-  std::string specialisation::get_name() const
+  std::string specialisation::name() const
   {
-    return name;
+    return _name;
   }
 
-  std::string specialisation::get_value() const
+  unsigned int specialisation::value() const
   {
-    return std::to_string(value);
-  }
-
-  unsigned int specialisation::get_specialisation_value() const
-  {
-    return value;
+    return _value;
   }
 
   void specialisation::set_value(unsigned int new_value)
   {
-    value = new_value;
+    _value = new_value;
   }
 
   void specialisation::serialisation()
   {
-    synch(serialisation::json_constants::SLOT_VALUE, value);
-    synch(serialisation::json_constants::SLOT_NAME, name);
+    synch(serialisation::json_constants::SLOT_VALUE, _value);
+    synch(serialisation::json_constants::SLOT_NAME, _name);
   }
 
   bool specialisation::operator==(const specialisation& other) const
   {
-    return name == other.name && value == other.value;
+    return _name == other._name && _value == other._value;
   }
 }

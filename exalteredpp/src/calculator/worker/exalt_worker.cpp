@@ -29,7 +29,7 @@ namespace calculator {
 
     double exalt_worker::_natural_aggravated_soak(const character::character& c) const
     {
-      return c.get_attribute(attribute_t::CONSTITUTION) / 4;
+      return c.attribute(attribute_t::CONSTITUTION) / 4;
     }
 
   }

@@ -11,7 +11,7 @@ namespace narrative {
 
     void virtue_purchase::apply(std::shared_ptr<character::character> c)
     {
-      c->get_virtue(_virtue).set_value(_amount);
+      c->virtue(_virtue).set_value(_amount);
     }
 
     void virtue_purchase::serialisation()

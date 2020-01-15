@@ -45,7 +45,7 @@ namespace qt { namespace wizard {
                                                 false, false, _ability.get_ability(ability.declination).is_favourite());
           change_declination_buttons[ability.declination] = declination;
 
-          QLabel *value = label(_ability.get_ability(ability.declination).get_value());
+          QLabel *value = new QLabel(QString::number(_ability.get_ability(ability.declination)));
           value->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
           ability_value_labels[ability.declination] = value;
         }
@@ -70,7 +70,7 @@ namespace qt { namespace wizard {
       auto sub_ability = sender()->property(REFERRED_SUB_ABILITY).toString().toStdString();
 
       _ability.set_ability_value(sub_ability, _ability.get_ability(sub_ability).get_ability_value() - 1);
-      ability_value_labels[sub_ability]->setText(_ability.get_ability(sub_ability).get_value().c_str());
+      ability_value_labels[sub_ability]->setText(QString::number(_ability.get_ability(sub_ability)));
 
       emit ability_change();
     }
@@ -79,7 +79,7 @@ namespace qt { namespace wizard {
     {
       auto sub_ability = sender()->property(REFERRED_SUB_ABILITY).toString().toStdString();
       _ability.set_ability_value(sub_ability, _ability.get_ability(sub_ability).get_ability_value() + 1);
-      ability_value_labels[sub_ability]->setText(_ability.get_ability(sub_ability).get_value().c_str());
+      ability_value_labels[sub_ability]->setText(QString::number(_ability.get_ability(sub_ability)));
 
       emit ability_change();
     }

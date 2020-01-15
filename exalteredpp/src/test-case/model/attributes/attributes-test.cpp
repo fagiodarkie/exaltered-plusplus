@@ -9,17 +9,15 @@ TEST_CASE("Attributes")
 {
   SECTION("should save attribute in map")
   {
-    attribute::attribute attribute(TEST_ATTRIBUTE_NAME, TEST_ATTRIBUTE_VALUE);
     attribute::attributes sut;
-    sut[attribute::STRENGTH] = attribute;
+    sut[attribute::STRENGTH] = TEST_ATTRIBUTE_VALUE;
     REQUIRE(sut[attribute::STRENGTH] == TEST_ATTRIBUTE_VALUE);
-    REQUIRE(sut[attribute::STRENGTH].get_name() == std::string(TEST_ATTRIBUTE_NAME));
   }
 
   SECTION("should serialise and deserialise correctly from JSON")
   {
     attribute::attributes stub;
-    stub[attribute::STRENGTH] = attribute::attribute(attribute::ATTRIBUTE_NAME.at(attribute::STRENGTH), TEST_ATTRIBUTE_VALUE);
+    stub[attribute::STRENGTH] = TEST_ATTRIBUTE_VALUE;
     attribute::attributes sut;
     sut.deserialise(stub.serialise());
 

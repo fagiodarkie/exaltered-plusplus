@@ -19,7 +19,7 @@ namespace qt
       QWidget* abilities_list = new QWidget;
       QVBoxLayout *v_layout = new QVBoxLayout(this), *inner_layout = new QVBoxLayout;
 
-      v_layout->addWidget(label("Abilities of " + character->get_name()));
+      v_layout->addWidget(label("Abilities of " + character->name()));
 
       for (auto category: ability::ABILITY_CATEGORIES)
         {
@@ -29,7 +29,7 @@ namespace qt
           {
             for (ability::ability ability : character->get_ability_group(ability_name).get_abilities())
               {
-                category_form->addRow(ability.get_name().c_str(), new QLabel(QString::number(ability.get_ability_value())));
+                category_form->addRow(ability.name().c_str(), new QLabel(QString::number(ability.get_ability_value())));
               }
           }
           category_group->setLayout(category_form);

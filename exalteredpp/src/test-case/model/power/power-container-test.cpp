@@ -13,14 +13,14 @@ TEST_CASE("power_container")
     power::power_container sut;
     sut.deserialise(stub.serialise());
 
-    REQUIRE(sut.get_essence().permanent_essence()     == stub.get_essence().permanent_essence()     );
-    REQUIRE(sut.get_essence().khan()                  == stub.get_essence().khan()                  );
-    REQUIRE(sut.get_willpower().permanent_willpower() == stub.get_willpower().permanent_willpower() );
-    REQUIRE(sut.get_willpower().temporary_willpower() == stub.get_willpower().temporary_willpower() );
+    REQUIRE(sut.essence().permanent_essence()     == stub.essence().permanent_essence()     );
+    REQUIRE(sut.essence().khan()                  == stub.essence().khan()                  );
+    REQUIRE(sut.willpower().permanent_willpower() == stub.willpower().permanent_willpower() );
+    REQUIRE(sut.willpower().temporary_willpower() == stub.willpower().temporary_willpower() );
     REQUIRE(sut.get_health().total_health()           == stub.get_health().total_health()           );
     REQUIRE(sut.get_health().current_health()         == stub.get_health().current_health()         );
-    REQUIRE(sut.get_logos().get_logos()               == stub.get_logos().get_logos()               );
-    REQUIRE(sut.get_logos().get_total_qabbalah()      == stub.get_logos().get_total_qabbalah()      );
+    REQUIRE(sut.logos().logos()               == stub.logos().logos()               );
+    REQUIRE(sut.logos().get_total_qabbalah()      == stub.logos().get_total_qabbalah()      );
   }
 
   SECTION("should allow object update via reference getters")
@@ -30,19 +30,19 @@ TEST_CASE("power_container")
                                            power::health(10, 5),
                                            power::logos());
 
-    REQUIRE_FALSE(sut.get_logos().get_logos() == 5);
-    REQUIRE_FALSE(sut.get_willpower().permanent_willpower() == 15);
-    REQUIRE_FALSE(sut.get_essence().permanent_essence() == 5);
+    REQUIRE_FALSE(sut.logos().logos() == 5);
+    REQUIRE_FALSE(sut.willpower().permanent_willpower() == 15);
+    REQUIRE_FALSE(sut.essence().permanent_essence() == 5);
     REQUIRE_FALSE(sut.get_health().total_health() == 50);
 
-    sut.get_logos().set_logos(5);
-    sut.get_willpower().set_permanent_willpower(15);
-    sut.get_essence().set_permanent_essence(5);
+    sut.logos().set_logos(5);
+    sut.willpower().set_permanent_willpower(15);
+    sut.essence().set_permanent_essence(5);
     sut.get_health().set_total_health(50);
 
-    REQUIRE(sut.get_logos().get_logos() == 5);
-    REQUIRE(sut.get_willpower().permanent_willpower() == 15);
-    REQUIRE(sut.get_essence().permanent_essence() == 5);
+    REQUIRE(sut.logos().logos() == 5);
+    REQUIRE(sut.willpower().permanent_willpower() == 15);
+    REQUIRE(sut.essence().permanent_essence() == 5);
     REQUIRE(sut.get_health().total_health() == 50);
 
   }
@@ -55,15 +55,15 @@ TEST_CASE("power_container")
                                            power::logos());
 
     // these getters create copy objects which are then modified
-    REQUIRE_NOTHROW(sut.get_logos().set_logos(5)                   );
-    REQUIRE_NOTHROW(sut.get_willpower().set_permanent_willpower(15));
-    REQUIRE_NOTHROW(sut.get_essence().set_permanent_essence(5)     );
+    REQUIRE_NOTHROW(sut.logos().set_logos(5)                   );
+    REQUIRE_NOTHROW(sut.willpower().set_permanent_willpower(15));
+    REQUIRE_NOTHROW(sut.essence().set_permanent_essence(5)     );
     REQUIRE_NOTHROW(sut.get_health().set_total_health(50)          );
 
     // the const objects was left unmodified
-    REQUIRE(sut.get_logos().get_logos() != 5);
-    REQUIRE(sut.get_willpower().permanent_willpower() != 15);
-    REQUIRE(sut.get_essence().permanent_essence() != 5);
+    REQUIRE(sut.logos().logos() != 5);
+    REQUIRE(sut.willpower().permanent_willpower() != 15);
+    REQUIRE(sut.essence().permanent_essence() != 5);
     REQUIRE(sut.get_health().total_health() != 50);
   }
 }

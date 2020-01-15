@@ -11,7 +11,7 @@ TEST_CASE("Character")
   SECTION("should create new character correctly (name constructor)")
   {
     character::character sut = STANDARD_CHARACTER;
-    REQUIRE(sut.get_name() == CHARACTER_NAME);
+    REQUIRE(sut.name() == CHARACTER_NAME);
   }
 
   SECTION("should create new character correctly (JSON object constructor)")
@@ -19,15 +19,7 @@ TEST_CASE("Character")
     character::character stub = STANDARD_CHARACTER;
     character::character sut(stub.serialise());
 
-    REQUIRE(sut.get_name() == stub.get_name());
-  }
-
-  SECTION("should accept a new attribute")
-  {
-    character::character sut = STANDARD_CHARACTER;
-    sut.set_attribute(attribute::STRENGTH, attribute::attribute(TEST_ATTRIBUTE_NAME));
-    attribute::attribute saved_attribute = sut.get_attribute(attribute::STRENGTH);
-    REQUIRE(saved_attribute.get_name() == TEST_ATTRIBUTE_NAME);
+    REQUIRE(sut.name() == stub.name());
   }
 
   SECTION("should accept a new ability group")
@@ -42,7 +34,7 @@ TEST_CASE("Character")
   {
     character::character sut = STANDARD_CHARACTER;
     sut.set_name(std::string(CHARACTER_NAME) + " - edit");
-    REQUIRE(sut.get_name() == std::string(CHARACTER_NAME) + " - edit");
+    REQUIRE(sut.name() == std::string(CHARACTER_NAME) + " - edit");
   }
 
   SECTION("should save and retrieve correct abilities")
@@ -52,9 +44,9 @@ TEST_CASE("Character")
     sut.set_ability(ability::WAR, ability::ability_group(ability::WAR));
     sut.set_ability_value(ability::MELEE, 5);
     REQUIRE(sut.get_ability_group(ability::WAR).get_name() == "War");
-    REQUIRE(sut.get_ability(ability::WAR).get_name() == ability::ability_declination::NO_DECLINATION);
+    REQUIRE(sut.get_ability(ability::WAR).name() == ability::ability_declination::NO_DECLINATION);
     REQUIRE(sut.get_ability(ability::WAR).get_ability_value() == 0);
-    REQUIRE(sut.get_ability(ability::CRAFT, "new_ability").get_name() == "new_ability");
+    REQUIRE(sut.get_ability(ability::CRAFT, "new_ability").name() == "new_ability");
     REQUIRE(sut.get_ability(ability::CRAFT, "new_ability").get_ability_value() == 1);
     REQUIRE(sut.get_ability(ability::MELEE).get_ability_value() == 5);
   }
@@ -68,9 +60,9 @@ TEST_CASE("Character")
   SECTION("should change type")
   {
     character::character sut = STANDARD_CHARACTER;
-    REQUIRE_FALSE(sut.get_type() == character::creation::TYPE_INFERNAL_EXALT);
+    REQUIRE_FALSE(sut.type() == character::creation::TYPE_INFERNAL_EXALT);
     sut.set_type(character::creation::TYPE_INFERNAL_EXALT);
-    REQUIRE(sut.get_type() == character::creation::TYPE_INFERNAL_EXALT);
+    REQUIRE(sut.type() == character::creation::TYPE_INFERNAL_EXALT);
   }
 
   SECTION("should manage abilities by detailed ability")
@@ -81,7 +73,7 @@ TEST_CASE("Character")
     REQUIRE(sut.has_ability(strategy));
     auto ability = sut.get_ability(strategy);
     REQUIRE(ability.get_ability_value() == 2);
-    REQUIRE(ability.get_name() == strategy.declination);
+    REQUIRE(ability.name() == strategy.declination);
     sut.set_ability_value(strategy, 4);
     REQUIRE(sut.get_ability(strategy) == 4);
   }
@@ -91,8 +83,8 @@ TEST_CASE("Character")
     character::character sut = STANDARD_CHARACTER;
     ability::specialisation spec("mounted", 2);
     sut.add_ability_specialisation(ability::WAR, spec);
-    REQUIRE(sut.get_ability_group(ability::WAR).has_specialisation(spec.get_name()));
-    REQUIRE(sut.get_ability_group(ability::WAR).get_specialisation(spec.get_name()).get_specialisation_value() == spec.get_specialisation_value());
+    REQUIRE(sut.get_ability_group(ability::WAR).has_specialisation(spec.name()));
+    REQUIRE(sut.get_ability_group(ability::WAR).get_specialisation(spec.name()).value() == spec.value());
   }
 
   SECTION("should allow virtue & vice management")
@@ -100,50 +92,50 @@ TEST_CASE("Character")
     character::character sut = STANDARD_CHARACTER;
 
     sut.set_vice(  virtues::vice_enum::ENVY, 3);
-    sut.get_virtue(virtues::virtue_enum::VALOR       ).set_value(1);
-    sut.get_virtue(virtues::virtue_enum::COMPASSION  ).set_value(2);
-    sut.get_virtue(virtues::virtue_enum::TEMPERANCE  ).set_value(3);
-    sut.get_virtue(virtues::virtue_enum::CONVINCTION ).set_value(4);
+    sut.virtue(virtues::virtue_enum::VALOR       ).set_value(1);
+    sut.virtue(virtues::virtue_enum::COMPASSION  ).set_value(2);
+    sut.virtue(virtues::virtue_enum::TEMPERANCE  ).set_value(3);
+    sut.virtue(virtues::virtue_enum::CONVINCTION ).set_value(4);
 
-    REQUIRE(sut.get_vice() == virtues::vice_enum::ENVY);
-    REQUIRE(sut.get_vice_value() == 3);
-    REQUIRE(sut.get_virtue(virtues::virtue_enum::VALOR       ).value() == 1);
-    REQUIRE(sut.get_virtue(virtues::virtue_enum::COMPASSION  ).value() == 2);
-    REQUIRE(sut.get_virtue(virtues::virtue_enum::TEMPERANCE  ).value() == 3);
-    REQUIRE(sut.get_virtue(virtues::virtue_enum::CONVINCTION ).value() == 4);
+    REQUIRE(sut.vice() == virtues::vice_enum::ENVY);
+    REQUIRE(sut.vice_value() == 3);
+    REQUIRE(sut.virtue(virtues::virtue_enum::VALOR       ).value() == 1);
+    REQUIRE(sut.virtue(virtues::virtue_enum::COMPASSION  ).value() == 2);
+    REQUIRE(sut.virtue(virtues::virtue_enum::TEMPERANCE  ).value() == 3);
+    REQUIRE(sut.virtue(virtues::virtue_enum::CONVINCTION ).value() == 4);
   }
 
   SECTION("should allow direct access to health, willpower, essence and logos")
   {
     character::character sut = STANDARD_CHARACTER;
 
-    sut.get_logos().set_logos(2);
-    sut.get_essence().set_permanent_essence(5);
-    sut.get_willpower().set_permanent_willpower(3);
-    sut.get_health().set_total_health(100);
+    sut.logos().set_logos(2);
+    sut.essence().set_permanent_essence(5);
+    sut.willpower().set_permanent_willpower(3);
+    sut.health().set_total_health(100);
     narrative::session_awards session;
     session[narrative::COSPLAY] = narrative::experience_award(narrative::COSPLAY, 3);
-    sut.get_experience().award(session);
+    sut.experience().award(session);
 
-    REQUIRE(sut.get_logos()     .get_logos()           == 2  );
-    REQUIRE(sut.get_essence()   .permanent_essence()   == 5  );
-    REQUIRE(sut.get_willpower() .permanent_willpower() == 3  );
-    REQUIRE(sut.get_health()    .total_health()        == 100);
-    REQUIRE(sut.get_experience().total_awarded()       == 3  );
+    REQUIRE(sut.logos()     .logos()           == 2  );
+    REQUIRE(sut.essence()   .permanent_essence()   == 5  );
+    REQUIRE(sut.willpower() .permanent_willpower() == 3  );
+    REQUIRE(sut.health()    .total_health()        == 100);
+    REQUIRE(sut.experience().total_awarded()       == 3  );
 
     const character::character c_sut = STANDARD_CHARACTER;
 
-    c_sut.get_logos().set_logos(2);
-    c_sut.get_essence().set_permanent_essence(5);
-    c_sut.get_willpower().set_permanent_willpower(3);
-    c_sut.get_health().set_total_health(100);
-    c_sut.get_experience().award(session);
+    c_sut.logos().set_logos(2);
+    c_sut.essence().set_permanent_essence(5);
+    c_sut.willpower().set_permanent_willpower(3);
+    c_sut.health().set_total_health(100);
+    c_sut.experience().award(session);
 
-    REQUIRE_FALSE(c_sut.get_logos()     .get_logos()           == 2  );
-    REQUIRE_FALSE(c_sut.get_essence()   .permanent_essence()   == 5  );
-    REQUIRE_FALSE(c_sut.get_willpower() .permanent_willpower() == 3  );
-    REQUIRE_FALSE(c_sut.get_health()    .total_health()        == 100);
-    REQUIRE_FALSE(c_sut.get_experience().total_awarded()       == 3  );
+    REQUIRE_FALSE(c_sut.logos()     .logos()           == 2  );
+    REQUIRE_FALSE(c_sut.essence()   .permanent_essence()   == 5  );
+    REQUIRE_FALSE(c_sut.willpower() .permanent_willpower() == 3  );
+    REQUIRE_FALSE(c_sut.health()    .total_health()        == 100);
+    REQUIRE_FALSE(c_sut.experience().total_awarded()       == 3  );
 
   }
 }

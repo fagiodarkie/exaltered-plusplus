@@ -53,7 +53,7 @@ void ExalteredApp::load_experience_screen()
 void ExalteredApp::load_main_screen(std::shared_ptr<character::character> character)
 {
   current_character = character;
-  qt::style::SET_CASTE(character->get_type());
+  qt::style::SET_CASTE(character->type());
   character_manager.save_character(character);
   load_menu();
   load_character_screen();

@@ -18,7 +18,7 @@ namespace narrative {
 
     void attribute_purchase::apply(std::shared_ptr<character::character> c)
     {
-      c->set_attribute_value(_attribute, _amount);
+      c->set_attribute(_attribute, _amount);
     }
 
     std::string attribute_purchase::key() const

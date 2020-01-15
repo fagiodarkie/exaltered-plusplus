@@ -57,7 +57,6 @@ HEADERS += \
     ../../headers/model/abilities/ability.h \
     ../../headers/model/abilities/abstract_ability_factory.h \
     ../../headers/model/abilities/specialisation.h \
-    ../../headers/model/attributes/attribute.h \
     ../../headers/model/attributes/attribute_names.h \
     ../../headers/model/attributes/attributes.h \
     ../../headers/model/character/character.h \
@@ -121,7 +120,6 @@ SOURCES += \
     ../../src/model/abilities/ability.cpp \
     ../../src/model/abilities/ability_group.cpp \
     ../../src/model/abilities/specialisation.cpp \
-    ../../src/model/attributes/attribute.cpp \
     ../../src/model/attributes/attributes.cpp \
     ../../src/model/character/character.cpp \
     ../../src/model/character/creation/character_creation_configuration.cpp \
@@ -166,7 +164,6 @@ SOURCES += \
     ../../src/test-case/model/abilities/ability-group-test.cpp \
     ../../src/test-case/model/abilities/ability-test.cpp \
     ../../src/test-case/model/abilities/specialisation-test.cpp \
-    ../../src/test-case/model/attributes/attribute-test.cpp \
     ../../src/test-case/model/attributes/attributes-test.cpp \
     ../../src/test-case/model/character-test.cpp \
     ../../src/test-case/model/creation/character-type-model-test.cpp \

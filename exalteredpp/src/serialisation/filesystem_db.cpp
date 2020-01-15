@@ -126,7 +126,7 @@ namespace serialisation {
     QString char_id = "character_" + QString::number(character->id());
     save_json_to_file(serialisation.c_str(), char_id + FILE_EXT);
 
-    id_to_name.insert(char_id, character->get_name().c_str());
+    id_to_name.insert(char_id, character->name().c_str());
     save_character_map();
   }
 

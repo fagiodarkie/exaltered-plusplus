@@ -17,10 +17,10 @@ TEST_CASE("Attribute Purchase")
   SECTION("should apply successfully to character")
   {
     std::shared_ptr<character::character> c = std::make_shared<character::character>("");
-    c->set_attribute(attribute::STRENGTH, attribute::attribute("str", 0));
+    c->set_attribute(attribute::STRENGTH, 0);
     narrative::attribute_purchase sut(attribute::STRENGTH, 3);
     sut.apply(c);
-    REQUIRE(c->get_attribute(attribute::STRENGTH) == 3);
+    REQUIRE(c->attribute(attribute::STRENGTH) == 3);
   }
 
   SECTION("should serialise and deserialise successfully")

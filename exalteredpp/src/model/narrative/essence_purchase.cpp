@@ -15,7 +15,7 @@ namespace narrative {
 
     void essence_purchase::apply(std::shared_ptr<character::character> c)
     {
-      c->get_essence().set_permanent_essence(_amount);
+      c->essence().set_permanent_essence(_amount);
     }
 
     void essence_purchase::serialisation()

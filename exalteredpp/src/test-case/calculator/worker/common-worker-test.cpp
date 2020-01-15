@@ -9,14 +9,14 @@ TEST_CASE("common worker")
 {
   human_worker sut;
   character::character test_character = generate_character("name", 0);
-  test_character.set_attribute_value(attribute::DEXTERITY, 4);
-  test_character.set_attribute_value(attribute::STRENGTH, 3);
-  test_character.set_attribute_value(attribute::CONSTITUTION, 3);
-  test_character.set_attribute_value(attribute::INTELLIGENCE, 3);
-  test_character.set_attribute_value(attribute::CHARISMA, 3);
-  test_character.set_attribute_value(attribute::MANIPULATION, 3);
-  test_character.set_attribute_value(attribute::APPEARANCE, 3);
-  test_character.set_attribute_value(attribute::WITS, 3);
+  test_character.set_attribute(attribute::DEXTERITY, 4);
+  test_character.set_attribute(attribute::STRENGTH, 3);
+  test_character.set_attribute(attribute::CONSTITUTION, 3);
+  test_character.set_attribute(attribute::INTELLIGENCE, 3);
+  test_character.set_attribute(attribute::CHARISMA, 3);
+  test_character.set_attribute(attribute::MANIPULATION, 3);
+  test_character.set_attribute(attribute::APPEARANCE, 3);
+  test_character.set_attribute(attribute::WITS, 3);
   test_character.set_ability_value(ability::MELEE, 3);
   test_character.set_ability_value(ability::DODGE, 3);
   test_character.set_ability_value(ability::RESISTANCE, 3);
@@ -55,9 +55,9 @@ TEST_CASE("common worker")
     REQUIRE_NOTHROW(sut.compute_stance_bonus           (test_character));
     REQUIRE_NOTHROW(sut.compute_hindrance              (test_character));
 
-    REQUIRE_NOTHROW(sut.starting_logos                 (test_character.get_type()));
-    REQUIRE_NOTHROW(sut.starting_khan                  (test_character.get_type()));
-    REQUIRE_NOTHROW(sut.starting_essence               (test_character.get_type()));
+    REQUIRE_NOTHROW(sut.starting_logos                 (test_character.type()));
+    REQUIRE_NOTHROW(sut.starting_khan                  (test_character.type()));
+    REQUIRE_NOTHROW(sut.starting_essence               (test_character.type()));
   }
 }
 
@@ -68,13 +68,13 @@ TEST_CASE("exalt worker")
 
   SECTION("should compute human values rounding up")
   {
-    test_character.set_attribute_value(attribute::DEXTERITY, 4);
-    test_character.set_attribute_value(attribute::STRENGTH, 3);
-    test_character.set_attribute_value(attribute::MANIPULATION, 5);
-    test_character.set_attribute_value(attribute::CHARISMA, 5);
-    test_character.set_attribute_value(attribute::APPEARANCE, 1);
-    test_character.get_willpower().set_permanent_willpower(5);
-    test_character.get_essence().set_permanent_essence(5);
+    test_character.set_attribute(attribute::DEXTERITY, 4);
+    test_character.set_attribute(attribute::STRENGTH, 3);
+    test_character.set_attribute(attribute::MANIPULATION, 5);
+    test_character.set_attribute(attribute::CHARISMA, 5);
+    test_character.set_attribute(attribute::APPEARANCE, 1);
+    test_character.willpower().set_permanent_willpower(5);
+    test_character.essence().set_permanent_essence(5);
     test_character.set_ability_value(ability::MELEE, 3);
     test_character.set_ability_value(ability::DODGE, 3);
 
@@ -84,7 +84,7 @@ TEST_CASE("exalt worker")
     REQUIRE(sut.compute_dodge_dv(test_character) == 4);
 
     // persona should be 20 as essence is 5 and willpower is 5, even if APPEARANCE is 1
-    REQUIRE(sut.compute_persona(test_character.get_type(), test_character.get_attributes(), test_character.get_willpower(), test_character.get_essence()) == 20);
+    REQUIRE(sut.compute_persona(test_character.type(), test_character.attributes(), test_character.willpower(), test_character.essence()) == 20);
   }
 
 }

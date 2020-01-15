@@ -18,7 +18,7 @@ namespace qt
       QWidget* attributes_list = new QWidget;
       QVBoxLayout *v_layout = new QVBoxLayout(this), *inner_layout = new QVBoxLayout;
 
-      v_layout->addWidget(new QLabel(QString("Attributes of ") + character->get_name().c_str()));
+      v_layout->addWidget(new QLabel(QString("Attributes of ") + character->name().c_str()));
 
       for (auto attribute_category: attribute::ATTRIBUTE_CATEGORIES)
         {
@@ -27,7 +27,7 @@ namespace qt
           for (auto attribute_name: attribute::ATTRIBUTES_BY_CATEGORY.at(attribute_category))
           {
               attribute_form->addRow(attribute::ATTRIBUTE_NAME.at(attribute_name).c_str(),
-                                     new QLabel(character->get_attribute(attribute_name).get_value().c_str()));
+                                     new QLabel(QString::number(character->attribute(attribute_name))));
           }
           attribute_category_group->setLayout(attribute_form);
           inner_layout->addWidget(attribute_category_group);

@@ -5,16 +5,15 @@
 #include "behavioral/name_value_pair.h"
 
 namespace ability {
-  class specialisation : public model::name_value_pair, public Serialisable
+  class specialisation : public Serialisable
   {
   public:
     specialisation(const std::string& name = "", unsigned int initial_value = 1);
     specialisation(const specialisation& o);
     specialisation& operator=(const specialisation& o);
 
-    std::string get_name() const override;
-    std::string get_value() const override;
-    unsigned int get_specialisation_value() const;
+    std::string name() const;
+    unsigned int value() const;
 
     void set_value(unsigned int new_value);
 
@@ -22,9 +21,11 @@ namespace ability {
 
     bool operator==(const specialisation& other) const;
 
+    virtual ~specialisation() {}
+
   private:
-    std::string name;
-    unsigned int value;
+    std::string _name;
+    unsigned int _value;
 
   };
 }

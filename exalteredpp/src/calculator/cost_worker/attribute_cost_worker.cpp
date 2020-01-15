@@ -10,7 +10,7 @@ namespace calculator { namespace cost {
 
       auto attribute_name = attribute->attribute();
 
-      int current_attribute = character->get_attribute(attribute_name);
+      int current_attribute = character->attribute(attribute_name);
 
       return current_attribute * STANDARD_MULTIPLIER;
     }

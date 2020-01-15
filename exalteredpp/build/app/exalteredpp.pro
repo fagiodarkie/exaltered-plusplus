@@ -50,7 +50,6 @@ SOURCES += \
     ../../src/model/abilities/ability.cpp \
     ../../src/model/abilities/ability_group.cpp \
     ../../src/model/abilities/specialisation.cpp \
-    ../../src/model/attributes/attribute.cpp \
     ../../src/model/attributes/attributes.cpp \
     ../../src/model/character/character.cpp \
     ../../src/model/character/creation/character_creation_configuration.cpp \
@@ -141,7 +140,6 @@ HEADERS += \
     ../../headers/model/abilities/ability_group.h \
     ../../headers/model/abilities/ability.h \
     ../../headers/model/abilities/specialisation.h \
-    ../../headers/model/attributes/attribute.h \
     ../../headers/model/attributes/attribute_names.h \
     ../../headers/model/attributes/attributes.h \
     ../../headers/model/character/character.h \

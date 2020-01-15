@@ -28,7 +28,7 @@ namespace character
     deserialise(serialised_data);
   }
 
-  std::string character::get_name() const
+  std::string character::name() const
   {
     return _name;
   }
@@ -38,7 +38,7 @@ namespace character
     _name = new_name;
   }
 
-  creation::character_type character::get_type() const
+  creation::character_type character::type() const
   {
     return _type;
   }
@@ -48,24 +48,19 @@ namespace character
     _type = type;
   }
 
-  attribute::attributes character::get_attributes() const
+  attribute::attributes character::attributes() const
   {
     return _attributes;
   }
 
-  attribute::attribute character::get_attribute(attribute::attribute_enum name) const
+  int character::attribute(attribute::attribute_enum name) const
   {
     return _attributes.at(name);
   }
 
-  void character::set_attribute(attribute::attribute_enum name, attribute::attribute attribute)
+  void character::set_attribute(attribute::attribute_enum name, int attribute)
   {
     _attributes[name] = attribute;
-  }
-
-  void character::set_attribute_value(attribute::attribute_enum name, int new_val)
-  {
-    _attributes[name].set_value(new_val);
   }
 
   ability::ability character::get_ability(ability::ability_enum name, const std::string& ability_declination) const
@@ -110,57 +105,57 @@ namespace character
     _abilities[name].add_specialisation(specialisation);
   }
 
-  power::willpower& character::get_willpower()
+  power::willpower& character::willpower()
   {
-    return _power.get_willpower();
+    return _power.willpower();
   }
 
-  power::willpower character::get_willpower() const
+  power::willpower character::willpower() const
   {
-    return _power.get_willpower();
+    return _power.willpower();
   }
 
-  power::essence& character::get_essence()
+  power::essence& character::essence()
   {
-    return _power.get_essence();
+    return _power.essence();
   }
 
-  power::essence character::get_essence() const
+  power::essence character::essence() const
   {
-    return _power.get_essence();
+    return _power.essence();
   }
 
-  power::logos& character::get_logos()
+  power::logos& character::logos()
   {
-    return _power.get_logos();
+    return _power.logos();
   }
-  power::logos  character::get_logos() const
+  power::logos  character::logos() const
   {
-    return _power.get_logos();
-  }
-
-  power::health& character::get_health()
-  {
-    return _power.get_health();
-  }
-  power::health  character::get_health() const
-  {
-    return _power.get_health();
+    return _power.logos();
   }
 
-  virtues::virtue   character::get_virtue(virtues::virtue_enum v) const
+  power::health& character::health()
+  {
+    return _power.health();
+  }
+  power::health  character::health() const
+  {
+    return _power.health();
+  }
+
+  virtues::virtue   character::virtue(virtues::virtue_enum v) const
   {
     return _virtues.at(v);
   }
-  virtues::virtue&  character::get_virtue(virtues::virtue_enum v)
+  virtues::virtue&  character::virtue(virtues::virtue_enum v)
   {
     return _virtues[v];
   }
-  unsigned int      character::get_vice_value() const
+  unsigned int      character::vice_value() const
   {
     return _virtues.vice_value();
   }
-  virtues::vice_enum character::get_vice() const
+  virtues::vice_enum character::vice() const
   {
     return _virtues.vice();
   }
@@ -170,12 +165,12 @@ namespace character
     _virtues.set_vice_value(vice_value);
   }
 
-  narrative::experience_cluster character::get_experience() const
+  narrative::experience_cluster character::experience() const
   {
     return _experience;
   }
 
-  narrative::experience_cluster& character::get_experience()
+  narrative::experience_cluster& character::experience()
   {
     return _experience;
   }

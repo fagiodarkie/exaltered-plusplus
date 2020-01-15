@@ -15,10 +15,10 @@ TEST_CASE("Vice Purchase")
   SECTION("should apply successfully to character")
   {
     std::shared_ptr<character::character> c = std::make_shared<character::character>("");
-    REQUIRE(c->get_vice_value() == 1);
+    REQUIRE(c->vice_value() == 1);
     narrative::vice_purchase sut(3);
     sut.apply(c);
-    REQUIRE(c->get_vice_value() == 3);
+    REQUIRE(c->vice_value() == 3);
   }
 
   SECTION("should serialise and deserialise successfully")

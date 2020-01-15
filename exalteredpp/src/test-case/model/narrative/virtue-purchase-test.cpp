@@ -16,10 +16,10 @@ TEST_CASE("Virtue Purchase")
   SECTION("should apply successfully to character")
   {
     std::shared_ptr<character::character> c = std::make_shared<character::character>("");
-    REQUIRE(c->get_virtue(virtues::COMPASSION).value() == 1);
+    REQUIRE(c->virtue(virtues::COMPASSION).value() == 1);
     narrative::virtue_purchase sut(3, virtues::COMPASSION);
     sut.apply(c);
-    REQUIRE(c->get_virtue(virtues::COMPASSION).value() == 3);
+    REQUIRE(c->virtue(virtues::COMPASSION).value() == 3);
   }
 
   SECTION("should serialise and deserialise successfully")

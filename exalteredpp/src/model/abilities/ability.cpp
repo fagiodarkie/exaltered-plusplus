@@ -31,14 +31,9 @@ namespace ability {
     return _name;
   }
 
-  std::string ability::get_name() const
+  std::string ability::name() const
   {
     return _name;
-  }
-
-  std::string ability::get_value() const
-  {
-    return std::to_string(_value);
   }
 
   unsigned int ability::get_ability_value() const

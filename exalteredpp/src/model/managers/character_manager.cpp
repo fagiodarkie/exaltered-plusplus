@@ -22,10 +22,10 @@ namespace manager {
   std::shared_ptr<character::character> character_manager::create_character(const calculator::worker::abstract_calculator_worker& calculator, const std::string name, const character::creation::character_type type, const character::exalt::caste caste, const attribute::attributes attributes, const ability::abilities abilities, const virtues::virtues virtues, const power::power_container power_container)
   {
     // finishing touches for the character
-    power_container.get_logos().set_logos(calculator.starting_logos(type));
-    power_container.get_essence().set_khan(calculator.starting_khan(type));
+    power_container.logos().set_logos(calculator.starting_logos(type));
+    power_container.essence().set_khan(calculator.starting_khan(type));
     // will have to be changed when we introduce bonus points
-    power_container.get_essence().set_permanent_essence(calculator.starting_essence(type));
+    power_container.essence().set_permanent_essence(calculator.starting_essence(type));
 
 
     auto final_character = character_repository.create_character(name,
@@ -36,13 +36,13 @@ namespace manager {
                                                   virtues,
                                                   power_container);
 
-    final_character->get_essence().set_celestial_portion(calculator.compute_celestial_portion(*final_character));
-    final_character->get_essence().set_total_personal_essence(calculator.compute_personal_essence(*final_character));
-    final_character->get_essence().set_total_peripheral_essence(calculator.compute_peripheral_essence(*final_character));
-    final_character->get_essence().set_total_spiritual_essence(calculator.compute_spiritual_essence(*final_character));
-    final_character->get_willpower().set_permanent_willpower(calculator.starting_willpower(*final_character));
-    final_character->get_willpower().restore(final_character->get_willpower().permanent_willpower());
-    final_character->get_health().set_total_health(calculator.compute_life_points(*final_character));
+    final_character->essence().set_celestial_portion(calculator.compute_celestial_portion(*final_character));
+    final_character->essence().set_total_personal_essence(calculator.compute_personal_essence(*final_character));
+    final_character->essence().set_total_peripheral_essence(calculator.compute_peripheral_essence(*final_character));
+    final_character->essence().set_total_spiritual_essence(calculator.compute_spiritual_essence(*final_character));
+    final_character->willpower().set_permanent_willpower(calculator.starting_willpower(*final_character));
+    final_character->willpower().restore(final_character->willpower().permanent_willpower());
+    final_character->health().set_total_health(calculator.compute_life_points(*final_character));
 
     return final_character;
   }

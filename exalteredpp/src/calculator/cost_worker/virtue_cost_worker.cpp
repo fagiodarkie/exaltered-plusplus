@@ -10,7 +10,7 @@ namespace calculator { namespace cost {
 
       auto virtue = ability->virtue();
 
-      auto current_virtue = character->get_virtue(virtue).value();
+      auto current_virtue = character->virtue(virtue).value();
 
       return current_virtue * STANDARD_MULTIPLIER;
     }

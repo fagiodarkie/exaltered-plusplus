@@ -20,7 +20,7 @@ TEST_CASE("Experience Purchase Cost Calculator")
 
   SECTION("should compute the right cost for attribute purchases")
   {
-    mortal->set_attribute(attribute::STRENGTH, attribute::attribute("str", 3));
+    mortal->set_attribute(attribute::STRENGTH, 3);
     auto cost = calculator::purchase_cost_calculator::cost_of(narrative::ATTRIBUTE, std::make_shared<narrative::attribute_purchase>(attribute::STRENGTH, 4)).for_who(mortal);
     REQUIRE(cost == 12);
   }
