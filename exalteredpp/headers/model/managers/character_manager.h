@@ -25,6 +25,7 @@ namespace manager {
                                                            const power::health&    health,
                                                            const power::logos&     logos);
     void save_character(std::shared_ptr<character::character>& character) const;
+    void remove_character(const std::string& id);
 
   private:
     serialisation::db_abstraction& character_repository;

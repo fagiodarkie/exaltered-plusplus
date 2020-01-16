@@ -151,17 +151,17 @@ namespace ability {
     if (!has(specialisation_name))
       throw exception::ability_not_found_exception();
 
-    specialisation(specialisation_name).increase(add_value);
+    get(specialisation_name).increase(add_value);
   }
 
   int ability::operator[](const std::string& specialisation_name) const
   {
-    return _value + specialisation(specialisation_name).value();
+    return _value + get(specialisation_name).value();
   }
 
   class specialisation& ability::operator[](const std::string& specialisation_name)
   {
-    return specialisation(specialisation_name);
+    return get(specialisation_name);
   }
 
   void ability::remove(const std::string& specialisation_to_remove)
@@ -175,14 +175,14 @@ namespace ability {
     return _specialisations;
   }
 
-  class specialisation ability::specialisation(const std::string &name) const
+  class specialisation ability::get(const std::string &name) const
   {
     if (!has(name))
       return ::ability::specialisation();
     return *std::find_if(_specialisations.begin(), _specialisations.end(), filter_specialisation_by_name(name));
   }
 
-  class specialisation& ability::specialisation(const std::string &name)
+  class specialisation& ability::get(const std::string &name)
   {
     if (!has(name))
       set(name, 0);

@@ -75,9 +75,9 @@ TEST_CASE("Character")
     character::character sut = STANDARD_CHARACTER;
     ability::specialisation spec("mounted", 2);
     sut[ability::WAR].add(spec);
-    auto val = sut.get(ability::WAR).specialisation(spec.name());
+    auto val = sut.get(ability::WAR).get(spec.name());
     REQUIRE(sut.get(ability::WAR).has(spec.name()));
-    REQUIRE(spec.value() == sut.get(ability::WAR).specialisation(spec.name()));
+    REQUIRE(spec.value() == sut.get(ability::WAR).get(spec.name()));
   }
 
   SECTION("should allow virtue & vice management")

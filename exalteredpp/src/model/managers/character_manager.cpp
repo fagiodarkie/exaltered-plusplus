@@ -66,4 +66,9 @@ namespace manager {
     character_repository.save_character(character);
   }
 
+  void character_manager::remove_character(const std::string &id)
+  {
+    character_repository.remove_character(id);
+  }
+
 }

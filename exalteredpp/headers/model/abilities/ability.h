@@ -38,8 +38,8 @@ namespace ability
     void set_favored(bool favored = true);
 
     std::vector<specialisation> specialisations() const;
-    class specialisation specialisation(const std::string& name) const;
-    class specialisation& specialisation(const std::string& name);
+    class specialisation get(const std::string& name) const;
+    class specialisation& get(const std::string& name);
 
     int operator[](const std::string& specialisation_name) const;
     class specialisation& operator[](const std::string& specialisation_name);

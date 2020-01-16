@@ -198,7 +198,7 @@ namespace qt { namespace widget {
           auto ability = selected_ability();
           auto specialisation = specialty_freetext->text().trimmed().toStdString();
           unsigned int current_value = _character->get(ability).has(specialisation)
-              ? _character->get(ability).specialisation(specialisation)
+              ? _character->get(ability).get(specialisation)
               : 0;
           purchase = std::make_shared<specialisation_purchase>(current_value + 1, ability, ability::specialisation(specialisation));
           break;

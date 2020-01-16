@@ -4,6 +4,18 @@
 
 TEST_CASE("virtues")
 {
+  virtues::virtues stub;
+  stub.set_vice_type(virtues::LUST);
+  stub.set_vice_value(5);
+  stub.value(virtues::COMPASSION).set_rank(virtues::ADULT);
+  stub.value(virtues::COMPASSION).set_value(1);
+  stub.value(virtues::CONVINCTION).set_rank(virtues::TEENAGER);
+  stub.value(virtues::CONVINCTION).set_value(2);
+  stub.value(virtues::TEMPERANCE).set_rank(virtues::SENIOR);
+  stub.value(virtues::TEMPERANCE).set_value(3);
+  stub.value(virtues::VALOR).set_rank(virtues::CHILD);
+  stub.value(virtues::VALOR).set_value(4);
+
   SECTION("should create virtues map on creation")
   {
     virtues::virtues sut;
@@ -13,18 +25,6 @@ TEST_CASE("virtues")
 
   SECTION("should read JSON file accordingly")
   {
-    virtues::virtues stub;
-    stub.set_vice_type(virtues::LUST);
-    stub.set_vice_value(5);
-    stub.value(virtues::COMPASSION).set_rank(virtues::ADULT);
-    stub.value(virtues::COMPASSION).set_value(1);
-    stub.value(virtues::CONVINCTION).set_rank(virtues::TEENAGER);
-    stub.value(virtues::CONVINCTION).set_value(2);
-    stub.value(virtues::TEMPERANCE).set_rank(virtues::SENIOR);
-    stub.value(virtues::TEMPERANCE).set_value(3);
-    stub.value(virtues::VALOR).set_rank(virtues::CHILD);
-    stub.value(virtues::VALOR).set_value(4);
-
     virtues::virtues sut;
     sut.deserialise(stub.serialise());
 
@@ -42,18 +42,6 @@ TEST_CASE("virtues")
 
   SECTION("should assign properly with copy constructor and assignment operator")
   {
-    virtues::virtues stub;
-    stub.set_vice_type(virtues::LUST);
-    stub.set_vice_value(5);
-    stub.value(virtues::COMPASSION).set_rank(virtues::ADULT);
-    stub.value(virtues::COMPASSION).set_value(1);
-    stub.value(virtues::CONVINCTION).set_rank(virtues::TEENAGER);
-    stub.value(virtues::CONVINCTION).set_value(2);
-    stub.value(virtues::TEMPERANCE).set_rank(virtues::SENIOR);
-    stub.value(virtues::TEMPERANCE).set_value(3);
-    stub.value(virtues::VALOR).set_rank(virtues::CHILD);
-    stub.value(virtues::VALOR).set_value(4);
-
     virtues::virtues sut_1(stub);
     virtues::virtues sut_2;
     sut_2 = stub;
@@ -83,11 +71,6 @@ TEST_CASE("virtues")
 
   SECTION("should set and get values")
   {
-    virtues::virtues stub;
-    stub.set_vice_type(virtues::LUST);
-    stub.set_vice_value(5);
-    stub.value(virtues::COMPASSION).set_rank(virtues::ADULT);
-    stub.value(virtues::COMPASSION).set_value(1);
     // also check square brackets setters
     stub[virtues::VALOR].set_rank(virtues::CHILD);
     stub[virtues::VALOR].set_value(3);

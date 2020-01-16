@@ -19,12 +19,12 @@ TEST_CASE("Specialisation Purchase")
     c->ability(ability::MEDICINE).add(ability::specialisation("Bandages", 1));
     narrative::specialisation_purchase sut(2, ability::MEDICINE, "On the field");
     narrative::specialisation_purchase sut2(3, ability::MEDICINE, "Bandages");
-    REQUIRE(c->get(ability::MEDICINE).specialisation(sut.specialisation_name()).value() == 0);
-    REQUIRE(c->get(ability::MEDICINE).specialisation(sut2.specialisation_name()).value() == 1);
+    REQUIRE(c->get(ability::MEDICINE).get(sut.specialisation_name()).value() == 0);
+    REQUIRE(c->get(ability::MEDICINE).get(sut2.specialisation_name()).value() == 1);
     sut.apply(c);
     sut2.apply(c);
-    REQUIRE(c->get(ability::MEDICINE).specialisation( sut.specialisation_name()) == sut.amount());
-    REQUIRE(c->get(ability::MEDICINE).specialisation(sut2.specialisation_name()) == sut2.amount());
+    REQUIRE(c->get(ability::MEDICINE).get( sut.specialisation_name()) == sut.amount());
+    REQUIRE(c->get(ability::MEDICINE).get(sut2.specialisation_name()) == sut2.amount());
   }
 
   SECTION("should serialise and deserialise successfully")
