@@ -12,28 +12,28 @@ TEST_CASE("Ability Purchase")
     REQUIRE(sut.ability() == ability::MEDICINE);
     REQUIRE(sut.amount() == 3);
 
-    narrative::ability_purchase sut2(ability::detailed_ability(ability::TECHNOLOGY, "Herbs"), 5);
+    narrative::ability_purchase sut2(ability::ability_name(ability::TECHNOLOGY, "Herbs"), 5);
 
-    REQUIRE(sut2.ability().declination == "Herbs");
+    REQUIRE(sut2.ability().subability == "Herbs");
     REQUIRE(sut2.amount() == 5);
   }
 
   SECTION("should apply successfully to character")
   {
     std::shared_ptr<character::character> c = std::make_shared<character::character>("");
-    REQUIRE(c->get_ability(ability::MEDICINE) == 0);
-    REQUIRE(c->get_ability(ability::TECHNOLOGY) == 0);
+    REQUIRE((int)c->get(ability::MEDICINE) == 0);
+    REQUIRE((int)c->get(ability::TECHNOLOGY) == 0);
     narrative::ability_purchase sut(ability::MEDICINE, 3);
-    narrative::ability_purchase sut2(ability::detailed_ability(ability::TECHNOLOGY, "Herbs"), 5);
+    narrative::ability_purchase sut2(ability::ability_name(ability::TECHNOLOGY, "Herbs"), 5);
     sut.apply(c);
     sut2.apply(c);
-    REQUIRE(c->get_ability(ability::MEDICINE) == 3);
-    REQUIRE(c->get_ability(ability::TECHNOLOGY, sut2.ability().declination) == 5);
+    REQUIRE((int)c->get(ability::MEDICINE) == 3);
+    REQUIRE((int)c->get(ability::TECHNOLOGY, sut2.ability().subability) == 5);
   }
 
   SECTION("should serialise and deserialise successfully")
   {
-    narrative::ability_purchase sut(ability::detailed_ability(ability::TECHNOLOGY, "Herbs"), 5);
+    narrative::ability_purchase sut(ability::ability_name(ability::TECHNOLOGY, "Herbs"), 5);
 
     std::string data;
     REQUIRE_NOTHROW(data = sut.serialise());

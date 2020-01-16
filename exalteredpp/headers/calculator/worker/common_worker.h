@@ -188,7 +188,7 @@ namespace calculator {
 
       virtual long int compute_resilience               (const character::character& c) const
       {
-        return c.get_ability(ability_t::INTEGRITY) + c.willpower().temporary_willpower();
+        return c.get(ability_t::INTEGRITY) + c.willpower().temporary_willpower();
       }
 
       virtual unsigned int starting_essence                  (const character::creation::character_type& c) const override
@@ -248,13 +248,13 @@ namespace calculator {
       virtual double _parry_dv(const character::character& c, ability::ability_enum parry_ability) const
       {
         auto att = half(c, attribute_t::STRENGTH, attribute_t::DEXTERITY);
-        auto ab = c.get_ability(parry_ability);
-        return (att + ab) / 2;
+        auto ab = c.get(parry_ability);
+        return (ab + att) / 2;
       }
 
       virtual double _heavy_parry_dv(const character::character& c, ability::ability_enum parry_ability) const
       {
-        ability_t actual_ability = c.get_ability(ability_t::RESISTANCE) >= c.get_ability(parry_ability) ? parry_ability : ability_t::RESISTANCE;
+        ability_t actual_ability = c.get(parry_ability) < c.get(ability_t::RESISTANCE) ? parry_ability : ability_t::RESISTANCE;
         return half(c, attribute_t::STRENGTH, actual_ability);
       }
 
@@ -341,11 +341,12 @@ namespace calculator {
           case character::creation::TYPE_MORTAL_EXTRA:
             return 0.3;
           }
+        return 0;
       }
 
       virtual double half(const character::character& c, attribute_t attribute, ability_t ability) const
       {
-        return static_cast<double>(c.attribute(attribute) + c.get_ability(ability)) / 2;
+        return static_cast<double>(c.get(ability) + c.attribute(attribute)) / 2;
       }
 
       virtual double half(const character::character& c, ability_t ability, attribute_t attribute) const

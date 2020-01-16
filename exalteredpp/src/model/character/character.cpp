@@ -58,51 +58,68 @@ namespace character
     return _attributes.at(name);
   }
 
-  void character::set_attribute(attribute::attribute_enum name, int attribute)
+  void character::set(attribute::attribute_enum name, int attribute)
   {
     _attributes[name] = attribute;
   }
 
-  ability::ability character::get_ability(ability::ability_enum name, const std::string& ability_declination) const
+  ability::ability character::get(ability::ability_enum name, const std::string& ability_declination) const
   {
-    if (_abilities.find(name) == _abilities.end() || !_abilities.at(name).has_ability(ability_declination))
-      return ability::ability(ability::ABILITY_NAME.at(name));
-    return _abilities.at(name).get_ability(ability_declination);
+    return _abilities[ability::ability_name(name, ability_declination)];
   }
 
-  ability::ability character::get_ability(const ability::detailed_ability& detailed_ability) const
+  ability::ability& character::ability(ability::ability_enum name, const std::string &ability_declination)
   {
-    return get_ability(detailed_ability.ability, detailed_ability.declination);
+    return _abilities[ability::ability_name(name, ability_declination)];
   }
 
-  bool character::has_ability(const ability::detailed_ability& detailed_ability) const
+  ability::ability character::get(const ability::ability_name& detailed_ability) const
   {
-    return _abilities.at(detailed_ability.ability).has_ability(detailed_ability.declination);
+    return _abilities[detailed_ability];
   }
 
-  ability::ability_group character::get_ability_group(ability::ability_enum name) const
+  bool character::has(const ability::ability_name& detailed_ability) const
   {
-    return _abilities.at(name);
+    return _abilities.has(detailed_ability);
   }
 
-  void character::set_ability(ability::ability_enum name, ability::ability_group ability)
+  void character::set(ability::ability_name name, ability::ability&& ability)
   {
     _abilities[name] = ability;
   }
 
-  void character::set_ability_value(ability::ability_enum name, int new_val)
+  void character::set(ability::ability_name name, unsigned int new_val)
   {
-    _abilities[name].set_ability_value(ability::ability_declination::NO_DECLINATION, new_val);
+    _abilities[name] = new_val;
   }
 
-  void character::set_ability_value(ability::detailed_ability name, int new_val)
+  void character::add(ability::ability_name name, const ability::specialisation& specialisation)
   {
-    _abilities[name.ability].set_ability_value(name.declination, new_val);
+    _abilities[name].add(specialisation.name(), specialisation.value());
   }
 
-  void character::add_ability_specialisation(ability::ability_enum name, ability::specialisation specialisation)
+  ability::ability& character::operator[](const ability::ability_name &detailed_ability)
   {
-    _abilities[name].add_specialisation(specialisation);
+    return _abilities[detailed_ability];
+  }
+
+  ability::ability& character::operator[](ability::ability_enum detailed_ability)
+  {
+    return _abilities[ability::ability_name(detailed_ability)];
+  }
+
+  ability::abilities character::abilities() const
+  {
+    return _abilities;
+  }
+  ability::abilities& character::abilities()
+  {
+    return _abilities;
+  }
+
+  ability::abilities character::abilities(ability::ability_enum ability_type) const
+  {
+    return _abilities.with_type(ability_type);
   }
 
   power::willpower& character::willpower()

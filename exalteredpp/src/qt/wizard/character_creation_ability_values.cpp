@@ -61,15 +61,14 @@ namespace qt {
           ability_forms[ab_category] = new QFormLayout;
         }
 
-      for (auto ability_enum : ability::ABILITIES)
+      for (auto ab : _abilities)
         {
-          ability_value_row *row = new ability_value_row(_abilities[ability_enum]);
+          ability_value_row *row = new ability_value_row(ab);
 
           connect(row, &ability_value_row::ability_change, this, &character_creation_ability_values::on_ability_change);
-          connect(row, &ability_value_row::new_declination, this, &character_creation_ability_values::on_new_declination);
 
-          row->add_rows(ability_forms[ability::CATEGORY_OF_ABILITY(ability_enum)]);
-          row_of_ability[ability_enum] = row;
+          row->add_row(ability_forms[ability::CATEGORY_OF_ABILITY(ab.name().ability_type)]);
+          row_of_ability[ab.name()] = row;
         }
 
       for (auto ab_category: ability::ABILITY_CATEGORIES)
@@ -123,52 +122,45 @@ namespace qt {
 
     validation_result character_creation_ability_values::check_current_selection()
     {
-      QMap<ability::detailed_ability, operation_enabled> result;
+      QMap<ability::ability_name, operation_enabled> result;
       unsigned int points_spent = 0, points_spent_in_favorites = 0, favorite_abilities = 0, caste_favorite_abilities = 0;
       auto caste_abilities = character::exalt::exalt_caste::get_caste(_caste).abilities();
-      for (auto ability_enum : ability::ABILITIES)
+      for (auto abilityrow : row_of_ability)
         {
-          auto row = row_of_ability[ability_enum];
-          for (auto actual_ability: row->ability().get_detailed_abilities())
+          auto ability = abilityrow->ability();
+          points_spent += ability.value();
+          bool caste_ability = std::find(caste_abilities.begin(), caste_abilities.end(), ability.name().ability_type) != caste_abilities.end();
+          if (ability.favored())
             {
-              auto ability = row->ability().get_ability(actual_ability.declination);
-              points_spent += ability.get_ability_value();
-              bool caste_ability = std::find(caste_abilities.begin(), caste_abilities.end(), ability_enum) != caste_abilities.end();
-              if (ability.is_favourite())
-                {
-                  points_spent_in_favorites += ability.get_ability_value();
-                  if (caste_ability)
-                    ++caste_favorite_abilities;
-                  else
-                    ++favorite_abilities;
-                }
-              result[actual_ability].decrease = ability.get_ability_value() > 0;
-              result[actual_ability].increase = ability.get_ability_value() < max_std_ability_value;
+              points_spent_in_favorites += ability.value();
+              if (caste_ability)
+                ++caste_favorite_abilities;
+              else
+                ++favorite_abilities;
             }
+          result[ability.name()].decrease = ability.value() > 0;
+          result[ability.name()].increase = ability.value() < max_std_ability_value;
         }
 
       bool  should_inhibit_all_add = (points_spent == max_ability_points),
               // inhibit non favorites add if the only points left to spend are equal to the points we have to spend on favorites
               should_inhibit_non_favorites_add = (max_ability_points - points_spent == min_points_in_favorites - points_spent_in_favorites);
 
-      for (auto ability_enum : ability::ABILITIES)
+      for (auto abilityname : _abilities)
         {
-          auto row = row_of_ability[ability_enum];
-          for (auto actual_ability: row->ability().get_detailed_abilities())
-            {
-              auto ability = row->ability().get_ability(actual_ability.declination);
-              bool caste_ability = std::find(caste_abilities.begin(), caste_abilities.end(), ability_enum) != caste_abilities.end();
+          auto row = row_of_ability[abilityname];
+          auto ability = row->ability();
+          bool caste_ability = std::find(caste_abilities.begin(), caste_abilities.end(), abilityname) != caste_abilities.end();
 
-              result[actual_ability].increase &= (!should_inhibit_all_add);
-              if (!ability.is_favourite())
-                result[actual_ability].increase &= (!should_inhibit_non_favorites_add);
+          result[ability].increase &= (!should_inhibit_all_add);
+          if (!ability.favored())
+            result[ability].increase &= (!should_inhibit_non_favorites_add);
 
-              result[actual_ability].favorite = !ability.is_favourite()
-                                                && ((!caste_ability && favorite_abilities < free_favorites)
-                                                    || (caste_ability && caste_favorite_abilities < caste_favorites));
-              result[actual_ability].unfavorite = ability.is_favourite()
-                                                && (!caste_ability || row->ability().has_abilities());
-            }
+          result[ability].favorite = !ability.favored()
+                                            && ((!caste_ability && favorite_abilities < free_favorites)
+                                                || (caste_ability && caste_favorite_abilities < caste_favorites));
+          result[ability].unfavorite = ability.favored()
+                                              && (!caste_ability || ability::has_declination(ability.name().ability_type));
         }
 
       validation_result check;
@@ -204,15 +196,15 @@ namespace qt {
       for (auto ability: validation.operations.keys())
         {
           auto op = validation.operations[ability];
-          row_of_ability[ability.ability]->update_operations(ability.declination, op.increase, op.decrease, op.favorite, op.unfavorite);
+          row_of_ability[ability]->update_operations(op.increase, op.decrease, op.favorite, op.unfavorite);
 
         }
     }
 
     void character_creation_ability_values::next_issued()
     {
-      for (auto ability: ability::ABILITIES)
-        _abilities[ability] = row_of_ability[ability]->ability();
+      for (auto abilityrow: row_of_ability)
+        _abilities[abilityrow->ability().name()] = abilityrow->ability();
 
       emit abilities_chosen(_abilities);
     }

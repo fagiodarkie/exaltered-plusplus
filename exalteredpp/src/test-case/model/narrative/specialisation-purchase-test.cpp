@@ -16,17 +16,15 @@ TEST_CASE("Specialisation Purchase")
   SECTION("should apply successfully to character")
   {
     std::shared_ptr<character::character> c = std::make_shared<character::character>("");
-    c->set_ability(ability::MEDICINE, ability::ability_group(ability::MEDICINE,
-      {ability::ability(ability::ability_declination::NO_DECLINATION)},
-      {ability::specialisation("Bandages")}));
+    c->ability(ability::MEDICINE).add(ability::specialisation("Bandages", 1));
     narrative::specialisation_purchase sut(2, ability::MEDICINE, "On the field");
     narrative::specialisation_purchase sut2(3, ability::MEDICINE, "Bandages");
-    REQUIRE_THROWS(c->get_ability_group(ability::MEDICINE).get_specialisation(sut.specialisation_name()));
-    REQUIRE(c->get_ability_group(ability::MEDICINE).get_specialisation(sut2.specialisation_name()).value() == 1);
+    REQUIRE(c->get(ability::MEDICINE).specialisation(sut.specialisation_name()).value() == 0);
+    REQUIRE(c->get(ability::MEDICINE).specialisation(sut2.specialisation_name()).value() == 1);
     sut.apply(c);
     sut2.apply(c);
-    REQUIRE(c->get_ability_group(ability::MEDICINE).get_specialisation(sut.specialisation_name()).value() == sut.amount());
-    REQUIRE(c->get_ability_group(ability::MEDICINE).get_specialisation(sut2.specialisation_name()).value() == sut2.amount());
+    REQUIRE(c->get(ability::MEDICINE).specialisation( sut.specialisation_name()) == sut.amount());
+    REQUIRE(c->get(ability::MEDICINE).specialisation(sut2.specialisation_name()) == sut2.amount());
   }
 
   SECTION("should serialise and deserialise successfully")

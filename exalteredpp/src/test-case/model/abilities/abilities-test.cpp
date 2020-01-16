@@ -1,6 +1,5 @@
 #include "../thirdparty/catch/catch.hpp"
 #include "abilities/abilities.h"
-#include "abilities/ability_group.h"
 #include "abilities/ability.h"
 #include "json_constants.h"
 
@@ -14,23 +13,25 @@ TEST_CASE("Abilities")
 
   SECTION("should save ability in map")
   {
-    ability::ability ability(TEST_ABILITY_NAME, TEST_ABILITY_VALUE);
+    ability::ability ability_w(ability::WAR, 2);
     ability::abilities sut;
-    sut[ability::WAR] = ability::ability_group(ability::WAR, {ability});
-    REQUIRE(sut[ability::WAR].get_ability(TEST_ABILITY_NAME).name() == TEST_ABILITY_NAME);
+    sut[ability_w.name()] = ability_w;
+    REQUIRE(sut[ability_w.name()].name() == ability_w.name());
+    REQUIRE(sut.has(ability::WAR));
+    REQUIRE(sut.has(ability_w.name()));
   }
 
   SECTION("should create correctly from JSON")
   {
     ability::abilities stub;
-    ability::ability ability(TEST_ABILITY_NAME, TEST_ABILITY_VALUE);
-    stub[ability::WAR] = ability::ability_group(ability::WAR, {ability}, {ability::specialisation("")});
+    ability::ability ability(ability::WAR, TEST_ABILITY_VALUE);
+    ability.add("spec", 1);
+    stub[ability::WAR] = ability;
 
     ability::abilities sut;
     sut.deserialise(stub.serialise());
 
-    REQUIRE(sut[ability::WAR].get_ability(TEST_ABILITY_NAME).name() == TEST_ABILITY_NAME);
-    REQUIRE(sut[ability::WAR].get_abilities().size() == 1);
-    REQUIRE(sut[ability::WAR].get_specialisations().size() == 1);
+    REQUIRE(sut[ability::WAR].name().name() == "War");
+    REQUIRE(sut[ability::WAR].specialisations().size() == 1);
   }
 }

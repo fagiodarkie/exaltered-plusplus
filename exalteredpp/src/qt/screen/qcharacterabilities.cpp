@@ -25,13 +25,10 @@ namespace qt
         {
           QGroupBox *category_group = new QGroupBox(ability::ABILITY_CATEGORY_NAMES.at(category).c_str());
           QFormLayout *category_form = new QFormLayout;
-          for (auto ability_name: ability::ABILITIES_IN_CATEGORY.at(category))
-          {
-            for (ability::ability ability : character->get_ability_group(ability_name).get_abilities())
-              {
-                category_form->addRow(ability.name().c_str(), new QLabel(QString::number(ability.get_ability_value())));
-              }
-          }
+          for (ability::ability ability : character->abilities())
+            if (ability::CATEGORY_OF_ABILITY(ability.name().ability_type) == category)
+              category_form->addRow(label(ability.name()), new QLabel(QString::number(ability.value())));
+
           category_group->setLayout(category_form);
           inner_layout->addWidget(category_group);
         }

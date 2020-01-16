@@ -22,7 +22,7 @@ namespace qt {
 
     struct validation_result
     {
-      QMap<ability::detailed_ability, operation_enabled> operations;
+      QMap<ability::ability_name, operation_enabled> operations;
       unsigned int total_spent, total_spent_in_favorites, remaining_favorites, remaining_caste_favorites;
     };
 
@@ -45,7 +45,7 @@ namespace qt {
       void abilities_chosen(ability::abilities& abilities);
 
     private:
-      QMap<ability::ability_enum, ability_value_row*> row_of_ability;
+      QMap<ability::ability_name, ability_value_row*> row_of_ability;
       void next_issued();
       validation_result check_current_selection();
       void regenerate_abilities();

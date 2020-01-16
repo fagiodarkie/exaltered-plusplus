@@ -48,7 +48,6 @@ SOURCES += \
     ../../src/errors/invalid_parameter.cpp \
     ../../src/model/abilities/abilities.cpp \
     ../../src/model/abilities/ability.cpp \
-    ../../src/model/abilities/ability_group.cpp \
     ../../src/model/abilities/specialisation.cpp \
     ../../src/model/attributes/attributes.cpp \
     ../../src/model/character/character.cpp \
@@ -134,10 +133,10 @@ HEADERS += \
     ../../headers/errors/characternotfoundexception.h \
     ../../headers/errors/error_codes.h \
     ../../headers/errors/invalid_parameter.h \
+    ../../headers/model/abilities/ability_names.h \
     ../../headers/model/behavioral/name_value_pair.h \
     ../../headers/model/abilities/abilities.h \
     ../../headers/model/abilities/ability.h \
-    ../../headers/model/abilities/ability_group.h \
     ../../headers/model/abilities/ability.h \
     ../../headers/model/abilities/specialisation.h \
     ../../headers/model/attributes/attribute_names.h \

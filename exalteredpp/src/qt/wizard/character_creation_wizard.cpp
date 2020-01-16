@@ -23,14 +23,11 @@ namespace qt {
         {
           if (ability::has_declination(ability_e))
             {
-              std::vector<ability::ability> group_abilities;
               for (auto declination : ability::ability_declination::DECLINATIONS_OF_ABILITY.at(ability_e))
-                group_abilities.push_back(ability::ability(declination));
-
-              abilities[ability_e] = ability_group(ability_e, group_abilities);
+                abilities.add(ability::ability(ability::ability_name(ability_e, declination)));
             }
           else
-            abilities[ability_e] = ability_group(ability_e);
+            abilities.add(ability::ability(ability_e));
         }
 
       name_page = new character_creation_name_type_page(this);
@@ -80,7 +77,7 @@ namespace qt {
       power.essence().set_khan(calculator.starting_khan(type));
       power.essence().set_permanent_essence(calculator.starting_essence(type));
 
-      attribute_priority_page->set_attribute_values(static_cast<int>(character_model.primary_category_attribute_value),
+      attribute_priority_page->set_values(static_cast<int>(character_model.primary_category_attribute_value),
                                                     static_cast<int>(character_model.secondary_category_attribute_value),
                                                     static_cast<int>(character_model.tertiary_category_attribute_value));
 
@@ -113,15 +110,15 @@ namespace qt {
 
           // if there is no favorite ability, set one.
           bool has_at_least_one = false;
-          for (auto ab: abilities.at(fav_ability).get_abilities())
-            if (ab.is_favourite())
+          for (auto ab: abilities.with_type(fav_ability))
+            if (ab.favored())
               {
                 has_at_least_one = true;
                 break;
               }
 
           if (!has_at_least_one)
-            abilities[fav_ability].set_favourite(true, declination);
+            abilities[ability::ability_name(fav_ability, declination)].set_favored();
 
         }
 

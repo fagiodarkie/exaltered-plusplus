@@ -10,7 +10,7 @@ namespace qt { namespace widget {
     generate_widget();
   }
 
-  ability_declination_selector::ability_declination_selector(ability::detailed_ability ability, bool is_ability_editable, bool is_declination_editable, bool is_favored, QWidget *parent)
+  ability_declination_selector::ability_declination_selector(ability::ability_name ability, bool is_ability_editable, bool is_declination_editable, bool is_favored, QWidget *parent)
     : QWidget(parent), _ability(ability), _is_declination_editable(is_declination_editable), _is_ability_editable(is_ability_editable), _is_favored(is_favored)
   {
     generate_widget();
@@ -22,7 +22,7 @@ namespace qt { namespace widget {
     generate_widget();
   }
 
-  ability::detailed_ability ability_declination_selector::value() const
+  ability::ability_name ability_declination_selector::value() const
   {
     return _ability;
   }
@@ -54,15 +54,15 @@ namespace qt { namespace widget {
     ability_selection = new QComboBox;
     generate_available_abilities();
     ability_selection->setEnabled(_is_ability_editable);
-    ability_selection->setCurrentText(ability::ABILITY_NAME.at(_ability.ability).c_str());
+    ability_selection->setCurrentText(ability::ABILITY_NAME.at(_ability.ability_type).c_str());
 
     declination_selection = new QComboBox;
     declination_selection->setEnabled(_is_declination_editable);
-    if (ability::has_declination(_ability.ability))
+    if (ability::has_declination(_ability.ability_type))
       {
         generate_available_declinations();
       }
-    declination_selection->setCurrentText(_ability.declination.c_str());
+    declination_selection->setCurrentText(_ability.subability.c_str());
 
     ability_and_declination_layout->addWidget(ability_name, 0, 0);
     ability_and_declination_layout->addWidget(declination_name, 0, 1);
@@ -81,17 +81,17 @@ namespace qt { namespace widget {
     if (!_is_ability_editable && !_is_declination_editable)
       return;
 
-    _ability.ability = selected_ability();
-    if (ability::has_declination(_ability.ability))
+    _ability.ability_type = selected_ability();
+    if (ability::has_declination(_ability.ability_type))
       {
         auto current_declination = declination_selection->currentText().toStdString();
         if (current_declination != ability::ability_declination::NO_DECLINATION
             && !current_declination.empty()
-            && (!_character_reference || _character_reference->get_ability_group(_ability.ability).has_ability(current_declination)))
-        _ability.declination = current_declination;
+            && (!_character_reference || _character_reference->has(ability::ability_name(_ability.ability_type, current_declination))))
+        _ability.subability = current_declination;
       }
     else {
-        _ability.declination = ability::ability_declination::NO_DECLINATION;
+        _ability.subability = ability::ability_declination::NO_DECLINATION;
       }
   }
 
@@ -114,9 +114,9 @@ namespace qt { namespace widget {
     QList<QWidget*> to_display;
 
     if (_character_reference)
-      _is_favored = _character_reference->get_ability(_ability).is_favourite();
+      _is_favored = _character_reference->get(_ability).favored();
 
-    std::string ability_name_str = ability::ABILITY_NAME.at(_ability.ability);
+    std::string ability_name_str = ability::ABILITY_NAME.at(_ability.ability_type);
     ability_name->setText(ability_name_str.c_str());
     ability_selection->setCurrentText(ability_name_str.c_str());
 
@@ -129,9 +129,9 @@ namespace qt { namespace widget {
         to_display.push_back(ability_selection);
       }
 
-    if (ability::has_declination(_ability.ability))
+    if (ability::has_declination(_ability.ability_type))
       {
-        declination_name->setText(_ability.declination.c_str());
+        declination_name->setText(_ability.subability.c_str());
         if (_is_declination_editable)
           {
             generate_available_declinations();
@@ -152,7 +152,7 @@ namespace qt { namespace widget {
     refresh();
   }
 
-  void ability_declination_selector::set_ability(detailed_ability ability)
+  void ability_declination_selector::set_ability(ability::ability_name ability)
   {
     _ability = ability;
     emit on_ability_selected(ability);
@@ -175,13 +175,13 @@ namespace qt { namespace widget {
 
     if (_character_reference)
       {
-        for (auto ability: _character_reference->get_ability_group(selected_ability()).get_detailed_abilities())
-          declination_selection->addItem(ability.declination.c_str());
+        for (auto ability: _character_reference->abilities(_ability.ability_type).keys())
+          declination_selection->addItem(ability.subability.c_str());
 
         return;
       }
 
-    for (auto declination: ability::ability_declination::DECLINATIONS_OF_ABILITY.at(_ability.ability))
+    for (auto declination: ability::ability_declination::DECLINATIONS_OF_ABILITY.at(_ability.ability_type))
       declination_selection->addItem(declination.c_str());
   }
 

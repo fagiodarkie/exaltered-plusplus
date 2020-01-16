@@ -9,18 +9,18 @@ TEST_CASE("common worker")
 {
   human_worker sut;
   character::character test_character = generate_character("name", 0);
-  test_character.set_attribute(attribute::DEXTERITY, 4);
-  test_character.set_attribute(attribute::STRENGTH, 3);
-  test_character.set_attribute(attribute::CONSTITUTION, 3);
-  test_character.set_attribute(attribute::INTELLIGENCE, 3);
-  test_character.set_attribute(attribute::CHARISMA, 3);
-  test_character.set_attribute(attribute::MANIPULATION, 3);
-  test_character.set_attribute(attribute::APPEARANCE, 3);
-  test_character.set_attribute(attribute::WITS, 3);
-  test_character.set_ability_value(ability::MELEE, 3);
-  test_character.set_ability_value(ability::DODGE, 3);
-  test_character.set_ability_value(ability::RESISTANCE, 3);
-  test_character.set_ability_value(ability::INTEGRITY, 3);
+  test_character.set(attribute::DEXTERITY, 4);
+  test_character.set(attribute::STRENGTH, 3);
+  test_character.set(attribute::CONSTITUTION, 3);
+  test_character.set(attribute::INTELLIGENCE, 3);
+  test_character.set(attribute::CHARISMA, 3);
+  test_character.set(attribute::MANIPULATION, 3);
+  test_character.set(attribute::APPEARANCE, 3);
+  test_character.set(attribute::WITS, 3);
+  test_character.set(ability::MELEE, 3);
+  test_character.set(ability::DODGE, 3);
+  test_character.set(ability::RESISTANCE, 3);
+  test_character.set(ability::INTEGRITY, 3);
 
   SECTION("should compute human values rounding down")
   {
@@ -68,15 +68,15 @@ TEST_CASE("exalt worker")
 
   SECTION("should compute human values rounding up")
   {
-    test_character.set_attribute(attribute::DEXTERITY, 4);
-    test_character.set_attribute(attribute::STRENGTH, 3);
-    test_character.set_attribute(attribute::MANIPULATION, 5);
-    test_character.set_attribute(attribute::CHARISMA, 5);
-    test_character.set_attribute(attribute::APPEARANCE, 1);
+    test_character.set(attribute::DEXTERITY, 4);
+    test_character.set(attribute::STRENGTH, 3);
+    test_character.set(attribute::MANIPULATION, 5);
+    test_character.set(attribute::CHARISMA, 5);
+    test_character.set(attribute::APPEARANCE, 1);
     test_character.willpower().set_permanent_willpower(5);
     test_character.essence().set_permanent_essence(5);
-    test_character.set_ability_value(ability::MELEE, 3);
-    test_character.set_ability_value(ability::DODGE, 3);
+    test_character.set(ability::MELEE, 3);
+    test_character.set(ability::DODGE, 3);
 
     // parry is ((dex + str) / 2 + ability) / 2. In this case it's ((4 + 3) / 2 + 3) / 2, which should yield 4 since it rounds up
     REQUIRE(sut.compute_parry_dv(test_character, ability::MELEE) == 4);

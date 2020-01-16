@@ -191,16 +191,16 @@ namespace qt { namespace widget {
         }
         case narrative::ABILITY: {
           auto ability = selected_ability();
-          purchase = std::make_shared<ability_purchase>(ability, _character->get_ability(ability) + 1);
+          purchase = std::make_shared<ability_purchase>(ability, _character->get(ability) + 1);
           break;
         }
         case narrative::SPECIALISATION: {
-          auto ability = selected_ability().ability;
+          auto ability = selected_ability();
           auto specialisation = specialty_freetext->text().trimmed().toStdString();
-          unsigned int current_value = _character->get_ability_group(ability).has_specialisation(specialisation)
-              ? _character->get_ability_group(ability).get_specialisation(specialisation).value()
+          unsigned int current_value = _character->get(ability).has(specialisation)
+              ? _character->get(ability).specialisation(specialisation)
               : 0;
-          purchase = std::make_shared<specialisation_purchase>(current_value + 1, ability, specialisation);
+          purchase = std::make_shared<specialisation_purchase>(current_value + 1, ability, ability::specialisation(specialisation));
           break;
         }
         case narrative::VIRTUE: {
@@ -231,7 +231,7 @@ namespace qt { namespace widget {
       return static_cast<attribute::attribute_enum>(attribute_dropdown->currentData().toInt());
     }
 
-    ability::detailed_ability experience_purchase_widget::selected_ability() const
+    ability::ability_name experience_purchase_widget::selected_ability() const
     {
       return ability_selector->value();
     }

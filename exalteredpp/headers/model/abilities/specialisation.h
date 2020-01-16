@@ -12,10 +12,15 @@ namespace ability {
     specialisation(const specialisation& o);
     specialisation& operator=(const specialisation& o);
 
+    operator std::string() const;
+    operator unsigned int() const;
+    void operator+=(unsigned int o);
+
     std::string name() const;
     unsigned int value() const;
 
     void set_value(unsigned int new_value);
+    void increase(unsigned int new_value);
 
     virtual void serialisation() override;
 
@@ -28,4 +33,9 @@ namespace ability {
     unsigned int _value;
 
   };
+
+  static auto filter_specialisation_by_name = [](const std::string& specname) {
+      return [specname](const specialisation& spec) { return spec.name() == specname; };
+    };
+
 }

@@ -73,7 +73,7 @@ namespace qt {
         }
     }
 
-    void attributes_priority_page::set_attribute_values(int primary_value, int secondary_value, int tertiary_value)
+    void attributes_priority_page::set_values(int primary_value, int secondary_value, int tertiary_value)
     {
       primary_label   ->setText(ATTRIBUTE_LABEL_WITH_TOTAL_POINTS(PRIMARY_ATTRIBUTE, primary_value));
       secondary_label ->setText(ATTRIBUTE_LABEL_WITH_TOTAL_POINTS(SECONDARY_ATTRIBUTE, secondary_value));

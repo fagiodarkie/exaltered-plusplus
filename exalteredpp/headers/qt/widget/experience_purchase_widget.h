@@ -34,7 +34,7 @@ namespace qt { namespace widget {
       void submit_purchase();
 
       attribute::attribute_enum selected_attribute() const;
-      ability::detailed_ability selected_ability() const;
+      ability::ability_name selected_ability() const;
       virtues::virtue_enum selected_virtue() const;
 
       void validate(unsigned int cost) const;

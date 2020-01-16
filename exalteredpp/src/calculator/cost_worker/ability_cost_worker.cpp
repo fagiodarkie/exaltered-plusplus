@@ -10,15 +10,15 @@ namespace calculator { namespace cost {
 
       auto ability_name = ability->ability();
 
-      if (!character->has_ability(ability_name)
-          || (character->get_ability(ability_name) == 0))
+      if (!character->has(ability_name)
+          || (character->get(ability_name) == 0))
         return FIRST_DOT;
 
-      auto current_ability = character->get_ability(ability_name);
+      auto current_ability = character->get(ability_name);
 
-      unsigned int cost = current_ability.get_ability_value() * STANDARD_MULTIPLIER;
+      unsigned int cost = current_ability.value() * STANDARD_MULTIPLIER;
 
-      if (current_ability.is_favourite())
+      if (current_ability.favored())
         cost -= FAVORITE_DISCOUNT;
 
       return cost;

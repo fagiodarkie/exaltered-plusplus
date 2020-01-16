@@ -53,7 +53,6 @@ HEADERS += \
     ../../headers/model/behavioral/name_value_pair.h \
     ../../headers/model/abilities/abilities.h \
     ../../headers/model/abilities/ability.h \
-    ../../headers/model/abilities/ability_group.h \
     ../../headers/model/abilities/ability.h \
     ../../headers/model/abilities/abstract_ability_factory.h \
     ../../headers/model/abilities/specialisation.h \
@@ -118,7 +117,6 @@ SOURCES += \
     ../../src/errors/invalid_parameter.cpp \
     ../../src/model/abilities/abilities.cpp \
     ../../src/model/abilities/ability.cpp \
-    ../../src/model/abilities/ability_group.cpp \
     ../../src/model/abilities/specialisation.cpp \
     ../../src/model/attributes/attributes.cpp \
     ../../src/model/character/character.cpp \
@@ -161,7 +159,6 @@ SOURCES += \
     ../../src/test-case/managers/character_manager-test.cpp \
     ../../src/test-case/managers/filesystem_db-test.cpp \
     ../../src/test-case/model/abilities/abilities-test.cpp \
-    ../../src/test-case/model/abilities/ability-group-test.cpp \
     ../../src/test-case/model/abilities/ability-test.cpp \
     ../../src/test-case/model/abilities/specialisation-test.cpp \
     ../../src/test-case/model/attributes/attributes-test.cpp \

@@ -8,123 +8,73 @@
 
 namespace qt { namespace wizard {
 
-    const char* ability_value_row::REFERRED_ABILITY = "referred_ability";
-    const char* ability_value_row::REFERRED_SUB_ABILITY = "referred_sub_ability";
-
-    ability_value_row::ability_value_row(const ability_group& model_ability_group)
-      :_ability(model_ability_group)
+    ability_value_row::ability_value_row(const ability::ability& model_ability)
+      :_ability(model_ability)
     {
-      add_declination = new QPushButton("Add Declination");
-      connect(add_declination, &QPushButton::clicked, this, &ability_value_row::show_declination_wizard);
+      increase_ability_button = new QPushButton("+");
+      decrease_ability_button = new QPushButton("-");
+      make_favorite_button = new QPushButton("*");
+      increase_ability_button->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
+      decrease_ability_button->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
+      make_favorite_button   ->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
 
-      declination_dialog = new widget::add_ability_declination_dialog(QApplication::activeWindow());
-      connect(declination_dialog, &widget::add_ability_declination_dialog::declination_selected, this, &ability_value_row::add_new_declination);
+      connect(increase_ability_button, &QPushButton::clicked, this, &ability_value_row::on_increase);
+      connect(decrease_ability_button, &QPushButton::clicked, this, &ability_value_row::on_decrease);
+      connect(make_favorite_button,    &QPushButton::clicked, this, &ability_value_row::on_fav_toggle);
 
-      QList<QString> current_declinations;
-      for (auto ability: _ability.get_detailed_abilities())
-        {
-          current_declinations.append(ability.declination.c_str());
-          QPushButton *increase = new QPushButton("+"), *decrease = new QPushButton("-"), *fav = new QPushButton("*");
-          increase->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
-          decrease->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
-          fav     ->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
-
-          connect(increase, &QPushButton::clicked, this, &ability_value_row::on_increase);
-          connect(decrease, &QPushButton::clicked, this, &ability_value_row::on_decrease);
-          connect(fav,      &QPushButton::clicked, this, &ability_value_row::on_fav_toggle);
-
-          increase->setProperty(REFERRED_SUB_ABILITY, QVariant(ability.declination.c_str()));
-          decrease->setProperty(REFERRED_SUB_ABILITY, QVariant(ability.declination.c_str()));
-          fav     ->setProperty(REFERRED_SUB_ABILITY, QVariant(ability.declination.c_str()));
-
-          increase_ability_buttons[ability.declination] = increase;
-          decrease_ability_buttons[ability.declination] = decrease;
-          make_favorite_buttons[ability.declination] = fav;
-
-          widget::ability_declination_selector *declination = new widget::ability_declination_selector(ability,
-                                                false, false, _ability.get_ability(ability.declination).is_favourite());
-          change_declination_buttons[ability.declination] = declination;
-
-          QLabel *value = new QLabel(QString::number(_ability.get_ability(ability.declination)));
-          value->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
-          ability_value_labels[ability.declination] = value;
-        }
-
-      declination_dialog->set_prohibited_declinations(current_declinations);
-    }
-
-    void ability_value_row::add_new_declination(const QString& new_declination_name)
-    {
-      declination_dialog->hide();
-      _ability.add_ability(ability::ability(new_declination_name.toStdString()));
-      emit new_declination();
-    }
-
-    void ability_value_row::show_declination_wizard() const
-    {
-      declination_dialog->show();
+      ability_value_label = new QLabel(QString::number(_ability.value()));
+      ability_value_label->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
+      ability_name_label = label(_ability.name());
     }
 
     void ability_value_row::on_decrease()
     {
-      auto sub_ability = sender()->property(REFERRED_SUB_ABILITY).toString().toStdString();
-
-      _ability.set_ability_value(sub_ability, _ability.get_ability(sub_ability).get_ability_value() - 1);
-      ability_value_labels[sub_ability]->setText(QString::number(_ability.get_ability(sub_ability)));
-
+      --_ability;
+      ability_value_label->setText(QString::number(_ability.value()));
       emit ability_change();
     }
 
     void ability_value_row::on_increase()
     {
-      auto sub_ability = sender()->property(REFERRED_SUB_ABILITY).toString().toStdString();
-      _ability.set_ability_value(sub_ability, _ability.get_ability(sub_ability).get_ability_value() + 1);
-      ability_value_labels[sub_ability]->setText(QString::number(_ability.get_ability(sub_ability)));
-
+      ++_ability;
+      ability_value_label->setText(QString::number(_ability.value()));
       emit ability_change();
     }
 
     void ability_value_row::on_fav_toggle()
     {
-      auto sub_ability = sender()->property(REFERRED_SUB_ABILITY).toString().toStdString();
-      bool currently_favored = _ability.get_ability(sub_ability).is_favourite();
-      _ability.set_favourite(!currently_favored, sub_ability);
+      _ability.set_favored(!_ability.favored());
 
-      change_declination_buttons[sub_ability]->set_favored(!currently_favored);
+      if (_ability.favored())
+        ability_name_label->setStyleSheet("font-weight: bold");
+      else
+        ability_name_label->setStyleSheet("font-weight: normal");
 
       emit ability_change();
     }
 
-    void ability_value_row::update_operations(const std::string& declination, bool allow_increase, bool allow_decrease, bool allow_favorite, bool allow_unfavorite)
+    void ability_value_row::update_operations(bool allow_increase, bool allow_decrease, bool allow_favorite, bool allow_unfavorite)
     {
-      increase_ability_buttons[declination]->setEnabled(allow_increase);
-      decrease_ability_buttons[declination]->setEnabled(allow_decrease);
-      bool allow_fav = (_ability.get_ability(declination).is_favourite() && allow_unfavorite)
-          || (!_ability.get_ability(declination).is_favourite() && allow_favorite);
-      make_favorite_buttons[declination]->setEnabled(allow_fav);
+      increase_ability_button->setEnabled(allow_increase);
+      decrease_ability_button->setEnabled(allow_decrease);
+      bool allow_fav = (_ability.favored() && allow_unfavorite)
+          || (!_ability.favored() && allow_favorite);
+      make_favorite_button->setEnabled(allow_fav);
     }
 
-    ability_group ability_value_row::ability() const
+    ability::ability ability_value_row::ability() const
     {
       return _ability;
     }
 
-    void ability_value_row::add_rows(QFormLayout *form) const
+    void ability_value_row::add_row(QFormLayout *form) const
     {      
-      for (auto ability: _ability.get_detailed_abilities())
-        {
-          QHBoxLayout *buttons_layout = new QHBoxLayout;
-          buttons_layout->addWidget(decrease_ability_buttons  [ability.declination]);
-          buttons_layout->addWidget(ability_value_labels      [ability.declination]);
-          buttons_layout->addWidget(increase_ability_buttons  [ability.declination]);
-          buttons_layout->addWidget(make_favorite_buttons     [ability.declination]);
+      QHBoxLayout *buttons_layout = new QHBoxLayout;
+      buttons_layout->addWidget(decrease_ability_button);
+      buttons_layout->addWidget(ability_value_label    );
+      buttons_layout->addWidget(increase_ability_button);
+      buttons_layout->addWidget(make_favorite_button   );
 
-          form->addRow(change_declination_buttons[ability.declination], buttons_layout);
-        }
-
-      if (ability::has_declination(_ability.get_ability_enum()))
-        {
-          form->addRow(add_declination, new QWidget);
-        }
+      form->addRow(ability_name_label, buttons_layout);
     }
 } }

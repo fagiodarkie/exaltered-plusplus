@@ -10,7 +10,7 @@
 #include "character.h"
 #include <memory>
 
-using ability::detailed_ability;
+using ability::ability_name;
 
 namespace qt { namespace widget {
     class ability_declination_selector : public QWidget
@@ -18,20 +18,20 @@ namespace qt { namespace widget {
       Q_OBJECT
     public:
       explicit ability_declination_selector(QWidget *parent = nullptr);
-      ability_declination_selector(detailed_ability ability, bool is_ability_editable, bool is_declination_editable, bool is_favored, QWidget *parent = nullptr);
+      ability_declination_selector(ability::ability_name ability, bool is_ability_editable, bool is_declination_editable, bool is_favored, QWidget *parent = nullptr);
       ability_declination_selector(std::shared_ptr<character::character> character, QWidget *parent = nullptr);
 
-      void set_ability(detailed_ability ability);
+      void set_ability(ability::ability_name ability);
       void set_favored(bool favored);
 
-      detailed_ability value() const;
+      ability::ability_name value() const;
 
     signals:
-      void on_ability_selected(detailed_ability ability);
+      void on_ability_selected(ability::ability_name ability);
 
     private:
 
-      detailed_ability _ability;
+      ability::ability_name _ability;
       std::shared_ptr<character::character> _character_reference;
 
       bool _is_declination_editable, _is_ability_editable, _is_favored;

@@ -6,6 +6,8 @@
 #include <algorithm>
 #include "common/reverse_search.h"
 #include "text/character_text_constants.h"
+#include "serialisation/json_constants.h"
+#include "../thirdparty/serialisable/serialisable.hpp"
 
 namespace ability
 {
@@ -118,35 +120,49 @@ namespace ability
     return *std::find_if(ABILITY_CATEGORIES.begin(), ABILITY_CATEGORIES.end(), [ability](ability_category category) { return commons::contains(ABILITIES_IN_CATEGORY.at(category), ability); } );
   }
 
-  struct detailed_ability {
-    ability_enum ability;
-    std::string declination;
+  class ability_name : public Serialisable {
+  public:
+    ability_enum ability_type;
+    std::string subability;
 
-    detailed_ability(ability_enum ab, std::string dec = ability_declination::NO_DECLINATION)
-      : ability(ab), declination(dec) {}
+    ability_name(ability_enum ab, std::string dec = ability_declination::NO_DECLINATION)
+      : ability_type(ab), subability(dec) {}
 
-    detailed_ability(const detailed_ability& other)
-      : ability (other.ability), declination(other.declination) {}
+    ability_name(const ability_name& other)
+      : ability_type (other.ability_type), subability(other.subability) {}
 
-    bool operator==(const detailed_ability& other) const
+    operator std::string() const
     {
-      return (other.ability == ability) && (other.declination == declination);
+      return name();
     }
 
-    bool operator< (const detailed_ability& other) const
+    bool operator==(const ability_name& other) const
     {
-      return ability < other.ability
-          || (ability == other.ability && declination < other.declination);
+      return (other.ability_type == ability_type) && (other.subability == subability);
+    }
+
+    bool operator< (const ability_name& other) const
+    {
+      return ability_type < other.ability_type
+          || (ability_type == other.ability_type && subability < other.subability);
     }
 
     std::string name() const
     {
-      auto ab_name = ABILITY_NAME.at(ability);
-      if (has_declination(ability))
+      auto ab_name = ABILITY_NAME.at(ability_type);
+      if (!has_declination(ability_type))
         return ab_name;
 
-      return ab_name + " (" + declination + ")";
+      return ab_name + " (" + subability + ")";
     }
+
+    void serialisation() override
+    {
+      synch(serialisation::json_constants::SLOT_ABILITY, ability_type);
+      synch(serialisation::json_constants::SLOT_DECLINATION, subability);
+    }
+
+    virtual ~ability_name() { }
   };
 
 }

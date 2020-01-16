@@ -11,9 +11,9 @@ namespace narrative {
     class ability_purchase : public abstract_purchase, public Serialisable
     {
     public:
-      ability_purchase(ability::detailed_ability ability = ability::MELEE, unsigned int amount = 1);
+      ability_purchase(ability::ability_name ability = ability::MELEE, unsigned int amount = 1);
 
-      ability::detailed_ability ability() const;
+      ability::ability_name ability() const;
       unsigned int amount() const;
 
       virtual void apply(std::shared_ptr<character::character> c) override;
@@ -25,10 +25,8 @@ namespace narrative {
       virtual ~ability_purchase() override;
 
     private:
-      ability::detailed_ability _ability;
+      ability::ability_name _ability;
       unsigned int _amount;
-
-      std::string ability_string() const;
     };
 
 }

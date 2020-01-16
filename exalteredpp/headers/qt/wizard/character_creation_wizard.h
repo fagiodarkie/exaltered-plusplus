@@ -46,7 +46,7 @@ namespace qt {
       character::creation::character_type_model             character_model;
       character::creation::character_creation_configuration configuration;
       character::exalt::caste                               caste;
-      ::virtues::virtues                                      character_virtues;
+      ::virtues::virtues                                    character_virtues;
       attribute::attributes                                 attributes;
       ability::abilities                                    abilities;
       QMap<attribute::attribute_category, unsigned int>     points_per_category;

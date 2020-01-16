@@ -11,13 +11,13 @@ namespace narrative {
   class specialisation_purchase : public abstract_purchase, public Serialisable
   {
   public:
-    specialisation_purchase(unsigned int amount = 0, ability::ability_enum ability = ability::MELEE, const std::string& specialisation = "");
+    specialisation_purchase(unsigned int amount = 0, ability::ability_name ability = ability::MELEE, const std::string& specialisation = "");
 
     virtual void apply(std::shared_ptr<character::character> c) override;
 
-    ability::ability_enum ability() const;
+    ability::ability_name ability() const;
     std::string specialisation_name() const;
-    int amount() const;
+    unsigned int amount() const;
 
     virtual void serialisation() override;
     virtual std::string description() const override;
@@ -27,10 +27,8 @@ namespace narrative {
 
   private:
     unsigned int _amount;
-    ability::ability_enum _ability;
+    ability::ability_name _ability;
     std::string _specialisation;
-
-    std::string ability_string() const;
   };
 }
 #endif // SPECIALISATION_PURCHASE_H

@@ -7,7 +7,7 @@ TEST_CASE("logos")
   {
     power::logos sut(1, 2, 3, 4, 6, 5);
 
-    REQUIRE(sut.logos()                         == 1);
+    REQUIRE(sut.get_logos()                         == 1);
     REQUIRE(sut.get_current_qabbalah()              == 2);
     REQUIRE(sut.get_total_qabbalah()                == 3);
     REQUIRE(sut.get_absolute_principle_connection() == 4);
@@ -22,7 +22,7 @@ TEST_CASE("logos")
     power::logos sut;
     sut.deserialise(stub.serialise());
 
-    REQUIRE(sut.logos()                         == stub.logos()                        );
+    REQUIRE(sut.get_logos()                         == stub.get_logos()                        );
     REQUIRE(sut.get_current_qabbalah()              == stub.get_current_qabbalah()             );
     REQUIRE(sut.get_total_qabbalah()                == stub.get_total_qabbalah()               );
     REQUIRE(sut.get_absolute_principle_connection() == stub.get_absolute_principle_connection());

@@ -39,31 +39,36 @@ namespace character
 
       attribute::attributes attributes() const;
       int attribute(attribute::attribute_enum name) const;
-      void set_attribute(attribute::attribute_enum name, int value);
+      void set(attribute::attribute_enum name, int value);
+      int& operator[](attribute::attribute_enum name);
 
-      ability::ability_group get_ability_group(ability::ability_enum name) const;
-      ability::ability get_ability(ability::ability_enum name, const std::string& ability_declination = ability::ability_declination::NO_DECLINATION) const;
-      ability::ability get_ability(const ability::detailed_ability& detailed_ability) const;
-      bool has_ability(const ability::detailed_ability& detailed_ability) const;
-      void set_ability(ability::ability_enum name, ability::ability_group ability);
-      void set_ability_value(ability::ability_enum name, int new_val);
-      void set_ability_value(ability::detailed_ability name, int new_val);
-      void add_ability_specialisation(ability::ability_enum name, ability::specialisation specialisation);
+      ability::ability get(ability::ability_enum name, const std::string& ability_declination = ability::ability_declination::NO_DECLINATION) const;
+      ability::ability get(const ability::ability_name& detailed_ability) const;
+      ability::ability& operator[](const ability::ability_name& detailed_ability);
+      ability::ability& operator[](ability::ability_enum ability_e);
+      ability::ability& ability(ability::ability_enum name, const std::string& ability_declination = ability::ability_declination::NO_DECLINATION);
+      bool has(const ability::ability_name& detailed_ability) const;
+      void set(ability::ability_name name, ability::ability&& ability);
+      void set(ability::ability_name name, unsigned int new_val);
+      void add(ability::ability_name name, const ability::specialisation& specialisation);
+      ability::abilities abilities() const;
+      ability::abilities& abilities();
+      ability::abilities abilities(ability::ability_enum ability_type) const;
 
-      virtues::virtue virtue(virtues::virtue_enum v) const;
-      virtues::virtue& virtue(virtues::virtue_enum v);
+      virtues::virtue   virtue(virtues::virtue_enum v) const;
+      virtues::virtue&  virtue(virtues::virtue_enum v);
       unsigned int vice_value() const;
       virtues::vice_enum vice() const;
       void set_vice(virtues::vice_enum v, unsigned int vice_value);
 
       power::willpower& willpower();
-      power::willpower willpower() const;
-      power::essence& essence();
-      power::essence essence() const;
-      power::logos& logos();
-      power::logos  logos() const;
-      power::health& health();
-      power::health  health() const;
+      power::willpower  willpower() const;
+      power::essence&   essence();
+      power::essence    essence() const;
+      power::logos&     logos();
+      power::logos      logos() const;
+      power::health&    health();
+      power::health     health() const;
 
       narrative::experience_cluster& experience();
       narrative::experience_cluster experience() const;

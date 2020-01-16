@@ -26,9 +26,29 @@ namespace ability {
     return _value;
   }
 
+  void specialisation::increase(unsigned int new_value)
+  {
+    _value += new_value;
+  }
+
   void specialisation::set_value(unsigned int new_value)
   {
     _value = new_value;
+  }
+
+  specialisation::operator std::string() const
+  {
+    return _name;
+  }
+
+  specialisation::operator unsigned int() const
+  {
+    return _value;
+  }
+
+  void specialisation::operator+=(unsigned int o)
+  {
+    _value += o;
   }
 
   void specialisation::serialisation()

@@ -20,7 +20,7 @@ namespace qt {
 
       ~attributes_priority_page();
 
-      void set_attribute_values(int primary_value, int secondary_value, int tertiary_value);
+      void set_values(int primary_value, int secondary_value, int tertiary_value);
 
     signals:
       void attributes_chosen(QString primary_attribute, QString secondary_attribute, QString tertiary_attribute);

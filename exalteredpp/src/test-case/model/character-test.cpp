@@ -22,14 +22,6 @@ TEST_CASE("Character")
     REQUIRE(sut.name() == stub.name());
   }
 
-  SECTION("should accept a new ability group")
-  {
-    character::character sut = STANDARD_CHARACTER;
-    sut.set_ability(ability::WAR, ability::ability_group());
-    ability::ability_group saved_ability = sut.get_ability_group(ability::WAR);
-    REQUIRE(saved_ability.get_name() == "War");
-  }
-
   SECTION("should change name when change is issued")
   {
     character::character sut = STANDARD_CHARACTER;
@@ -40,15 +32,15 @@ TEST_CASE("Character")
   SECTION("should save and retrieve correct abilities")
   {
     character::character sut = STANDARD_CHARACTER;
-    sut.set_ability(ability::CRAFT, ability::ability_group(ability::CRAFT, { ability::ability("new_ability", 1) }));
-    sut.set_ability(ability::WAR, ability::ability_group(ability::WAR));
-    sut.set_ability_value(ability::MELEE, 5);
-    REQUIRE(sut.get_ability_group(ability::WAR).get_name() == "War");
-    REQUIRE(sut.get_ability(ability::WAR).name() == ability::ability_declination::NO_DECLINATION);
-    REQUIRE(sut.get_ability(ability::WAR).get_ability_value() == 0);
-    REQUIRE(sut.get_ability(ability::CRAFT, "new_ability").name() == "new_ability");
-    REQUIRE(sut.get_ability(ability::CRAFT, "new_ability").get_ability_value() == 1);
-    REQUIRE(sut.get_ability(ability::MELEE).get_ability_value() == 5);
+    sut.set(ability::ability_name(ability::CRAFT, "new_ability"), 1);
+    sut.set(ability::WAR, 0);
+    sut.set(ability::MELEE, 5);
+    REQUIRE(sut.get(ability::WAR).name().name() == "War");
+    REQUIRE(sut.get(ability::WAR).name().subability == ability::ability_declination::NO_DECLINATION);
+    REQUIRE(sut.get(ability::WAR).value() == 0);
+    REQUIRE(sut.get(ability::CRAFT, "new_ability").name().subability == "new_ability");
+    REQUIRE(sut.get(ability::CRAFT, "new_ability").value() == 1);
+    REQUIRE(sut.get(ability::MELEE).value() == 5);
   }
 
   SECTION("should retrieve caste correctly")
@@ -68,23 +60,24 @@ TEST_CASE("Character")
   SECTION("should manage abilities by detailed ability")
   {
     character::character sut = STANDARD_CHARACTER;
-    ability::detailed_ability strategy(ability::WAR, "Strategy");
-    sut.set_ability(ability::WAR, ability::ability_group(ability::WAR, {ability::ability(strategy.declination, 2)}));
-    REQUIRE(sut.has_ability(strategy));
-    auto ability = sut.get_ability(strategy);
-    REQUIRE(ability.get_ability_value() == 2);
-    REQUIRE(ability.name() == strategy.declination);
-    sut.set_ability_value(strategy, 4);
-    REQUIRE(sut.get_ability(strategy) == 4);
+    ability::ability_name strategy(ability::WAR, "Strategy");
+    sut.set(strategy, 2);
+    REQUIRE(sut.has(strategy));
+    auto ability = sut.get(strategy);
+    REQUIRE(ability.value() == 2);
+    REQUIRE(ability.name().name() == strategy.name());
+    sut.set(strategy, 4);
+    REQUIRE((int)sut.get(strategy) == 4);
   }
 
   SECTION("should manage specialisations")
   {
     character::character sut = STANDARD_CHARACTER;
     ability::specialisation spec("mounted", 2);
-    sut.add_ability_specialisation(ability::WAR, spec);
-    REQUIRE(sut.get_ability_group(ability::WAR).has_specialisation(spec.name()));
-    REQUIRE(sut.get_ability_group(ability::WAR).get_specialisation(spec.name()).value() == spec.value());
+    sut[ability::WAR].add(spec);
+    auto val = sut.get(ability::WAR).specialisation(spec.name());
+    REQUIRE(sut.get(ability::WAR).has(spec.name()));
+    REQUIRE(spec.value() == sut.get(ability::WAR).specialisation(spec.name()));
   }
 
   SECTION("should allow virtue & vice management")
@@ -117,7 +110,7 @@ TEST_CASE("Character")
     session[narrative::COSPLAY] = narrative::experience_award(narrative::COSPLAY, 3);
     sut.experience().award(session);
 
-    REQUIRE(sut.logos()     .logos()           == 2  );
+    REQUIRE(sut.logos()     .get_logos()           == 2  );
     REQUIRE(sut.essence()   .permanent_essence()   == 5  );
     REQUIRE(sut.willpower() .permanent_willpower() == 3  );
     REQUIRE(sut.health()    .total_health()        == 100);
@@ -131,7 +124,7 @@ TEST_CASE("Character")
     c_sut.health().set_total_health(100);
     c_sut.experience().award(session);
 
-    REQUIRE_FALSE(c_sut.logos()     .logos()           == 2  );
+    REQUIRE_FALSE(c_sut.logos()     .get_logos()           == 2  );
     REQUIRE_FALSE(c_sut.essence()   .permanent_essence()   == 5  );
     REQUIRE_FALSE(c_sut.willpower() .permanent_willpower() == 3  );
     REQUIRE_FALSE(c_sut.health()    .total_health()        == 100);
