@@ -166,7 +166,8 @@ namespace ability {
 
   void ability::remove(const std::string& specialisation_to_remove)
   {
-    std::remove_if(_specialisations.begin(), _specialisations.end(), filter_specialisation_by_name(specialisation_to_remove));
+    _specialisations.erase(std::remove_if(_specialisations.begin(), _specialisations.end(), filter_specialisation_by_name(specialisation_to_remove)),
+                           _specialisations.end());
   }
 
   std::vector<class specialisation> ability::specialisations() const

@@ -4,7 +4,7 @@
 
 #define CHARACTER_NAME "test-name"
 #define TEST_ATTRIBUTE_NAME "test-attribute"
-#define STANDARD_CHARACTER character::character(CHARACTER_NAME, character::creation::TYPE_MORTAL_HERO, character::exalt::caste::NO_CASTE, attribute::attributes(), ability::abilities(), virtues::virtues(), power::power_container())
+#define STANDARD_CHARACTER character::character(CHARACTER_NAME, character::creation::TYPE_MORTAL_HERO, character::exalt::caste::NO_CASTE, attribute::attributes(), ability::abilities(), virtues::virtues(), power::essence(), power::willpower(), power::health(), power::logos())
 
 TEST_CASE("Character")
 {

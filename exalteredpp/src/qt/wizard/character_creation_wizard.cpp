@@ -73,9 +73,9 @@ namespace qt {
       caste = selected_caste;
       character_model = creation::character_type_model::get_by_character_type(type);
 
-      power.logos().set_logos(calculator.starting_logos(type));
-      power.essence().set_khan(calculator.starting_khan(type));
-      power.essence().set_permanent_essence(calculator.starting_essence(type));
+      logos.set_logos(calculator.starting_logos(type));
+      essence.set_khan(calculator.starting_khan(type));
+      essence.set_permanent_essence(calculator.starting_essence(type));
 
       attribute_priority_page->set_values(static_cast<int>(character_model.primary_category_attribute_value),
                                                     static_cast<int>(character_model.secondary_category_attribute_value),
@@ -140,9 +140,9 @@ namespace qt {
     void character_creation_wizard::load_virtues(const virtues::virtues &virtues)
     {
       character_virtues = virtues;
-      persona.set_persona(calculator.compute_persona(new_character_type, attributes, power.willpower(), power.essence()));
+      persona.set_persona(calculator.compute_persona(new_character_type, attributes, willpower, essence));
 
-      persona_page->set_current_persona(virtues, persona, character_model, attributes, power);
+      persona_page->set_current_persona(virtues, persona, character_model, attributes);
 
       advance();
     }
@@ -169,7 +169,7 @@ namespace qt {
                               attributes,
                               abilities,
                               character_virtues,
-                              power);
+                              essence, willpower, health, logos);
 
           emit character_created(final_character);
         }

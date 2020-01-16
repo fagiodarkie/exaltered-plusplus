@@ -6,7 +6,7 @@ namespace power {
   class health : public Serialisable
   {
   public:
-    health(unsigned int total_health);
+    health(unsigned int total_health = 0);
     health(unsigned int total_health, unsigned int current_health);
 
     unsigned int total_health() const;

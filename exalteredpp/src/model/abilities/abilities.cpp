@@ -71,7 +71,8 @@ namespace ability {
     if (!has(ability))
       return;
 
-    std::remove_if(_abilities.begin(), _abilities.end(), filter_ability_by_ability_name(ability));
+    _abilities.erase(std::remove_if(_abilities.begin(), _abilities.end(), filter_ability_by_ability_name(ability)),
+                     _abilities.end());
   }
 
 

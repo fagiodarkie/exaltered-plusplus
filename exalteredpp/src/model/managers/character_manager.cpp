@@ -19,23 +19,29 @@ namespace manager {
     return result;
   }
 
-  std::shared_ptr<character::character> character_manager::create_character(const calculator::worker::abstract_calculator_worker& calculator, const std::string name, const character::creation::character_type type, const character::exalt::caste caste, const attribute::attributes attributes, const ability::abilities abilities, const virtues::virtues virtues, const power::power_container power_container)
+  std::shared_ptr<character::character> character_manager::create_character(const calculator::worker::abstract_calculator_worker& calculator,
+                                                                            const std::string& name,
+                                                                            const character::creation::character_type type,
+                                                                            const character::exalt::caste& caste,
+                                                                            const attribute::attributes& attributes,
+                                                                            const ability::abilities& abilities,
+                                                                            const virtues::virtues& virtues,
+                                                                            const power::essence&   essence,
+                                                                            const power::willpower& willpower,
+                                                                            const power::health&    health,
+                                                                            const power::logos&     logos)
   {
-    // finishing touches for the character
-    power_container.logos().set_logos(calculator.starting_logos(type));
-    power_container.essence().set_khan(calculator.starting_khan(type));
-    // will have to be changed when we introduce bonus points
-    power_container.essence().set_permanent_essence(calculator.starting_essence(type));
-
-
     auto final_character = character_repository.create_character(name,
                                                   type,
                                                   caste,
                                                   attributes,
                                                   abilities,
                                                   virtues,
-                                                  power_container);
+                                                  essence, willpower, health, logos);
 
+    final_character->logos().set_logos(calculator.starting_logos(type));
+    final_character->essence().set_khan(calculator.starting_khan(type));
+    final_character->essence().set_permanent_essence(calculator.starting_essence(type));
     final_character->essence().set_celestial_portion(calculator.compute_celestial_portion(*final_character));
     final_character->essence().set_total_personal_essence(calculator.compute_personal_essence(*final_character));
     final_character->essence().set_total_peripheral_essence(calculator.compute_peripheral_essence(*final_character));

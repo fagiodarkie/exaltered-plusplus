@@ -110,10 +110,10 @@ TEST_CASE("filesystem_db")
 
   SECTION("should create a new character with a new id")
   {
-    auto new_char = sut.create_character("name", character::creation::TYPE_MORTAL_HERO, character::exalt::caste::NO_CASTE, attribute::attributes(), ability::abilities(), virtues::virtues(), power::power_container());
+    auto new_char = sut.create_character("name", character::creation::TYPE_MORTAL_HERO, character::exalt::caste::NO_CASTE, attribute::attributes(), ability::abilities(), virtues::virtues(), power::essence(), power::willpower(), power::health(), power::logos());
     sut.save_character(new_char);
-    auto new_char_with_strange_id = sut.create_character("name", character::creation::TYPE_MORTAL_HERO, character::exalt::caste::NO_CASTE, attribute::attributes(), ability::abilities(), virtues::virtues(), power::power_container());
-    auto new_char_2 = sut.create_character("name", character::creation::TYPE_MORTAL_HERO, character::exalt::caste::NO_CASTE, attribute::attributes(), ability::abilities(), virtues::virtues(), power::power_container());
+    auto new_char_with_strange_id = sut.create_character("name", character::creation::TYPE_MORTAL_HERO, character::exalt::caste::NO_CASTE, attribute::attributes(), ability::abilities(), virtues::virtues(), power::essence(), power::willpower(), power::health(), power::logos());
+    auto new_char_2 = sut.create_character("name", character::creation::TYPE_MORTAL_HERO, character::exalt::caste::NO_CASTE, attribute::attributes(), ability::abilities(), virtues::virtues(), power::essence(), power::willpower(), power::health(), power::logos());
     CHECK(new_char_2->id() == new_char_with_strange_id->id());
     sut.save_character(new_char_2);
     REQUIRE(sut.character_list().size() == 2);

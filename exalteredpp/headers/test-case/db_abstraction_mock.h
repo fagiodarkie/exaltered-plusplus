@@ -38,15 +38,18 @@ namespace mock_tests {
     void remove_character(unsigned int /* character_id */) {}
 
     std::shared_ptr<character> create_character(const std::string& name,
-                                               const creation::character_type type,
-                                               const exalt::caste caste,
-                                               const attribute::attributes attributes,
-                                               const ability::abilities abilities,
-                                               const virtues::virtues virtues,
-                                               const power::power_container power_container)
+                                                const creation::character_type type,
+                                                const exalt::caste& caste,
+                                                const attribute::attributes& attribute,
+                                                const ability::abilities& abilities,
+                                                const virtues::virtues& virtues,
+                                                const power::essence&   essence,
+                                                const power::willpower& willpower,
+                                                const power::health&    health,
+                                                const power::logos&     logos)
     {
       has_character = true;
-      return std::make_shared<character>(CHAR_MAN_TEST_CHAR_NAME, type, caste, attributes, abilities, virtues, power_container);
+      return std::make_shared<character>(CHAR_MAN_TEST_CHAR_NAME, type, caste, attribute, abilities, virtues, essence, willpower, health, logos);
     }
 
     std::vector<std::string> character_list()

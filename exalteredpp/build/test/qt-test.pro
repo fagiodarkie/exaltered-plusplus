@@ -81,7 +81,6 @@ HEADERS += \
     ../../headers/model/power/essence.h \
     ../../headers/model/power/health.h \
     ../../headers/model/power/logos.h \
-    ../../headers/model/power/power_container.h \
     ../../headers/model/power/willpower.h \
     ../../headers/model/social/emotions_names.h \
     ../../headers/model/social/persona.h \
@@ -141,7 +140,6 @@ SOURCES += \
     ../../src/model/power/essence.cpp \
     ../../src/model/power/health.cpp \
     ../../src/model/power/logos.cpp \
-    ../../src/model/power/power_container.cpp \
     ../../src/model/power/willpower.cpp \
     ../../src/model/social/persona.cpp \
     ../../src/model/social/philosophy.cpp \
@@ -178,7 +176,6 @@ SOURCES += \
     ../../src/test-case/model/power/essence-test.cpp \
     ../../src/test-case/model/power/health-test.cpp \
     ../../src/test-case/model/power/logos-test.cpp \
-    ../../src/test-case/model/power/power-container-test.cpp \
     ../../src/test-case/model/power/willpower-test.cpp \
     ../../src/test-case/model/social/persona-test.cpp \
     ../../src/test-case/model/social/philosophy-test.cpp \

@@ -21,8 +21,7 @@ namespace qt {
     void set_current_persona(const virtues::virtues& new_virtues,
                              const character::social::persona& new_persona,
                              const character::creation::character_type_model &model,
-                             const attribute::attributes& attribute,
-                             const power::power_container& power);
+                             const attribute::attributes& attribute);
 
     ~character_creation_persona();
 

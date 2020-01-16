@@ -5,13 +5,16 @@ using serialisation::json_constants;
 
 namespace character
 {
-  character::character(const std::string name,
+  character::character(const std::string& name,
                        const creation::character_type type,
-                       const exalt::caste caste,
-                       const attribute::attributes attributes,
-                       const ability::abilities abilities,
-                       const virtues::virtues virtues,
-                       const power::power_container power_container,
+                       const exalt::caste& caste,
+                       const attribute::attributes& attributes,
+                       const ability::abilities& abilities,
+                       const virtues::virtues& virtues,
+                       const power::essence&   essence,
+                       const power::willpower& willpower,
+                       const power::health&    health,
+                       const power::logos&     logos,
                        const unsigned int id)
     : _name(name),
       _type(type),
@@ -20,7 +23,10 @@ namespace character
       _attributes(attributes),
       _abilities(abilities),
       _virtues(virtues),
-      _power(power_container)
+      _essence(essence),
+      _willpower(willpower),
+      _health(health),
+      _logos(logos)
   { };
 
   character::character(const std::string& serialised_data)
@@ -124,40 +130,40 @@ namespace character
 
   power::willpower& character::willpower()
   {
-    return _power.willpower();
+    return _willpower;
   }
 
   power::willpower character::willpower() const
   {
-    return _power.willpower();
+    return _willpower;
   }
 
   power::essence& character::essence()
   {
-    return _power.essence();
+    return _essence;
   }
 
   power::essence character::essence() const
   {
-    return _power.essence();
+    return _essence;
   }
 
   power::logos& character::logos()
   {
-    return _power.logos();
+    return _logos;
   }
   power::logos  character::logos() const
   {
-    return _power.logos();
+    return _logos;
   }
 
   power::health& character::health()
   {
-    return _power.health();
+    return _health;
   }
   power::health  character::health() const
   {
-    return _power.health();
+    return _health;
   }
 
   virtues::virtue   character::virtue(virtues::virtue_enum v) const
@@ -201,9 +207,12 @@ namespace character
     synch(json_constants::SLOT_ATTRIBUTES, _attributes);
     synch(json_constants::SLOT_ABILITIES, _abilities);
     synch(json_constants::SLOT_VIRTUES, _virtues);
-    synch(json_constants::SLOT_POWER,   _power);
     synch(json_constants::SLOT_PERSONA, _persona);
     synch(json_constants::SLOT_EXPERIENCE, _experience);
+    synch(json_constants::SLOT_HEALTH   , _health   );
+    synch(json_constants::SLOT_WILLPOWER, _willpower);
+    synch(json_constants::SLOT_ESSENCE  , _essence  );
+    synch(json_constants::SLOT_LOGOS    , _logos    );
   }
 
   unsigned int character::id() const

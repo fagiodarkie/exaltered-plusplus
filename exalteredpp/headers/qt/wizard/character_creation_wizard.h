@@ -50,7 +50,10 @@ namespace qt {
       attribute::attributes                                 attributes;
       ability::abilities                                    abilities;
       QMap<attribute::attribute_category, unsigned int>     points_per_category;
-      power::power_container                                power;
+      power::essence                                        essence;
+      power::willpower                                      willpower;
+      power::health                                         health;
+      power::logos                                          logos;
       character::social::persona                            persona;
 
       manager::character_manager&                     char_manager;

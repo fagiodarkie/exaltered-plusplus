@@ -9,7 +9,11 @@
 #include "creation/character_type_model.h"
 #include "exalt/exalt_caste.h"
 #include "virtues/virtues.h"
-#include "power/power_container.h"
+#include "power/essence.h"
+#include "power/willpower.h"
+#include "power/health.h"
+#include "power/logos.h"
+
 #include "narrative/experience_cluster.h"
 
 namespace character
@@ -18,13 +22,16 @@ namespace character
   {
     public:
       // constructors
-      character(const std::string name,
+      character(const std::string& name,
                 const creation::character_type type,
-                const exalt::caste caste,
-                const attribute::attributes attribute,
-                const ability::abilities abilities,
-                const virtues::virtues virtues,
-                const power::power_container power_container,
+                const exalt::caste& caste,
+                const attribute::attributes& attribute,
+                const ability::abilities& abilities,
+                const virtues::virtues& virtues,
+                const power::essence&   essence,
+                const power::willpower& willpower,
+                const power::health&    health,
+                const power::logos&     logos,
                 const unsigned int id = 0);
 
 
@@ -88,9 +95,12 @@ namespace character
       attribute::attributes         _attributes;
       ability::abilities            _abilities;
       virtues::virtues              _virtues;
-      power::power_container        _power;
       social::persona               _persona;
       narrative::experience_cluster _experience;
+      power::essence                _essence;
+      power::willpower              _willpower;
+      power::health                 _health;
+      power::logos                  _logos;
 
     };
 }

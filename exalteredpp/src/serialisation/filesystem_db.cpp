@@ -73,12 +73,15 @@ namespace serialisation {
   }
 
   std::shared_ptr<character> filesystem_db::create_character(const std::string& name,
-                                                            const creation::character_type type,
-                                                            const exalt::caste caste,
-                                                            const attribute::attributes attributes,
-                                                            const ability::abilities abilities,
-                                                            const virtues::virtues virtues,
-                                                            const power::power_container power_container)
+                                                             const creation::character_type type,
+                                                             const exalt::caste& caste,
+                                                             const attribute::attributes& attributes,
+                                                             const ability::abilities& abilities,
+                                                             const virtues::virtues& virtues,
+                                                             const power::essence&   essence,
+                                                             const power::willpower& willpower,
+                                                             const power::health&    health,
+                                                             const power::logos&     logos)
   {
     unsigned int id = 0;
 
@@ -90,7 +93,7 @@ namespace serialisation {
           id = new_id;
       }
 
-    std::shared_ptr<character> result = std::make_shared<character>(name, type, caste, attributes, abilities, virtues, power_container, id + 1);
+    std::shared_ptr<character> result = std::make_shared<character>(name, type, caste, attributes, abilities, virtues, essence, willpower, health, logos, id + 1);
     return result;
   }
 
