@@ -68,6 +68,16 @@ TEST_CASE("Character")
     REQUIRE(ability.name().name() == strategy.name());
     sut.set(strategy, 4);
     REQUIRE((int)sut.get(strategy) == 4);
+    sut[strategy] = 3;
+    REQUIRE(sut.get(strategy) == 3);
+
+    sut.abilities().begin()->set_value(2);
+    REQUIRE(sut.get(strategy) == 2);
+    static_cast<const character::character>(sut).abilities().begin()->set_value(5);
+    REQUIRE(sut.get(strategy) == 2);
+    REQUIRE(sut.abilities(ability::WAR).size() == 1);
+    sut[ability::WAR] = 4;
+    REQUIRE(sut.abilities(ability::WAR).size() == 2);
   }
 
   SECTION("should manage specialisations")

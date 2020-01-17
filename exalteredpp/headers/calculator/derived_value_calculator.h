@@ -21,18 +21,15 @@ namespace calculator {
 
     virtual ~derived_value_calculator() override;
 
-  protected:
-    void calculate_with(character::creation::character_type character_type, std::shared_ptr<worker::abstract_calculator_worker> worker);
-
-    long int compute_personal_essence         (const character::character& c) const override;
-    long int compute_peripheral_essence       (const character::character& c) const override;
-    long int compute_spiritual_essence        (const character::character& c) const override;
-    long int compute_celestial_portion        (const character::character& c) const override;
-    unsigned int compute_life_points          (const character::character& c) const override;
+    long int compute_personal_essence         (const character::character& c)                const override;
+    long int compute_peripheral_essence       (const character::character& c)                const override;
+    long int compute_spiritual_essence        (const character::character& c)                const override;
+    long int compute_celestial_portion        (const character::character& c)                const override;
+    unsigned int compute_life_points          (const character::character& c)                const override;
     unsigned int starting_khan                (const character::creation::character_type& c) const override;
     unsigned int starting_essence             (const character::creation::character_type& c) const override;
     unsigned int starting_logos               (const character::creation::character_type& c) const override;
-    unsigned int starting_willpower           (const character::character& c) const override;
+    unsigned int starting_willpower           (const character::character& c)                const override;
 
 
   private:

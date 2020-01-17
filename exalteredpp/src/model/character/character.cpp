@@ -94,11 +94,6 @@ namespace character
     return _abilities.has(detailed_ability);
   }
 
-  void character::set(ability::ability_name name, ability::ability&& ability)
-  {
-    _abilities[name] = ability;
-  }
-
   void character::set(ability::ability_name name, unsigned int new_val)
   {
     _abilities[name] = new_val;

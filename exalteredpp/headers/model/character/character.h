@@ -55,7 +55,6 @@ namespace character
       ability::ability& operator[](ability::ability_enum ability_e);
       ability::ability& ability(ability::ability_enum name, const std::string& ability_declination = ability::ability_declination::NO_DECLINATION);
       bool has(const ability::ability_name& detailed_ability) const;
-      void set(ability::ability_name name, ability::ability&& ability);
       void set(ability::ability_name name, unsigned int new_val);
       void add(ability::ability_name name, const ability::specialisation& specialisation);
       ability::abilities abilities() const;

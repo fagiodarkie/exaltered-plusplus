@@ -4,11 +4,6 @@ namespace calculator {
 
   derived_value_calculator::derived_value_calculator(worker_map workers) : calculator_workers(workers) { }
 
-  void derived_value_calculator::calculate_with(character::creation::character_type character_type, std::shared_ptr<worker::abstract_calculator_worker> worker)
-  {
-    calculator_workers[character_type] = worker;
-  }
-
   worker::physical_defenses derived_value_calculator::compute_physical_vd(const character::character& c, ability::ability_enum parry_ability) const
   {
     return calculator_workers.at(c.type())->compute_physical_vd(c, parry_ability);

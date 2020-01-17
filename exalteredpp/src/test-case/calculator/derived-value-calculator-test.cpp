@@ -25,6 +25,10 @@ TEST_CASE("Derived Value Calculator")
   (*character)[ability::DODGE] = 2;
   (*character)[ability::RESISTANCE] = 3;
   (*character)[ability::INTEGRITY] = 3;
+  character->virtue(virtues::COMPASSION).set_value(2);
+  character->virtue(virtues::VALOR).set_value(2);
+  character->virtue(virtues::CONVINCTION).set_value(3);
+  character->virtue(virtues::TEMPERANCE).set_value(3);
   character->willpower().set_permanent_willpower(5);
 
   SECTION("should compute values for a mortal")
@@ -47,6 +51,16 @@ TEST_CASE("Derived Value Calculator")
     CHECK(mental_defenses.appearance_parry_vd == 2);
     auto persona = sut.compute_persona(*character);
     CHECK(persona == 11);
+    CHECK(sut.compute_persona(character->type(), character->attributes(), character->willpower(), character->essence()) == 11);
+    CHECK(sut.compute_life_points(*character) == 14);
+    CHECK_NOTHROW(sut.compute_personal_essence(*character));
+    CHECK_NOTHROW(sut.compute_peripheral_essence(*character));
+    CHECK_NOTHROW(sut.compute_spiritual_essence(*character));
+    CHECK_NOTHROW(sut.compute_celestial_portion(*character));
+    CHECK(sut.starting_khan(character->type()) == 0);
+    CHECK(sut.starting_essence(character->type()) == 1);
+    CHECK(sut.starting_logos(character->type()) == 1);
+    CHECK(sut.starting_willpower(*character) == 6);
   }
 
   SECTION("should compute values for an exalt")
