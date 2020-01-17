@@ -16,8 +16,6 @@ namespace calculator {
                                        const power::willpower& willpower,
                                        const power::essence& essence) const override;
 
-      virtual double _natural_aggravated_soak(const character::character& c) const override;
-
       virtual double _lethal_soak(const character::character& c) const override;
     };
 

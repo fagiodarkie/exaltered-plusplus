@@ -27,11 +27,6 @@ namespace calculator {
       return result;
     }
 
-    double exalt_worker::_natural_aggravated_soak(const character::character& c) const
-    {
-      return c.attribute(attribute::CONSTITUTION) / 4;
-    }
-
     double exalt_worker::_lethal_soak              (const character::character& c) const
     {
       return half(c, attribute::CONSTITUTION);
