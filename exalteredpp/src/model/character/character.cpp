@@ -5,13 +5,16 @@ using serialisation::json_constants;
 
 namespace character
 {
-  character::character(const std::string name,
+  character::character(const std::string& name,
                        const creation::character_type type,
-                       const exalt::caste caste,
-                       const attributes attributes,
-                       const abilities abilities,
-                       const virtues::virtues virtues,
-                       const power::power_container power_container,
+                       const exalt::caste& caste,
+                       const attribute::attributes& attributes,
+                       const ability::abilities& abilities,
+                       const virtues::virtues& virtues,
+                       const power::essence&   essence,
+                       const power::willpower& willpower,
+                       const power::health&    health,
+                       const power::logos&     logos,
                        const unsigned int id)
     : _name(name),
       _type(type),
@@ -20,7 +23,10 @@ namespace character
       _attributes(attributes),
       _abilities(abilities),
       _virtues(virtues),
-      _power(power_container)
+      _essence(essence),
+      _willpower(willpower),
+      _health(health),
+      _logos(logos)
   { };
 
   character::character(const std::string& serialised_data)
@@ -28,7 +34,7 @@ namespace character
     deserialise(serialised_data);
   }
 
-  std::string character::get_name() const
+  std::string character::name() const
   {
     return _name;
   }
@@ -38,7 +44,7 @@ namespace character
     _name = new_name;
   }
 
-  creation::character_type character::get_type() const
+  creation::character_type character::type() const
   {
     return _type;
   }
@@ -48,97 +54,131 @@ namespace character
     _type = type;
   }
 
-  attributes character::get_attributes() const
+  attribute::attributes character::attributes() const
   {
     return _attributes;
   }
 
-  attribute character::get_attribute(attribute_names::attribute name) const
+  int character::attribute(attribute::attribute_enum name) const
   {
     return _attributes.at(name);
   }
 
-  void character::set_attribute(attribute_names::attribute name, attribute attribute)
+  void character::set(attribute::attribute_enum name, int attribute)
   {
     _attributes[name] = attribute;
   }
 
-  void character::set_attribute_value(attribute_names::attribute name, int new_val)
+  int& character::operator[](attribute::attribute_enum name)
   {
-    _attributes[name].set_value(new_val);
+    return _attributes[name];
   }
 
-  ability character::get_ability(ability_names::ability_enum name, const std::string& ability_declination) const
+  ability::ability character::get(ability::ability_enum name, const std::string& ability_declination) const
   {
-    return _abilities.at(name).get_ability(ability_declination);
+    return _abilities.get(ability::ability_name(name, ability_declination));
   }
 
-  ability_group character::get_ability_group(ability_names::ability_enum name) const
+  ability::ability& character::ability(ability::ability_enum name, const std::string &ability_declination)
   {
-    return _abilities.at(name);
+    return _abilities[ability::ability_name(name, ability_declination)];
   }
 
-  void character::set_ability(ability_names::ability_enum name, ability_group ability)
+  ability::ability character::get(const ability::ability_name& detailed_ability) const
   {
-    _abilities[name] = ability;
+    return _abilities.get(detailed_ability);
   }
 
-  void character::set_ability_value(ability_names::ability_enum name, int new_val)
+  bool character::has(const ability::ability_name& detailed_ability) const
   {
-    _abilities[name].set_ability_value(ability_names::ability_declination::NO_DECLINATION, new_val);
+    return _abilities.has(detailed_ability);
   }
 
-  power::willpower& character::get_willpower()
+  void character::set(ability::ability_name name, unsigned int new_val)
   {
-    return _power.get_willpower();
+    _abilities[name] = new_val;
   }
 
-  power::willpower character::get_willpower() const
+  void character::add(ability::ability_name name, const ability::specialisation& specialisation)
   {
-    return _power.get_willpower();
+    _abilities[name].add(specialisation.name(), specialisation.value());
   }
 
-  power::essence& character::get_essence()
+  ability::ability& character::operator[](const ability::ability_name &detailed_ability)
   {
-    return _power.get_essence();
+    return _abilities[detailed_ability];
   }
 
-  power::essence character::get_essence() const
+  ability::ability& character::operator[](ability::ability_enum detailed_ability)
   {
-    return _power.get_essence();
+    return _abilities[ability::ability_name(detailed_ability)];
   }
 
-  power::logos& character::get_logos()
+  ability::abilities character::abilities() const
   {
-    return _power.get_logos();
+    return _abilities;
   }
-  power::logos  character::get_logos() const
+  ability::abilities& character::abilities()
   {
-    return _power.get_logos();
-  }
-
-  power::health& character::get_health()
-  {
-    return _power.get_health();
-  }
-  power::health  character::get_health() const
-  {
-    return _power.get_health();
+    return _abilities;
   }
 
-  virtues::virtue   character::get_virtue(virtues::virtue_enum v) const
+  ability::abilities character::abilities(ability::ability_enum ability_type) const
+  {
+    return _abilities.with_type(ability_type);
+  }
+
+  power::willpower& character::willpower()
+  {
+    return _willpower;
+  }
+
+  power::willpower character::willpower() const
+  {
+    return _willpower;
+  }
+
+  power::essence& character::essence()
+  {
+    return _essence;
+  }
+
+  power::essence character::essence() const
+  {
+    return _essence;
+  }
+
+  power::logos& character::logos()
+  {
+    return _logos;
+  }
+  power::logos  character::logos() const
+  {
+    return _logos;
+  }
+
+  power::health& character::health()
+  {
+    return _health;
+  }
+  power::health  character::health() const
+  {
+    return _health;
+  }
+
+  virtues::virtue   character::virtue(virtues::virtue_enum v) const
   {
     return _virtues.at(v);
   }
-  virtues::virtue&  character::get_virtue(virtues::virtue_enum v)
+  virtues::virtue&  character::virtue(virtues::virtue_enum v)
   {
     return _virtues[v];
   }
-  unsigned int      character::get_vice_value() const
+  unsigned int      character::vice_value() const
   {
     return _virtues.vice_value();
   }
-  virtues::vice_enum character::get_vice() const
+  virtues::vice_enum character::vice() const
   {
     return _virtues.vice();
   }
@@ -146,6 +186,16 @@ namespace character
   {
     _virtues.set_vice_type(v);
     _virtues.set_vice_value(vice_value);
+  }
+
+  narrative::experience_cluster character::experience() const
+  {
+    return _experience;
+  }
+
+  narrative::experience_cluster& character::experience()
+  {
+    return _experience;
   }
 
   void character::serialisation()
@@ -157,8 +207,12 @@ namespace character
     synch(json_constants::SLOT_ATTRIBUTES, _attributes);
     synch(json_constants::SLOT_ABILITIES, _abilities);
     synch(json_constants::SLOT_VIRTUES, _virtues);
-    synch(json_constants::SLOT_POWER,   _power);
     synch(json_constants::SLOT_PERSONA, _persona);
+    synch(json_constants::SLOT_EXPERIENCE, _experience);
+    synch(json_constants::SLOT_HEALTH   , _health   );
+    synch(json_constants::SLOT_WILLPOWER, _willpower);
+    synch(json_constants::SLOT_ESSENCE  , _essence  );
+    synch(json_constants::SLOT_LOGOS    , _logos    );
   }
 
   unsigned int character::id() const

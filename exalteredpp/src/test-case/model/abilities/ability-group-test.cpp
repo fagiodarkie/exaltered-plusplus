@@ -2,141 +2,136 @@
 
 #include "abilities/ability_group.h"
 
-#define ABILITYNAME "ability-name"
-
 TEST_CASE("Ability group")
 {
 
   SECTION("should create simple ability by default")
   {
-    character::ability_group sut(ABILITYNAME, character::ability_names::COMBAT);
-    REQUIRE(sut.has_ability(character::ability_names::ability_declination::NO_DECLINATION));
+    ability::ability_group sut;
+    REQUIRE(sut.has(ability::ability_declination::NO_DECLINATION));
     REQUIRE_FALSE(sut.has_abilities());
   }
 
   SECTION("if created with default declination, should be seen as simple")
   {
-    character::ability_group sut(ABILITYNAME, character::ability_names::COMBAT, {character::ability(character::ability_names::ability_declination::NO_DECLINATION)});
-    REQUIRE(sut.has_ability(character::ability_names::ability_declination::NO_DECLINATION));
+    ability::ability_group sut(ability::WAR, {ability::ability(ability::ability_declination::NO_DECLINATION)});
+    REQUIRE(sut.has(ability::ability_declination::NO_DECLINATION));
     REQUIRE_FALSE(sut.has_abilities());
   }
 
   SECTION("should consider ability declinations and specialisations if requested")
   {
-    character::ability_group sut(ABILITYNAME, character::ability_names::COMBAT, { character::ability("a1", 1), character::ability("a2", 2) }, {character::specialisation("s1", 3)});
-    REQUIRE_FALSE(sut.has_ability(character::ability_names::ability_declination::NO_DECLINATION));
+    ability::ability_group sut(ability::WAR, { ability::ability("a1", 1), ability::ability("a2", 2) }, {ability::specialisation("s1", 3)});
+    REQUIRE_FALSE(sut.has(ability::ability_declination::NO_DECLINATION));
     REQUIRE(sut.has_abilities());
 
-    REQUIRE_THROWS(sut.get_ability());
+    REQUIRE_THROWS(sut.get());
   }
 
   SECTION("should keep right values of abilities")
   {
-    character::ability_group sut(ABILITYNAME, character::ability_names::COMBAT, { character::ability("a1", 1), character::ability("a2", 2) }, {character::specialisation("s1", 3)});
-    REQUIRE(sut.get_ability("a1").get_ability_value() == 1);
-    REQUIRE(sut.get_ability("a1").get_value() == "1");
-    REQUIRE(sut.get_ability("a2").get_ability_value() == 2);
-    REQUIRE(sut.get_ability("a2").get_value() == "2");
+    ability::ability_group sut(ability::WAR, { ability::ability("a1", 1), ability::ability("a2", 2) }, {ability::specialisation("s1", 3)});
+    REQUIRE(sut.get("a1").value() == 1);
+    REQUIRE(sut.get("a2").value() == 2);
   }
 
   SECTION("should change ability names if it has ability declinations")
   {
-    character::ability_group sut(ABILITYNAME, character::ability_names::COMBAT, { character::ability("a1", 1), character::ability("a2", 2) }, {character::specialisation("s1", 3)});
-    REQUIRE(sut.get_abilities().at(0).get_name() == std::string(ABILITYNAME) + " (a1)");
-    REQUIRE(sut.get_abilities().at(1).get_name() == std::string(ABILITYNAME) + " (a2)");
+    ability::ability_group sut(ability::WAR, { ability::ability("a1", 1), ability::ability("a2", 2) }, {ability::specialisation("s1", 3)});
+    REQUIRE(sut.get_abilities().at(0).name() == "War (a1)");
+    REQUIRE(sut.get_abilities().at(1).name() == "War (a2)");
   }
 
   SECTION("should not change ability names if it is simple")
   {
-    character::ability_group sut(ABILITYNAME);
-    REQUIRE(sut.get_abilities().at(0).get_name() == ABILITYNAME);
+    ability::ability_group sut;
+    REQUIRE(sut.get_abilities().at(0).name() == "War");
   }
 
   SECTION("should not prevent new ability if it has ability declinations")
   {
-    character::ability_group sut(ABILITYNAME, character::ability_names::COMBAT, { character::ability("a1", 1), character::ability("a2", 2) }, {character::specialisation("s1", 3)});
+    ability::ability_group sut(ability::WAR, { ability::ability("a1", 1), ability::ability("a2", 2) }, {ability::specialisation("s1", 3)});
     REQUIRE_NOTHROW(sut.add_ability("a3"));
-    REQUIRE(sut.get_ability("a3").get_name() == "a3");
+    REQUIRE(sut.get("a3").name() == "a3");
   }
 
   SECTION("should prevent new ability if it is simple")
   {
-    character::ability_group sut(ABILITYNAME);
+    ability::ability_group sut;
     REQUIRE_THROWS(sut.add_ability("a1"));
-    REQUIRE_FALSE(sut.has_ability("a1"));
-    REQUIRE_THROWS(sut.get_ability("a1"));
+    REQUIRE_FALSE(sut.has("a1"));
+    REQUIRE_THROWS(sut.get("a1"));
   }
 
   SECTION("should not change specialisation names")
   {
-    character::ability_group sut(ABILITYNAME, character::ability_names::COMBAT, { character::ability("a1", 1), character::ability("a2", 2) }, {character::specialisation("s1", 3)});
-    character::ability_group sut_simple(ABILITYNAME);
-    sut_simple.add_specialisation(character::specialisation("s1"));
-    REQUIRE(sut.get_specialisations().at(0).get_name() == "s1");
-    REQUIRE(sut_simple.get_specialisations().at(0).get_name() == "s1");
+    ability::ability_group sut(ability::WAR, { ability::ability("a1", 1), ability::ability("a2", 2) }, {ability::specialisation("s1", 3)});
+    ability::ability_group sut_simple;
+    sut_simple.add_specialisation(ability::specialisation("s1"));
+    REQUIRE(sut.get_specialisations().at(0).name() == "s1");
+    REQUIRE(sut_simple.get_specialisations().at(0).name() == "s1");
   }
 
   SECTION("should throw if specialisation doesn't exist")
   {
-    character::ability_group sut(ABILITYNAME);
+    ability::ability_group sut;
     REQUIRE_FALSE(sut.has_specialisation("doesn't exist"));
     REQUIRE_THROWS(sut.get_specialisation("doesn't exist"));
   }
 
   SECTION("should keep specialisation value")
   {
-    character::ability_group sut(ABILITYNAME, character::ability_names::COMBAT, { character::ability("a1", 1), character::ability("a2", 2) }, {character::specialisation("s1", 3)});
+    ability::ability_group sut(ability::WAR, { ability::ability("a1", 1), ability::ability("a2", 2) }, {ability::specialisation("s1", 3)});
     REQUIRE(sut.get_specialisations().size() == 1);
     REQUIRE(sut.has_specialisation("s1"));
-    REQUIRE(sut.get_specialisation("s1").get_value() == "3");
-    REQUIRE(sut.get_specialisation("s1").get_name() == "s1");
-    REQUIRE(sut.get_specialisation("s1").get_specialisation_value() == 3);
+    REQUIRE(sut.get_specialisation("s1").name() == "s1");
+    REQUIRE(sut.get_specialisation("s1").value() == 3);
   }
 
   SECTION("should allow new ability and specialisation generation with name / value pairs")
   {
-    character::ability_group sut(ABILITYNAME, character::ability_names::COMBAT, { character::ability("a1", 1), character::ability("a2", 2) }, {character::specialisation("s1", 3)});
+    ability::ability_group sut(ability::WAR, { ability::ability("a1", 1), ability::ability("a2", 2) }, {ability::specialisation("s1", 3)});
     sut.add_ability("a3", 1);
     sut.add_specialisation("s2", 2);
-    REQUIRE(sut.has_ability("a3"));
+    REQUIRE(sut.has("a3"));
     REQUIRE(sut.has_specialisation("s2"));
   }
 
   SECTION("should allow to modify ability values")
   {
-    character::ability_group sut(ABILITYNAME, character::ability_names::COMBAT, { character::ability("a1", 1), character::ability("a2", 2) }, {character::specialisation("s1", 3)});
-    sut.set_ability_value("a1", 0);
-    REQUIRE(sut.get_ability("a1") == 0);
+    ability::ability_group sut(ability::WAR, { ability::ability("a1", 1), ability::ability("a2", 2) }, {ability::specialisation("s1", 3)});
+    sut.set("a1", 0);
+    REQUIRE(sut.get("a1") == 0);
     sut.increase_ability_value("a1");
-    REQUIRE(sut.get_ability("a1") == 1);
+    REQUIRE(sut.get("a1") == 1);
     sut.increase_ability_value("a1", 2);
-    REQUIRE(sut.get_ability("a1") == 3);
-    sut.add_ability(character::ability("a1", 4));
-    REQUIRE(sut.get_ability("a1") == 4);
-    sut.add_ability(character::ability("a3", 4));
-    REQUIRE(sut.get_ability("a3") == 4);
+    REQUIRE(sut.get("a1") == 3);
+    sut.add_ability(ability::ability("a1", 4));
+    REQUIRE(sut.get("a1") == 4);
+    sut.add_ability(ability::ability("a3", 4));
+    REQUIRE(sut.get("a3") == 4);
   }
 
-  SECTION("should throw if trying to update a non-existing ability")
+  SECTION("should not throw if trying to update a non-existing ability")
   {
-    character::ability_group sut(ABILITYNAME, character::ability_names::COMBAT, { character::ability("a1", 1), character::ability("a2", 2) }, {character::specialisation("s1", 3)});
-    REQUIRE_THROWS(sut.set_ability_value("a3", 4));
+    ability::ability_group sut(ability::WAR, { ability::ability("a1", 1), ability::ability("a2", 2) }, {ability::specialisation("s1", 3)});
+    REQUIRE_NOTHROW(sut.set("a3", 4));
   }
 
   SECTION("should allow to modify specialisation values")
   {
-    character::ability_group sut(ABILITYNAME, character::ability_names::COMBAT, { character::ability("a1", 1), character::ability("a2", 2) }, {character::specialisation("s1", 3)});
+    ability::ability_group sut(ability::WAR, { ability::ability("a1", 1), ability::ability("a2", 2) }, {ability::specialisation("s1", 3)});
     sut.set_specialisation_value("s1", 0);
-    REQUIRE(sut.get_specialisation("s1").get_specialisation_value() == 0);
+    REQUIRE(sut.get_specialisation("s1").value() == 0);
     sut.increase_specialisation_value("s1");
-    REQUIRE(sut.get_specialisation("s1").get_specialisation_value() == 1);
+    REQUIRE(sut.get_specialisation("s1").value() == 1);
     sut.increase_specialisation_value("s1", 2);
-    REQUIRE(sut.get_specialisation("s1").get_specialisation_value() == 3);
+    REQUIRE(sut.get_specialisation("s1").value() == 3);
   }
 
   SECTION("should allow to remove specialisation")
   {
-    character::ability_group sut(ABILITYNAME, character::ability_names::COMBAT, { character::ability("a1", 1), character::ability("a2", 2) }, {character::specialisation("s1", 3)});
+    ability::ability_group sut(ability::WAR, { ability::ability("a1", 1), ability::ability("a2", 2) }, {ability::specialisation("s1", 3)});
     REQUIRE_NOTHROW(sut.remove_specialisation("s2"));
     REQUIRE(sut.get_specialisations().size() == 1);
     REQUIRE_NOTHROW(sut.remove_specialisation("s1"));
@@ -145,62 +140,74 @@ TEST_CASE("Ability group")
 
   SECTION("should save category")
   {
-    character::ability_group sut(ABILITYNAME, character::ability_names::COMBAT);
-    REQUIRE(sut.get_category() == character::ability_names::COMBAT);
+    ability::ability_group sut;
+    REQUIRE(sut.get_category() == ability::COMBAT);
   }
 
   SECTION("should save favorite flag")
   {
-    character::ability_group sut(ABILITYNAME, character::ability_names::COMBAT);
-    REQUIRE_FALSE(sut.is_favourite());
-    sut.set_favourite(true);
-    REQUIRE(sut.is_favourite());
-    sut.set_favourite(false);
-    REQUIRE_FALSE(sut.is_favourite());
+    ability::ability_group sut;
+    REQUIRE_FALSE(sut.get().favored());
+    sut.set_favored(true);
+    REQUIRE(sut.get().favored());
+    sut.set_favored(false);
+    REQUIRE_FALSE(sut.get().favored());
   }
 
   SECTION("should save and load successfully with JSON Object")
   {
-    character::ability_group stub(ABILITYNAME, character::ability_names::COMBAT, { character::ability("a1", 1), character::ability("a2", 2) }, {character::specialisation("s1", 3)});
+    ability::ability_group stub(ability::WAR, { ability::ability("a1", 1), ability::ability("a2", 2) }, {ability::specialisation("s1", 3)});
 
-    character::ability_group sut;
+    ability::ability_group sut;
     sut.deserialise(stub.serialise());
 
     REQUIRE(sut.get_name()                            == stub.get_name()                           );
     REQUIRE(sut.get_category()                        == stub.get_category()                       );
-    REQUIRE(sut.is_favourite()                        == stub.is_favourite()                       );
-    REQUIRE(sut.get_ability("a1").get_ability_value() == stub.get_ability("a1").get_ability_value());
-    REQUIRE(sut.get_ability("a2").get_ability_value() == stub.get_ability("a2").get_ability_value());
-    REQUIRE(sut.get_specialisation("s1").get_value()  == stub.get_specialisation("s1").get_value() );
+    REQUIRE(sut.get("a1").favored()      == stub.get("a1").favored()     );
+    REQUIRE(sut.get("a1").value() == stub.get("a1").value());
+    REQUIRE(sut.get("a2").value() == stub.get("a2").value());
   }
 
   SECTION("should copy successfully withcopy constructor and assignment operator")
   {
-    character::ability_group stub(ABILITYNAME, character::ability_names::COMBAT, { character::ability("a1", 1), character::ability("a2", 2) }, {character::specialisation("s1", 3)});
+    ability::ability_group stub(ability::WAR, { ability::ability("a1", 1), ability::ability("a2", 2) }, {ability::specialisation("s1", 3)});
 
-    character::ability_group sut_1(stub), sut_2;
+    ability::ability_group sut_1(stub), sut_2;
     sut_2 = stub;
 
     REQUIRE(sut_1.get_name()                            == stub.get_name()                           );
     REQUIRE(sut_1.get_category()                        == stub.get_category()                       );
-    REQUIRE(sut_1.is_favourite()                        == stub.is_favourite()                       );
-    REQUIRE(sut_1.get_ability("a1").get_ability_value() == stub.get_ability("a1").get_ability_value());
-    REQUIRE(sut_1.get_ability("a2").get_ability_value() == stub.get_ability("a2").get_ability_value());
-    REQUIRE(sut_1.get_specialisation("s1").get_value()  == stub.get_specialisation("s1").get_value() );
+    REQUIRE(sut_1.get("a1").favored()      == stub.get("a1").favored()     );
+    REQUIRE(sut_1.get("a1").value() == stub.get("a1").value());
+    REQUIRE(sut_1.get("a2").value() == stub.get("a2").value());
 
     REQUIRE(sut_2.get_name()                            == stub.get_name()                           );
     REQUIRE(sut_2.get_category()                        == stub.get_category()                       );
-    REQUIRE(sut_2.is_favourite()                        == stub.is_favourite()                       );
-    REQUIRE(sut_2.get_ability("a1").get_ability_value() == stub.get_ability("a1").get_ability_value());
-    REQUIRE(sut_2.get_ability("a2").get_ability_value() == stub.get_ability("a2").get_ability_value());
-    REQUIRE(sut_2.get_specialisation("s1").get_value()  == stub.get_specialisation("s1").get_value() );
+    REQUIRE(sut_2.get("a1").favored()      == stub.get("a1").favored()     );
+    REQUIRE(sut_2.get("a1").value() == stub.get("a1").value());
+    REQUIRE(sut_2.get("a2").value() == stub.get("a2").value());
   }
 
-  SECTION("should throw if asked to retrieve invalid abilities or specialisation")
+  SECTION("should not throw if asked to retrieve unknown abilities or specialisation")
   {
-    character::ability_group stub(ABILITYNAME, character::ability_names::COMBAT);
+    ability::ability_group stub(ability::WAR);
 
-    REQUIRE_THROWS(stub.set_ability_value("invalid_ability", 4));
-    REQUIRE_THROWS(stub.set_specialisation_value("invalid_specialisation", 2));
+    REQUIRE_NOTHROW(stub.set("invalid_ability", 4));
+    REQUIRE_NOTHROW(stub.set_specialisation_value("invalid_specialisation", 2));
+  }
+
+  SECTION("should retrieve the ability type")
+  {
+    ability::ability_group sut(ability::WAR);
+    REQUIRE(sut.get_enum() == ability::WAR);
+  }
+
+  SECTION("should list subabilities")
+  {
+    ability::ability_group sut(ability::WAR, {ability::ability("a1"), ability::ability("a2")});
+    auto result = sut.get_detailed_abilities();
+    REQUIRE(result.size() == 2);
+    REQUIRE(result[0].name() == "War (a1)");
+    REQUIRE(result[1].name() == "War (a2)");
   }
 }

@@ -5,14 +5,14 @@ TEST_CASE("essence")
 {
   SECTION("should create essence with default values")
   {
-    character::power::essence sut;
+    power::essence sut;
     REQUIRE(sut.permanent_essence() == 1);
     REQUIRE(sut.khan() == 1);
   }
 
   SECTION("should create essence from JSON object")
   {
-    character::power::essence stub;
+    power::essence stub;
 
     stub.set_permanent_essence(2);
     stub.set_khan(3);
@@ -28,7 +28,7 @@ TEST_CASE("essence")
     stub.set_bonus_peripheral_essence(60);
     stub.set_bonus_spiritual_essence(70);
 
-    character::power::essence sut;
+    power::essence sut;
     sut.deserialise(stub.serialise());
 
     REQUIRE(stub.permanent_essence()                == sut.permanent_essence()               );
@@ -44,7 +44,7 @@ TEST_CASE("essence")
 
   SECTION("should not allow to spend more essence than the total")
   {
-    character::power::essence sut;
+    power::essence sut;
     sut.set_total_personal_essence(10);
     sut.set_total_peripheral_essence(10);
     sut.set_total_spiritual_essence(10);
@@ -76,7 +76,7 @@ TEST_CASE("essence")
 
   SECTION("should use and recover essence from the personal pool before touching the peripheral pool")
   {
-    character::power::essence sut;
+    power::essence sut;
     sut.set_total_personal_essence(10);
     sut.set_total_peripheral_essence(10);
     sut.set_total_spiritual_essence(10);
@@ -120,7 +120,7 @@ TEST_CASE("essence")
 
   SECTION("committed essence should count as spent")
   {
-    character::power::essence sut;
+    power::essence sut;
     sut.set_total_personal_essence(10);
     sut.set_total_peripheral_essence(10);
     sut.set_total_spiritual_essence(10);
@@ -167,7 +167,7 @@ TEST_CASE("essence")
 
   SECTION("should get and set essence and khan consistently")
   {
-    character::power::essence sut;
+    power::essence sut;
 
     sut.set_khan(2);
     sut.set_permanent_essence(4);
@@ -178,7 +178,7 @@ TEST_CASE("essence")
 
   SECTION("should compute portion percentages consistently")
   {
-    character::power::essence sut;
+    power::essence sut;
     sut.set_celestial_portion(60);
     REQUIRE(sut.get_celestial_portion_percentage() == 60);
     REQUIRE(sut.get_terrestrial_portion_percentage() == 40);

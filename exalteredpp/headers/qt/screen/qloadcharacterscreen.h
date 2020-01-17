@@ -17,6 +17,8 @@ namespace qt
     public:
         qloadcharacterscreen(manager::character_manager& char_manager, QWidget* parent);
 
+        virtual ~qloadcharacterscreen();
+
     private slots:
         void load_character();
         void enable_load_button();

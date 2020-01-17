@@ -8,6 +8,7 @@ namespace qt {
     static QString SAVE_LABEL     = "Save";
     static QString NEW_LABEL      = "New";
     static QString NEXT_LABEL     = "Next";
+    static QString SUBMIT_LABEL   = "Submit";
     static QString CANCEL_LABEL   = "Cancel";
     static QString APP_TITLE      = "Divine Games";
 
@@ -20,6 +21,10 @@ namespace qt {
 
         return result;
       }
+    }
+
+    namespace exalt_labels {
+      static QString CASTE_ABILITIES = "Caste Abilities";
     }
 
     namespace social_labels {
@@ -85,9 +90,14 @@ namespace qt {
       static QString CASTE                = "Caste";
       static QString VICE_SELECTOR        = "Vice";
 
-      static QString ATTRIBUTE_LABEL_WITH_TOTAL_POINTS(const QString& label, int points)
+      static QString ATTRIBUTE_LABEL_WITH_TOTAL_POINTS(const QString& label, int current_points, int total_points)
       {
-        return QString("%1 (total points: %2)").arg(label, QString::number(points));
+        return QString("%1 (%2 / %3)").arg(label, QString::number(current_points), QString::number(total_points));
+      }
+
+      static QString ATTRIBUTE_LABEL_WITH_TOTAL_POINTS(const QString& label, int total_points)
+      {
+        return QString("%1 (total points: %2)").arg(label, QString::number(total_points));
       }
 
       static QString ATTRIBUTE_WITH_POINTS(const QString& label, int points)

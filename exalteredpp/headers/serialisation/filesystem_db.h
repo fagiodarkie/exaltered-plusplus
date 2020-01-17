@@ -18,13 +18,16 @@ namespace serialisation {
     void remove_character(const std::string& character_id) override;
     void remove_character(unsigned int character_id) override;
     std::string character_name(const std::string& character_id) const override;
-    std::shared_ptr<character::character> create_character( const std::string& name,
-                                                const character::creation::character_type type,
-                                                const character::exalt::caste caste,
-                                                const character::attributes attributes,
-                                                const character::abilities abilities,
-                                                const character::virtues::virtues virtues,
-                                                const character::power::power_container power_container) override;
+    std::shared_ptr<character::character> create_character(const std::string& name,
+                                                           const character::creation::character_type type,
+                                                           const character::exalt::caste& caste,
+                                                           const attribute::attributes& attribute,
+                                                           const ability::abilities& abilities,
+                                                           const virtues::virtues& virtues,
+                                                           const power::essence&   essence,
+                                                           const power::willpower& willpower,
+                                                           const power::health&    health,
+                                                           const power::logos&     logos) override;
 
   private:
     const QString AVAILABLE_CHARACTERS_FILE, FILE_EXT;

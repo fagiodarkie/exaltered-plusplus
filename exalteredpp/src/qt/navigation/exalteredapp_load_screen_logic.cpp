@@ -2,7 +2,7 @@
 
 #include <QGridLayout>
 #include <QMenuBar>
-#include <screen/qmainscreen.h>
+#include "caste_style.h"
 #include <screen/qloadcharacterscreen.h>
 #include <screen/qcharacterattributes.h>
 
@@ -44,13 +44,19 @@ void ExalteredApp::load_virtues_screen()
   setCentralWidget(character_virtues_widget);
 }
 
+void ExalteredApp::load_experience_screen()
+{
+  character_experience_widget = new qexperience_screen(current_character, character_manager, this);
+  setCentralWidget(character_experience_widget);
+}
+
 void ExalteredApp::load_main_screen(std::shared_ptr<character::character> character)
 {
   current_character = character;
+  qt::style::SET_CASTE(character->type());
   character_manager.save_character(character);
-  main_screen_widget = new qmainscreen(this);
-  setCentralWidget(main_screen_widget);
   load_menu();
+  load_character_screen();
 }
 
 void ExalteredApp::load_creation_wizard_screen()

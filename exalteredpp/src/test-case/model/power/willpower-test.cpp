@@ -5,7 +5,7 @@ TEST_CASE("willpower")
 {
   SECTION("should create correctly")
   {
-    character::power::willpower sut(10, 8);
+    power::willpower sut(10, 8);
 
     REQUIRE(sut.permanent_willpower() == 10);
     REQUIRE(sut.temporary_willpower() == 8);
@@ -13,7 +13,7 @@ TEST_CASE("willpower")
 
   SECTION("should consume and restore willpower correctly")
   {
-    character::power::willpower sut(10, 8);
+    power::willpower sut(10, 8);
 
     REQUIRE(sut.can_consume(3));
     REQUIRE(sut.can_consume(8));
@@ -47,9 +47,9 @@ TEST_CASE("willpower")
 
   SECTION("should read and write correctly to JSON")
   {
-    character::power::willpower stub(10, 8);
+    power::willpower stub(10, 8);
 
-    character::power::willpower sut;
+    power::willpower sut;
     sut.deserialise(stub.serialise());
 
     REQUIRE(sut.permanent_willpower() == stub.permanent_willpower() );

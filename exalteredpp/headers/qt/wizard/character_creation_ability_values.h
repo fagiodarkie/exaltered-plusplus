@@ -8,54 +8,57 @@
 #include <QMap>
 
 #include "abilities/abilities.h"
-#include "abilities/ability_names.h"
+#include "abilities/ability.h"
 #include "exalt/exalt_caste.h"
+#include "ability_value_row.h"
+#include "widget/with_progress_bar.h"
 
 namespace qt {
   namespace wizard {
 
-    struct ability_value_row {
-
-      ability_value_row(character::ability_names::ability_enum ability = character::ability_names::WAR,
-                        character::ability_names::ability_category category = character::ability_names::COMBAT,
-                        const QString& ability_name = "");
-      QWidget* widget() const;
-      void update(character::ability_group ability);
-      void update_labels();
-
-      bool is_favored;
-      character::ability_names::ability_enum ability;
-      character::ability_names::ability_category category;
-      QLabel *label;
-      QString ability_name;
-      QPushButton *increase, *decrease;
-      unsigned int value;
-
-      static const char* REFERRED_ABILITY;
+    struct operation_enabled {
+      bool increase, decrease, favorite, unfavorite;
     };
 
-    class character_creation_ability_values : public QWidget
+    struct validation_result
+    {
+      QMap<ability::ability_name, operation_enabled> operations;
+      unsigned int total_spent, total_spent_in_favorites, remaining_favorites, remaining_caste_favorites;
+    };
+
+    class character_creation_ability_values : public QWidget, public widget::with_progress_bar
     {
       Q_OBJECT
     public:
       character_creation_ability_values(QWidget *parent = nullptr);
-      void set_current_abilities(const character::abilities& new_abilities, unsigned int max_points, unsigned int min_in_favorites, unsigned int max_ability_value);
+      ~character_creation_ability_values();
+      void set_current_abilities(const ability::abilities& new_abilities,
+                                 character::exalt::caste selected_caste,
+                                 unsigned int number_of_caste_favorites,
+                                 unsigned int number_of_free_favorites,
+                                 unsigned int max_points,
+                                 unsigned int min_in_favorites,
+                                 unsigned int max_ability_value);
 
     signals:
       void back_issued();
-      void ability_points_chosen(const character::abilities& abilities);
+      void abilities_chosen(ability::abilities& abilities);
 
     private:
-      QMap<character::ability_names::ability_enum, ability_value_row> row_of_ability;
+      QMap<ability::ability_name, ability_value_row*> row_of_ability;
       void next_issued();
-      void check_current_selection();
+      validation_result check_current_selection();
+      void regenerate_abilities();
 
-      void increase_issued();
-      void decrease_issued();
+      void on_ability_change();
+      void on_new_declination();
 
+      QWidget* abilities;
+      QLabel *summary;
       QPushButton *next_page, *cancel;
-      character::abilities _abilities;
-      unsigned int max_ability_points, min_points_in_favorites, max_std_ability_value;
+      ability::abilities _abilities;
+      character::exalt::caste _caste;
+      unsigned int caste_favorites, free_favorites, max_ability_points, min_points_in_favorites, max_std_ability_value;
     };
   }
 }

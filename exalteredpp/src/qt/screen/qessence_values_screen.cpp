@@ -20,11 +20,11 @@ namespace qt {
       QFormLayout* essence_form = new QFormLayout;
       QVBoxLayout *v_layout = new QVBoxLayout;
 
-      auto essence = c->get_essence();
+      auto essence = c->essence();
 
       essence_form->addRow(PERMANENT_ESSENCE,   new QLabel(QString::number(essence.permanent_essence())));
       essence_form->addRow(KHAN,                new QLabel(QString::number(essence.khan())));
-      essence_form->addRow(LOGOS,               new QLabel(QString::number(c->get_logos().get_logos())));
+      essence_form->addRow(LOGOS,               new QLabel(QString::number(c->logos().get_logos())));
       essence_form->addRow(CELESTIAL_PORTION,   new QLabel(QString::number(essence.get_celestial_portion_percentage())));
       essence_form->addRow(TERRESTRIAL_PORTION, new QLabel(QString::number(essence.get_terrestrial_portion_percentage())));
       essence_form->addRow(PERSONAL_ESSENCE,    new QLabel(labels::AVAILABLE_OVER_TOTAL(essence.available_personal_essence(), essence.total_personal_essence())));

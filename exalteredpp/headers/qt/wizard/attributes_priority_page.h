@@ -6,17 +6,21 @@
 #include <QPushButton>
 #include <QWidget>
 #include "attributes/attribute_names.h"
+#include "widget/with_progress_bar.h"
 
 namespace qt {
   namespace wizard {
 
-    class attributes_priority_page : public QWidget
+    class attributes_priority_page : public QWidget, public widget::with_progress_bar
     {
       Q_OBJECT
 
     public:
       attributes_priority_page(QWidget *parent = nullptr);
-      void set_attribute_values(int primary_value, int secondary_value, int tertiary_value);
+
+      ~attributes_priority_page();
+
+      void set_values(int primary_value, int secondary_value, int tertiary_value);
 
     signals:
       void attributes_chosen(QString primary_attribute, QString secondary_attribute, QString tertiary_attribute);

@@ -4,54 +4,49 @@ namespace calculator {
 
   derived_value_calculator::derived_value_calculator(worker_map workers) : calculator_workers(workers) { }
 
-  void derived_value_calculator::calculate_with(character::creation::character_type character_type, std::shared_ptr<worker::abstract_calculator_worker> worker)
+  worker::physical_defenses derived_value_calculator::compute_physical_vd(const character::character& c, ability::ability_enum parry_ability) const
   {
-    calculator_workers[character_type] = worker;
+    return calculator_workers.at(c.type())->compute_physical_vd(c, parry_ability);
   }
 
-  worker::physical_vd derived_value_calculator::compute_physical_vd(const character::character& c, character::ability_names::ability_enum parry_ability) const
+  worker::mental_defenses derived_value_calculator::compute_mental_vd(const character::character& c) const
   {
-    return calculator_workers.at(c.get_type())->compute_physical_vd(c, parry_ability);
-  }
-
-  worker::mental_vd derived_value_calculator::compute_mental_vd(const character::character& c) const
-  {
-    return calculator_workers.at(c.get_type())->compute_mental_vd(c);
+    return calculator_workers.at(c.type())->compute_mental_vd(c);
   }
 
   long int derived_value_calculator::compute_persona(const character::character& c) const
   {
-    return calculator_workers.at(c.get_type())->compute_persona(c);
+    return calculator_workers.at(c.type())->compute_persona(c);
   }
 
-  long int derived_value_calculator::compute_persona                  (const character::creation::character_type& type, const character::attributes& attributes, const character::power::willpower& willpower, const character::power::essence& essence) const
+  long int derived_value_calculator::compute_persona                  (const character::creation::character_type& type, const attribute::attributes& attributes, const power::willpower& willpower, const power::essence& essence) const
   {
     return calculator_workers.at(type)->compute_persona(type, attributes, willpower, essence);
   }
 
   long int derived_value_calculator::compute_personal_essence         (const character::character& c) const
   {
-    return calculator_workers.at(c.get_type())->compute_personal_essence(c);
+    return calculator_workers.at(c.type())->compute_personal_essence(c);
   }
 
   long int derived_value_calculator::compute_peripheral_essence       (const character::character& c) const
   {
-    return calculator_workers.at(c.get_type())->compute_peripheral_essence(c);
+    return calculator_workers.at(c.type())->compute_peripheral_essence(c);
   }
 
   long int derived_value_calculator::compute_spiritual_essence        (const character::character& c) const
   {
-    return calculator_workers.at(c.get_type())->compute_spiritual_essence(c);
+    return calculator_workers.at(c.type())->compute_spiritual_essence(c);
   }
 
   long int derived_value_calculator::compute_celestial_portion        (const character::character& c) const
   {
-    return calculator_workers.at(c.get_type())->compute_celestial_portion(c);
+    return calculator_workers.at(c.type())->compute_celestial_portion(c);
   }
 
   unsigned int derived_value_calculator::compute_life_points              (const character::character& c) const
   {
-    return calculator_workers.at(c.get_type())->compute_life_points(c);
+    return calculator_workers.at(c.type())->compute_life_points(c);
   }
 
   unsigned int   derived_value_calculator::starting_khan                 (const character::creation::character_type& c) const
@@ -71,7 +66,7 @@ namespace calculator {
 
   unsigned int derived_value_calculator::starting_willpower           (const character::character& c) const
   {
-    return calculator_workers.at(c.get_type())->starting_willpower(c);
+    return calculator_workers.at(c.type())->starting_willpower(c);
   }
 
   derived_value_calculator::~derived_value_calculator() {}

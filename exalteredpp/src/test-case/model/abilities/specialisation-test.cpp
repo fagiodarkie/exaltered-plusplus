@@ -8,30 +8,27 @@ TEST_CASE("Specialisation")
 {
   SECTION("should create new specialisation correctly (name constructor)")
   {
-    character::specialisation sut(TEST_SPEC_NAME);
-    REQUIRE(sut.get_name() == TEST_SPEC_NAME);
-    REQUIRE(sut.get_specialisation_value() == TEST_SPEC_VALUE);
-    REQUIRE(sut.get_value() == "1");
+    ability::specialisation sut(TEST_SPEC_NAME);
+    REQUIRE(sut.name() == TEST_SPEC_NAME);
+    REQUIRE(sut.value() == TEST_SPEC_VALUE);
   }
 
   SECTION("should create new specialisation correctly (name and value constructor)")
   {
-    character::specialisation sut(TEST_SPEC_NAME, TEST_SPEC_VALUE);
-    REQUIRE(sut.get_name() == TEST_SPEC_NAME);
-    REQUIRE(sut.get_specialisation_value() == TEST_SPEC_VALUE);
-    REQUIRE(sut.get_value() == "1");
+    ability::specialisation sut(TEST_SPEC_NAME, TEST_SPEC_VALUE);
+    REQUIRE(sut.name() == TEST_SPEC_NAME);
+    REQUIRE(sut.value() == TEST_SPEC_VALUE);
   }
 
   SECTION("should retrieve correctly name and value strings")
   {
-    character::specialisation sut(TEST_SPEC_NAME, TEST_SPEC_VALUE);
-    REQUIRE(sut.get_name() == TEST_SPEC_NAME);
-    REQUIRE(sut.get_value() == std::to_string(TEST_SPEC_VALUE));
+    ability::specialisation sut(TEST_SPEC_NAME, TEST_SPEC_VALUE);
+    REQUIRE((std::string)sut == TEST_SPEC_NAME);
   }
 
   SECTION("should compare equal with an specialisation with same name and value")
   {
-    character::specialisation sut(TEST_SPEC_NAME, TEST_SPEC_VALUE), other(TEST_SPEC_NAME, TEST_SPEC_VALUE);
+    ability::specialisation sut(TEST_SPEC_NAME, TEST_SPEC_VALUE), other(TEST_SPEC_NAME, TEST_SPEC_VALUE);
     REQUIRE(sut == other);
     other.set_value(TEST_SPEC_VALUE + 1);
     REQUIRE_FALSE(sut == other);
@@ -39,25 +36,35 @@ TEST_CASE("Specialisation")
 
   SECTION("should create correctly via JSON Object")
   {
-    character::specialisation stub(TEST_SPEC_NAME, TEST_SPEC_VALUE);
+    ability::specialisation stub(TEST_SPEC_NAME, TEST_SPEC_VALUE);
 
-    character::specialisation sut("");
+    ability::specialisation sut("");
     sut.deserialise(stub.serialise());
 
-    REQUIRE(sut.get_name() == stub.get_name());
-    REQUIRE(sut.get_specialisation_value() == stub.get_specialisation_value());
+    REQUIRE(sut.name() == stub.name());
+    REQUIRE(sut.value() == stub.value());
   }
 
-  SECTION("should create correctly via JSON Object")
+  SECTION("should create correctly via constructors")
   {
-    character::specialisation stub(TEST_SPEC_NAME, TEST_SPEC_VALUE);
+    ability::specialisation stub(TEST_SPEC_NAME, TEST_SPEC_VALUE);
 
-    character::specialisation sut_1(stub), sut_2("a");
+    ability::specialisation sut_1(stub), sut_2("a");
     sut_2 = stub;
 
-    REQUIRE(sut_1.get_name() == stub.get_name());
-    REQUIRE(sut_1.get_specialisation_value() == stub.get_specialisation_value());
-    REQUIRE(sut_2.get_name() == stub.get_name());
-    REQUIRE(sut_2.get_specialisation_value() == stub.get_specialisation_value());
+    REQUIRE(sut_1.name() == stub.name());
+    REQUIRE(sut_1.value() == stub.value());
+    REQUIRE(sut_2.name() == stub.name());
+    REQUIRE(sut_2.value() == stub.value());
+  }
+
+  SECTION("should increase when told to")
+  {
+    ability::specialisation sut(TEST_SPEC_NAME, 0);
+    REQUIRE(sut == 0);
+    sut += 1;
+    REQUIRE(sut == 1);
+    sut.increase(2);
+    REQUIRE(sut == 3);
   }
 }

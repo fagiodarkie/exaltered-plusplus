@@ -5,20 +5,20 @@ TEST_CASE("health")
 {
   SECTION("should create health with default values")
   {
-    character::power::health sut(10);
+    power::health sut(10);
     REQUIRE(sut.total_health() == 10);
     REQUIRE(sut.current_health() == 10);
 
-    character::power::health sut_2(10, 5);
+    power::health sut_2(10, 5);
     REQUIRE(sut_2.total_health() == 10);
     REQUIRE(sut_2.current_health() == 5);
   }
 
   SECTION("should create health from JSON object")
   {
-    character::power::health stub(10, 5);
+    power::health stub(10, 5);
 
-    character::power::health sut(1);
+    power::health sut(1);
     sut.deserialise(stub.serialise());
 
     REQUIRE(stub.current_health() == sut.current_health());
@@ -27,7 +27,7 @@ TEST_CASE("health")
 
   SECTION("should deal and heal damage")
   {
-    character::power::health sut(10);
+    power::health sut(10);
     REQUIRE(sut.current_health() == 10);
     REQUIRE(sut.current_health_penalty() == 0);
 

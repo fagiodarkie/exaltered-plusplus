@@ -5,7 +5,7 @@ TEST_CASE("logos")
 {
   SECTION("should create logos object consistently")
   {
-    character::power::logos sut(1, 2, 3, 4, 6, 5);
+    power::logos sut(1, 2, 3, 4, 6, 5);
 
     REQUIRE(sut.get_logos()                         == 1);
     REQUIRE(sut.get_current_qabbalah()              == 2);
@@ -17,9 +17,9 @@ TEST_CASE("logos")
 
   SECTION("should read and write from JSON object")
   {
-    character::power::logos stub(1, 2, 3, 4, 6, 5);
+    power::logos stub(1, 2, 3, 4, 6, 5);
 
-    character::power::logos sut;
+    power::logos sut;
     sut.deserialise(stub.serialise());
 
     REQUIRE(sut.get_logos()                         == stub.get_logos()                        );

@@ -9,8 +9,7 @@
 namespace qt {
   namespace screen {
 
-    using namespace character::ability_names;
-    using namespace character::attribute_names;
+    using namespace ability;
     using namespace labels::dv_labels;
 
     qdefense_values_screen::qdefense_values_screen(const std::shared_ptr<character::character> c,
@@ -98,8 +97,8 @@ namespace qt {
           natural_soak        = new QLabel;
         }
 
-      calculator::worker::physical_vd character_vds = _calculator.compute_physical_vd(*_character, ability);
-      calculator::worker::mental_vd character_mvds = _calculator.compute_mental_vd(*_character);
+      calculator::worker::physical_defenses character_vds = _calculator.compute_physical_vd(*_character, ability);
+      calculator::worker::mental_defenses character_mvds = _calculator.compute_mental_vd(*_character);
 
       dodge_dv        ->setText(QString::number(character_vds.dodge_vd));
       dodge_balance   ->setText(QString::number(character_vds.dodge_balance));

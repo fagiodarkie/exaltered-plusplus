@@ -1,11 +1,13 @@
 #include "wizard/character_creation_name_type_page.h"
 
+#include <QApplication>
 #include <QFormLayout>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
 #include "layout/qborderlayout.h"
 #include "common/reverse_search.h"
+#include "caste_style.h"
 
 #include "qt/label/interfacelabels.h"
 
@@ -34,7 +36,6 @@ namespace qt {
       caste_combo_box = new QComboBox;
       caste_label = new QLabel(labels::creation_wizard::CASTE);
       form->addRow(caste_label, caste_combo_box);
-      hide_show_caste_box();
 
       connect(combo_box, &QComboBox::currentTextChanged, this, &character_creation_name_type_page::hide_show_caste_box);
       QWidget* central_widget = new QWidget;
@@ -46,6 +47,7 @@ namespace qt {
       buttons_layout->addWidget(cancel);
       buttons_layout->addWidget(next_page);
 
+      qt::style::foreground(next_page);
       next_page->setEnabled(false);
       connect(next_page, &QPushButton::clicked, this, &character_creation_name_type_page::chose_all);
       connect(cancel, &QPushButton::clicked, this, &character_creation_name_type_page::back_issued);
@@ -54,11 +56,17 @@ namespace qt {
       buttons->setLayout(buttons_layout);
 
       layout::QBorderLayout *outer_layout = new layout::QBorderLayout;
+      outer_layout->addWidget(_progress_bar, layout::QBorderLayout::North);
       outer_layout->addWidget(central_widget, layout::QBorderLayout::Center);
       outer_layout->addWidget(buttons, layout::QBorderLayout::South);
 
       setLayout(outer_layout);
+      hide_show_caste_box();
+    }
 
+    character_creation_name_type_page::~character_creation_name_type_page()
+    {
+      qt::style::forget(next_page);
     }
 
     void character_creation_name_type_page::hide_show_caste_box()
@@ -66,6 +74,9 @@ namespace qt {
       character_type selected_type = commons::reverse_search_in_map(character::creation::CHARACTER_TYPE_LIST,
                                                                     character::creation::CHARACTER_TYPE_NAMES,
                                                                     combo_box->currentText().toStdString());
+
+      qt::style::SET_CASTE(selected_type);
+
       auto available_castes = character::exalt::exalt_caste::CASTES_OF_EXALT_TYPE.at(selected_type);
       if (available_castes.empty() || available_castes.size() == 1)
         {
@@ -89,9 +100,12 @@ namespace qt {
           char_type = combo_box->currentText();
 
       character_type type = commons::reverse_search_in_map(character::creation::CHARACTER_TYPE_LIST, character::creation::CHARACTER_TYPE_NAMES, char_type.toStdString());
-      character::exalt::caste caste_type = caste_combo_box->isHidden() ? character::exalt::caste::NO_CASTE : commons::reverse_search_in_map(character::exalt::exalt_caste::CASTES_OF_EXALT_TYPE.at(type),
-                                                                                                             character::exalt::exalt_caste::NAME_OF_CASTE,
-                                                                                                             caste_combo_box->currentText().toStdString());
+      character::exalt::caste caste_type = caste_combo_box->isHidden()
+          ? character::exalt::caste::NO_CASTE
+          : commons::reverse_search_in_map(character::exalt::exalt_caste::CASTES_OF_EXALT_TYPE.at(type),
+              character::exalt::exalt_caste::NAME_OF_CASTE,
+              caste_combo_box->currentText().toStdString());
+
       emit character_type_chosen(char_name, type, caste_type);
     }
 

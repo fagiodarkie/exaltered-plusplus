@@ -13,26 +13,23 @@ namespace calculator {
     derived_value_calculator() {}
     derived_value_calculator(worker_map initial_map);
 
-    virtual worker::physical_vd compute_physical_vd(const character::character& c, character::ability_names::ability_enum parry_ability) const override;
-    virtual worker::mental_vd compute_mental_vd(const character::character& c) const override;
+    virtual worker::physical_defenses compute_physical_vd(const character::character& c, ability::ability_enum parry_ability) const override;
+    virtual worker::mental_defenses compute_mental_vd(const character::character& c) const override;
 
-    virtual long int compute_persona                  (const character::creation::character_type& type, const character::attributes& attributes, const character::power::willpower& willpower, const character::power::essence& essence) const override;
+    virtual long int compute_persona                  (const character::creation::character_type& type, const attribute::attributes& attribute, const power::willpower& willpower, const power::essence& essence) const override;
     virtual long int compute_persona                  (const character::character& c) const override;
 
     virtual ~derived_value_calculator() override;
 
-  protected:
-    void calculate_with(character::creation::character_type character_type, std::shared_ptr<worker::abstract_calculator_worker> worker);
-
-    long int compute_personal_essence         (const character::character& c) const override;
-    long int compute_peripheral_essence       (const character::character& c) const override;
-    long int compute_spiritual_essence        (const character::character& c) const override;
-    long int compute_celestial_portion        (const character::character& c) const override;
-    unsigned int compute_life_points          (const character::character& c) const override;
+    long int compute_personal_essence         (const character::character& c)                const override;
+    long int compute_peripheral_essence       (const character::character& c)                const override;
+    long int compute_spiritual_essence        (const character::character& c)                const override;
+    long int compute_celestial_portion        (const character::character& c)                const override;
+    unsigned int compute_life_points          (const character::character& c)                const override;
     unsigned int starting_khan                (const character::creation::character_type& c) const override;
     unsigned int starting_essence             (const character::creation::character_type& c) const override;
     unsigned int starting_logos               (const character::creation::character_type& c) const override;
-    unsigned int starting_willpower           (const character::character& c) const override;
+    unsigned int starting_willpower           (const character::character& c)                const override;
 
 
   private:

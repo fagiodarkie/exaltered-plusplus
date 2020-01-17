@@ -16,11 +16,19 @@ namespace qt {
         calculator(worker)
     {
       // initialise character specs
-      for (auto attribute_e : attribute_names::ATTRIBUTES)
-        attributes[attribute_e] = attribute(attribute_names::ATTRIBUTE_NAME.at(attribute_e), 1);
+      for (auto attribute_e : attribute::ATTRIBUTES)
+        attributes[attribute_e] = 1;
 
-      for (auto ability_e : ability_names::ABILITIES)
-        abilities[ability_e] = ability_group(ability_names::ABILITY_NAME.at(ability_e), ability_names::CATEGORY_OF_ABILITY(ability_e));
+      for (auto ability_e : ability::ABILITIES)
+        {
+          if (ability::has_declination(ability_e))
+            {
+              for (auto declination : ability::ability_declination::DECLINATIONS_OF_ABILITY.at(ability_e))
+                abilities.add(ability::ability(ability::ability_name(ability_e, declination)));
+            }
+          else
+            abilities.add(ability::ability(ability_e));
+        }
 
       name_page = new character_creation_name_type_page(this);
       connect(name_page, &character_creation_name_type_page::back_issued, this, &character_creation_wizard::fallback);
@@ -34,13 +42,9 @@ namespace qt {
       connect(attribute_points_page, &character_creation_attribute_points_page::back_issued, this, &character_creation_wizard::fallback);
       connect(attribute_points_page, &character_creation_attribute_points_page::attribute_points_chosen, this, &character_creation_wizard::load_attribute_points);
 
-      favorite_abilities_page = new character_creation_favorite_abilities(this);
-      connect(favorite_abilities_page, &character_creation_favorite_abilities::back_issued, this, &character_creation_wizard::fallback);
-      connect(favorite_abilities_page, &character_creation_favorite_abilities::abilities_selected, this, &character_creation_wizard::load_favored_abilities);
-
       abilities_page = new character_creation_ability_values(this);
       connect(abilities_page, &character_creation_ability_values::back_issued, this, &character_creation_wizard::fallback);
-      connect(abilities_page, &character_creation_ability_values::ability_points_chosen, this, &character_creation_wizard::load_ability_values);
+      connect(abilities_page, &character_creation_ability_values::abilities_chosen, this, &character_creation_wizard::load_ability_values);
 
       virtues_page = new character_creation_virtues_vice(this);
       connect(virtues_page, &character_creation_virtues_vice::back_issued, this, &character_creation_wizard::fallback);
@@ -51,13 +55,13 @@ namespace qt {
       connect(persona_page, &character_creation_persona::persona_created, this, &character_creation_wizard::load_persona);
 
       layout = new QStackedLayout;
-      layout->addWidget(name_page);
-      layout->addWidget(attribute_priority_page);
-      layout->addWidget(attribute_points_page);
-      layout->addWidget(favorite_abilities_page);
-      layout->addWidget(abilities_page);
-      layout->addWidget(virtues_page);
-      layout->addWidget(persona_page);
+      QList<QWidget*> pages = { name_page, attribute_priority_page, attribute_points_page, abilities_page, virtues_page, persona_page };
+
+      for (unsigned int i = 0; i < pages.size(); ++i)
+        {
+          layout->addWidget(pages.at(i));
+          dynamic_cast<widget::with_progress_bar*>(pages.at(i))->set_progress_bar_status(i, pages.size());
+        }
 
       setLayout(layout);
     }
@@ -69,11 +73,11 @@ namespace qt {
       caste = selected_caste;
       character_model = creation::character_type_model::get_by_character_type(type);
 
-      power.get_logos().set_logos(calculator.starting_logos(type));
-      power.get_essence().set_khan(calculator.starting_khan(type));
-      power.get_essence().set_permanent_essence(calculator.starting_essence(type));
+      logos.set_logos(calculator.starting_logos(type));
+      essence.set_khan(calculator.starting_khan(type));
+      essence.set_permanent_essence(calculator.starting_essence(type));
 
-      attribute_priority_page->set_attribute_values(static_cast<int>(character_model.primary_category_attribute_value),
+      attribute_priority_page->set_values(static_cast<int>(character_model.primary_category_attribute_value),
                                                     static_cast<int>(character_model.secondary_category_attribute_value),
                                                     static_cast<int>(character_model.tertiary_category_attribute_value));
 
@@ -83,9 +87,9 @@ namespace qt {
     void character_creation_wizard::load_attributes_values(const QString& primary_attribute, const QString& secondary_attribute, const QString& tertiary_attribute)
     {
       points_per_category.clear();
-      points_per_category.insert(attribute_names::ATTRIBUTE_CATEGORY_BY_NAME(primary_attribute  .toStdString()), character_model.primary_category_attribute_value);
-      points_per_category.insert(attribute_names::ATTRIBUTE_CATEGORY_BY_NAME(secondary_attribute.toStdString()), character_model.secondary_category_attribute_value);
-      points_per_category.insert(attribute_names::ATTRIBUTE_CATEGORY_BY_NAME(tertiary_attribute .toStdString()), character_model.tertiary_category_attribute_value);
+      points_per_category.insert(attribute::ATTRIBUTE_CATEGORY_BY_NAME(primary_attribute  .toStdString()), character_model.primary_category_attribute_value);
+      points_per_category.insert(attribute::ATTRIBUTE_CATEGORY_BY_NAME(secondary_attribute.toStdString()), character_model.secondary_category_attribute_value);
+      points_per_category.insert(attribute::ATTRIBUTE_CATEGORY_BY_NAME(tertiary_attribute .toStdString()), character_model.tertiary_category_attribute_value);
 
       attribute_points_page->set_total_points(points_per_category);
       attribute_points_page->set_current_attributes(attributes);
@@ -93,28 +97,38 @@ namespace qt {
       advance();
     }
 
-    void character_creation_wizard::load_attribute_points(const class attributes &points)
+    void character_creation_wizard::load_attribute_points(const attribute::attributes &points)
     {
       attributes = points;
 
-      favorite_abilities_page->set_current_abilities(abilities, caste, character_model.caste_abilities, character_model.favored_abilities);
-
-      advance();
-    }
-
-    void character_creation_wizard::load_favored_abilities(const QList<ability_names::ability_enum> &favored_abilities)
-    {
-      for (ability_names::ability_enum ability: ability_names::ABILITIES)
+      for (auto fav_ability : exalt::exalt_caste::get_caste(caste).abilities())
         {
-          abilities[ability].set_favourite(favored_abilities.contains(ability));
+          // take a default declination
+          auto declination = ability::has_declination(fav_ability)
+              ? ability::ability_declination::DECLINATIONS_OF_ABILITY.at(fav_ability).at(0)
+              : ability::ability_declination::NO_DECLINATION;
+
+          // if there is no favorite ability, set one.
+          bool has_at_least_one = false;
+          for (auto ab: abilities.with_type(fav_ability))
+            if (ab.favored())
+              {
+                has_at_least_one = true;
+                break;
+              }
+
+          if (!has_at_least_one)
+            abilities[ability::ability_name(fav_ability, declination)].set_favored();
+
         }
 
-      abilities_page->set_current_abilities(abilities, character_model.starting_ability_points, character_model.min_ability_points_on_favorite_abilities, character_model.max_std_ability_points_on_creation);
+      abilities_page->set_current_abilities(abilities, caste, character_model.caste_abilities, character_model.favored_abilities,
+                                            character_model.starting_ability_points, character_model.min_ability_points_on_favorite_abilities, character_model.max_std_ability_points_on_creation);
 
       advance();
     }
 
-    void character_creation_wizard::load_ability_values(const class abilities &abilities)
+    void character_creation_wizard::load_ability_values(const class ability::abilities &abilities)
     {
       this->abilities = abilities;
 
@@ -123,12 +137,12 @@ namespace qt {
       advance();
     }
 
-    void character_creation_wizard::load_virtues(const virtues &virtues)
+    void character_creation_wizard::load_virtues(const virtues::virtues &virtues)
     {
       character_virtues = virtues;
-      persona.set_persona(calculator.compute_persona(new_character_type, attributes, power.get_willpower(), power.get_essence()));
+      persona.set_persona(calculator.compute_persona(new_character_type, attributes, willpower, essence));
 
-      persona_page->set_current_persona(virtues, persona, character_model, attributes, power);
+      persona_page->set_current_persona(virtues, persona, character_model, attributes);
 
       advance();
     }
@@ -155,7 +169,7 @@ namespace qt {
                               attributes,
                               abilities,
                               character_virtues,
-                              power);
+                              essence, willpower, health, logos);
 
           emit character_created(final_character);
         }

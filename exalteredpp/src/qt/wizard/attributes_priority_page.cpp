@@ -1,13 +1,14 @@
 #include "wizard/attributes_priority_page.h"
 #include "qt/label/interfacelabels.h"
 #include "qt/layout/qborderlayout.h"
+#include "caste_style.h"
 
 namespace qt {
   namespace wizard {
 
     using namespace qt::labels;
     using namespace qt::labels::creation_wizard;
-    using namespace character::attribute_names;
+    using namespace attribute;
 
     attributes_priority_page::attributes_priority_page(QWidget* parent)
       : QWidget(parent)
@@ -20,6 +21,7 @@ namespace qt {
       central_widget->setLayout(attributes_form);
 
       next_page = new QPushButton(NEXT_LABEL);
+      qt::style::foreground(next_page);
       cancel = new QPushButton(CANCEL_LABEL);
 
       connect(next_page, &QPushButton::clicked, this, &attributes_priority_page::chose_all);
@@ -32,9 +34,15 @@ namespace qt {
       buttons->setLayout(buttons_layout);
 
       layout::QBorderLayout *outer_layout = new layout::QBorderLayout;
+      outer_layout->addWidget(_progress_bar, layout::QBorderLayout::North);
       outer_layout->addWidget(central_widget, layout::QBorderLayout::Center);
       outer_layout->addWidget(buttons, layout::QBorderLayout::South);
       setLayout(outer_layout);
+    }
+
+    attributes_priority_page::~attributes_priority_page()
+    {
+      qt::style::forget(next_page);
     }
 
     void attributes_priority_page::create_attributes()
@@ -65,11 +73,12 @@ namespace qt {
         }
     }
 
-    void attributes_priority_page::set_attribute_values(int primary_value, int secondary_value, int tertiary_value)
+    void attributes_priority_page::set_values(int primary_value, int secondary_value, int tertiary_value)
     {
       primary_label   ->setText(ATTRIBUTE_LABEL_WITH_TOTAL_POINTS(PRIMARY_ATTRIBUTE, primary_value));
       secondary_label ->setText(ATTRIBUTE_LABEL_WITH_TOTAL_POINTS(SECONDARY_ATTRIBUTE, secondary_value));
       tertiary_label  ->setText(ATTRIBUTE_LABEL_WITH_TOTAL_POINTS(TERTIARY_ATTRIBUTE, tertiary_value));
+      qt::style::foreground(next_page);
     }
 
     void attributes_priority_page::first_attribute_change()

@@ -3,6 +3,7 @@
 #include "label/interfacelabels.h"
 #include "filesystem_db.h"
 #include "characternotfoundexception.h"
+#include "caste_style.h"
 
 #include <QGroupBox>
 #include <QLabel>
@@ -18,6 +19,11 @@ namespace qt {
         character_manager(char_manager)
     {
       init();
+    }
+
+    qloadcharacterscreen::~qloadcharacterscreen()
+    {
+      qt::style::forget(load_character_button);
     }
 
     void qloadcharacterscreen::enable_load_button()
@@ -42,6 +48,7 @@ namespace qt {
       load_character_button = new QPushButton(this);
       load_character_button->setText(LOAD_LABEL);
       load_character_button->setEnabled(false);
+      qt::style::foreground(load_character_button);
       connect(load_character_button, &QPushButton::clicked, this, &qloadcharacterscreen::load_character);
 
       new_character_button = new QPushButton(this);

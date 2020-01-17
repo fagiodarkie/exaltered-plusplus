@@ -1,6 +1,7 @@
 #include "qt/exalteredapp.h"
 
 #include "qt/label/interfacelabels.h"
+#include <QApplication>
 #include <QGridLayout>
 
 using namespace qt;

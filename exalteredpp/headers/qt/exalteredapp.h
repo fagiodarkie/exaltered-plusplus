@@ -10,8 +10,8 @@
 #include "screen/qdefense_values_screen.h"
 #include "screen/qessence_values_screen.h"
 #include "screen/qwillpower_virtues_screen.h"
+#include "screen/qexperience_screen.h"
 #include "wizard/character_creation_wizard.h"
-#include "screen/qmainscreen.h"
 
 #include "derived_value_calculator.h"
 
@@ -35,6 +35,7 @@ class ExalteredApp : public QMainWindow
     void        load_vd_screen();
     void        load_essence_screen();
     void        load_virtues_screen();
+    void        load_experience_screen();
 
   protected:
     void        init_load_character_screen();
@@ -46,7 +47,6 @@ class ExalteredApp : public QMainWindow
 
     // screens
     qloadcharacterscreen*                       load_character_screen_widget;
-    qmainscreen*                                main_screen_widget;
 
     qcharacterinfoscreen*                       character_info_screen_widget;
     qcharacterattributes*                       character_attributes_widget;
@@ -54,6 +54,7 @@ class ExalteredApp : public QMainWindow
     qdefense_values_screen*                     character_defenses_widget;
     qessence_values_screen*                     character_essence_widget;
     qwillpower_virtues_screen*                  character_virtues_widget;
+    qexperience_screen*                         character_experience_widget;
 
     qt::wizard::character_creation_wizard*      character_creation_wizard;
 

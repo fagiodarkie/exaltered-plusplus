@@ -7,7 +7,7 @@
 #include "widget/std_compatible.h"
 #include "behavioral/name_value_pair.h"
 #include "widget/name_value_widget.h"
-#include "abilities/ability_names.h"
+#include "abilities/ability.h"
 
 namespace qt
 {
@@ -19,19 +19,16 @@ namespace qt
       QWidget* abilities_list = new QWidget;
       QVBoxLayout *v_layout = new QVBoxLayout(this), *inner_layout = new QVBoxLayout;
 
-      v_layout->addWidget(label("Abilities of " + character->get_name()));
+      v_layout->addWidget(label("Abilities of " + character->name()));
 
-      for (auto category: character::ability_names::ABILITY_CATEGORIES)
+      for (auto category: ability::ABILITY_CATEGORIES)
         {
-          QGroupBox *category_group = new QGroupBox(character::ability_names::ABILITY_CATEGORY_NAMES.at(category).c_str());
+          QGroupBox *category_group = new QGroupBox(ability::ABILITY_CATEGORY_NAMES.at(category).c_str());
           QFormLayout *category_form = new QFormLayout;
-          for (auto ability_name: character::ability_names::ABILITIES_IN_CATEGORY.at(category))
-          {
-            for (character::ability ability : character->get_ability_group(ability_name).get_abilities())
-              {
-                category_form->addRow(ability.get_name().c_str(), new QLabel(QString::number(ability.get_ability_value())));
-              }
-          }
+          for (ability::ability ability : character->abilities())
+            if (ability::CATEGORY_OF_ABILITY(ability.name().ability_type) == category)
+              category_form->addRow(label(ability.name()), new QLabel(QString::number(ability.value())));
+
           category_group->setLayout(category_form);
           inner_layout->addWidget(category_group);
         }

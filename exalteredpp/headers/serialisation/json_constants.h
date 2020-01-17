@@ -65,5 +65,20 @@ namespace serialisation
 
     static const std::string SLOT_CHARACTER_TYPE      ;
     static const std::string SLOT_POWER               ;
+
+    static const std::string SLOT_EXPERIENCE          ;
+    static const std::string SLOT_AMOUNT              ;
+    static const std::string SLOT_VIRTUE              ;
+    static const std::string SLOT_ABILITY             ;
+    static const std::string SLOT_DECLINATION         ;
+    static const std::string SLOT_ATTRIBUTE           ;
+    static const std::string SLOT_TYPE                ;
+    static const std::string SLOT_COST                ;
+    static const std::string SLOT_PURCHASE            ;
+    static const std::string SLOT_PURCHASES           ;
+    static const std::string SLOT_AWARDS              ;
+    static const std::string SLOT_SPECIALISATION      ;
+    static const std::string SLOT_SESSION             ;
+    static const std::string SLOT_DESCRIPTION         ;
   };
 }
