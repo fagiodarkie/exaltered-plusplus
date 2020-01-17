@@ -41,4 +41,5 @@ TEST_CASE("Specialisation Purchase")
     REQUIRE(stub.ability() == sut.ability());
     REQUIRE(stub.amount() == sut.amount());
   }
+
 }

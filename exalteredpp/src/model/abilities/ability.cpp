@@ -159,11 +159,6 @@ namespace ability {
     return _value + get(specialisation_name).value();
   }
 
-  class specialisation& ability::operator[](const std::string& specialisation_name)
-  {
-    return get(specialisation_name);
-  }
-
   void ability::remove(const std::string& specialisation_to_remove)
   {
     _specialisations.erase(std::remove_if(_specialisations.begin(), _specialisations.end(), filter_specialisation_by_name(specialisation_to_remove)),

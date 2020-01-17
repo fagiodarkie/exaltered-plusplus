@@ -71,7 +71,7 @@ namespace character
 
   ability::ability character::get(ability::ability_enum name, const std::string& ability_declination) const
   {
-    return _abilities[ability::ability_name(name, ability_declination)];
+    return _abilities.get(ability::ability_name(name, ability_declination));
   }
 
   ability::ability& character::ability(ability::ability_enum name, const std::string &ability_declination)
@@ -81,7 +81,7 @@ namespace character
 
   ability::ability character::get(const ability::ability_name& detailed_ability) const
   {
-    return _abilities[detailed_ability];
+    return _abilities.get(detailed_ability);
   }
 
   bool character::has(const ability::ability_name& detailed_ability) const

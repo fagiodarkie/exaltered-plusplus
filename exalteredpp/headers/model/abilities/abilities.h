@@ -21,15 +21,17 @@ namespace ability
 
     virtual void serialisation() override;
 
-    ability operator[](const ability_name& ab) const;
+    ability get(const ability_name& ab) const;
     ability& operator[](const ability_name& ab);
 
-    ability operator[] (ability_enum ab) const;
+    ability get(ability_enum ab) const;
     ability& operator[](ability_enum ab);
 
     bool has(const ability_name& name) const;
     void add(ability&& ability);
     void remove(const ability_name& ability);
+
+    unsigned long long size() const { return _abilities.size(); }
 
     abilities with_type(ability_enum ability_type) const;
 

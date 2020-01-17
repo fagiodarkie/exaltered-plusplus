@@ -23,7 +23,7 @@ TEST_CASE("Specialisation")
   SECTION("should retrieve correctly name and value strings")
   {
     ability::specialisation sut(TEST_SPEC_NAME, TEST_SPEC_VALUE);
-    REQUIRE(sut.name() == TEST_SPEC_NAME);
+    REQUIRE((std::string)sut == TEST_SPEC_NAME);
   }
 
   SECTION("should compare equal with an specialisation with same name and value")
@@ -45,7 +45,7 @@ TEST_CASE("Specialisation")
     REQUIRE(sut.value() == stub.value());
   }
 
-  SECTION("should create correctly via JSON Object")
+  SECTION("should create correctly via constructors")
   {
     ability::specialisation stub(TEST_SPEC_NAME, TEST_SPEC_VALUE);
 
@@ -56,5 +56,15 @@ TEST_CASE("Specialisation")
     REQUIRE(sut_1.value() == stub.value());
     REQUIRE(sut_2.name() == stub.name());
     REQUIRE(sut_2.value() == stub.value());
+  }
+
+  SECTION("should increase when told to")
+  {
+    ability::specialisation sut(TEST_SPEC_NAME, 0);
+    REQUIRE(sut == 0);
+    sut += 1;
+    REQUIRE(sut == 1);
+    sut.increase(2);
+    REQUIRE(sut == 3);
   }
 }

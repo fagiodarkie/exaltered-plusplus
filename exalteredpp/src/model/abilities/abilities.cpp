@@ -14,7 +14,7 @@ namespace ability {
     return std::find_if(_abilities.begin(), _abilities.end(), filter_ability_by_ability_name(name)) != _abilities.end();
   }
 
-  ability abilities::operator[](const ability_name& ab) const
+  ability abilities::get(const ability_name& ab) const
   {
     auto found_ability = std::find_if(_abilities.begin(), _abilities.end(), filter_ability_by_ability_name(ab));
 
@@ -27,7 +27,7 @@ namespace ability {
   abilities abilities::with_type(ability_enum ability_type) const
   {
     abilities result;
-    std::copy_if(_abilities.begin(), _abilities.end(), result.begin(), filter_ability_by_ability_type(ability_type));
+    std::copy_if(_abilities.begin(), _abilities.end(), std::back_inserter(result._abilities), filter_ability_by_ability_type(ability_type));
     return result;
   }
 
@@ -39,9 +39,9 @@ namespace ability {
     return *std::find_if(_abilities.begin(), _abilities.end(), filter_ability_by_ability_name(ab));
   }
 
-  ability  abilities::operator[](ability_enum ab) const
+  ability  abilities::get(ability_enum ab) const
   {
-    return (*this)[ability_name(ab)];
+    return get(ability_name(ab));
   }
 
   ability& abilities::operator[](ability_enum ab)

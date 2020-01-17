@@ -42,7 +42,6 @@ namespace ability
     class specialisation& get(const std::string& name);
 
     int operator[](const std::string& specialisation_name) const;
-    class specialisation& operator[](const std::string& specialisation_name);
 
     bool has(const std::string& specialisation_name) const;
     void add(const class specialisation& new_specialisation);
