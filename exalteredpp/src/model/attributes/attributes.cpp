@@ -4,9 +4,9 @@ namespace attribute {
 
   void attributes::serialisation()
   {
-    for (auto attribute_type: ATTRIBUTES)
+    for (auto attributeype: ATTRIBUTES)
       {
-        synch(ATTRIBUTE_NAME.at(attribute_type), operator[](attribute_type));
+        synch(ATTRIBUTE_NAME.at(attributeype), operator[](attributeype));
       }
   }
 

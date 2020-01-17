@@ -46,6 +46,14 @@ TEST_CASE("Ability")
     REQUIRE((ability::ability_name)sut == ability::WAR);
   }
 
+  SECTION("should behave like a number when used in arithmetic operations")
+  {
+    ability::ability sut(ability::WAR, 1);
+    REQUIRE(sut + 1 == 2);
+    REQUIRE(sut + 1.0 - 2 < 0.000000000000000001);
+    REQUIRE(sut + 1U == 2);
+  }
+
   SECTION("should manage its name as a string")
   {
     ability::ability sut(ability::WAR, 1);

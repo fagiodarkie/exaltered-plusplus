@@ -150,6 +150,7 @@ SOURCES += \
     ../../src/qt-test/quick_chargen.cpp \
     ../../src/serialisation/filesystem_db.cpp \
     ../../src/serialisation/json_constants.cpp \
+    ../../src/test-case/calculator/derived-value-calculator-test.cpp \
     ../../src/test-case/calculator/experience-purchase-cost-calculator-test.cpp \
     ../../src/test-case/calculator/worker/common-worker-test.cpp \
     ../../src/test-case/common/reverse-search-tests.cpp \

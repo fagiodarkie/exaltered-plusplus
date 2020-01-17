@@ -52,7 +52,7 @@ namespace ability {
   std::vector<ability_name> abilities::keys() const
   {
     std::vector<ability_name> result;
-    std::transform(_abilities.begin(), _abilities.end(), result.begin(), ability_name_getter);
+    std::transform(_abilities.begin(), _abilities.end(), std::back_inserter(result), ability_name_getter);
     return result;
   }
 

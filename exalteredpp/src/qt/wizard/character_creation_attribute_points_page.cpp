@@ -128,11 +128,11 @@ namespace qt {
 
       bool able_to_increase = current_points < max_points_for_category(category);
 
-      for (auto attribute_type: attributes_in_category)
+      for (auto attributeype: attributes_in_category)
         {
-          decrease_buttons_by_attribute[attribute_type]->setEnabled(chosen_attributes[attribute_type] > 1);
-          increase_buttons_by_attribute[attribute_type]->setEnabled(able_to_increase
-                && chosen_attributes[attribute_type] < 5);
+          decrease_buttons_by_attribute[attributeype]->setEnabled(chosen_attributes[attributeype] > 1);
+          increase_buttons_by_attribute[attributeype]->setEnabled(able_to_increase
+                && chosen_attributes[attributeype] < 5);
         }
 
       bool all_categories_have_right_points = true;

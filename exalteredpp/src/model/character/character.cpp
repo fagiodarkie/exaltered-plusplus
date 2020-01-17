@@ -69,6 +69,11 @@ namespace character
     _attributes[name] = attribute;
   }
 
+  int& character::operator[](attribute::attribute_enum name)
+  {
+    return _attributes[name];
+  }
+
   ability::ability character::get(ability::ability_enum name, const std::string& ability_declination) const
   {
     return _abilities.get(ability::ability_name(name, ability_declination));

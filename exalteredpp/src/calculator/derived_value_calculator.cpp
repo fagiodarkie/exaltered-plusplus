@@ -9,12 +9,12 @@ namespace calculator {
     calculator_workers[character_type] = worker;
   }
 
-  worker::physical_vd derived_value_calculator::compute_physical_vd(const character::character& c, ability::ability_enum parry_ability) const
+  worker::physical_defenses derived_value_calculator::compute_physical_vd(const character::character& c, ability::ability_enum parry_ability) const
   {
     return calculator_workers.at(c.type())->compute_physical_vd(c, parry_ability);
   }
 
-  worker::mental_vd derived_value_calculator::compute_mental_vd(const character::character& c) const
+  worker::mental_defenses derived_value_calculator::compute_mental_vd(const character::character& c) const
   {
     return calculator_workers.at(c.type())->compute_mental_vd(c);
   }

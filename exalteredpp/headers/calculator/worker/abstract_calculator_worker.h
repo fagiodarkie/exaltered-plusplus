@@ -5,13 +5,13 @@
 namespace calculator {
   namespace worker {
 
-    struct physical_vd {
+    struct physical_defenses {
       unsigned int parry_vd, tower_parry_vd, dodge_vd,
         bashing_soak, lethal_soak, aggravated_soak,
         parry_balance, dodge_balance, hindrance, stance;
     };
 
-    struct mental_vd {
+    struct mental_defenses {
       unsigned int mental_dodge_vd, charisma_parry_vd, manipulation_parry_vd, appearance_parry_vd,
         resilience;
     };
@@ -20,8 +20,8 @@ namespace calculator {
     {
     public:
 
-      virtual physical_vd compute_physical_vd(const character::character& c, ability::ability_enum parry_ability) const = 0;
-      virtual mental_vd   compute_mental_vd(const character::character& c) const = 0;
+      virtual physical_defenses compute_physical_vd(const character::character& c, ability::ability_enum parry_ability) const = 0;
+      virtual mental_defenses   compute_mental_vd(const character::character& c) const = 0;
 
       // Essence & Logos
       virtual long int compute_personal_essence         (const character::character& c) const = 0;

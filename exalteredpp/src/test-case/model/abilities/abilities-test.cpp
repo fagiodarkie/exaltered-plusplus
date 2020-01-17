@@ -64,6 +64,23 @@ TEST_CASE("Abilities")
     REQUIRE_FALSE(sut.has(ability::ability_name(ability::WAR, "longterm")));
   }
 
+  SECTION("should retrieve ability keys")
+  {
+    ability::abilities sut;
+    sut.add(ability::ability(ability::WAR, 2));
+    sut.add(ability::ability(ability::ability_name(ability::WAR, "longterm"), 2));
+    sut.add(ability::ability(ability::TEACHING, 2));
+    sut.add(ability::ability(ability::MEDICINE, 2));
+
+    auto res = sut.keys();
+    REQUIRE(res.size() == 4);
+    REQUIRE(std::find(res.begin(), res.end(), ability::WAR) != res.end());
+    REQUIRE(std::find(res.begin(), res.end(), ability::TEACHING) != res.end());
+    REQUIRE(std::find(res.begin(), res.end(), ability::MEDICINE) != res.end());
+    REQUIRE(std::find(res.begin(), res.end(), ability::ability_name(ability::WAR, "longterm")) != res.end());
+    REQUIRE(std::find(res.begin(), res.end(), ability::MELEE) == res.end());
+  }
+
   SECTION("should create correctly from JSON")
   {
     ability::abilities stub;

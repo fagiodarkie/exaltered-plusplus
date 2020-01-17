@@ -6,7 +6,7 @@ namespace calculator {
 
     exalt_worker::~exalt_worker() {}
 
-    long int exalt_worker::compute_persona(const character::creation::character_type& type, const attribute::attributes& attributes, const power::willpower& willpower, const power::essence& essence) const
+    long int exalt_worker::_persona(const character::creation::character_type& type, const attribute::attributes& attributes, const power::willpower& willpower, const power::essence& essence) const
     {
       std::vector<unsigned int> all_values;
       all_values.push_back(willpower.permanent_willpower());
@@ -17,7 +17,7 @@ namespace calculator {
 
       std::sort(all_values.begin(), all_values.end());
 
-      unsigned int result = 0;
+      unsigned long result = 0;
       // start from 0 - drop lowest
       for (int i = 1; i < all_values.size(); ++i)
         {
@@ -29,8 +29,12 @@ namespace calculator {
 
     double exalt_worker::_natural_aggravated_soak(const character::character& c) const
     {
-      return c.attribute(attribute_t::CONSTITUTION) / 4;
+      return c.attribute(attribute::CONSTITUTION) / 4;
     }
 
+    double exalt_worker::_lethal_soak              (const character::character& c) const
+    {
+      return half(c, attribute::CONSTITUTION);
+    }
   }
 }
