@@ -19,7 +19,7 @@ namespace narrative {
 
     virtual std::string description() const = 0;
     virtual std::string key() const = 0;
-
+    virtual unsigned int amount() const = 0;
     virtual ~abstract_purchase() {}
 
   protected:

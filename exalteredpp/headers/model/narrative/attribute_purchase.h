@@ -18,7 +18,7 @@ namespace narrative {
       virtual std::string description() const override;
       virtual std::string key() const override;
       attribute::attribute_enum attribute() const;
-      int amount() const;
+      unsigned int amount() const override;
 
       virtual ~attribute_purchase() override;
 

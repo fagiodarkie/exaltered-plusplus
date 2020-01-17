@@ -4,7 +4,10 @@ namespace calculator { namespace cost {
 
     unsigned int essence_cost_worker::cost_for(std::shared_ptr<character::character> character) const
     {
-      return character->essence().permanent_essence() * STANDARD_MULTIPLIER;
+      unsigned int result = 0;
+      for (int value = character->essence().permanent_essence(); value < _purchase->amount(); ++value)
+        result += value * STANDARD_MULTIPLIER;
+      return result;
     }
 
 }}

@@ -10,8 +10,7 @@ namespace narrative {
     {
     public:
       essence_purchase(unsigned int amount = 1);
-      unsigned int amount() const;
-
+      unsigned int amount() const override;
       virtual void apply(std::shared_ptr<character::character> c) override;
 
       virtual void serialisation() override;

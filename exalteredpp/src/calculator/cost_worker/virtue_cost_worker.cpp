@@ -12,7 +12,11 @@ namespace calculator { namespace cost {
 
       auto current_virtue = character->virtue(virtue).value();
 
-      return current_virtue * STANDARD_MULTIPLIER;
+      unsigned int result = 0;
+      for (int value = current_virtue; value < _purchase->amount(); ++value)
+        result += value * STANDARD_MULTIPLIER;
+
+      return result;
     }
 
 }}

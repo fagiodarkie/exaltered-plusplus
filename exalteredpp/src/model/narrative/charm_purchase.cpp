@@ -16,4 +16,10 @@ namespace narrative {
 
     }
 
+    unsigned int charm_purchase::amount() const
+    {
+      return 0;
+    }
+
+
 }

@@ -14,8 +14,7 @@ namespace narrative {
       ability_purchase(ability::ability_name ability = ability::MELEE, unsigned int amount = 1);
 
       ability::ability_name ability() const;
-      unsigned int amount() const;
-
+      unsigned int amount() const override;
       virtual void apply(std::shared_ptr<character::character> c) override;
 
       virtual void serialisation() override;

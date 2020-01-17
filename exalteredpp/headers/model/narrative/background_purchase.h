@@ -16,6 +16,7 @@ namespace narrative {
       virtual void serialisation() override;
       virtual std::string description() const override;
       virtual std::string key() const override;
+      virtual unsigned int amount() const override;
 
       virtual ~background_purchase() override;
 

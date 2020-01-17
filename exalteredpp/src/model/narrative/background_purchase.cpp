@@ -14,6 +14,11 @@ namespace narrative {
       synch(serialisation::json_constants::SLOT_AMOUNT, _amount);
     }
 
+    unsigned int background_purchase::amount() const
+    {
+      return 0;
+    }
+
     std::string background_purchase::key() const
     {
       return "background";

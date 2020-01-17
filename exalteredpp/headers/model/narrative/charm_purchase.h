@@ -13,6 +13,7 @@ namespace narrative {
 
       virtual void apply(std::shared_ptr<character::character> c) override;
       virtual void serialisation() override;
+      virtual unsigned int amount() const override;
 
       virtual ~charm_purchase() override;
 

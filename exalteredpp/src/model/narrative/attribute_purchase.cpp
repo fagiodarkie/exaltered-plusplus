@@ -31,7 +31,7 @@ namespace narrative {
       return _attribute;
     }
 
-    int attribute_purchase::amount() const
+    unsigned int attribute_purchase::amount() const
     {
       return _amount;
     }

@@ -12,7 +12,10 @@ namespace calculator { namespace cost {
 
       int current_attribute = character->attribute(attribute_name);
 
-      return current_attribute * STANDARD_MULTIPLIER;
+      unsigned int result = 0;
+      for (int value = current_attribute; value < _purchase->amount(); ++value)
+        result += value * STANDARD_MULTIPLIER;
+      return result;
     }
 
 }}

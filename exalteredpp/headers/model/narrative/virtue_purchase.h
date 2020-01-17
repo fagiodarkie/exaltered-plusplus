@@ -14,7 +14,7 @@ namespace narrative {
 
       virtual void apply(std::shared_ptr<character::character>) override;
 
-      unsigned int amount() const;
+      unsigned int amount() const override;
       virtues::virtue_enum virtue() const;
 
       virtual void serialisation() override;
