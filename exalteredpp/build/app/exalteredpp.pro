@@ -33,6 +33,7 @@ INCLUDEPATH += ../../headers \
     ../../headers/calculator
 
 SOURCES += \
+    ../../src/calculator/attack_resolution/physical_attack.cpp \
     ../../src/calculator/cost_worker/ability_cost_worker.cpp \
     ../../src/calculator/cost_worker/attribute_cost_worker.cpp \
     ../../src/calculator/cost_worker/essence_cost_worker.cpp \
@@ -112,6 +113,8 @@ SOURCES += \
     ../../thirdparty/darkstyle/DarkStyle.cpp
 
 HEADERS += \
+    ../../headers/calculator/attack_resolution/attack_defines.h \
+    ../../headers/calculator/attack_resolution/physical_attack.h \
     ../../headers/calculator/cost_worker/ability_cost_worker.h \
     ../../headers/calculator/cost_worker/abstract_cost_worker.h \
     ../../headers/calculator/cost_worker/attribute_cost_worker.h \
