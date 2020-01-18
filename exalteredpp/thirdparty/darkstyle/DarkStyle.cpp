@@ -50,6 +50,7 @@ void DarkStyle::setDark(bool isDark)
       middle  =  dark42;
       lighter =  dark53;
       light   =  dark66;
+      text    =  Qt::white;
     }
   else
     {
@@ -58,6 +59,7 @@ void DarkStyle::setDark(bool isDark)
       middle  =  light42;
       lighter =  light53;
       light   =  light66;
+      text    =  QColor(30,21,21);
     }
 }
 

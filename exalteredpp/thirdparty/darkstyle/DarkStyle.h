@@ -50,11 +50,11 @@ private:
           dark66      = QColor(66 , 66 , 66 ),
           dark80      = QColor(80 , 80 , 80 ),
           dark127     = QColor(127, 127, 127),
-          light20     = QColor(30 , 21 , 21 ),
-          light35     = QColor(96 , 96 , 100),
-          light42     = QColor(115, 115, 119),
-          light53     = QColor(144, 144, 149),
-          light66     = QColor(180, 180, 186),
+          light20     = QColor(35 , 37 , 43 ), // 1e1515
+          light35     = QColor(131, 131, 136), // 606064
+          light42     = QColor(158, 158, 163), // 737377
+          light53     = QColor(190, 190, 196), // 909095
+          light66     = QColor(228, 228, 235), // b4b4ba
           light80     = QColor(80 , 80 , 80 ),
           light127    = QColor(127, 127, 127),
           text        = Qt::white,
