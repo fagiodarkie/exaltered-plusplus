@@ -38,7 +38,7 @@ TEST_CASE("character_manager")
   {
     try {
       auto attributes = attribute::attributes();
-      attributes[attribute::CONSTITUTION] = 2;
+      attributes[attribute::attribute_enum::CONSTITUTION] = 2;
       auto generated = sut.create_character(calculator::worker::human_worker(), "name", character::creation::TYPE_MORTAL_HERO, character::exalt::caste::NO_CASTE, attributes, ability::abilities(), virtues::virtues(), power::essence(), power::willpower(), power::health(), power::logos());
       REQUIRE(generated);
     }

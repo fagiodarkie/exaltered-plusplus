@@ -21,6 +21,8 @@ namespace qt
 
       v_layout->addWidget(label("Abilities of " + character->name()));
 
+      auto att = character->get((ability::ability_enum)attribute::attribute_enum::STRENGTH);
+
       for (auto category: ability::ABILITY_CATEGORIES)
         {
           QGroupBox *category_group = new QGroupBox(ability::ABILITY_CATEGORY_NAMES.at(category).c_str());

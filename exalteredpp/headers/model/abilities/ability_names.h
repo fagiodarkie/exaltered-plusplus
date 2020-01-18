@@ -13,7 +13,7 @@ namespace ability
 {
   using namespace model::text::ability;
 
-  enum ability_enum
+  enum class ability_enum
   {
     MELEE = 0, ARCHERY, THROWN, MARTIAL_ARTS, WAR,
     TECHNOLOGY, PERFORMANCE, PRESENCE, RESISTANCE, INTEGRITY,
@@ -23,11 +23,11 @@ namespace ability
   };
 
   static const std::list<ability_enum> ABILITIES = {
-    MELEE, ARCHERY, THROWN, MARTIAL_ARTS, WAR,
-    TECHNOLOGY, PERFORMANCE, PRESENCE, RESISTANCE, INTEGRITY,
-    MEDITATION, MEDICINE, INVESTIGATION, ACADEMICS, CRAFT,
-    STEALTH, AWARENESS, DODGE, ATHLETICS, PRESTIDIGITATION,
-    MANEUVER, SOCIALISE, BUREAUCRACY, TEACHING
+    ability_enum::MELEE,      ability_enum::ARCHERY,      ability_enum::THROWN,         ability_enum::MARTIAL_ARTS, ability_enum::WAR,
+    ability_enum::TECHNOLOGY, ability_enum::PERFORMANCE,  ability_enum::PRESENCE,       ability_enum::RESISTANCE,   ability_enum::INTEGRITY,
+    ability_enum::MEDITATION, ability_enum::MEDICINE,     ability_enum::INVESTIGATION,  ability_enum::ACADEMICS,    ability_enum::CRAFT,
+    ability_enum::STEALTH,    ability_enum::AWARENESS,    ability_enum::DODGE,          ability_enum::ATHLETICS,    ability_enum::PRESTIDIGITATION,
+    ability_enum::MANEUVER,   ability_enum::SOCIALISE,    ability_enum::BUREAUCRACY,    ability_enum::TEACHING
   };
 
   enum ability_category
@@ -44,7 +44,7 @@ namespace ability
   };
 
   static const std::list<ability_enum> ABILITY_WITH_SUB_ABILITIES = {
-    MANEUVER, TECHNOLOGY, CRAFT
+     ability_enum::MANEUVER, ability_enum::TECHNOLOGY, ability_enum::CRAFT
   };
 
   static bool has_declination(ability_enum ability) {
@@ -76,43 +76,43 @@ namespace ability
     LUTE_CRAFT      = "Lutist";
 
     static std::map<ability_enum, std::vector<std::string>> DECLINATIONS_OF_ABILITY = {
-      { TECHNOLOGY, { FIRE_TECH, WATER_TECH, WOOD_TECH, EARTH_TECH, AIR_TECH, NECRO_TECH, SURVIVAL_TECH }},
-      { MANEUVER, { BEAST_MANEUVER, SHIP_MANEUVER, CHART_MANEUVER, FIRSTAGE_MANEUVER }},
-      { CRAFT, { SMITH_CRAFT, FLETCHER_CRAFT, ENCHANT_CRAFT, ARMOR_CRAFT, LUTE_CRAFT }}
+      { ability_enum::TECHNOLOGY, { FIRE_TECH, WATER_TECH, WOOD_TECH, EARTH_TECH, AIR_TECH, NECRO_TECH, SURVIVAL_TECH }},
+      { ability_enum::MANEUVER, { BEAST_MANEUVER, SHIP_MANEUVER, CHART_MANEUVER, FIRSTAGE_MANEUVER }},
+      { ability_enum::CRAFT, { SMITH_CRAFT, FLETCHER_CRAFT, ENCHANT_CRAFT, ARMOR_CRAFT, LUTE_CRAFT }}
     };
   }
 
   static const std::map<ability_enum, std::string> ABILITY_NAME {
-    { MELEE,            ABILITY_MELEE            },
-    { ARCHERY,          ABILITY_ARCHERY          },
-    { THROWN,           ABILITY_THROWN           },
-    { MARTIAL_ARTS,     ABILITY_MARTIAL_ARTS     },
-    { WAR,              ABILITY_WAR              },
-    { TECHNOLOGY,       ABILITY_TECHNOLOGY       },
-    { PERFORMANCE,      ABILITY_PERFORMANCE      },
-    { PRESENCE,         ABILITY_PRESENCE         },
-    { RESISTANCE,       ABILITY_RESISTANCE       },
-    { INTEGRITY,        ABILITY_INTEGRITY        },
-    { MEDITATION,       ABILITY_MEDITATION       },
-    { ACADEMICS,        ABILITY_ACADEMICS        },
-    { MEDICINE,         ABILITY_MEDICINE         },
-    { INVESTIGATION,    ABILITY_INVESTIGATION    },
-    { TEACHING,         ABILITY_TEACHING         },
-    { CRAFT,            ABILITY_CRAFT            },
-    { STEALTH,          ABILITY_STEALTH          },
-    { AWARENESS,        ABILITY_AWARENESS        },
-    { DODGE,            ABILITY_DODGE            },
-    { ATHLETICS,        ABILITY_ATHLETICS        },
-    { PRESTIDIGITATION, ABILITY_PRESTIDIGITATION },
-    { MANEUVER,         ABILITY_MANEUVER         },
-    { SOCIALISE,        ABILITY_SOCIALISE        },
-    { BUREAUCRACY,      ABILITY_BUREAUCRACY      }
+    { ability_enum::MELEE,            ABILITY_MELEE            },
+    { ability_enum::ARCHERY,          ABILITY_ARCHERY          },
+    { ability_enum::THROWN,           ABILITY_THROWN           },
+    { ability_enum::MARTIAL_ARTS,     ABILITY_MARTIAL_ARTS     },
+    { ability_enum::WAR,              ABILITY_WAR              },
+    { ability_enum::TECHNOLOGY,       ABILITY_TECHNOLOGY       },
+    { ability_enum::PERFORMANCE,      ABILITY_PERFORMANCE      },
+    { ability_enum::PRESENCE,         ABILITY_PRESENCE         },
+    { ability_enum::RESISTANCE,       ABILITY_RESISTANCE       },
+    { ability_enum::INTEGRITY,        ABILITY_INTEGRITY        },
+    { ability_enum::MEDITATION,       ABILITY_MEDITATION       },
+    { ability_enum::ACADEMICS,        ABILITY_ACADEMICS        },
+    { ability_enum::MEDICINE,         ABILITY_MEDICINE         },
+    { ability_enum::INVESTIGATION,    ABILITY_INVESTIGATION    },
+    { ability_enum::TEACHING,         ABILITY_TEACHING         },
+    { ability_enum::CRAFT,            ABILITY_CRAFT            },
+    { ability_enum::STEALTH,          ABILITY_STEALTH          },
+    { ability_enum::AWARENESS,        ABILITY_AWARENESS        },
+    { ability_enum::DODGE,            ABILITY_DODGE            },
+    { ability_enum::ATHLETICS,        ABILITY_ATHLETICS        },
+    { ability_enum::PRESTIDIGITATION, ABILITY_PRESTIDIGITATION },
+    { ability_enum::MANEUVER,         ABILITY_MANEUVER         },
+    { ability_enum::SOCIALISE,        ABILITY_SOCIALISE        },
+    { ability_enum::BUREAUCRACY,      ABILITY_BUREAUCRACY      }
   };
 
   static const std::map<ability_category, std::list<ability_enum>> ABILITIES_IN_CATEGORY {
-    { COMBAT,     { MELEE,      ARCHERY,      THROWN,   MARTIAL_ARTS, WAR,            RESISTANCE,   AWARENESS,        DODGE     } },
-    { NARRATIVE,  { TECHNOLOGY, MEDITATION,   MEDICINE, CRAFT,        STEALTH,        ATHLETICS,    PRESTIDIGITATION, MANEUVER  } },
-    { SOCIAL,     { ACADEMICS,  PERFORMANCE,  PRESENCE, INTEGRITY,    INVESTIGATION,  SOCIALISE,    BUREAUCRACY,      TEACHING  } }
+    { COMBAT,     { ability_enum::MELEE,      ability_enum::ARCHERY,      ability_enum::THROWN,   ability_enum::MARTIAL_ARTS, ability_enum::WAR,            ability_enum::RESISTANCE,   ability_enum::AWARENESS,        ability_enum::DODGE     } },
+    { NARRATIVE,  { ability_enum::TECHNOLOGY, ability_enum::MEDITATION,   ability_enum::MEDICINE, ability_enum::CRAFT,        ability_enum::STEALTH,        ability_enum::ATHLETICS,    ability_enum::PRESTIDIGITATION, ability_enum::MANEUVER  } },
+    { SOCIAL,     { ability_enum::ACADEMICS,  ability_enum::PERFORMANCE,  ability_enum::PRESENCE, ability_enum::INTEGRITY,    ability_enum::INVESTIGATION,  ability_enum::SOCIALISE,    ability_enum::BUREAUCRACY,      ability_enum::TEACHING  } }
   };
 
   static ability_category CATEGORY_OF_ABILITY(ability_enum ability)

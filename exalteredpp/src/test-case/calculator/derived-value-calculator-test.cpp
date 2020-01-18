@@ -13,18 +13,18 @@ TEST_CASE("Derived Value Calculator")
                                            });
 
   auto character = std::make_shared<character::character>("");
-  (*character)[attribute::STRENGTH] = 2;
-  (*character)[attribute::DEXTERITY] = 3;
-  (*character)[attribute::CONSTITUTION] = 2;
-  (*character)[attribute::CHARISMA] = 2;
-  (*character)[attribute::MANIPULATION] = 2;
-  (*character)[attribute::APPEARANCE] = 2;
-  (*character)[attribute::INTELLIGENCE] = 3;
-  (*character)[attribute::WITS] = 2;
-  (*character)[ability::MELEE] = 2;
-  (*character)[ability::DODGE] = 2;
-  (*character)[ability::RESISTANCE] = 3;
-  (*character)[ability::INTEGRITY] = 3;
+  (*character)[attribute::attribute_enum::STRENGTH] = 2;
+  (*character)[attribute::attribute_enum::DEXTERITY] = 3;
+  (*character)[attribute::attribute_enum::CONSTITUTION] = 2;
+  (*character)[attribute::attribute_enum::CHARISMA] = 2;
+  (*character)[attribute::attribute_enum::MANIPULATION] = 2;
+  (*character)[attribute::attribute_enum::APPEARANCE] = 2;
+  (*character)[attribute::attribute_enum::INTELLIGENCE] = 3;
+  (*character)[attribute::attribute_enum::WITS] = 2;
+  (*character)[ability::ability_enum::MELEE] = 2;
+  (*character)[ability::ability_enum::DODGE] = 2;
+  (*character)[ability::ability_enum::RESISTANCE] = 3;
+  (*character)[ability::ability_enum::INTEGRITY] = 3;
   character->virtue(virtues::COMPASSION).set_value(2);
   character->virtue(virtues::VALOR).set_value(2);
   character->virtue(virtues::CONVINCTION).set_value(3);
@@ -34,7 +34,7 @@ TEST_CASE("Derived Value Calculator")
   SECTION("should compute values for a mortal")
   {
     character->set_type(character::creation::TYPE_MORTAL_HERO);
-    auto phys_defenses = sut.compute_physical_vd(*character, ability::MELEE);
+    auto phys_defenses = sut.compute_physical_vd(*character, ability::ability_enum::MELEE);
     CHECK(phys_defenses.dodge_vd == 2);
     CHECK(phys_defenses.dodge_balance == 3);
     CHECK(phys_defenses.parry_vd == 2);
@@ -67,8 +67,8 @@ TEST_CASE("Derived Value Calculator")
   {
     character->set_type(character::creation::TYPE_SOLAR_EXALT);
     character->essence().set_permanent_essence(5);
-    character->set(ability::MELEE, 3);
-    auto phys_defenses = sut.compute_physical_vd(*character, ability::MELEE);
+    character->set(ability::ability_enum::MELEE, 3);
+    auto phys_defenses = sut.compute_physical_vd(*character, ability::ability_enum::MELEE);
     CHECK(phys_defenses.dodge_vd == 3);
     CHECK(phys_defenses.parry_vd == 3);
     CHECK(phys_defenses.tower_parry_vd == 3);

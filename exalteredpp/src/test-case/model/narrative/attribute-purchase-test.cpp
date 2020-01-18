@@ -7,9 +7,9 @@ TEST_CASE("Attribute Purchase")
 {
   SECTION("should create new attribute purchase")
   {
-    narrative::attribute_purchase sut(attribute::STRENGTH, 3);
+    narrative::attribute_purchase sut(attribute::attribute_enum::STRENGTH, 3);
 
-    REQUIRE(sut.attribute() == attribute::STRENGTH);
+    REQUIRE(sut.attribute() == attribute::attribute_enum::STRENGTH);
     REQUIRE(sut.amount() == 3);
 
   }
@@ -17,15 +17,15 @@ TEST_CASE("Attribute Purchase")
   SECTION("should apply successfully to character")
   {
     std::shared_ptr<character::character> c = std::make_shared<character::character>("");
-    c->set(attribute::STRENGTH, 0);
-    narrative::attribute_purchase sut(attribute::STRENGTH, 3);
+    c->set(attribute::attribute_enum::STRENGTH, 0);
+    narrative::attribute_purchase sut(attribute::attribute_enum::STRENGTH, 3);
     sut.apply(c);
-    REQUIRE(c->attribute(attribute::STRENGTH) == 3);
+    REQUIRE(c->attribute(attribute::attribute_enum::STRENGTH) == 3);
   }
 
   SECTION("should serialise and deserialise successfully")
   {
-    narrative::attribute_purchase sut(attribute::STRENGTH, 5);
+    narrative::attribute_purchase sut(attribute::attribute_enum::STRENGTH, 5);
 
     std::string data;
     REQUIRE_NOTHROW(data = sut.serialise());

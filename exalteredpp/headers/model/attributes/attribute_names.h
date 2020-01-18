@@ -11,11 +11,11 @@ namespace attribute
 
   using namespace model::text::attribute_names;
 
-  enum attribute_enum
+  enum class attribute_enum
   {
-    STRENGTH, DEXTERITY, CONSTITUTION,
-    CHARISMA, MANIPULATION, APPEARANCE,
-    INTELLIGENCE, PERCEPTION, WITS
+    STRENGTH,     DEXTERITY,    CONSTITUTION,
+    CHARISMA,     MANIPULATION, APPEARANCE,
+    INTELLIGENCE, PERCEPTION,   WITS
   };
 
   enum attribute_category
@@ -26,15 +26,15 @@ namespace attribute
   static const std::list<attribute_category> ATTRIBUTE_CATEGORIES = { PHYSICAL, SOCIAL, MENTAL};
 
   static const std::list<attribute_enum> ATTRIBUTES = {
-    STRENGTH,     DEXTERITY,    CONSTITUTION,
-    CHARISMA,     MANIPULATION, APPEARANCE,
-    INTELLIGENCE, PERCEPTION,   WITS
+    attribute_enum::STRENGTH,     attribute_enum::DEXTERITY,    attribute_enum::CONSTITUTION,
+    attribute_enum::CHARISMA,     attribute_enum::MANIPULATION, attribute_enum::APPEARANCE,
+    attribute_enum::INTELLIGENCE, attribute_enum::PERCEPTION,   attribute_enum::WITS
   };
 
   static const std::map<attribute_category, std::list<attribute_enum>> ATTRIBUTES_BY_CATEGORY
-  { { SOCIAL,   { CHARISMA,     MANIPULATION, APPEARANCE   } },
-    { MENTAL,   { INTELLIGENCE, PERCEPTION,   WITS         } },
-    { PHYSICAL, { STRENGTH,     DEXTERITY,    CONSTITUTION } }
+  { { SOCIAL,   { attribute_enum::CHARISMA,     attribute_enum::MANIPULATION, attribute_enum::APPEARANCE   } },
+    { MENTAL,   { attribute_enum::INTELLIGENCE, attribute_enum::PERCEPTION,   attribute_enum::WITS         } },
+    { PHYSICAL, { attribute_enum::STRENGTH,     attribute_enum::DEXTERITY,    attribute_enum::CONSTITUTION } }
   };
 
   static const std::map<attribute_category, std::string> ATTRIBUTE_CATEGORY_NAME
@@ -44,15 +44,15 @@ namespace attribute
   };
 
   static const std::map<attribute_enum, std::string> ATTRIBUTE_NAME {
-    { STRENGTH,     ATTRIBUTE_STRENGTH      },
-    { DEXTERITY,    ATTRIBUTE_DEXTERITY     },
-    { CONSTITUTION, ATTRIBUTE_CONSTITUTION  },
-    { CHARISMA,     ATTRIBUTE_CHARISMA      },
-    { MANIPULATION, ATTRIBUTE_MANIPULATION  },
-    { APPEARANCE,   ATTRIBUTE_APPEARANCE    },
-    { INTELLIGENCE, ATTRIBUTE_INTELLIGENCE  },
-    { PERCEPTION,   ATTRIBUTE_PERCEPTION    },
-    { WITS,         ATTRIBUTE_WITS          }
+    { attribute_enum::STRENGTH,     ATTRIBUTE_STRENGTH      },
+    { attribute_enum::DEXTERITY,    ATTRIBUTE_DEXTERITY     },
+    { attribute_enum::CONSTITUTION, ATTRIBUTE_CONSTITUTION  },
+    { attribute_enum::CHARISMA,     ATTRIBUTE_CHARISMA      },
+    { attribute_enum::MANIPULATION, ATTRIBUTE_MANIPULATION  },
+    { attribute_enum::APPEARANCE,   ATTRIBUTE_APPEARANCE    },
+    { attribute_enum::INTELLIGENCE, ATTRIBUTE_INTELLIGENCE  },
+    { attribute_enum::PERCEPTION,   ATTRIBUTE_PERCEPTION    },
+    { attribute_enum::WITS,         ATTRIBUTE_WITS          }
   };
 
   static attribute_category ATTRIBUTE_CATEGORY_BY_NAME(const std::string& attribute_category_name)

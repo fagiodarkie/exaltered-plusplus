@@ -150,7 +150,7 @@ namespace qt {
         {
           auto row = row_of_ability[abilityname];
           auto ability = row->ability();
-          bool caste_ability = std::find(caste_abilities.begin(), caste_abilities.end(), abilityname) != caste_abilities.end();
+          bool caste_ability = std::find(caste_abilities.begin(), caste_abilities.end(), abilityname.name().ability_type) != caste_abilities.end();
 
           result[ability].increase &= (!should_inhibit_all_add);
           if (!ability.favored())

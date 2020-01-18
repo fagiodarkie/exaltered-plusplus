@@ -80,7 +80,7 @@ namespace qt {
     {
       QPushButton* button = new QPushButton("+");
       button->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
-      button->setProperty(ATTRIBUTE.toStdString().c_str(), attribute);
+      button->setProperty(ATTRIBUTE.toStdString().c_str(), (int)attribute);
 
       connect(button, &QPushButton::clicked, this, &character_creation_attribute_points_page::increase_attribute);
 
@@ -91,7 +91,7 @@ namespace qt {
     {
       QPushButton* button = new QPushButton("-");
       button->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
-      button->setProperty(ATTRIBUTE.toStdString().c_str(), attribute);
+      button->setProperty(ATTRIBUTE.toStdString().c_str(), (int)attribute);
 
       connect(button, &QPushButton::clicked, this, &character_creation_attribute_points_page::decrease_attribute);
 
