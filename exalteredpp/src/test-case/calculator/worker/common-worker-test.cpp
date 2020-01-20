@@ -9,23 +9,23 @@ TEST_CASE("common worker")
 {
   human_worker sut;
   character::character test_character = generate_character("name", 0);
-  test_character.set(attribute::DEXTERITY, 4);
-  test_character.set(attribute::STRENGTH, 3);
-  test_character.set(attribute::CONSTITUTION, 3);
-  test_character.set(attribute::INTELLIGENCE, 3);
-  test_character.set(attribute::CHARISMA, 3);
-  test_character.set(attribute::MANIPULATION, 3);
-  test_character.set(attribute::APPEARANCE, 3);
-  test_character.set(attribute::WITS, 3);
-  test_character.set(ability::MELEE, 3);
-  test_character.set(ability::DODGE, 3);
-  test_character.set(ability::RESISTANCE, 3);
-  test_character.set(ability::INTEGRITY, 3);
+  test_character.set(attribute::attribute_enum::DEXTERITY, 4);
+  test_character.set(attribute::attribute_enum::STRENGTH, 3);
+  test_character.set(attribute::attribute_enum::CONSTITUTION, 3);
+  test_character.set(attribute::attribute_enum::INTELLIGENCE, 3);
+  test_character.set(attribute::attribute_enum::CHARISMA, 3);
+  test_character.set(attribute::attribute_enum::MANIPULATION, 3);
+  test_character.set(attribute::attribute_enum::APPEARANCE, 3);
+  test_character.set(attribute::attribute_enum::WITS, 3);
+  test_character.set(ability::ability_enum::MELEE, 3);
+  test_character.set(ability::ability_enum::DODGE, 3);
+  test_character.set(ability::ability_enum::RESISTANCE, 3);
+  test_character.set(ability::ability_enum::INTEGRITY, 3);
 
   SECTION("should compute human values rounding down")
   {
     // parry is ((dex + str) / 2 + ability) / 2. In this case it's ((4 + 3) / 2 + 3) / 2, which should yield 3 instead of 4 since it rounds down
-    REQUIRE(sut.compute_parry_dv(test_character, ability::MELEE) == 3);
+    REQUIRE(sut.compute_parry_dv(test_character, ability::ability_enum::MELEE) == 3);
     // same for dodge, (4 + 3) / 2 = 3
     REQUIRE(sut.compute_dodge_dv(test_character) == 3);
   }
@@ -33,10 +33,10 @@ TEST_CASE("common worker")
   SECTION("all values must be implemented")
   {
     REQUIRE_NOTHROW(sut.compute_dodge_dv               (test_character));
-    REQUIRE_NOTHROW(sut.compute_parry_dv               (test_character, ability::MELEE));
-    REQUIRE_NOTHROW(sut.compute_heavy_parry_dv         (test_character, ability::MELEE));
+    REQUIRE_NOTHROW(sut.compute_parry_dv               (test_character, ability::ability_enum::MELEE));
+    REQUIRE_NOTHROW(sut.compute_heavy_parry_dv         (test_character, ability::ability_enum::MELEE));
     REQUIRE_NOTHROW(sut.compute_mental_dodge_dv        (test_character));
-    REQUIRE_NOTHROW(sut.compute_mental_parry_dv        (test_character, attribute::CHARISMA));
+    REQUIRE_NOTHROW(sut.compute_mental_parry_dv        (test_character, attribute::attribute_enum::CHARISMA));
     REQUIRE_NOTHROW(sut.compute_persona                (test_character));
     REQUIRE_NOTHROW(sut.compute_bashing_soak           (test_character));
     REQUIRE_NOTHROW(sut.compute_lethal_soak            (test_character));
@@ -68,18 +68,18 @@ TEST_CASE("exalt worker")
 
   SECTION("should compute human values rounding up")
   {
-    test_character.set(attribute::DEXTERITY, 4);
-    test_character.set(attribute::STRENGTH, 3);
-    test_character.set(attribute::MANIPULATION, 5);
-    test_character.set(attribute::CHARISMA, 5);
-    test_character.set(attribute::APPEARANCE, 1);
+    test_character.set(attribute::attribute_enum::DEXTERITY, 4);
+    test_character.set(attribute::attribute_enum::STRENGTH, 3);
+    test_character.set(attribute::attribute_enum::MANIPULATION, 5);
+    test_character.set(attribute::attribute_enum::CHARISMA, 5);
+    test_character.set(attribute::attribute_enum::APPEARANCE, 1);
     test_character.willpower().set_permanent_willpower(5);
     test_character.essence().set_permanent_essence(5);
-    test_character.set(ability::MELEE, 3);
-    test_character.set(ability::DODGE, 3);
+    test_character.set(ability::ability_enum::MELEE, 3);
+    test_character.set(ability::ability_enum::DODGE, 3);
 
     // parry is ((dex + str) / 2 + ability) / 2. In this case it's ((4 + 3) / 2 + 3) / 2, which should yield 4 since it rounds up
-    REQUIRE(sut.compute_parry_dv(test_character, ability::MELEE) == 4);
+    REQUIRE(sut.compute_parry_dv(test_character, ability::ability_enum::MELEE) == 4);
     // same for dodge, (4 + 3) / 2 = 4
     REQUIRE(sut.compute_dodge_dv(test_character) == 4);
 

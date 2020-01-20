@@ -37,9 +37,9 @@ namespace calculator {
 
         result.resilience = compute_resilience(c);
         result.mental_dodge_vd = compute_mental_dodge_dv(c);
-        result.charisma_parry_vd = compute_mental_parry_dv(c, attribute::CHARISMA);
-        result.manipulation_parry_vd = compute_mental_parry_dv(c, attribute::MANIPULATION);
-        result.appearance_parry_vd = compute_mental_parry_dv(c, attribute::APPEARANCE);
+        result.charisma_parry_vd = compute_mental_parry_dv(c, attribute::attribute_enum::CHARISMA);
+        result.manipulation_parry_vd = compute_mental_parry_dv(c, attribute::attribute_enum::MANIPULATION);
+        result.appearance_parry_vd = compute_mental_parry_dv(c, attribute::attribute_enum::APPEARANCE);
 
         return result;
       }
@@ -133,7 +133,7 @@ namespace calculator {
 
       virtual unsigned int compute_life_points              (const character::character& c) const override
       {
-        return 10 * c.logos().get_logos() + 2 * c.attribute(attribute::CONSTITUTION);
+        return 10 * c.logos().get_logos() + 2 * c.attribute(attribute::attribute_enum::CONSTITUTION);
       }
 
       virtual unsigned int starting_willpower               (const character::character& c) const override
@@ -178,17 +178,17 @@ namespace calculator {
 
       virtual long int compute_dodge_balance            (const character::character& c) const
       {
-        return c.attribute(attribute::DEXTERITY) - compute_hindrance(c);
+        return c.attribute(attribute::attribute_enum::DEXTERITY) - compute_hindrance(c);
       }
 
       virtual long int compute_parry_balance            (const character::character& c) const
       {
-        return c.attribute(attribute::CONSTITUTION) + compute_stance_bonus(c);
+        return c.attribute(attribute::attribute_enum::CONSTITUTION) + compute_stance_bonus(c);
       }
 
       virtual long int compute_resilience               (const character::character& c) const
       {
-        return round<round_t>(half(c, ability::INTEGRITY));
+        return round<round_t>(half(c, ability::ability_enum::INTEGRITY));
       }
 
       virtual unsigned int starting_essence                  (const character::creation::character_type& c) const override
@@ -237,32 +237,32 @@ namespace calculator {
 
       virtual double _dodge_dv(const character::character& c) const
       {
-        auto res = half(c, attribute::DEXTERITY, ability::DODGE);
+        auto res = half(c, attribute::attribute_enum::DEXTERITY, ability::ability_enum::DODGE);
         return res;
       }
 
       // TODO parry computations must take into account weapon DV!
       virtual double _parry_dv(const character::character& c, ability::ability_enum parry_ability) const
       {
-        auto att = half(c, attribute::STRENGTH, attribute::DEXTERITY);
+        auto att = half(c, attribute::attribute_enum::STRENGTH, attribute::attribute_enum::DEXTERITY);
         auto ab = c.get(parry_ability);
         return (ab + att) / 2;
       }
 
       virtual double _heavy_parry_dv(const character::character& c, ability::ability_enum parry_ability) const
       {
-        ability::ability_enum actual_ability = c.get(parry_ability) < c.get(ability::RESISTANCE) ? parry_ability : ability::RESISTANCE;
-        return half(c, attribute::STRENGTH, actual_ability);
+        ability::ability_enum actual_ability = c.get(parry_ability) < c.get(ability::ability_enum::RESISTANCE) ? parry_ability : ability::ability_enum::RESISTANCE;
+        return half(c, attribute::attribute_enum::STRENGTH, actual_ability);
       }
 
       virtual double _mental_dodge_dv(const character::character& c) const
       {
-        return half(c, attribute::WITS, ability::INTEGRITY);
+        return half(c, attribute::attribute_enum::WITS, ability::ability_enum::INTEGRITY);
       }
 
       virtual double _mental_parry_dv(const character::character& c, attribute::attribute_enum parry_attribute) const
       {
-        return half(c, attribute::INTELLIGENCE, parry_attribute);
+        return half(c, attribute::attribute_enum::INTELLIGENCE, parry_attribute);
       }
 
       virtual long int _persona                  (const character::creation::character_type& type, const attribute::attributes& attributes, const power::willpower& willpower, const power::essence& ) const
@@ -277,7 +277,7 @@ namespace calculator {
 
       virtual double _bashing_soak             (const character::character& c) const
       {
-        return c.attribute(attribute::CONSTITUTION);
+        return c.attribute(attribute::attribute_enum::CONSTITUTION);
       }
 
       virtual double _lethal_soak              (const character::character& c) const

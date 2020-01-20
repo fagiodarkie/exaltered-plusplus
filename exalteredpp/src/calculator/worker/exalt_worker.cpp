@@ -29,7 +29,7 @@ namespace calculator {
 
     double exalt_worker::_lethal_soak              (const character::character& c) const
     {
-      return half(c, attribute::CONSTITUTION);
+      return half(c, attribute::attribute_enum::CONSTITUTION);
     }
   }
 }

@@ -30,9 +30,9 @@ namespace qt {
     {
       physical_parry_ability = new QComboBox;
 
-      QList<QString> parry_abilities = {ABILITY_NAME.at(MELEE).c_str(),
-                                        ABILITY_NAME.at(MARTIAL_ARTS).c_str(),
-                                        ABILITY_NAME.at(ATHLETICS).c_str()};
+      QList<QString> parry_abilities = {ABILITY_NAME.at(ability_enum::MELEE).c_str(),
+                                        ABILITY_NAME.at(ability_enum::MARTIAL_ARTS).c_str(),
+                                        ABILITY_NAME.at(ability_enum::ATHLETICS).c_str()};
       physical_parry_ability->addItems(parry_abilities);
       connect(physical_parry_ability, &QComboBox::currentTextChanged, this, &qdefense_values_screen::update_values);
       QWidget *form_widget = new QWidget, *parry_ability_selector_widget = new QWidget, *central_dv_widget = new QWidget;

@@ -10,7 +10,7 @@ namespace narrative {
     class attribute_purchase : public abstract_purchase, public Serialisable
     {
     public:
-      attribute_purchase(attribute::attribute_enum attribute = attribute::STRENGTH, unsigned int amount = 1);
+      attribute_purchase(attribute::attribute_enum attribute = attribute::attribute_enum::STRENGTH, unsigned int amount = 1);
 
       virtual void apply(std::shared_ptr<character::character> c) override;
 

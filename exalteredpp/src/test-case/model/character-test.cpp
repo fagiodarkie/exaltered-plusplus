@@ -32,15 +32,15 @@ TEST_CASE("Character")
   SECTION("should save and retrieve correct abilities")
   {
     character::character sut = STANDARD_CHARACTER;
-    sut.set(ability::ability_name(ability::CRAFT, "new_ability"), 1);
-    sut.set(ability::WAR, 0);
-    sut.set(ability::MELEE, 5);
-    REQUIRE(sut.get(ability::WAR).name().name() == "War");
-    REQUIRE(sut.get(ability::WAR).name().subability == ability::ability_declination::NO_DECLINATION);
-    REQUIRE(sut.get(ability::WAR).value() == 0);
-    REQUIRE(sut.get(ability::CRAFT, "new_ability").name().subability == "new_ability");
-    REQUIRE(sut.get(ability::CRAFT, "new_ability").value() == 1);
-    REQUIRE(sut.get(ability::MELEE).value() == 5);
+    sut.set(ability::ability_name(ability::ability_enum::CRAFT, "new_ability"), 1);
+    sut.set(ability::ability_enum::WAR, 0);
+    sut.set(ability::ability_enum::MELEE, 5);
+    REQUIRE(sut.get(ability::ability_enum::WAR).name().name() == "War");
+    REQUIRE(sut.get(ability::ability_enum::WAR).name().subability == ability::ability_declination::NO_DECLINATION);
+    REQUIRE(sut.get(ability::ability_enum::WAR).value() == 0);
+    REQUIRE(sut.get(ability::ability_enum::CRAFT, "new_ability").name().subability == "new_ability");
+    REQUIRE(sut.get(ability::ability_enum::CRAFT, "new_ability").value() == 1);
+    REQUIRE(sut.get(ability::ability_enum::MELEE).value() == 5);
   }
 
   SECTION("should retrieve caste correctly")
@@ -60,7 +60,7 @@ TEST_CASE("Character")
   SECTION("should manage abilities by detailed ability")
   {
     character::character sut = STANDARD_CHARACTER;
-    ability::ability_name strategy(ability::WAR, "Strategy");
+    ability::ability_name strategy(ability::ability_enum::WAR, "Strategy");
     sut.set(strategy, 2);
     REQUIRE(sut.has(strategy));
     auto ability = sut.get(strategy);
@@ -75,19 +75,19 @@ TEST_CASE("Character")
     REQUIRE(sut.get(strategy) == 2);
     static_cast<const character::character>(sut).abilities().begin()->set_value(5);
     REQUIRE(sut.get(strategy) == 2);
-    REQUIRE(sut.abilities(ability::WAR).size() == 1);
-    sut[ability::WAR] = 4;
-    REQUIRE(sut.abilities(ability::WAR).size() == 2);
+    REQUIRE(sut.abilities(ability::ability_enum::WAR).size() == 1);
+    sut[ability::ability_enum::WAR] = 4;
+    REQUIRE(sut.abilities(ability::ability_enum::WAR).size() == 2);
   }
 
   SECTION("should manage specialisations")
   {
     character::character sut = STANDARD_CHARACTER;
     ability::specialisation spec("mounted", 2);
-    sut[ability::WAR].add(spec);
-    auto val = sut.get(ability::WAR).get(spec.name());
-    REQUIRE(sut.get(ability::WAR).has(spec.name()));
-    REQUIRE(spec.value() == sut.get(ability::WAR).get(spec.name()));
+    sut[ability::ability_enum::WAR].add(spec);
+    auto val = sut.get(ability::ability_enum::WAR).get(spec.name());
+    REQUIRE(sut.get(ability::ability_enum::WAR).has(spec.name()));
+    REQUIRE(spec.value() == sut.get(ability::ability_enum::WAR).get(spec.name()));
   }
 
   SECTION("should allow virtue & vice management")

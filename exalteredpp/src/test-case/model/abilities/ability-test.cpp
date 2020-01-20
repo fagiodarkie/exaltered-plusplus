@@ -5,21 +5,21 @@ TEST_CASE("Ability")
 {
   SECTION("should create new ability correctly (name constructor)")
   {
-    ability::ability sut(ability::WAR);
-    REQUIRE(sut.name().ability_type == ability::WAR);
+    ability::ability sut(ability::ability_enum::WAR);
+    REQUIRE(sut.name().ability_type == ability::ability_enum::WAR);
     REQUIRE(0 == (int)sut);
   }
 
   SECTION("should create new ability correctly (name and value constructor)")
   {
-    ability::ability sut(ability::WAR, 1);
+    ability::ability sut(ability::ability_enum::WAR, 1);
     REQUIRE(sut.name().name() == "War");
     REQUIRE(1 == (int)sut);
   }
 
   SECTION("should compare equal with an ability with same name and value")
   {
-    ability::ability sut(ability::WAR, 1), other(ability::WAR, 1);
+    ability::ability sut(ability::ability_enum::WAR, 1), other(ability::ability_enum::WAR, 1);
     REQUIRE(sut == other);
     ++other;
     REQUIRE_FALSE(sut == other);
@@ -27,7 +27,7 @@ TEST_CASE("Ability")
 
   SECTION("should update its value")
   {
-    ability::ability sut(ability::WAR, 1);
+    ability::ability sut(ability::ability_enum::WAR, 1);
     sut.set_value(2);
     REQUIRE(sut == 2);
     sut += 4;
@@ -42,13 +42,13 @@ TEST_CASE("Ability")
 
   SECTION("should manage its name as an ability_name")
   {
-    ability::ability sut(ability::WAR, 1);
-    REQUIRE((ability::ability_name)sut == ability::WAR);
+    ability::ability sut(ability::ability_enum::WAR, 1);
+    REQUIRE((ability::ability_name)sut == ability::ability_enum::WAR);
   }
 
   SECTION("should behave like a number when used in arithmetic operations")
   {
-    ability::ability sut(ability::WAR, 1);
+    ability::ability sut(ability::ability_enum::WAR, 1);
     REQUIRE(sut + 1 == 2);
     REQUIRE(sut + 1.0 - 2 < 0.000000000000000001);
     REQUIRE(sut + 1U == 2);
@@ -56,13 +56,13 @@ TEST_CASE("Ability")
 
   SECTION("should manage its name as a string")
   {
-    ability::ability sut(ability::WAR, 1);
+    ability::ability sut(ability::ability_enum::WAR, 1);
     REQUIRE(sut.name().name() == (std::string)sut);
   }
 
   SECTION("should manage its specialisations")
   {
-    ability::ability sut(ability::WAR, 1);
+    ability::ability sut(ability::ability_enum::WAR, 1);
     REQUIRE(sut.specialisations().size() == 0);
     sut.set("strategy", 1);
     REQUIRE(sut.specialisations().size() == 1);
@@ -80,7 +80,7 @@ TEST_CASE("Ability")
 
   SECTION("should save and load QJsonObject")
   {
-    ability::ability stub(ability::WAR, 1);
+    ability::ability stub(ability::ability_enum::WAR, 1);
     ability::ability sut;
     sut.deserialise(stub.serialise());
 
@@ -90,7 +90,7 @@ TEST_CASE("Ability")
 
   SECTION("should create same object when using assignment operator")
   {
-    ability::ability stub(ability::WAR, 1);
+    ability::ability stub(ability::ability_enum::WAR, 1);
 
     ability::ability sut_1(stub), sut_2;
     sut_2 = stub;

@@ -43,7 +43,7 @@ namespace qt { namespace widget {
         purchase_type_dropdown->addItem(EXPENSE_NAME.at(purchase_type).c_str(), purchase_type);
 
       for (auto attribute: attribute::ATTRIBUTES)
-        attribute_dropdown->addItem(attribute::ATTRIBUTE_NAME.at(attribute).c_str(), attribute);
+        attribute_dropdown->addItem(attribute::ATTRIBUTE_NAME.at(attribute).c_str(), (int)attribute);
 
       for (auto virtue: virtues::VIRTUE_LIST)
         virtue_dropdown->addItem(virtues::VIRTUE_NAME.at(virtue).c_str(), virtue);

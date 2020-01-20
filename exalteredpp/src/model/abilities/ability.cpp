@@ -7,7 +7,7 @@
 
 namespace ability {
 
-  ability::ability() : _name(WAR, ability_declination::NO_DECLINATION), _value(0), _favourite(false) {};
+  ability::ability() : _name(ability_enum::WAR, ability_declination::NO_DECLINATION), _value(0), _favourite(false) {};
 
   ability::ability(const ability_name& name, unsigned int value) : _name(name), _value(value), _favourite(false) {}
 

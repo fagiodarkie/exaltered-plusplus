@@ -5,7 +5,7 @@
 
 namespace qt { namespace widget {
   ability_declination_selector::ability_declination_selector(QWidget *parent)
-    : QWidget(parent), _ability(ability::WAR), _is_declination_editable(true), _is_ability_editable(true)
+    : QWidget(parent), _ability(ability::ability_enum::WAR), _is_declination_editable(true), _is_ability_editable(true)
   {
     generate_widget();
   }
@@ -17,7 +17,7 @@ namespace qt { namespace widget {
   }
 
   ability_declination_selector::ability_declination_selector(std::shared_ptr<character::character> character, QWidget *parent)
-    : QWidget(parent), _ability(ability::WAR), _character_reference(character), _is_declination_editable(true), _is_ability_editable(true), _is_favored(false)
+    : QWidget(parent), _ability(ability::ability_enum::WAR), _character_reference(character), _is_declination_editable(true), _is_ability_editable(true), _is_favored(false)
   {
     generate_widget();
   }
@@ -166,7 +166,7 @@ namespace qt { namespace widget {
   void ability_declination_selector::generate_available_abilities() const
   {
     for (auto ability_e : ability::ABILITIES)
-      ability_selection->addItem(ability::ABILITY_NAME.at(ability_e).c_str(), ability_e);
+      ability_selection->addItem(ability::ABILITY_NAME.at(ability_e).c_str(), (int)ability_e);
   }
 
   void ability_declination_selector::generate_available_declinations() const

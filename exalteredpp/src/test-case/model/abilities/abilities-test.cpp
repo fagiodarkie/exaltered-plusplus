@@ -14,84 +14,84 @@ TEST_CASE("Abilities")
   SECTION("should save ability in map")
   {
     ability::abilities sut;
-    sut.add(ability::ability(ability::WAR, 2));
-    REQUIRE(sut[ability::WAR].name() == ability::WAR);
-    REQUIRE(sut.has(ability::WAR));
-    REQUIRE(sut.has(ability::ability_name(ability::WAR)));
+    sut.add(ability::ability(ability::ability_enum::WAR, 2));
+    REQUIRE(sut[ability::ability_enum::WAR].name() == ability::ability_enum::WAR);
+    REQUIRE(sut.has(ability::ability_enum::WAR));
+    REQUIRE(sut.has(ability::ability_name(ability::ability_enum::WAR)));
   }
 
   SECTION("should filter by ability type")
   {
     ability::abilities sut;
-    sut.add(ability::ability(ability::WAR, 2));
-    sut.add(ability::ability(ability::ability_name(ability::WAR, "longterm"), 2));
-    sut.add(ability::ability(ability::TEACHING, 2));
-    sut.add(ability::ability(ability::MEDICINE, 2));
+    sut.add(ability::ability(ability::ability_enum::WAR, 2));
+    sut.add(ability::ability(ability::ability_name(ability::ability_enum::WAR, "longterm"), 2));
+    sut.add(ability::ability(ability::ability_enum::TEACHING, 2));
+    sut.add(ability::ability(ability::ability_enum::MEDICINE, 2));
     REQUIRE(sut.size() == 4);
-    REQUIRE(sut.with_type(ability::WAR).size() == 2);
+    REQUIRE(sut.with_type(ability::ability_enum::WAR).size() == 2);
   }
 
   SECTION("should not modify inner abilities if const")
   {
     ability::abilities sut;
-    sut.add(ability::ability(ability::WAR, 2));
+    sut.add(ability::ability(ability::ability_enum::WAR, 2));
     const auto csut = sut;
-    csut.get(ability::WAR) = 3;
-    REQUIRE(csut.get(ability::WAR) == 2);
-    csut.get(ability::ability_name(ability::WAR)) = 4;
-    REQUIRE(csut.get(ability::WAR) == 2);
+    csut.get(ability::ability_enum::WAR) = 3;
+    REQUIRE(csut.get(ability::ability_enum::WAR) == 2);
+    csut.get(ability::ability_name(ability::ability_enum::WAR)) = 4;
+    REQUIRE(csut.get(ability::ability_enum::WAR) == 2);
   }
 
   SECTION("should remove an ability by ability name")
   {
     ability::abilities sut;
-    sut.add(ability::ability(ability::WAR, 2));
-    sut.add(ability::ability(ability::ability_name(ability::WAR, "longterm"), 2));
-    sut.add(ability::ability(ability::TEACHING, 2));
-    sut.add(ability::ability(ability::MEDICINE, 2));
+    sut.add(ability::ability(ability::ability_enum::WAR, 2));
+    sut.add(ability::ability(ability::ability_name(ability::ability_enum::WAR, "longterm"), 2));
+    sut.add(ability::ability(ability::ability_enum::TEACHING, 2));
+    sut.add(ability::ability(ability::ability_enum::MEDICINE, 2));
 
     REQUIRE(sut.size() == 4);
-    REQUIRE(sut.has(ability::WAR));
-    sut.remove(ability::WAR);
+    REQUIRE(sut.has(ability::ability_enum::WAR));
+    sut.remove(ability::ability_enum::WAR);
     REQUIRE(sut.size() == 3);
-    REQUIRE_FALSE(sut.has(ability::WAR));
-    REQUIRE(sut.has(ability::ability_name(ability::WAR, "longterm")));
+    REQUIRE_FALSE(sut.has(ability::ability_enum::WAR));
+    REQUIRE(sut.has(ability::ability_name(ability::ability_enum::WAR, "longterm")));
 
-    sut.remove(ability::MELEE);
+    sut.remove(ability::ability_enum::MELEE);
     REQUIRE(sut.size() == 3);
 
-    sut.remove(ability::ability_name(ability::WAR, "longterm"));
-    REQUIRE_FALSE(sut.has(ability::ability_name(ability::WAR, "longterm")));
+    sut.remove(ability::ability_name(ability::ability_enum::WAR, "longterm"));
+    REQUIRE_FALSE(sut.has(ability::ability_name(ability::ability_enum::WAR, "longterm")));
   }
 
   SECTION("should retrieve ability keys")
   {
     ability::abilities sut;
-    sut.add(ability::ability(ability::WAR, 2));
-    sut.add(ability::ability(ability::ability_name(ability::WAR, "longterm"), 2));
-    sut.add(ability::ability(ability::TEACHING, 2));
-    sut.add(ability::ability(ability::MEDICINE, 2));
+    sut.add(ability::ability(ability::ability_enum::WAR, 2));
+    sut.add(ability::ability(ability::ability_name(ability::ability_enum::WAR, "longterm"), 2));
+    sut.add(ability::ability(ability::ability_enum::TEACHING, 2));
+    sut.add(ability::ability(ability::ability_enum::MEDICINE, 2));
 
     auto res = sut.keys();
     REQUIRE(res.size() == 4);
-    REQUIRE(std::find(res.begin(), res.end(), ability::WAR) != res.end());
-    REQUIRE(std::find(res.begin(), res.end(), ability::TEACHING) != res.end());
-    REQUIRE(std::find(res.begin(), res.end(), ability::MEDICINE) != res.end());
-    REQUIRE(std::find(res.begin(), res.end(), ability::ability_name(ability::WAR, "longterm")) != res.end());
-    REQUIRE(std::find(res.begin(), res.end(), ability::MELEE) == res.end());
+    REQUIRE(std::find(res.begin(), res.end(), ability::ability_enum::WAR) != res.end());
+    REQUIRE(std::find(res.begin(), res.end(), ability::ability_enum::TEACHING) != res.end());
+    REQUIRE(std::find(res.begin(), res.end(), ability::ability_enum::MEDICINE) != res.end());
+    REQUIRE(std::find(res.begin(), res.end(), ability::ability_name(ability::ability_enum::WAR, "longterm")) != res.end());
+    REQUIRE(std::find(res.begin(), res.end(), ability::ability_enum::MELEE) == res.end());
   }
 
   SECTION("should create correctly from JSON")
   {
     ability::abilities stub;
-    ability::ability ability(ability::WAR, TEST_ABILITY_VALUE);
+    ability::ability ability(ability::ability_enum::WAR, TEST_ABILITY_VALUE);
     ability.add("spec", 1);
-    stub[ability::WAR] = ability;
+    stub[ability::ability_enum::WAR] = ability;
 
     ability::abilities sut;
     sut.deserialise(stub.serialise());
 
-    REQUIRE(sut[ability::WAR].name().name() == "War");
-    REQUIRE(sut[ability::WAR].specialisations().size() == 1);
+    REQUIRE(sut[ability::ability_enum::WAR].name().name() == "War");
+    REQUIRE(sut[ability::ability_enum::WAR].specialisations().size() == 1);
   }
 }

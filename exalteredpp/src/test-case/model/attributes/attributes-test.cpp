@@ -10,17 +10,17 @@ TEST_CASE("Attributes")
   SECTION("should save attribute in map")
   {
     attribute::attributes sut;
-    sut[attribute::STRENGTH] = TEST_ATTRIBUTE_VALUE;
-    REQUIRE(sut[attribute::STRENGTH] == TEST_ATTRIBUTE_VALUE);
+    sut[attribute::attribute_enum::STRENGTH] = TEST_ATTRIBUTE_VALUE;
+    REQUIRE(sut[attribute::attribute_enum::STRENGTH] == TEST_ATTRIBUTE_VALUE);
   }
 
   SECTION("should serialise and deserialise correctly from JSON")
   {
     attribute::attributes stub;
-    stub[attribute::STRENGTH] = TEST_ATTRIBUTE_VALUE;
+    stub[attribute::attribute_enum::STRENGTH] = TEST_ATTRIBUTE_VALUE;
     attribute::attributes sut;
     sut.deserialise(stub.serialise());
 
-    REQUIRE(sut[attribute::STRENGTH] == TEST_ATTRIBUTE_VALUE);
+    REQUIRE(sut[attribute::attribute_enum::STRENGTH] == TEST_ATTRIBUTE_VALUE);
   }
 }
