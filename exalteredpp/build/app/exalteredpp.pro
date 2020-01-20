@@ -44,6 +44,8 @@ SOURCES += \
     ../../src/calculator/derived_value_calculator.cpp \
     ../../src/calculator/experience_purchase_cost_calculator.cpp \
     ../../src/calculator/worker/exalt_worker.cpp \
+    ../../src/combat/physical_attack.cpp \
+    ../../src/combat/weapon.cpp \
     ../../src/errors/ability_not_found_exception.cpp \
     ../../src/errors/characternotfoundexception.cpp \
     ../../src/errors/invalid_parameter.cpp \
@@ -113,6 +115,7 @@ SOURCES += \
     ../../thirdparty/darkstyle/DarkStyle.cpp
 
 HEADERS += \
+    ../../headers/calculator/abstract_dice_thrower.h \
     ../../headers/calculator/attack_resolution/attack_defines.h \
     ../../headers/calculator/attack_resolution/physical_attack.h \
     ../../headers/calculator/cost_worker/ability_cost_worker.h \
@@ -125,11 +128,19 @@ HEADERS += \
     ../../headers/calculator/cost_worker/willpower_cost_worker.h \
     ../../headers/calculator/derived_value_calculator.h \
     ../../headers/calculator/derived_value_definitions.h \
+    ../../headers/calculator/dice_thrower.h \
+    ../../headers/calculator/dice_thrower/abstract_dice_thrower.h \
+    ../../headers/calculator/dice_thrower/dice_thrower.h \
+    ../../headers/calculator/dice_thrower/dice_thrower_options.h \
     ../../headers/calculator/experience_purchase_cost_calculator.h \
     ../../headers/calculator/worker/abstract_calculator_worker.h \
     ../../headers/calculator/worker/common_worker.h \
     ../../headers/calculator/worker/exalt_worker.h \
     ../../headers/calculator/worker/rounding_type.h \
+    ../../headers/combat/action_defines.h \
+    ../../headers/combat/attack_defines.h \
+    ../../headers/combat/physical_attack.h \
+    ../../headers/combat/weapon.h \
     ../../headers/common/reverse_search.h \
     ../../headers/errors/ability_not_found_exception.h \
     ../../headers/errors/characternotfoundexception.h \
@@ -176,6 +187,7 @@ HEADERS += \
     ../../headers/model/virtues/virtues.h \
     ../../headers/model/managers/character_manager.h \
     ../../headers/model/text/character_text_constants.h \
+    ../../headers/qt-test/quick_chargen.h \
     ../../headers/qt/caste_style.h \
     ../../headers/qt/dependencies.h \
     ../../headers/qt/exalteredapp.h \
@@ -209,6 +221,7 @@ HEADERS += \
     ../../headers/serialisation/db_abstraction.h \
     ../../headers/serialisation/filesystem_db.h \
     ../../headers/serialisation/json_constants.h \
+    ../../headers/test-case/db_abstraction_mock.h \
     ../../thirdparty/darkstyle/DarkStyle.h \
     ../../thirdparty/serialisable/serialisable.hpp
 

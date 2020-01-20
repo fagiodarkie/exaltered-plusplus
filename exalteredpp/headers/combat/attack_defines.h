@@ -1,26 +1,34 @@
 #ifndef ATTACK_DEFINES_H
 #define ATTACK_DEFINES_H
 
-namespace calculator {
+namespace combat {
 
-  enum target_vd {
+  enum class target_vd {
     PHYSICAL_PARRY,
     PHYSICAL_DODGE,
     MENTAL_PARRY,
     MENTAL_DODGE
   };
 
-  enum attack_attribute {
+  enum class attack_attribute {
     NON_PARRYABLE,
     NON_DODGEABLE,
     UNEXPECTED,
     COUNTERATTACK,
     POLARISED,
     WITH_MINIMUM,
-    NO_ATTRIBUTE
+    NO_ATTRIBUTE,
+    CONCEDED,
+    PERFECT
   };
 
-  enum body_target {
+  enum class defense_attribute {
+    PARRIES_UNEXPECTED,
+    CONCEDED,
+    PERFECT
+  };
+
+  enum class body_target {
     VITAL_PART,
     TRUNK,
     LEFT_UPPER,
@@ -30,10 +38,11 @@ namespace calculator {
     NO_TARGET
   };
 
-  enum damage_type {
+  enum class damage_type_enum {
     BASHING,
     LETHAL,
-    AGGRAVATED
+    AGGRAVATED,
+    SPIRITUAL
   };
 
 }
