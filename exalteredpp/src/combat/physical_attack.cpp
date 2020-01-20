@@ -71,6 +71,7 @@ namespace combat {
 
   precision_roll defense_declaration::dodge(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator) const
   {
+    _atk->defender = c;
     _atk->vd = target_vd::PHYSICAL_DODGE;
     auto vd = calculator.compute_physical_vd(*c, ability::ability_enum::MELEE);
     _atk->vd_value = vd.dodge_vd;
@@ -81,6 +82,7 @@ namespace combat {
 
   precision_roll defense_declaration::parry_with(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator, ability::ability_enum parry_ability) const
   {
+    _atk->defender = c;
     _atk->vd = target_vd::PHYSICAL_PARRY;
     auto vd = calculator.compute_physical_vd(*c, parry_ability);
     _atk->vd_value = vd.parry_vd;
@@ -97,4 +99,93 @@ namespace combat {
 
     return precision_roll(_atk);
   }
+
+
+  precision_roll& precision_roll::precision(unsigned int precision_dice)
+  {
+    _atk->precision_dice = precision_dice;
+    return *this;
+  }
+
+  precision_roll& precision_roll::precision(attribute::attribute_enum attribute, const ability::ability_name& ability)
+  {
+    if (_atk->attacker)
+      _atk->precision_dice = _atk->attacker->attribute(attribute) + _atk->attacker->get(ability);
+
+    return *this;
+  }
+
+  precision_roll& precision_roll::precision(attribute::attribute_enum attribute, const ability::ability_name& ability, const std::string& specialisation)
+  {
+    if (_atk->attacker)
+      _atk->precision_dice = _atk->attacker->attribute(attribute) + _atk->attacker->get(ability)[specialisation];
+
+    return *this;
+  }
+
+  precision_roll& precision_roll::bonus(unsigned int bonus_successes)
+  {
+    _atk->precision_external_bonus = bonus_successes;
+    return *this;
+  }
+
+  precision_roll& precision_roll::malus(unsigned int malus_successes)
+  {
+    _atk->precision_external_malus = malus_successes;
+    return *this;
+  }
+
+  precision_roll& precision_roll::internal_bonus(unsigned int internal_bonus_dice)
+  {
+    _atk->precision_internal_bonus = internal_bonus_dice;
+    return *this;
+  }
+
+  precision_roll& precision_roll::internal_malus(unsigned int internal_malus_dice)
+  {
+    _atk->precision_internal_malus = internal_malus_dice;
+    return *this;
+  }
+
+  precision_roll& precision_roll::with_successes(unsigned int successes)
+  {
+    _atk->precision_rolled = true;
+    _atk->precision_roll_result = successes;
+    return *this;
+  }
+
+  precision_roll& precision_roll::target(body_target target)
+  {
+    _atk->target = target;
+    _atk->body_part_rolled = true;
+    return *this;
+  }
+
+  precision_roll& precision_roll::do_not_target()
+  {
+    _atk->target = body_target::NO_TARGET;
+    _atk->body_part_rolled = false;
+    return *this;
+  }
+
+  unsigned int precision_roll::pool() const
+  {
+    return _atk->precision_dice + _atk->precision_internal_bonus - _atk->precision_internal_malus;
+  }
+
+  int precision_roll::external_bonus() const
+  {
+    return _atk->precision_external_bonus - _atk->precision_external_malus;
+  }
+
+  vd_application precision_roll::apply()
+  {
+    if (!_atk->precision_rolled)
+      {
+        // todo roll precision
+      }
+
+    return vd_application(_atk);
+  }
+
 }

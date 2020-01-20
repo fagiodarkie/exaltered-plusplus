@@ -35,6 +35,7 @@ namespace combat {
       vd_balance,
       precision_external_bonus,
       precision_external_malus,
+      precision_internal_bonus,
       precision_internal_malus,
       soak,
       armor_soak,
@@ -53,8 +54,7 @@ namespace combat {
       final_damage_reduction,
       final_damage_multiplier;
 
-      bool has_attacking_character,
-      has_defending_character,
+      bool
       has_fixed_result,
       precision_rolled,
       damage_rolled,
@@ -114,17 +114,18 @@ namespace combat {
   public:
 
     precision_roll& precision(unsigned int precision_dice);
-    precision_roll& precision(attribute::attribute_enum attribute, const ability::ability_name& ability, const character::character& c);
-    precision_roll& precision(attribute::attribute_enum attribute, const ability::ability_name& ability, const std::string& specialisation, const character::character& c);
+    precision_roll& precision(attribute::attribute_enum attribute, const ability::ability_name& ability);
+    precision_roll& precision(attribute::attribute_enum attribute, const ability::ability_name& ability, const std::string& specialisation);
     precision_roll& bonus(unsigned int bonus_successes);
     precision_roll& malus(unsigned int malus_successes);
+    precision_roll& internal_bonus(unsigned int internal_bonus_dice);
     precision_roll& internal_malus(unsigned int internal_malus_dice);
     precision_roll& with_successes(unsigned int successes);
     precision_roll& target(body_target target);
     precision_roll& do_not_target();
 
     unsigned int pool() const;
-    unsigned int external_bonus() const;
+    int external_bonus() const;
 
     vd_application apply();
 
