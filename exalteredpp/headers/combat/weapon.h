@@ -31,6 +31,7 @@ namespace combat {
     attribute::attribute_enum damage_attribute() const;
     action_speed speed_range() const;
     unsigned short int attack_ticks() const;
+    std::vector<ability::ability_enum> relevant_abilities() const;
 
     weapon& with_precision(int precision);
     weapon& with_defense(int defense);

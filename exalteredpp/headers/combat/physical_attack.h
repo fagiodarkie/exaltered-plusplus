@@ -7,6 +7,7 @@
 
 #include "character.h"
 #include "derived_value_calculator.h"
+#include "dice_roller/abstract_dice_roller.h"
 
 namespace combat {
 
@@ -17,50 +18,68 @@ namespace combat {
   class raw_damage_and_position_computation;
   class post_soak_damage;
   class post_hardness_damage;
+  class final_damage;
   class outcome;
 
   class combat_step {
   protected:
     struct attack_descriptor
     {
-      unsigned int action_penalty;
+      unsigned int action_penalty = 0;
       weapon weapon;
       std::vector<attack_attribute> attack_attributes;
       std::shared_ptr<character::character> attacker, defender;
-      target_vd vd;
+      target_vd vd = target_vd::PHYSICAL_DODGE;
 
       int
       // info for attacker
-      vd_value,
-      vd_balance,
-      precision_external_bonus,
-      precision_external_malus,
-      precision_internal_bonus,
-      precision_internal_malus,
-      soak,
-      armor_soak,
+      vd_value = 0,
+      vd_balance = 0,
+      precision_external_bonus = 0,
+      precision_external_malus = 0,
+      precision_internal_bonus = 0,
+      precision_internal_malus = 0,
+      soak = 0,
+      armor_soak = 0,
 
       // info for defender
-      precision_roll_result,
-      bonus_damage,
+      precision_roll_result = 0,
+      bonus_damage = 0,
+      damage_attribute = 0,
 
       // info for everybody
-      precision_dice,
-      raw_damage_dice,
-      post_soak_damage,
-      post_hardness_damage,
-      final_damage_dice,
-      final_damage_result,
-      final_damage_reduction,
-      final_damage_multiplier;
+      precision_dice = 0,
+      raw_damage_dice = 0,
+      post_soak_damage = 0,
+      meters_pushed = 0,
+      final_damage_result = 0,
+      final_damage_reduction = 0,
+      final_damage_multiplier = 0;
 
       bool
-      has_fixed_result,
-      precision_rolled,
-      damage_rolled,
-      body_part_rolled;
+      has_fixed_result = false,
+      precision_rolled = false,
+      damage_rolled = false,
+      tried_to_push = false,
+      was_knocked_back = false,
+      was_knocked_down = false,
+      is_damage_from_minimum = false,
+      body_part_rolled = false;
 
-      body_target target;
+      body_target target = body_target::NO_TARGET;
+
+      unsigned int raw_damage() const
+      {
+        bool attribute_forbidden = commons::contains(attack_attributes, attack_attribute::NO_ATTRIBUTE)
+            || weapon.is(attack_attribute::NO_ATTRIBUTE);
+        unsigned int attribute = attribute_forbidden
+            ? 0
+            : attacker ? attacker->attribute(weapon.damage_attribute())
+                       : damage_attribute;
+
+        return raw_damage_dice + attribute + weapon.base_damage();
+      }
+
     };
 
     combat_step(std::shared_ptr<attack_descriptor> atk) : _atk(atk) { }
@@ -120,14 +139,14 @@ namespace combat {
     precision_roll& malus(unsigned int malus_successes);
     precision_roll& internal_bonus(unsigned int internal_bonus_dice);
     precision_roll& internal_malus(unsigned int internal_malus_dice);
-    precision_roll& with_successes(unsigned int successes);
     precision_roll& target(body_target target);
     precision_roll& do_not_target();
 
     unsigned int pool() const;
     int external_bonus() const;
 
-    vd_application apply();
+    vd_application apply(std::shared_ptr<dice::abstract_dice_roller> dice_roller);
+    vd_application with_successes(unsigned int successes);
 
   private:
     precision_roll(std::shared_ptr<attack_descriptor> atk) : combat_step(atk) { }
@@ -149,12 +168,12 @@ namespace combat {
     vd_application(std::shared_ptr<attack_descriptor> atk) : combat_step(atk) { }
   };
 
-  class outcome : combat_step
+  class outcome
   {
     friend class vd_application;
     friend class raw_damage_and_position_computation;
     friend class post_soak_damage;
-    friend class post_hardness_damage;
+    friend class final_damage;
 
   public:
     bool counter_available() const;
@@ -168,6 +187,13 @@ namespace combat {
     bool was_knocked_down() const;
 
   private:
+
+    outcome()
+      : _target(body_target::NO_TARGET),
+        _hit(false), _pushed(false), _knocked(false), _can_counter(false),
+        _final_damage(0), _action_penalty(0), _meters_pushed(0)
+    { }
+
     body_target _target;
     bool _hit, _pushed, _knocked, _can_counter;
     unsigned int _final_damage, _action_penalty, _meters_pushed;
@@ -180,19 +206,21 @@ namespace combat {
   public:
     raw_damage_and_position_computation& base_damage(unsigned int basedamage);
     raw_damage_and_position_computation& min_damage(unsigned int basedamage);
+    raw_damage_and_position_computation& damage_type(damage_type_enum damage_type);
     raw_damage_and_position_computation& attribute(unsigned int attribute_value);
-    raw_damage_and_position_computation& attribute(attribute::attribute_enum attr, const character::character& c);
     raw_damage_and_position_computation& drill(unsigned int weapon_drill);
 
     // target is automatically rolled if it wasn't set in the precision roll
     body_target target() const;
     bool passes(unsigned int soak, unsigned int armored_soak = 0) const;
-    bool passes(const character::character& c, const calculator::derived_value_calculator& calculator) const;
+    bool passes(const calculator::derived_value_calculator& calculator) const;
     outcome on_fail() const;
     post_soak_damage on_pass(unsigned int soak, unsigned int armored_soak = 0) const;
-    post_soak_damage on_pass(const character::character& c, const calculator::derived_value_calculator& calculator) const;
+    post_soak_damage on_pass(const calculator::derived_value_calculator& calculator) const;
 
   private:
+    void compute_post_soak_pool(unsigned int soak, unsigned int armored_soak = 0) const;
+    void compute_post_soak_pool(const calculator::derived_value_calculator& calculator) const;
     raw_damage_and_position_computation(std::shared_ptr<attack_descriptor> atk) : combat_step(atk) { }
   };
 
@@ -202,10 +230,9 @@ namespace combat {
 
   public:
     bool passes (unsigned int hardness) const;
-    bool passes(const character::character& c, const calculator::derived_value_calculator& calculator) const;
+    bool passes(const calculator::derived_value_calculator& calculator) const;
     outcome on_fail() const;
-    post_hardness_damage on_pass(unsigned int hardness) const;
-    post_hardness_damage on_pass(const character::character& c, const calculator::derived_value_calculator& calculator) const;
+    post_hardness_damage on_pass() const;
 
   private:
     post_soak_damage(std::shared_ptr<attack_descriptor> atk) : combat_step(atk) { }
@@ -216,11 +243,25 @@ namespace combat {
   {
     friend class post_soak_damage;
   public:
-    outcome roll() const;
+    final_damage roll(std::shared_ptr<dice::abstract_dice_roller> dice_roller);
 
   private:
     post_hardness_damage(std::shared_ptr<attack_descriptor> atk) : combat_step(atk) { }
   };
+
+  class final_damage : combat_step
+  {
+    friend class post_hardness_damage;
+
+  public:
+    final_damage& knockback_meters(unsigned int successes);
+    final_damage& knockdown(unsigned int successes);
+
+    unsigned int damage() const;
+    outcome end_attack() const;
+
+  private:
+    final_damage(std::shared_ptr<attack_descriptor> atk) : combat_step(atk) { }  };
 
 }
 

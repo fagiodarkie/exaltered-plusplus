@@ -128,10 +128,12 @@ HEADERS += \
     ../../headers/calculator/cost_worker/willpower_cost_worker.h \
     ../../headers/calculator/derived_value_calculator.h \
     ../../headers/calculator/derived_value_definitions.h \
+    ../../headers/calculator/dice_roller/abstract_dice_roller.h \
+    ../../headers/calculator/dice_roller/dice_roller.h \
+    ../../headers/calculator/dice_roller/dice_roller_options.h \
     ../../headers/calculator/dice_thrower.h \
-    ../../headers/calculator/dice_thrower/abstract_dice_thrower.h \
-    ../../headers/calculator/dice_thrower/dice_thrower.h \
-    ../../headers/calculator/dice_thrower/dice_thrower_options.h \
+    ../../headers/calculator/dice_thrower/abstract_dice_roller.h \
+    ../../headers/calculator/dice_thrower/dice_roller_options.h \
     ../../headers/calculator/experience_purchase_cost_calculator.h \
     ../../headers/calculator/worker/abstract_calculator_worker.h \
     ../../headers/calculator/worker/common_worker.h \

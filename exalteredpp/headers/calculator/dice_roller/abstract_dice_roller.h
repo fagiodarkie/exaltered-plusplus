@@ -3,7 +3,7 @@
 
 namespace dice {
 
-  class abstract_dice_thrower {
+  class abstract_dice_roller {
 
   public:
     virtual unsigned int throw_dice() const = 0;
@@ -13,10 +13,10 @@ namespace dice {
       _die_number = pool;
     }
 
-    virtual ~abstract_dice_thrower() {}
+    virtual ~abstract_dice_roller() {}
 
   protected:
-    abstract_dice_thrower(unsigned int die_faces, unsigned int die_number)
+    abstract_dice_roller(unsigned int die_faces, unsigned int die_number)
       : _die_faces(die_faces), _die_number(die_number) { }
 
     unsigned int _die_faces, _die_number;

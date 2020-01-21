@@ -77,7 +77,7 @@ namespace combat {
 
   bool weapon::requires_minimum_for(attribute::attribute_enum attribute) const
   {
-    return std::find(_minimums.begin(), _minimums.end(), attribute) != _minimums.end();
+    return commons::find(_minimums, attribute) != _minimums.end();
   }
 
   unsigned short int weapon::minimum_for(attribute::attribute_enum attribute) const
@@ -103,6 +103,11 @@ namespace combat {
   unsigned short int weapon::attack_ticks() const
   {
     return static_cast<unsigned char>(_attack_speed) + _im_bonus;
+  }
+
+  std::vector<ability::ability_enum> weapon::relevant_abilities() const
+  {
+    return _possible_abilities;
   }
 
   weapon& weapon::with_precision(int precision)
@@ -153,7 +158,7 @@ namespace combat {
     return *this;
   }
 
-  weapon& weapon::requires_attribute(attribute::attribute_enum attribute, unsigned short int minimum = 1)
+  weapon& weapon::requires_attribute(attribute::attribute_enum attribute, unsigned short int minimum)
   {
     _minimums[attribute] = minimum;
     return *this;
@@ -162,7 +167,7 @@ namespace combat {
   weapon& weapon::does_not_require(attribute::attribute_enum attribute)
   {
     if (requires_minimum_for(attribute))
-      _minimums.erase(std::find(_minimums.begin(), _minimums.end(), attribute));
+      _minimums.erase(commons::find(_minimums, attribute));
     return *this;
   }
 

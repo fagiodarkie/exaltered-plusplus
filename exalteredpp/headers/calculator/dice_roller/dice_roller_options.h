@@ -7,31 +7,31 @@ namespace dice {
 
   class abstract_brutal {
   public:
-    virtual bool should_rethrow(unsigned int die_roll) = 0;
+    virtual bool should_rethrow(unsigned int die_roll) const = 0;
     virtual ~abstract_brutal() {}
   };
 
   class no_brutal : public abstract_brutal {
   public:
-    bool should_rethrow(unsigned int ) override { return false; }
+    bool should_rethrow(unsigned int ) const override { return false; }
     virtual ~no_brutal() override {}
   };
 
   class bashing_brutal : public abstract_brutal {
   public:
-    bool should_rethrow(unsigned int ) override { return false; }
+    bool should_rethrow(unsigned int ) const override { return false; }
     virtual ~bashing_brutal() override {}
   };
 
   class lethal_brutal : public abstract_brutal {
   public:
-    bool should_rethrow(unsigned int die_roll) override { return die_roll == 1; }
+    bool should_rethrow(unsigned int die_roll) const override { return die_roll == 1; }
     virtual ~lethal_brutal() override {}
   };
 
   class aggravated_brutal : public abstract_brutal {
   public:
-    bool should_rethrow(unsigned int die_roll) override { return die_roll <= 3; }
+    bool should_rethrow(unsigned int die_roll) const override { return die_roll <= 3; }
     virtual ~aggravated_brutal() override {}
   };
 
@@ -39,15 +39,15 @@ namespace dice {
 
   class abstract_10_rule {
   public:
-    virtual unsigned int ten_rolled_value() = 0;
-    virtual unsigned int success(unsigned int die) = 0;
+    virtual unsigned int ten_rolled_value() const = 0;
+    virtual unsigned int success(unsigned int die) const = 0;
     virtual ~abstract_10_rule() {}
   };
 
   class mortal_10_rule : public abstract_10_rule {
   public:
-    unsigned int ten_rolled_value() override { return 1; }
-    unsigned int success(unsigned int die) override
+    unsigned int ten_rolled_value() const override { return 1; }
+    unsigned int success(unsigned int die) const override
     {
       return die >= 7 ? 1 : 0;
     }
@@ -58,14 +58,17 @@ namespace dice {
   template<unsigned int threshold = 7, unsigned int ten_value = 2>
   class exalt_10_rule : public abstract_10_rule {
   public:
-    unsigned int ten_rolled_value() override { return ten_value; }
-    unsigned int success(unsigned int die) override
+    unsigned int ten_rolled_value() const override { return ten_value; }
+    unsigned int success(unsigned int die) const override
     {
       return die >= threshold ? 1 : ten_rolled_value();
     }
 
     virtual ~exalt_10_rule() override {}
   };
+
+  unsigned int roll_result(int result);
+  unsigned int pool(int result);
 
 }
 
