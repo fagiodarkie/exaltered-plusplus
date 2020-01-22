@@ -224,4 +224,69 @@ TEST_CASE("Physical Attack Resolution")
     // 8 + 4 - 2 = 10
     CHECK(precision.pool() == 10);
   }
+
+  SECTION("Should recompute VD when adding VD bonus or malus")
+  {
+    auto vd_computation = combat::attack_declaration::declare().declared()
+        .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 2, 2)
+        .with_successes(5);
+    CHECK(vd_computation.hits());
+    vd_computation.bonus(4);
+    CHECK_FALSE(vd_computation.hits());
+    vd_computation.malus(3);
+    CHECK(vd_computation.hits());
+  }
+
+  SECTION("Should compute damage attribute if the attacker was not given")
+  {
+    auto damage_computation = combat::attack_declaration::declare().declared()
+        .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 2, 2)
+        .with_successes(5)
+        .on_success();
+    // 3 extra successes
+    damage_computation.base_damage(5);
+    damage_computation.attribute(4);
+    // total: 12 die / 5 drill
+    damage_computation.drill(5);
+    CHECK(damage_computation.attack_status()->raw_damage() == 12);
+    CHECK(damage_computation.passes(10));
+    CHECK(damage_computation.attack_status()->post_soak_damage == 2);
+    CHECK_FALSE(damage_computation.passes(12));
+    CHECK(damage_computation.attack_status()->post_soak_damage == 0);
+
+    CHECK(damage_computation.passes(8, 4));
+    CHECK(damage_computation.attack_status()->post_soak_damage == 4);
+    CHECK_FALSE(damage_computation.passes(8, 8));
+    CHECK(damage_computation.attack_status()->post_soak_damage == 0);
+  }
+
+  SECTION("Should compute damage attribute if the attacker was given")
+  {
+    auto damage_computation = combat::attack_declaration::declare()
+        .with(attack_weapon)
+        .attacker(attack_character)
+        .declared()
+        .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 2, 2)
+        .with_successes(5)
+        .on_success();
+    // 3 extra successes, str 3, base damage 3: 9 raw damage dice
+    CHECK(damage_computation.attack_status()->raw_damage() == 9);
+    CHECK_FALSE(damage_computation.passes(10));
+  }
+
+
+  SECTION("Should impose minimum damage if the soak completely blocks the attack")
+  {
+    auto damage_computation = combat::attack_declaration::declare().declared()
+        .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 2, 2)
+        .with_successes(5)
+        .on_success();
+    // 3 extra successes
+    damage_computation.base_damage(5);
+    damage_computation.attribute(4);
+    CHECK_FALSE(damage_computation.passes(16));
+    damage_computation.min_damage(6);
+    CHECK(damage_computation.passes(16));
+    CHECK(damage_computation.attack_status()->is_damage_from_minimum);
+  }
 }
