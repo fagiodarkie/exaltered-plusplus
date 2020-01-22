@@ -165,6 +165,7 @@ SOURCES += \
     ../../src/test-case/calculator/experience-purchase-cost-calculator-test.cpp \
     ../../src/test-case/calculator/worker/common-worker-test.cpp \
     ../../src/test-case/combat/physical-attack-resolution-test.cpp \
+    ../../src/test-case/combat/weapon_test.cpp \
     ../../src/test-case/common/reverse-search-tests.cpp \
     ../../src/test-case/errors/exceptions-test.cpp \
     ../../src/test-case/managers/character_manager-test.cpp \

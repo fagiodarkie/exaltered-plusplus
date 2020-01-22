@@ -77,7 +77,7 @@ namespace equip {
 
   bool weapon::requires_minimum_for(attribute::attribute_enum attribute) const
   {
-    return commons::find(_minimums, attribute) != _minimums.end();
+    return _minimums.find(attribute) != _minimums.end();
   }
 
   unsigned short int weapon::minimum_for(attribute::attribute_enum attribute) const
@@ -167,13 +167,20 @@ namespace equip {
   weapon& weapon::does_not_require(attribute::attribute_enum attribute)
   {
     if (requires_minimum_for(attribute))
-      _minimums.erase(commons::find(_minimums, attribute));
+      _minimums.erase(attribute);
     return *this;
   }
 
   weapon& weapon::with(attack_attribute attribute)
   {
     _weapon_attributes.push_back(attribute);
+    return *this;
+  }
+
+  weapon& weapon::without(attack_attribute attribute)
+  {
+    if (is(attribute))
+      _weapon_attributes.erase(std::find(_weapon_attributes.begin(), _weapon_attributes.end(), attribute));
     return *this;
   }
 

@@ -48,6 +48,7 @@ namespace equip {
     weapon& requires_attribute(attribute::attribute_enum attribute, unsigned short int minimum = 1);
     weapon& does_not_require(attribute::attribute_enum attribute);
     weapon& with(attack_attribute attribute);
+    weapon& without(attack_attribute attribute);
     weapon& use_with(ability::ability_enum ability);
     weapon& do_not_use_with(ability::ability_enum ability);
     weapon& attacks_in_tempo(action_speed tempo);

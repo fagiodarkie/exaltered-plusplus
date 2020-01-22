@@ -354,6 +354,14 @@ TEST_CASE("Physical Attack Resolution")
     // 4 extra successes, defender CON = 2 --> 2 bashing soak as he's mortal
     CHECK(damage_computation.passes(value_calculator));
     CHECK(damage_computation.on_pass(value_calculator).attack_status()->post_soak_damage == 2);
+
+    auto fail_damage_computation = combat::attack_declaration::declare().declared()
+        .dodge(defense_character, value_calculator)
+        .with_successes(5)
+        .on_success();
+    CHECK_FALSE(fail_damage_computation.passes(value_calculator));
+    CHECK(fail_damage_computation.on_fail().was_hit());
+    CHECK(fail_damage_computation.on_fail().final_damage() == 0);
   }
 
   SECTION("Final damage should take into account knockdown and knockback")
@@ -366,6 +374,12 @@ TEST_CASE("Physical Attack Resolution")
         .min_damage(10)
         .on_pass(15).on_pass().with_roll(10);
       };
+
+    CHECK(create_damage().damage() == 10);
+    // should not push when you're knocking back (and vice versa)
+    CHECK_FALSE(create_damage().knockdown(5).knockback_meters(5).end_attack().was_pushed());
+    CHECK_FALSE(create_damage().knockback_meters(5).knockdown(5).end_attack().was_knocked_down());
+
     auto knockdown_fail = create_damage().knockdown(2).end_attack();
     CHECK_FALSE(knockdown_fail.was_knocked_down());
     CHECK_FALSE(knockdown_fail.was_pushed());

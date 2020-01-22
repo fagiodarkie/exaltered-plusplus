@@ -40,12 +40,4 @@ namespace commons {
     return std::find(iterable.begin(), iterable.end(), item) != iterable.end();
   }
 
-  template <class K, class T>
-  typename std::map<K, T>::iterator find(std::map<K, T> m, K key)
-  {
-    for (auto pair = m.begin(); pair != m.end(); ++pair)
-      if (pair->first == key)
-        return pair;
-    return m.end();
-  }
 }
