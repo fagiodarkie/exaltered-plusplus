@@ -407,8 +407,13 @@ namespace combat {
   final_damage post_hardness_damage::roll(std::shared_ptr<dice::abstract_dice_roller> dice_roller)
   {
     dice_roller->with_pool(_atk->post_soak_damage);
+    return with_roll(dice_roller->throw_dice());
+  }
+
+  final_damage post_hardness_damage::with_roll(unsigned int rolled_damage)
+  {
     _atk->damage_rolled = true;
-    _atk->final_damage_result = dice_roller->throw_dice();
+    _atk->final_damage_result = rolled_damage;
     return final_damage(_atk);
   }
 

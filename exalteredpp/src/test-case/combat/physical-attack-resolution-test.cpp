@@ -244,10 +244,11 @@ TEST_CASE("Physical Attack Resolution")
         .with_successes(5)
         .on_success();
     // 3 extra successes
-    damage_computation.base_damage(5);
-    damage_computation.attribute(4);
+    damage_computation.base_damage(5)
+      .attribute(4)
+      .damage_type(combat::damage_type_enum::BASHING)
+      .drill(5);
     // total: 12 die / 5 drill
-    damage_computation.drill(5);
     CHECK(damage_computation.attack_status()->raw_damage() == 12);
     CHECK(damage_computation.passes(10));
     CHECK(damage_computation.attack_status()->post_soak_damage == 2);
@@ -273,9 +274,11 @@ TEST_CASE("Physical Attack Resolution")
         .base_damage(100)
         .attribute(100)
         .min_damage(100)
+        .damage_type(combat::damage_type_enum::SPIRITUAL)
         .drill(100);
     CHECK_FALSE(damage_computation.attack_status()->weapon.drill() == 100);
     CHECK_FALSE(damage_computation.attack_status()->damage_attribute == 100);
+    CHECK_FALSE(damage_computation.attack_status()->weapon.damage_type() == combat::damage_type_enum::SPIRITUAL);
     CHECK_FALSE(damage_computation.attack_status()->weapon.base_damage() == 100);
     CHECK_FALSE(damage_computation.attack_status()->weapon.minimum_damage() == 100);
     // 3 extra successes, str 3, base damage 3: 9 raw damage dice
@@ -294,6 +297,9 @@ TEST_CASE("Physical Attack Resolution")
     damage_computation.base_damage(5);
     damage_computation.attribute(4);
     CHECK_FALSE(damage_computation.passes(16));
+    auto failure = damage_computation.on_fail();
+    CHECK(failure.was_hit());
+    CHECK(failure.final_damage() == 0);
     damage_computation.min_damage(6);
     CHECK(damage_computation.passes(16));
     CHECK(damage_computation.attack_status()->is_damage_from_minimum);
@@ -308,5 +314,43 @@ TEST_CASE("Physical Attack Resolution")
     CHECK(damage_computation.attack_status()->target == combat::body_target::NO_TARGET);
     CHECK_FALSE(damage_computation.target() == combat::body_target::NO_TARGET);
     CHECK_FALSE(damage_computation.attack_status()->target == combat::body_target::NO_TARGET);
+  }
+
+  SECTION("Should not pass on hardness check if raw is low and there is no minimum damage")
+  {
+    auto min_damage_computation = combat::attack_declaration::declare().declared()
+        .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 2, 2)
+        .with_successes(5)
+        .on_success()
+        .min_damage(10)
+        // passes with minimum damage
+        .on_pass(15);
+    CHECK(min_damage_computation.passes(0));
+    CHECK(min_damage_computation.passes(5));
+    CHECK(min_damage_computation.passes(15));
+
+    auto damage_computation = combat::attack_declaration::declare().declared()
+        .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 2, 2)
+        .with_successes(5)
+        // 3 extra successes
+        .on_success()
+        .attribute(3)
+        .base_damage(4)
+        // passes with full regular damage (10 dice)
+        .on_pass(0);
+    CHECK(damage_computation.passes(0));
+    CHECK(damage_computation.passes(5));
+    CHECK_FALSE(damage_computation.passes(15));
+  }
+
+  SECTION("Should take defender's soak if defender is specified")
+  {
+    auto damage_computation = combat::attack_declaration::declare().declared()
+        .dodge(defense_character, value_calculator)
+        .with_successes(8)
+        .on_success().damage_type(combat::damage_type_enum::BASHING);
+    // 4 extra successes, defender CON = 2 --> 2 bashing soak as he's mortal
+    CHECK(damage_computation.passes(value_calculator));
+    CHECK(damage_computation.on_pass(value_calculator).attack_status()->post_soak_damage == 2);
   }
 }

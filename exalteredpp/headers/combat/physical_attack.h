@@ -249,6 +249,7 @@ namespace combat {
   {
     friend class post_soak_damage;
   public:
+    final_damage with_roll(unsigned int rolled_damage);
     final_damage roll(std::shared_ptr<dice::abstract_dice_roller> dice_roller);
 
   private:
