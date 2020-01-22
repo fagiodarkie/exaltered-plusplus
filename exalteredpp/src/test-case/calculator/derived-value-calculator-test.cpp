@@ -35,14 +35,15 @@ TEST_CASE("Derived Value Calculator")
   {
     character->set_type(character::creation::TYPE_MORTAL_HERO);
     auto phys_defenses = sut.compute_physical_vd(*character, ability::ability_enum::MELEE);
+    auto soaks = sut.compute_soak_values(*character);
     CHECK(phys_defenses.dodge_vd == 2);
     CHECK(phys_defenses.dodge_balance == 3);
     CHECK(phys_defenses.parry_vd == 2);
     CHECK(phys_defenses.parry_balance == 2);
     CHECK(phys_defenses.tower_parry_vd == 2);
-    CHECK(phys_defenses.bashing_soak == 2);
-    CHECK(phys_defenses.lethal_soak == 0);
-    CHECK(phys_defenses.aggravated_soak == 0);
+    CHECK(soaks.natural_soak[combat::damage_type_enum::BASHING]     == 2);
+    CHECK(soaks.natural_soak[combat::damage_type_enum::LETHAL]      == 0);
+    CHECK(soaks.natural_soak[combat::damage_type_enum::AGGRAVATED]  == 0);
     auto mental_defenses = sut.compute_mental_vd(*character);
     CHECK(mental_defenses.resilience == 1);
     CHECK(mental_defenses.mental_dodge_vd == 2);
@@ -69,12 +70,13 @@ TEST_CASE("Derived Value Calculator")
     character->essence().set_permanent_essence(5);
     character->set(ability::ability_enum::MELEE, 3);
     auto phys_defenses = sut.compute_physical_vd(*character, ability::ability_enum::MELEE);
+    auto soaks = sut.compute_soak_values(*character);
     CHECK(phys_defenses.dodge_vd == 3);
     CHECK(phys_defenses.parry_vd == 3);
     CHECK(phys_defenses.tower_parry_vd == 3);
-    CHECK(phys_defenses.bashing_soak == 2);
-    CHECK(phys_defenses.lethal_soak == 1);
-    CHECK(phys_defenses.aggravated_soak == 0);
+    CHECK(soaks.natural_soak[combat::damage_type_enum::BASHING]      == 2);
+    CHECK(soaks.natural_soak[combat::damage_type_enum::LETHAL]       == 1);
+    CHECK(soaks.natural_soak[combat::damage_type_enum::AGGRAVATED]   == 0);
     auto mental_defenses = sut.compute_mental_vd(*character);
     CHECK(mental_defenses.resilience == 2);
     CHECK(mental_defenses.mental_dodge_vd == 3);

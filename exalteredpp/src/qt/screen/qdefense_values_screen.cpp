@@ -97,8 +97,9 @@ namespace qt {
           natural_soak        = new QLabel;
         }
 
-      calculator::worker::physical_defenses character_vds = _calculator.compute_physical_vd(*_character, ability);
-      calculator::worker::mental_defenses character_mvds = _calculator.compute_mental_vd(*_character);
+      auto character_vds = _calculator.compute_physical_vd(*_character, ability);
+      auto character_mvds = _calculator.compute_mental_vd(*_character);
+      auto soaks = _calculator.compute_soak_values(*_character);
 
       dodge_dv        ->setText(QString::number(character_vds.dodge_vd));
       dodge_balance   ->setText(QString::number(character_vds.dodge_balance));
@@ -113,9 +114,9 @@ namespace qt {
       resilience      ->setText(QString::number(character_mvds.resilience));
 
       natural_soak    ->setText(QString("%1U / %2L / %3A")
-                              .arg(character_vds.bashing_soak)
-                              .arg(character_vds.lethal_soak)
-                              .arg(character_vds.aggravated_soak));
+                              .arg(soaks.natural_soak[combat::damage_type_enum::BASHING])
+                              .arg(soaks.natural_soak[combat::damage_type_enum::LETHAL])
+                              .arg(soaks.natural_soak[combat::damage_type_enum::AGGRAVATED]));
     }
   }
 }

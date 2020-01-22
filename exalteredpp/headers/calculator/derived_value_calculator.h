@@ -14,7 +14,8 @@ namespace calculator {
     derived_value_calculator(worker_map initial_map);
 
     virtual worker::physical_defenses compute_physical_vd(const character::character& c, ability::ability_enum parry_ability) const override;
-    virtual worker::mental_defenses compute_mental_vd(const character::character& c) const override;
+    virtual worker::mental_defenses   compute_mental_vd(const character::character& c) const override;
+    virtual worker::soak_values       compute_soak_values(const character::character& c) const override;
 
     virtual long int compute_persona                  (const character::creation::character_type& type, const attribute::attributes& attribute, const power::willpower& willpower, const power::essence& essence) const override;
     virtual long int compute_persona                  (const character::character& c) const override;

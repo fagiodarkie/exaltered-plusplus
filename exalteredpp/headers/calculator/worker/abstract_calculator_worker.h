@@ -1,13 +1,13 @@
 #pragma once
 
 #include "character.h"
+#include "combat/attack_defines.h"
 
 namespace calculator {
   namespace worker {
 
     struct physical_defenses {
       unsigned int parry_vd, tower_parry_vd, dodge_vd,
-        bashing_soak, lethal_soak, aggravated_soak,
         parry_balance, dodge_balance, hindrance, stance;
     };
 
@@ -16,12 +16,19 @@ namespace calculator {
         resilience;
     };
 
+    struct soak_values {
+      unsigned int hardness;
+      std::map<combat::damage_type_enum, unsigned int> natural_soak;
+      std::map<combat::body_target, std::map<combat::damage_type_enum, unsigned int>> armored_soak;
+    };
+
     class abstract_calculator_worker
     {
     public:
 
       virtual physical_defenses compute_physical_vd(const character::character& c, ability::ability_enum parry_ability) const = 0;
       virtual mental_defenses   compute_mental_vd(const character::character& c) const = 0;
+      virtual soak_values       compute_soak_values(const character::character& c) const = 0;
 
       // Essence & Logos
       virtual long int compute_personal_essence         (const character::character& c) const = 0;

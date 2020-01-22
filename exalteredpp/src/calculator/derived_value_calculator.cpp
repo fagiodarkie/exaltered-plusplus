@@ -9,6 +9,11 @@ namespace calculator {
     return calculator_workers.at(c.type())->compute_physical_vd(c, parry_ability);
   }
 
+  worker::soak_values derived_value_calculator::compute_soak_values(const character::character& c) const
+  {
+    return calculator_workers.at(c.type())->compute_soak_values(c);
+  }
+
   worker::mental_defenses derived_value_calculator::compute_mental_vd(const character::character& c) const
   {
     return calculator_workers.at(c.type())->compute_mental_vd(c);

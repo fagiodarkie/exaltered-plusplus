@@ -22,11 +22,20 @@ namespace calculator {
 
         result.stance           = compute_stance_bonus(c);
         result.hindrance        = compute_hindrance(c);
-        result.bashing_soak     = compute_bashing_soak(c);
-        result.lethal_soak      = compute_lethal_soak(c);
-        result.aggravated_soak  = compute_aggravated_soak(c);
         result.parry_balance    = compute_parry_balance(c);
         result.dodge_balance    = compute_dodge_balance(c);
+
+        return result;
+      }
+
+      virtual soak_values       compute_soak_values(const character::character& c) const override
+      {
+        soak_values result;
+
+        result.hardness = 0;
+        result.natural_soak[combat::damage_type_enum::BASHING   ] = compute_bashing_soak(c);
+        result.natural_soak[combat::damage_type_enum::LETHAL    ] = compute_lethal_soak(c);
+        result.natural_soak[combat::damage_type_enum::AGGRAVATED] = compute_aggravated_soak(c);
 
         return result;
       }

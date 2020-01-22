@@ -315,29 +315,14 @@ namespace combat {
 
     unsigned int raw_damage = _atk->raw_damage();
 
-    auto soak = calculator.compute_physical_vd(*_atk->defender, ability::ability_enum::MELEE);
-    unsigned int soak_value = 0;
-
-    // refactor this switch inside the physical vd
-    switch(_atk->weapon.damage_type())
-      {
-      case damage_type_enum::BASHING:
-        soak_value = soak.bashing_soak;
-        break;
-      case damage_type_enum::LETHAL:
-        soak_value = soak.lethal_soak;
-        break;
-      case damage_type_enum::AGGRAVATED:
-        soak_value = soak.aggravated_soak;
-        break;
-      }
+    auto soak = calculator.compute_soak_values(*_atk->defender);
+    unsigned int natural_soak_value = soak.natural_soak[_atk->weapon.damage_type()];
 
     // TODO when armor and equipment are added. Right now armored soak is 0.
-    unsigned int final_soak = soak_value + dice::pool(0 - _atk->weapon.drill());
-    unsigned int raw = (raw_damage - final_soak), min = _atk->weapon.minimum_damage();
+    unsigned int final_soak = natural_soak_value + dice::pool(0 - _atk->weapon.drill());
+    unsigned int raw = dice::pool(raw_damage - final_soak), min = _atk->weapon.minimum_damage();
 
-    auto pool = raw > min ? dice::pool(raw) : dice::pool(min);
-    _atk->post_soak_damage = pool;
+    _atk->post_soak_damage = std::max(raw, min);
     _atk->is_damage_from_minimum = raw < min;
   }
 
