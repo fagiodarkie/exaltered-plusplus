@@ -36,7 +36,7 @@ namespace combat {
     return *this;
   }
 
-  attack_declaration& attack_declaration::with(const weapon& w)
+  attack_declaration& attack_declaration::with(const equip::weapon& w)
   {
     _atk->weapon = w;
     return *this;
@@ -465,4 +465,46 @@ namespace combat {
 
     return final_result;
   }
+
+  bool outcome::counter_available() const
+  {
+    return _can_counter;
+  }
+
+  unsigned int outcome::final_damage() const
+  {
+    return _final_damage;
+  }
+
+  unsigned int outcome::vd_penalty_on_attacker() const
+  {
+    return _action_penalty;
+  }
+
+  unsigned int outcome::meters_pushed() const
+  {
+    return _meters_pushed;
+  }
+
+  body_target  outcome::target_hit() const
+  {
+    return _target;
+  }
+
+  bool outcome::was_hit() const
+  {
+    return _hit;
+  }
+
+  bool outcome::was_pushed() const
+  {
+    return _pushed;
+  }
+
+  bool outcome::was_knocked_down() const
+  {
+    return _knocked;
+  }
+
+
 }

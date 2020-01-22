@@ -2,7 +2,7 @@
 
 #include "common/reverse_search.h"
 
-namespace combat {
+namespace equip {
   weapon::weapon(const std::string& name)
     : _name(name),
       _damage_type(damage_type_enum::BASHING),

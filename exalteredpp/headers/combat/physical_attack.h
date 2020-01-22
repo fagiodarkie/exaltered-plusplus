@@ -20,13 +20,13 @@ namespace combat {
   class post_hardness_damage;
   class final_damage;
   class outcome;
-
+  
   class combat_step {
   protected:
     struct attack_descriptor
     {
       unsigned int action_penalty = 0;
-      weapon weapon;
+      equip::weapon weapon;
       std::vector<attack_attribute> attack_attributes;
       std::shared_ptr<character::character> attacker, defender;
       target_vd vd = target_vd::PHYSICAL_DODGE;
@@ -84,9 +84,15 @@ namespace combat {
 
     combat_step(std::shared_ptr<attack_descriptor> atk) : _atk(atk) { }
     std::shared_ptr<attack_descriptor> _atk;
+
+  public:
+    const std::shared_ptr<const attack_descriptor> attack_status() const
+    {
+      return _atk;
+    }
   };
 
-  class attack_declaration : combat_step
+  class attack_declaration : public combat_step
   {
     friend class precision_roll;
     friend class defense_declaration;
@@ -98,7 +104,7 @@ namespace combat {
     attack_declaration& is(std::initializer_list<attack_attribute> attributes);
     attack_declaration& is(attack_attribute attribute);
     attack_declaration& is_not(attack_attribute attribute);
-    attack_declaration& with(const weapon& w);
+    attack_declaration& with(const equip::weapon& w);
     attack_declaration& with_action_penalty(unsigned int vd_penalty);
     attack_declaration& attacker(std::shared_ptr<character::character> attacker);
 
@@ -109,7 +115,7 @@ namespace combat {
     attack_declaration() : combat_step (std::make_shared<attack_descriptor>()) { }
   };
 
-  class defense_declaration : combat_step
+  class defense_declaration : public combat_step
   {
     friend class attack_declaration;
 
@@ -124,7 +130,7 @@ namespace combat {
     defense_declaration(std::shared_ptr<attack_descriptor> atk) : combat_step(atk) { }
   };
 
-  class precision_roll : combat_step
+  class precision_roll : public combat_step
   {
     friend class defense_declaration;
     friend class vd_application;
@@ -152,7 +158,7 @@ namespace combat {
     precision_roll(std::shared_ptr<attack_descriptor> atk) : combat_step(atk) { }
   };
 
-  class vd_application : combat_step
+  class vd_application : public combat_step
   {
     friend class precision_roll;
 
@@ -199,7 +205,7 @@ namespace combat {
     unsigned int _final_damage, _action_penalty, _meters_pushed;
   };
 
-  class raw_damage_and_position_computation : combat_step
+  class raw_damage_and_position_computation : public combat_step
   {
     friend class vd_application;
 
@@ -224,7 +230,7 @@ namespace combat {
     raw_damage_and_position_computation(std::shared_ptr<attack_descriptor> atk) : combat_step(atk) { }
   };
 
-  class post_soak_damage : combat_step
+  class post_soak_damage : public combat_step
   {
     friend class raw_damage_and_position_computation;
 
@@ -239,7 +245,7 @@ namespace combat {
 
   };
 
-  class post_hardness_damage : combat_step
+  class post_hardness_damage : public combat_step
   {
     friend class post_soak_damage;
   public:
@@ -249,7 +255,7 @@ namespace combat {
     post_hardness_damage(std::shared_ptr<attack_descriptor> atk) : combat_step(atk) { }
   };
 
-  class final_damage : combat_step
+  class final_damage : public combat_step
   {
     friend class post_hardness_damage;
 

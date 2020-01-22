@@ -8,9 +8,13 @@
 #include "attributes/attribute_names.h"
 #include "abilities/ability_names.h"
 
-namespace combat {
+namespace equip {
+  using combat::damage_type_enum;
+  using combat::action_speed;
+  using combat::attack_attribute;
   class weapon
   {
+
   public:
     weapon(const std::string& name = "");
 
