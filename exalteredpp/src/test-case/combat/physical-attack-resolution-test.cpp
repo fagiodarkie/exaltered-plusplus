@@ -30,13 +30,12 @@ TEST_CASE("Physical Attack Resolution")
   };
   auto value_calculator = calculator::derived_value_calculator(worker_map);
 
-  combat::attack_declaration declaration = combat::attack_declaration::declare();
   auto roller = std::make_shared<mock_diceroller>();
   roller->set_ratio(0.5);
 
   SECTION("Should give a \"fail\" outcome if precision doesn't pass VD")
   {
-    auto precision = declaration.declared()
+    auto precision = combat::attack_declaration::declare().declared()
         .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 10, 10);
     auto vd_comparison = precision.with_successes(5);
     REQUIRE_FALSE(vd_comparison.hits());
@@ -45,7 +44,7 @@ TEST_CASE("Physical Attack Resolution")
   SECTION("Should take into account precision maluses")
   {
     // 7 dice - 2 successes should not hit
-    auto vd_comparison_failure = declaration
+    auto vd_comparison_failure = combat::attack_declaration::declare()
         .declared()
         .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 10, 10)
         .precision(10).internal_malus(3).malus(2)
@@ -56,7 +55,7 @@ TEST_CASE("Physical Attack Resolution")
   SECTION("Should take into account precision bonuses")
   {
     // 16 dice + 4 successes should hit
-    auto vd_comparison = declaration
+    auto vd_comparison = combat::attack_declaration::declare()
         .declared()
         .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 10, 10)
         .precision(10).internal_bonus(6).bonus(4)
@@ -67,7 +66,7 @@ TEST_CASE("Physical Attack Resolution")
   SECTION("should take into account weapon stats")
   {
     roller->set_ratio(1);
-    auto vd_comparison = declaration
+    auto vd_comparison = combat::attack_declaration::declare()
         // precision is 7, weapon precision is 5 => 12 dice. We'll have them all rolling 7s
         .attacker(attack_character).with(attack_weapon)
         .declared()
@@ -83,6 +82,6 @@ TEST_CASE("Physical Attack Resolution")
         .declared()
         .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 10, 10)
         .apply(roller);
-    REQUIRE_FALSE(vd_comparison.hits());
+    REQUIRE_FALSE(vd_comparison_fail.hits());
   }
 }
