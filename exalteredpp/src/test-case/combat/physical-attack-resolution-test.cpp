@@ -256,7 +256,7 @@ TEST_CASE("Physical Attack Resolution")
 
     CHECK(damage_computation.passes(8, 4));
     CHECK(damage_computation.attack_status()->post_soak_damage == 4);
-    CHECK_FALSE(damage_computation.passes(8, 8));
+    CHECK_FALSE(damage_computation.passes(10, 8));
     CHECK(damage_computation.attack_status()->post_soak_damage == 0);
   }
 
@@ -268,7 +268,16 @@ TEST_CASE("Physical Attack Resolution")
         .declared()
         .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 2, 2)
         .with_successes(5)
-        .on_success();
+        .on_success()
+        // try to set weapon properties - they should be ignored
+        .base_damage(100)
+        .attribute(100)
+        .min_damage(100)
+        .drill(100);
+    CHECK_FALSE(damage_computation.attack_status()->weapon.drill() == 100);
+    CHECK_FALSE(damage_computation.attack_status()->damage_attribute == 100);
+    CHECK_FALSE(damage_computation.attack_status()->weapon.base_damage() == 100);
+    CHECK_FALSE(damage_computation.attack_status()->weapon.minimum_damage() == 100);
     // 3 extra successes, str 3, base damage 3: 9 raw damage dice
     CHECK(damage_computation.attack_status()->raw_damage() == 9);
     CHECK_FALSE(damage_computation.passes(10));
@@ -288,5 +297,16 @@ TEST_CASE("Physical Attack Resolution")
     damage_computation.min_damage(6);
     CHECK(damage_computation.passes(16));
     CHECK(damage_computation.attack_status()->is_damage_from_minimum);
+  }
+
+  SECTION("Should compute body target if it wasn't specified already")
+  {
+    auto damage_computation = combat::attack_declaration::declare().declared()
+        .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 2, 2)
+        .with_successes(5)
+        .on_success();
+    CHECK(damage_computation.attack_status()->target == combat::body_target::NO_TARGET);
+    CHECK_FALSE(damage_computation.target() == combat::body_target::NO_TARGET);
+    CHECK_FALSE(damage_computation.attack_status()->target == combat::body_target::NO_TARGET);
   }
 }

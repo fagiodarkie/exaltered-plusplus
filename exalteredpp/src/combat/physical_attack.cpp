@@ -229,11 +229,6 @@ namespace combat {
   {
     _atk->raw_damage_dice = _atk->precision_roll_result - _atk->vd_value;
 
-    if (_atk->attacker)
-      {
-        _atk->raw_damage_dice += _atk->weapon.base_damage() + _atk->attacker->attribute(_atk->weapon.damage_attribute());
-      }
-
     return raw_damage_and_position_computation(_atk);
   }
 
@@ -309,10 +304,9 @@ namespace combat {
   {
     unsigned int raw_damage = _atk->raw_damage();
     unsigned int final_soak = soak + dice::pool(armored_soak - _atk->weapon.drill());
-    unsigned int raw = (raw_damage - final_soak), min = _atk->weapon.minimum_damage();
+    unsigned int raw = dice::pool(raw_damage - final_soak), min = _atk->weapon.minimum_damage();
 
-    auto pool = raw > min ? dice::pool(raw) : dice::pool(min);
-    _atk->post_soak_damage = pool;
+    _atk->post_soak_damage = std::max(raw, min);
     _atk->is_damage_from_minimum = raw < min;
   }
 
