@@ -55,6 +55,36 @@ TEST_CASE("Physical Attack Resolution")
     CHECK(declaration.attack_status()->weapon.is(combat::attack_attribute::WITH_MINIMUM));
     CHECK_FALSE(commons::contains(declaration.attack_status()->attack_attributes, combat::attack_attribute::WITH_MINIMUM));
     CHECK_FALSE(commons::contains(declaration.attack_status()->attack_attributes, combat::attack_attribute::COUNTERATTACK));
+
+    declaration.is_not(combat::attack_attribute::CONCEDED);
+    CHECK_FALSE(commons::contains(declaration.attack_status()->attack_attributes, combat::attack_attribute::CONCEDED));
+    CHECK(commons::contains(declaration.attack_status()->attack_attributes, combat::attack_attribute::NON_PARRYABLE));
+  }
+
+  SECTION("Should list possible vds, taking into account non-parryable and non-dodgeable attributes")
+  {
+    auto declaration = combat::attack_declaration::declare_as({ combat::attack_attribute::NON_DODGEABLE, combat::attack_attribute::NON_PARRYABLE }).declared();
+
+    auto vds = declaration.possible_vds();
+    CHECK(vds.empty());
+
+    declaration = combat::attack_declaration::declare_as({ combat::attack_attribute::NON_DODGEABLE }).declared();
+    vds = declaration.possible_vds();
+    CHECK_FALSE(vds.empty());
+    CHECK(commons::contains(vds, combat::target_vd::PHYSICAL_PARRY));
+    CHECK_FALSE(commons::contains(vds, combat::target_vd::PHYSICAL_DODGE));
+
+    declaration = combat::attack_declaration::declare_as({ combat::attack_attribute::NON_PARRYABLE }).declared();
+    vds = declaration.possible_vds();
+    CHECK_FALSE(vds.empty());
+    CHECK_FALSE(commons::contains(vds, combat::target_vd::PHYSICAL_PARRY));
+    CHECK(commons::contains(vds, combat::target_vd::PHYSICAL_DODGE));
+
+    declaration = combat::attack_declaration::declare().declared();
+    vds = declaration.possible_vds();
+    CHECK_FALSE(vds.empty());
+    CHECK(commons::contains(vds, combat::target_vd::PHYSICAL_PARRY));
+    CHECK(commons::contains(vds, combat::target_vd::PHYSICAL_DODGE));
   }
 
   SECTION("Should take into account attack action penalty")
@@ -133,6 +163,26 @@ TEST_CASE("Physical Attack Resolution")
     REQUIRE_FALSE(vd_comparison_fail.hits());
   }
 
+  SECTION("Should take into account attribute, ability and specialisation")
+  {
+    auto vd_comparison = combat::attack_declaration::declare()
+        // precision is 7, weapon precision is 5 => 12 dice.
+        .attacker(attack_character).with(attack_weapon).declared()
+        .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 10, 10)
+        .precision(attack_weapon.precision_attribute(), ability::ability_enum::THROWN)
+        .apply(roller);
+    REQUIRE(vd_comparison.attack_status()->precision_dice == 12);
+
+    attack_character->add(ability::ability_enum::THROWN, ability::specialisation("Shurikens", 2));
+    auto vd_comparison_spec = combat::attack_declaration::declare()
+        // precision is 7, weapon precision is 5 => 12 dice.
+        .attacker(attack_character).with(attack_weapon).declared()
+        .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 10, 10)
+        .precision(attack_weapon.precision_attribute(), ability::ability_enum::THROWN, "Shurikens")
+        .apply(roller);
+    REQUIRE(vd_comparison_spec.attack_status()->precision_dice == 14);
+  }
+
   SECTION("Should allow counter if parry wins")
   {
     auto vd_comparison_fail = combat::attack_declaration::declare().declared()
@@ -141,5 +191,37 @@ TEST_CASE("Physical Attack Resolution")
     REQUIRE_FALSE(vd_comparison_fail.hits());
     REQUIRE_FALSE(vd_comparison_fail.on_fail().was_hit());
     REQUIRE(vd_comparison_fail.on_fail().counter_available());
+    REQUIRE(vd_comparison_fail.on_fail().final_damage() == 0);
+  }
+
+  SECTION("If targeted, the hit should connect in the specified body part")
+  {
+    roller->set_ratio(1);
+    auto when_doesnt_target = combat::attack_declaration::declare().declared()
+        .defend_with_value(combat::target_vd::PHYSICAL_PARRY, 10, 10)
+        .target(combat::body_target::TRUNK)
+        .do_not_target();
+    CHECK(when_doesnt_target.attack_status()->target == combat::body_target::NO_TARGET);
+    CHECK_FALSE(when_doesnt_target.attack_status()->body_part_rolled);
+
+    auto hit_outcome = combat::attack_declaration::declare().declared()
+        .defend_with_value(combat::target_vd::PHYSICAL_PARRY, 10, 10)
+        .target(combat::body_target::TRUNK)
+        .with_successes(15).on_success()
+        .on_pass(0).on_pass().roll(roller)
+        .end_attack();
+    REQUIRE(hit_outcome.target_hit() == combat::body_target::TRUNK);
+  }
+
+  SECTION("Should compute internal and external bonus when composing precision")
+  {
+    auto precision = combat::attack_declaration::declare().declared()
+        .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 2, 2)
+        .bonus(3).malus(5)
+        .internal_bonus(4).internal_malus(2).precision(8);
+    // 3 - 5 = -2
+    CHECK(precision.external_bonus() == -2);
+    // 8 + 4 - 2 = 10
+    CHECK(precision.pool() == 10);
   }
 }
