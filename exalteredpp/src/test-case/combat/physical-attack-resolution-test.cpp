@@ -153,7 +153,7 @@ TEST_CASE("Physical Attack Resolution")
     CHECK(vd_comparison.hits());
 
     // now we make it fail
-    roller->set_ratio(0.3);
+    roller->set_ratio(0.3f);
     auto vd_comparison_fail = combat::attack_declaration::declare()
         // precision is 7, weapon precision is 5 => 12 dice. We'll have them all rolling 7s
         .attacker(attack_character).with(attack_weapon)
@@ -185,12 +185,14 @@ TEST_CASE("Physical Attack Resolution")
 
   SECTION("Should allow counter if parry wins")
   {
-    auto vd_comparison_fail = combat::attack_declaration::declare().declared()
+    auto vd_comparison_fail = combat::attack_declaration::declare()
+        .with_action_penalty(3).declared()
         .defend_with_value(combat::target_vd::PHYSICAL_PARRY, 10, 10)
         .with_successes(5);
     REQUIRE_FALSE(vd_comparison_fail.hits());
     REQUIRE_FALSE(vd_comparison_fail.on_fail().was_hit());
     REQUIRE(vd_comparison_fail.on_fail().counter_available());
+    REQUIRE(vd_comparison_fail.on_fail().vd_penalty_on_attacker() == 3);
     REQUIRE(vd_comparison_fail.on_fail().final_damage() == 0);
   }
 
@@ -352,5 +354,37 @@ TEST_CASE("Physical Attack Resolution")
     // 4 extra successes, defender CON = 2 --> 2 bashing soak as he's mortal
     CHECK(damage_computation.passes(value_calculator));
     CHECK(damage_computation.on_pass(value_calculator).attack_status()->post_soak_damage == 2);
+  }
+
+  SECTION("Final damage should take into account knockdown and knockback")
+  {
+    auto create_damage = []() {
+        return combat::attack_declaration::declare().declared()
+        .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 2, 2)
+        .with_successes(5)
+        .on_success()
+        .min_damage(10)
+        .on_pass(15).on_pass().with_roll(10);
+      };
+    auto knockdown_fail = create_damage().knockdown(2).end_attack();
+    CHECK_FALSE(knockdown_fail.was_knocked_down());
+    CHECK_FALSE(knockdown_fail.was_pushed());
+    CHECK(knockdown_fail.final_damage() == 8);
+
+    auto knockdown_hit = create_damage().knockdown(5).end_attack();
+    CHECK(knockdown_hit.was_knocked_down());
+    CHECK_FALSE(knockdown_hit.was_pushed());
+    CHECK(knockdown_hit.final_damage() == 5);
+
+    auto knockback_fail = create_damage().knockback_meters(2).end_attack();
+    CHECK_FALSE(knockback_fail.was_knocked_down());
+    CHECK_FALSE(knockback_fail.was_pushed());
+    CHECK(knockback_fail.final_damage() == 8);
+
+    auto knockback_hit = create_damage().knockback_meters(8).end_attack();
+    CHECK_FALSE(knockback_hit.was_knocked_down());
+    CHECK(knockback_hit.was_pushed());
+    CHECK(knockback_hit.meters_pushed() == 6);
+    CHECK(knockback_hit.final_damage() == 2);
   }
 }
