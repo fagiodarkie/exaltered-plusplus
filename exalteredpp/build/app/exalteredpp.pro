@@ -102,6 +102,7 @@ SOURCES += \
     ../../src/qt/widget/experience_purchase_widget.cpp \
     ../../src/qt/widget/name_value_widget.cpp \
     ../../src/qt/widget/session_experience_logger.cpp \
+    ../../src/qt/widget/with_next_continue_buttons.cpp \
     ../../src/qt/widget/with_progress_bar.cpp \
     ../../src/qt/wizard/ability_value_row.cpp \
     ../../src/qt/wizard/attributes_priority_page.cpp \
@@ -212,6 +213,7 @@ HEADERS += \
     ../../headers/qt/widget/name_value_widget.h \
     ../../headers/qt/widget/session_experience_logger.h \
     ../../headers/qt/widget/std_compatible.h \
+    ../../headers/qt/widget/with_next_continue_buttons.h \
     ../../headers/qt/widget/with_progress_bar.h \
     ../../headers/qt/wizard/ability_value_row.h \
     ../../headers/qt/wizard/attributes_priority_page.h \

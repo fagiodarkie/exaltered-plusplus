@@ -36,40 +36,22 @@ namespace qt {
       connect(this, &character_creation_attribute_points_page::total_changed, this, &character_creation_attribute_points_page::rethink_button_enable);
       connect(this, &character_creation_attribute_points_page::total_changed, this, &character_creation_attribute_points_page::generate_group_labels);
 
-      QHBoxLayout* buttons_layout = new QHBoxLayout;
-      next_page = new QPushButton(NEXT_LABEL);
-      qt::style::foreground(next_page);
-      cancel = new QPushButton(CANCEL_LABEL);
-      buttons_layout->addWidget(cancel);
-      buttons_layout->addWidget(next_page);
-
-      next_page->setEnabled(false);
-      connect(next_page, &QPushButton::clicked, this, &character_creation_attribute_points_page::chose_points);
-      connect(cancel, &QPushButton::clicked, this, &character_creation_attribute_points_page::back_issued);
-
-      QWidget* buttons = new QWidget;
-      buttons->setLayout(buttons_layout);
+      on_next_issued([this]() {chose_points();});
 
       layout::QBorderLayout *outer_layout = new layout::QBorderLayout;
       QScrollArea *scroll_categories = new QScrollArea;
       scroll_categories->setWidget(categories);
       outer_layout->addWidget(_progress_bar, layout::QBorderLayout::North);
       outer_layout->addWidget(scroll_categories, layout::QBorderLayout::Center);
-      outer_layout->addWidget(buttons, layout::QBorderLayout::South);
+      outer_layout->addWidget(buttons_layout(), layout::QBorderLayout::South);
 
       setLayout(outer_layout);
-    }
-
-    character_creation_attribute_points_page::~character_creation_attribute_points_page()
-    {
-      qt::style::forget(next_page);
     }
 
     void character_creation_attribute_points_page::set_total_points(QMap<attribute_category, unsigned int> points_per_category)
     {
       this->points_per_category = points_per_category;
       generate_group_labels();
-      qt::style::foreground(next_page);
       generate_group_labels();
       rethink_button_enable(attribute::SOCIAL);
       rethink_button_enable(attribute::PHYSICAL);
@@ -144,7 +126,7 @@ namespace qt {
               break;
             }
         }
-      next_page->setEnabled(all_categories_have_right_points);
+      enable_next(all_categories_have_right_points);
 
       generate_attribute_labels_for_category(category);
     }
@@ -233,7 +215,6 @@ namespace qt {
       chosen_attributes = attributes;
       generate_attribute_labels();
       generate_group_labels();
-      qt::style::foreground(next_page);
       rethink_button_enable(attribute::SOCIAL);
       rethink_button_enable(attribute::PHYSICAL);
       rethink_button_enable(attribute::MENTAL);

@@ -99,32 +99,15 @@ namespace qt {
       virtues_vice->addWidget(vicebox);
       virtues_widget->setLayout(virtues_vice);
 
-      QHBoxLayout* buttons_layout = new QHBoxLayout;
-      next_page = new QPushButton(NEXT_LABEL);
-      qt::style::foreground(next_page);
-      cancel = new QPushButton(CANCEL_LABEL);
-      buttons_layout->addWidget(cancel);
-      buttons_layout->addWidget(next_page);
-
-      next_page->setEnabled(false);
-      connect(next_page, &QPushButton::clicked, this, &character_creation_virtues_vice::next_issued);
-      connect(cancel, &QPushButton::clicked, this, &character_creation_virtues_vice::back_issued);
-
-      QWidget* buttons = new QWidget;
-      buttons->setLayout(buttons_layout);
+      on_next_issued([this]() { next_issued(); });
 
       layout::QBorderLayout *outer_layout = new layout::QBorderLayout;
       outer_layout->addWidget(_progress_bar, layout::QBorderLayout::North);
       outer_layout->addWidget(virtues_widget, layout::QBorderLayout::Center);
-      outer_layout->addWidget(buttons, layout::QBorderLayout::South);
+      outer_layout->addWidget(buttons_layout(), layout::QBorderLayout::South);
       update_group_titles();
 
       setLayout(outer_layout);
-    }
-
-    character_creation_virtues_vice::~character_creation_virtues_vice()
-    {
-      qt::style::forget(next_page);
     }
 
     void character_creation_virtues_vice::update_virtues_limits(class virtues virtues, unsigned int max_virtues, unsigned int max_virtue_value)
@@ -133,7 +116,6 @@ namespace qt {
       max_points_on_virtues = max_virtues;
       this->max_virtue_value = max_virtue_value;
 
-      qt::style::foreground(next_page);
       choose_first_virtue_type();
       update_group_titles();
       update_button_status();
@@ -219,7 +201,7 @@ namespace qt {
         }
       remove_vice->setDisabled(_virtues.vice_value() <= 1);
 
-      next_page->setDisabled(!add_disabled);
+      enable_next(add_disabled);
     }
 
     void character_creation_virtues_vice::update_label(virtue_enum virtue)

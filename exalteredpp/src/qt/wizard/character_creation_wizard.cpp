@@ -31,27 +31,27 @@ namespace qt {
         }
 
       name_page = new character_creation_name_type_page(this);
-      connect(name_page, &character_creation_name_type_page::back_issued, this, &character_creation_wizard::fallback);
+      name_page->on_back_issued([this]() { fallback(); });
       connect(name_page, &character_creation_name_type_page::character_type_chosen, this, &character_creation_wizard::load_attributes_priority);
 
       attribute_priority_page = new attributes_priority_page(this);
-      connect(attribute_priority_page, &attributes_priority_page::back_issued, this, &character_creation_wizard::fallback);
+      attribute_priority_page->on_back_issued([this]() { fallback(); });
       connect(attribute_priority_page, &attributes_priority_page::attributes_chosen, this, &character_creation_wizard::load_attributes_values);
 
       attribute_points_page = new character_creation_attribute_points_page(this);
-      connect(attribute_points_page, &character_creation_attribute_points_page::back_issued, this, &character_creation_wizard::fallback);
+      attribute_points_page->on_back_issued([this]() { fallback(); });
       connect(attribute_points_page, &character_creation_attribute_points_page::attribute_points_chosen, this, &character_creation_wizard::load_attribute_points);
 
       abilities_page = new character_creation_ability_values(this);
-      connect(abilities_page, &character_creation_ability_values::back_issued, this, &character_creation_wizard::fallback);
+      abilities_page->on_back_issued([this]() { fallback(); });
       connect(abilities_page, &character_creation_ability_values::abilities_chosen, this, &character_creation_wizard::load_ability_values);
 
       virtues_page = new character_creation_virtues_vice(this);
-      connect(virtues_page, &character_creation_virtues_vice::back_issued, this, &character_creation_wizard::fallback);
+      virtues_page->on_back_issued([this]() { fallback(); });
       connect(virtues_page, &character_creation_virtues_vice::virtues_chosen, this, &character_creation_wizard::load_virtues);
 
       persona_page = new character_creation_persona(this);
-      connect(persona_page, &character_creation_persona::back_issued, this, &character_creation_wizard::fallback);
+      persona_page->on_back_issued([this]() { fallback(); });
       connect(persona_page, &character_creation_persona::persona_created, this, &character_creation_wizard::load_persona);
 
       layout = new QStackedLayout;

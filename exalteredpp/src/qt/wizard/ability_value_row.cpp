@@ -25,6 +25,11 @@ namespace qt { namespace wizard {
       ability_value_label = new QLabel(QString::number(_ability.value()));
       ability_value_label->setFixedSize(layout::SQUARE_BUTTON_STD_SIZE);
       ability_name_label = label(_ability.name());
+
+      if (_ability.favored())
+        ability_name_label->setStyleSheet("font-weight: bold");
+      else
+        ability_name_label->setStyleSheet("font-weight: normal");
     }
 
     void ability_value_row::on_decrease()

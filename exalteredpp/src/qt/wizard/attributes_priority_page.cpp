@@ -20,29 +20,14 @@ namespace qt {
       QWidget* central_widget = new QWidget;
       central_widget->setLayout(attributes_form);
 
-      next_page = new QPushButton(NEXT_LABEL);
-      qt::style::foreground(next_page);
-      cancel = new QPushButton(CANCEL_LABEL);
-
-      connect(next_page, &QPushButton::clicked, this, &attributes_priority_page::chose_all);
-      connect(cancel, &QPushButton::clicked, this, &attributes_priority_page::back_issued);
-
-      QWidget* buttons = new QWidget;
-      QHBoxLayout* buttons_layout = new QHBoxLayout;
-      buttons_layout->addWidget(cancel);
-      buttons_layout->addWidget(next_page);
-      buttons->setLayout(buttons_layout);
+      on_next_issued([this](){ chose_all(); });
 
       layout::QBorderLayout *outer_layout = new layout::QBorderLayout;
       outer_layout->addWidget(_progress_bar, layout::QBorderLayout::North);
       outer_layout->addWidget(central_widget, layout::QBorderLayout::Center);
-      outer_layout->addWidget(buttons, layout::QBorderLayout::South);
+      outer_layout->addWidget(buttons_layout(), layout::QBorderLayout::South);
       setLayout(outer_layout);
-    }
-
-    attributes_priority_page::~attributes_priority_page()
-    {
-      qt::style::forget(next_page);
+      enable_next();
     }
 
     void attributes_priority_page::create_attributes()
@@ -78,7 +63,6 @@ namespace qt {
       primary_label   ->setText(ATTRIBUTE_LABEL_WITH_TOTAL_POINTS(PRIMARY_ATTRIBUTE, primary_value));
       secondary_label ->setText(ATTRIBUTE_LABEL_WITH_TOTAL_POINTS(SECONDARY_ATTRIBUTE, secondary_value));
       tertiary_label  ->setText(ATTRIBUTE_LABEL_WITH_TOTAL_POINTS(TERTIARY_ATTRIBUTE, tertiary_value));
-      qt::style::foreground(next_page);
     }
 
     void attributes_priority_page::first_attribute_change()

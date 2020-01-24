@@ -7,24 +7,22 @@
 #include <QWidget>
 #include "attributes/attribute_names.h"
 #include "widget/with_progress_bar.h"
+#include "widget/with_next_continue_buttons.h"
 
 namespace qt {
   namespace wizard {
 
-    class attributes_priority_page : public QWidget, public widget::with_progress_bar
+    class attributes_priority_page : public QWidget, public widget::with_progress_bar, public widget::with_next_back_buttons
     {
       Q_OBJECT
 
     public:
       attributes_priority_page(QWidget *parent = nullptr);
 
-      ~attributes_priority_page();
-
       void set_values(int primary_value, int secondary_value, int tertiary_value);
 
     signals:
       void attributes_chosen(QString primary_attribute, QString secondary_attribute, QString tertiary_attribute);
-      void back_issued();
 
     private:
       void check_form();
@@ -39,7 +37,6 @@ namespace qt {
 
       QComboBox *primary_select, *secondary_select;
       QLabel *third_attribute, *primary_label, *secondary_label, *tertiary_label;
-      QPushButton *next_page, *cancel;
       QFormLayout *attributes_form;
 
       int primary, secondary, tertiary;

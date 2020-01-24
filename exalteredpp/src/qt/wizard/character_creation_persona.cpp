@@ -94,32 +94,15 @@ namespace qt {
       QScrollArea *scroll = new QScrollArea;
       scroll->setWidget(central_persona);
 
-      QHBoxLayout* buttons_layout = new QHBoxLayout;
-      next_page = new QPushButton(NEXT_LABEL);
-      qt::style::foreground(next_page);
-      cancel = new QPushButton(CANCEL_LABEL);
-      buttons_layout->addWidget(cancel);
-      buttons_layout->addWidget(next_page);
-
-      next_page->setEnabled(false);
-      connect(next_page, &QPushButton::clicked, this, &character_creation_persona::next_issued);
-      connect(cancel, &QPushButton::clicked, this, &character_creation_persona::back_issued);
-
-      QWidget* buttons = new QWidget;
-      buttons->setLayout(buttons_layout);
+      on_next_issued([this]() { emit persona_created(_persona); });
 
       layout::QBorderLayout *outer_layout = new layout::QBorderLayout;
       outer_layout->addWidget(_progress_bar, layout::QBorderLayout::North);
       outer_layout->addWidget(scroll, layout::QBorderLayout::Center);
-      outer_layout->addWidget(buttons, layout::QBorderLayout::South);
+      outer_layout->addWidget(buttons_layout(), layout::QBorderLayout::South);
 
       update_titles();
       setLayout(outer_layout);
-    }
-
-    character_creation_persona::~character_creation_persona()
-    {
-      qt::style::forget(next_page);
     }
 
     void character_creation_persona::update_titles()
@@ -142,7 +125,6 @@ namespace qt {
                                                .arg(virtues::VIRTUE_NAME.at(virtue).c_str())
                                                .arg(spent_on_emotion).arg(_virtues.value(virtue).value()));
         }
-      qt::style::foreground(next_page);
     }
 
     void character_creation_persona::increase_issued()
@@ -247,18 +229,13 @@ namespace qt {
         }
 
       update_titles();
-      next_page->setEnabled(chose_specifics && chose_all_emotion_bonus);
-    }
-
-    void character_creation_persona::next_issued()
-    {
-      emit persona_created(_persona);
+      enable_next(chose_specifics && chose_all_emotion_bonus);
     }
 
     void character_creation_persona::set_current_persona(const virtues::virtues& new_virtues,
                                                          const character::social::persona& new_persona,
-                                                         const character::creation::character_type_model &model,
-                                                         const attribute::attributes& attributes)
+                                                         const character::creation::character_type_model &,
+                                                         const attribute::attributes& )
     {
       _persona = new_persona;
       _virtues = new_virtues;

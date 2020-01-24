@@ -41,32 +41,15 @@ namespace qt {
       QWidget* central_widget = new QWidget;
       central_widget->setLayout(form);
 
-      QHBoxLayout* buttons_layout = new QHBoxLayout;
-      next_page = new QPushButton(NEXT_LABEL);
-      cancel = new QPushButton(CANCEL_LABEL);
-      buttons_layout->addWidget(cancel);
-      buttons_layout->addWidget(next_page);
-
-      qt::style::foreground(next_page);
-      next_page->setEnabled(false);
-      connect(next_page, &QPushButton::clicked, this, &character_creation_name_type_page::chose_all);
-      connect(cancel, &QPushButton::clicked, this, &character_creation_name_type_page::back_issued);
-
-      QWidget* buttons = new QWidget;
-      buttons->setLayout(buttons_layout);
+      on_next_issued([this]() { chose_all(); });
 
       layout::QBorderLayout *outer_layout = new layout::QBorderLayout;
       outer_layout->addWidget(_progress_bar, layout::QBorderLayout::North);
       outer_layout->addWidget(central_widget, layout::QBorderLayout::Center);
-      outer_layout->addWidget(buttons, layout::QBorderLayout::South);
+      outer_layout->addWidget(buttons_layout(), layout::QBorderLayout::South);
 
       setLayout(outer_layout);
       hide_show_caste_box();
-    }
-
-    character_creation_name_type_page::~character_creation_name_type_page()
-    {
-      qt::style::forget(next_page);
     }
 
     void character_creation_name_type_page::hide_show_caste_box()
@@ -112,7 +95,7 @@ namespace qt {
     void character_creation_name_type_page::check_form()
     {
       QString char_name = character_name->text();
-      next_page->setEnabled(!char_name.isEmpty());
+      enable_next(!char_name.isEmpty());
     }
   }
 }

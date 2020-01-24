@@ -8,12 +8,12 @@
 
 #include "character.h"
 #include "widget/with_progress_bar.h"
-
+#include "widget/with_next_continue_buttons.h"
 
 namespace qt {
   namespace wizard {
 
-  class character_creation_persona : public QWidget, public widget::with_progress_bar
+  class character_creation_persona : public QWidget, public widget::with_progress_bar, public widget::with_next_back_buttons
   {
     Q_OBJECT
   public:
@@ -23,17 +23,13 @@ namespace qt {
                              const character::creation::character_type_model &model,
                              const attribute::attributes& attribute);
 
-    ~character_creation_persona();
-
   signals:
-    void back_issued();
     void persona_created(character::social::persona& persona);
 
   private:
 
     static const char *SPECIFIC_PROPERTY, *EMOTION_PROPERTY;
 
-    void next_issued();
     void check_current_selection();
     void update_titles();
 
@@ -43,7 +39,6 @@ namespace qt {
     void change_persona(const QString& specific, int delta);
     void change_emotion(int emotion_value, int delta);
 
-    QPushButton *next_page, *cancel;
     QLabel *summary;
     QGroupBox* persona_box;
     QMap<virtues::virtue_enum, QGroupBox*> emotions_of_virtue;

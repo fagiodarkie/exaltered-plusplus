@@ -8,11 +8,12 @@
 
 #include "virtues/virtues.h"
 #include "widget/with_progress_bar.h"
+#include "widget/with_next_continue_buttons.h"
 
 namespace qt {
   namespace wizard {
 
-    class character_creation_virtues_vice : public QWidget, public widget::with_progress_bar
+    class character_creation_virtues_vice : public QWidget, public widget::with_progress_bar, public widget::with_next_back_buttons
     {
       Q_OBJECT
 
@@ -20,10 +21,7 @@ namespace qt {
       character_creation_virtues_vice(QWidget* parent = nullptr);
       void update_virtues_limits(virtues::virtues virtues, unsigned int max_virtues, unsigned int max_virtue_value);
 
-      ~character_creation_virtues_vice();
-
     signals:
-      void back_issued();
       void virtues_chosen(virtues::virtues& chosen_virtues);
 
     private slots:
@@ -36,7 +34,7 @@ namespace qt {
       void next_issued();
 
       unsigned int max_points_on_virtues, max_virtue_value;
-      QPushButton *next_page, *cancel, *add_vice, *remove_vice;
+      QPushButton *add_vice, *remove_vice;
       virtues::virtues _virtues;
       QComboBox *vice_selector;
       QLabel *vice_label;

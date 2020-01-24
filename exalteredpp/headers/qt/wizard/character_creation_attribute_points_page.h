@@ -7,24 +7,23 @@
 #include "attributes/attributes.h"
 #include "attributes/attribute_names.h"
 #include "widget/with_progress_bar.h"
+#include "widget/with_next_continue_buttons.h"
 
 
 namespace qt {
   namespace wizard {
 
-    class character_creation_attribute_points_page : public QWidget, public widget::with_progress_bar
+    class character_creation_attribute_points_page : public QWidget, public widget::with_progress_bar, public widget::with_next_back_buttons
     {
       Q_OBJECT
 
     public:
       explicit character_creation_attribute_points_page(QWidget *parent = nullptr);
-      ~character_creation_attribute_points_page();
 
       void set_total_points(QMap<attribute::attribute_category, unsigned int> points_per_category);
       void set_current_attributes(const attribute::attributes& attribute);
 
     signals:
-      void back_issued();
       void attribute_points_chosen(attribute::attributes& chosen_attributes);
       void total_changed(attribute::attribute_category category);
 
@@ -49,7 +48,6 @@ namespace qt {
 
       QPushButton* generate_add_button(attribute::attribute_enum attribute);
       QPushButton* generate_subtract_button(attribute::attribute_enum attribute);
-      QPushButton *next_page, *cancel;
 
       void chose_points();
       void generate_group_labels();

@@ -16,14 +16,9 @@ namespace qt {
     using namespace qt::labels;
 
     character_creation_ability_values::character_creation_ability_values(QWidget *parent)
-      : QWidget(parent)
+      : QWidget(parent), widget::with_next_back_buttons(CANCEL_LABEL, NEXT_LABEL)
     {
       summary = new QLabel;
-    }
-
-    character_creation_ability_values::~character_creation_ability_values()
-    {
-      qt::style::forget(next_page);
     }
 
     void character_creation_ability_values::set_current_abilities(const ability::abilities& new_abilities,
@@ -43,7 +38,6 @@ namespace qt {
       max_std_ability_value = max_ability_value;
 
       regenerate_abilities();
-      qt::style::foreground(next_page);
     }
 
     void character_creation_ability_values::regenerate_abilities()
@@ -79,19 +73,7 @@ namespace qt {
       QScrollArea *scroll_abilities = new QScrollArea;
       scroll_abilities->setWidget(abilities);
 
-      QHBoxLayout* buttons_layout = new QHBoxLayout;
-      next_page = new QPushButton(NEXT_LABEL);
-      qt::style::foreground(next_page);
-      cancel = new QPushButton(CANCEL_LABEL);
-      buttons_layout->addWidget(cancel);
-      buttons_layout->addWidget(next_page);
-
-      next_page->setEnabled(false);
-      connect(next_page, &QPushButton::clicked, this, &character_creation_ability_values::next_issued);
-      connect(cancel, &QPushButton::clicked, this, &character_creation_ability_values::back_issued);
-
-      QWidget* buttons = new QWidget;
-      buttons->setLayout(buttons_layout);
+      on_next_issued([this]() { next_issued(); });
 
       QVBoxLayout *upper = new QVBoxLayout;
       upper->setAlignment(Qt::AlignTop);
@@ -103,7 +85,7 @@ namespace qt {
       layout::QBorderLayout *outer_layout = new layout::QBorderLayout;
       outer_layout->addWidget(upper_widget, layout::QBorderLayout::North);
       outer_layout->addWidget(scroll_abilities, layout::QBorderLayout::Center);
-      outer_layout->addWidget(buttons, layout::QBorderLayout::South);
+      outer_layout->addWidget(buttons_layout(), layout::QBorderLayout::South);
 
       on_ability_change();
 
@@ -191,7 +173,7 @@ namespace qt {
           free_fav = (validation.remaining_favorites == 0),
           caste_fav = (validation.remaining_caste_favorites == 0);
 
-      next_page->setEnabled(points && free_fav && caste_fav);
+      enable_next(points && free_fav && caste_fav);
 
       for (auto ability: validation.operations.keys())
         {
