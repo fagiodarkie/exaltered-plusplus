@@ -93,11 +93,10 @@ namespace combat {
     return precision_roll(_atk);
   }
 
-  precision_roll defense_declaration::defend_with_value(target_vd vd, unsigned int vd_value, unsigned int vd_balance)
+  precision_roll defense_declaration::defend_with_value(target_vd vd, unsigned int vd_value)
   {
     _atk->vd = vd;
     _atk->vd_value = vd_value;
-    _atk->vd_balance = vd_balance;
 
     return precision_roll(_atk);
   }
@@ -409,12 +408,13 @@ namespace combat {
 
   final_damage& final_damage::knockback_meters(unsigned int successes)
   {
-    if (_atk->tried_to_push)
+    if (_atk->tried_to_push || _atk->tried_to_knock)
       return *this;
 
     _atk->tried_to_push = true;
     _atk->final_damage_result -= successes;
-    if (successes > _atk->vd_balance)
+    _atk->damage_sacrificed = successes;
+    if (_atk->defender && (successes > _atk->vd_balance))
       {
         _atk->meters_pushed = successes - _atk->vd_balance;
         _atk->was_knocked_back = true;
@@ -424,18 +424,42 @@ namespace combat {
 
   final_damage& final_damage::knockdown(unsigned int successes)
   {
-    if (_atk->tried_to_push)
+    if (_atk->tried_to_push || _atk->tried_to_knock)
       return *this;
 
-    _atk->tried_to_push = true;
+    _atk->tried_to_knock = true;
     _atk->final_damage_result -= successes;
-    if (successes > _atk->vd_balance)
-      _atk->was_knocked_down = true;
+    _atk->damage_sacrificed = successes;
+    if (_atk->defender)
+      _atk->was_knocked_down = (successes > _atk->vd_balance);
+
+    return *this;
+  }
+
+  final_damage& final_damage::with_balance(unsigned int balance)
+  {
+    if (!_atk->defender)
+      {
+        _atk->vd_balance = balance;
+
+        if (_atk->tried_to_push && (_atk->damage_sacrificed > balance))
+          {
+            _atk->meters_pushed = _atk->damage_sacrificed - balance;
+            _atk->was_knocked_back = true;
+          }
+        else if (_atk->tried_to_knock)
+          {
+            _atk->was_knocked_down = _atk->damage_sacrificed > balance;
+          }
+
+      }
+
     return *this;
   }
 
   outcome final_damage::end_attack() const
   {
+
     outcome final_result;
 
     final_result._hit = true;

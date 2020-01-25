@@ -35,6 +35,7 @@ namespace combat {
       // info for attacker
       vd_value = 0,
       vd_balance = 0,
+      damage_sacrificed = 0,
       precision_external_bonus = 0,
       precision_external_malus = 0,
       precision_internal_bonus = 0,
@@ -61,6 +62,7 @@ namespace combat {
       precision_rolled = false,
       damage_rolled = false,
       tried_to_push = false,
+      tried_to_knock = false,
       was_knocked_back = false,
       was_knocked_down = false,
       is_damage_from_minimum = false,
@@ -124,7 +126,7 @@ namespace combat {
 
     precision_roll dodge(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator) const;
     precision_roll parry_with(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator, ability::ability_enum parry_ability) const;
-    precision_roll defend_with_value(target_vd vd, unsigned int vd_value, unsigned int vd_balance);
+    precision_roll defend_with_value(target_vd vd, unsigned int vd_value);
 
   private:
     defense_declaration(std::shared_ptr<attack_descriptor> atk) : combat_step(atk) { }
@@ -263,6 +265,7 @@ namespace combat {
   public:
     final_damage& knockback_meters(unsigned int successes);
     final_damage& knockdown(unsigned int successes);
+    final_damage& with_balance(unsigned int balance);
 
     unsigned int damage() const;
     outcome end_attack() const;
