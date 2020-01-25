@@ -63,24 +63,24 @@ TEST_CASE("Physical Attack Resolution")
 
   SECTION("Should list possible vds, taking into account non-parryable and non-dodgeable attributes")
   {
-    auto declaration = combat::attack_declaration::declare_as({ combat::attack_attribute::NON_DODGEABLE, combat::attack_attribute::NON_PARRYABLE }).declared();
+    auto declaration = combat::attack_declaration::declare_as({ combat::attack_attribute::NON_DODGEABLE, combat::attack_attribute::NON_PARRYABLE }).defend();
 
     auto vds = declaration.possible_vds();
     CHECK(vds.empty());
 
-    declaration = combat::attack_declaration::declare_as({ combat::attack_attribute::NON_DODGEABLE }).declared();
+    declaration = combat::attack_declaration::declare_as({ combat::attack_attribute::NON_DODGEABLE }).defend();
     vds = declaration.possible_vds();
     CHECK_FALSE(vds.empty());
     CHECK(commons::contains(vds, combat::target_vd::PHYSICAL_PARRY));
     CHECK_FALSE(commons::contains(vds, combat::target_vd::PHYSICAL_DODGE));
 
-    declaration = combat::attack_declaration::declare_as({ combat::attack_attribute::NON_PARRYABLE }).declared();
+    declaration = combat::attack_declaration::declare_as({ combat::attack_attribute::NON_PARRYABLE }).defend();
     vds = declaration.possible_vds();
     CHECK_FALSE(vds.empty());
     CHECK_FALSE(commons::contains(vds, combat::target_vd::PHYSICAL_PARRY));
     CHECK(commons::contains(vds, combat::target_vd::PHYSICAL_DODGE));
 
-    declaration = combat::attack_declaration::declare().declared();
+    declaration = combat::attack_declaration::declare().defend();
     vds = declaration.possible_vds();
     CHECK_FALSE(vds.empty());
     CHECK(commons::contains(vds, combat::target_vd::PHYSICAL_PARRY));
@@ -95,23 +95,23 @@ TEST_CASE("Physical Attack Resolution")
 
   SECTION("Should give a \"fail\" outcome if precision doesn't pass VD")
   {
-    auto precision = combat::attack_declaration::declare().declared()
-        .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 10);
+    auto precision = combat::attack_declaration::declare().defend()
+        .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 10).with_successes(5);
     CHECK(precision.attack_status()->vd == combat::target_vd::PHYSICAL_DODGE);
-    auto vd_comparison = precision.with_successes(5);
+    auto vd_comparison = precision;
     REQUIRE_FALSE(vd_comparison.hits());
   }
 
   SECTION("Should record defender when parrying and dodging")
   {
-    auto dodge_precision = combat::attack_declaration::declare().declared()
+    auto dodge_precision = combat::attack_declaration::declare().defend()
         .dodge(defense_character, value_calculator);
     REQUIRE(dodge_precision.attack_status()->defender);
     REQUIRE(dodge_precision.attack_status()->vd == combat::target_vd::PHYSICAL_DODGE);
     REQUIRE(dodge_precision.attack_status()->vd_value > 0);
     REQUIRE(dodge_precision.attack_status()->vd_balance > 0);
 
-    auto parry_precision = combat::attack_declaration::declare().declared()
+    auto parry_precision = combat::attack_declaration::declare().defend()
         .parry_with(defense_character, value_calculator, ability::ability_enum::MELEE);
     REQUIRE(parry_precision.attack_status()->defender);
     REQUIRE(parry_precision.attack_status()->vd == combat::target_vd::PHYSICAL_PARRY);
@@ -123,7 +123,7 @@ TEST_CASE("Physical Attack Resolution")
   {
     // 7 dice - 2 successes should not hit
     auto vd_comparison_failure = combat::attack_declaration::declare()
-        .declared()
+        .defend()
         .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 10)
         .precision(10).internal_malus(3).malus(2)
         .apply(roller);
@@ -134,7 +134,7 @@ TEST_CASE("Physical Attack Resolution")
   {
     // 16 dice + 4 successes should hit
     auto vd_comparison = combat::attack_declaration::declare()
-        .declared()
+        .defend()
         .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 10)
         .precision(10).internal_bonus(6).bonus(4)
         .apply(roller);
@@ -147,7 +147,7 @@ TEST_CASE("Physical Attack Resolution")
     auto vd_comparison = combat::attack_declaration::declare()
         // precision is 7, weapon precision is 5 => 12 dice. We'll have them all rolling 7s
         .attacker(attack_character).with(attack_weapon)
-        .declared()
+        .defend()
         .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 10)
         .apply(roller);
     CHECK(vd_comparison.hits());
@@ -157,7 +157,7 @@ TEST_CASE("Physical Attack Resolution")
     auto vd_comparison_fail = combat::attack_declaration::declare()
         // precision is 7, weapon precision is 5 => 12 dice. We'll have them all rolling 7s
         .attacker(attack_character).with(attack_weapon)
-        .declared()
+        .defend()
         .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 10)
         .apply(roller);
     REQUIRE_FALSE(vd_comparison_fail.hits());
@@ -167,7 +167,7 @@ TEST_CASE("Physical Attack Resolution")
   {
     auto vd_comparison = combat::attack_declaration::declare()
         // precision is 7, weapon precision is 5 => 12 dice.
-        .attacker(attack_character).with(attack_weapon).declared()
+        .attacker(attack_character).with(attack_weapon).defend()
         .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 10)
         .precision(attack_weapon.precision_attribute(), ability::ability_enum::THROWN)
         .apply(roller);
@@ -176,7 +176,7 @@ TEST_CASE("Physical Attack Resolution")
     attack_character->add(ability::ability_enum::THROWN, ability::specialisation("Shurikens", 2));
     auto vd_comparison_spec = combat::attack_declaration::declare()
         // precision is 7, weapon precision is 5 => 12 dice.
-        .attacker(attack_character).with(attack_weapon).declared()
+        .attacker(attack_character).with(attack_weapon).defend()
         .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 10)
         .precision(attack_weapon.precision_attribute(), ability::ability_enum::THROWN, "Shurikens")
         .apply(roller);
@@ -186,7 +186,7 @@ TEST_CASE("Physical Attack Resolution")
   SECTION("Should allow counter if parry wins")
   {
     auto vd_comparison_fail = combat::attack_declaration::declare()
-        .with_action_penalty(3).declared()
+        .with_action_penalty(3).defend()
         .defend_with_value(combat::target_vd::PHYSICAL_PARRY, 10)
         .with_successes(5);
     REQUIRE_FALSE(vd_comparison_fail.hits());
@@ -199,14 +199,14 @@ TEST_CASE("Physical Attack Resolution")
   SECTION("If targeted, the hit should connect in the specified body part")
   {
     roller->set_ratio(1);
-    auto when_doesnt_target = combat::attack_declaration::declare().declared()
+    auto when_doesnt_target = combat::attack_declaration::declare().defend()
         .defend_with_value(combat::target_vd::PHYSICAL_PARRY, 10)
         .target(combat::body_target::TRUNK)
         .do_not_target();
     CHECK(when_doesnt_target.attack_status()->target == combat::body_target::NO_TARGET);
     CHECK_FALSE(when_doesnt_target.attack_status()->body_part_rolled);
 
-    auto hit_outcome = combat::attack_declaration::declare().declared()
+    auto hit_outcome = combat::attack_declaration::declare().defend()
         .defend_with_value(combat::target_vd::PHYSICAL_PARRY, 10)
         .target(combat::body_target::TRUNK)
         .with_successes(15).on_success()
@@ -217,7 +217,7 @@ TEST_CASE("Physical Attack Resolution")
 
   SECTION("Should compute internal and external bonus when composing precision")
   {
-    auto precision = combat::attack_declaration::declare().declared()
+    auto precision = combat::attack_declaration::declare().defend()
         .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 2)
         .bonus(3).malus(5)
         .internal_bonus(4).internal_malus(2).precision(8);
@@ -229,7 +229,7 @@ TEST_CASE("Physical Attack Resolution")
 
   SECTION("Should recompute VD when adding VD bonus or malus")
   {
-    auto vd_computation = combat::attack_declaration::declare().declared()
+    auto vd_computation = combat::attack_declaration::declare().defend()
         .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 2)
         .with_successes(5);
     CHECK(vd_computation.hits());
@@ -241,7 +241,7 @@ TEST_CASE("Physical Attack Resolution")
 
   SECTION("Should compute damage attribute if the attacker was not given")
   {
-    auto damage_computation = combat::attack_declaration::declare().declared()
+    auto damage_computation = combat::attack_declaration::declare().defend()
         .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 2)
         .with_successes(5)
         .on_success();
@@ -268,7 +268,7 @@ TEST_CASE("Physical Attack Resolution")
     auto damage_computation = combat::attack_declaration::declare()
         .with(attack_weapon)
         .attacker(attack_character)
-        .declared()
+        .defend()
         .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 2)
         .with_successes(5)
         .on_success()
@@ -291,7 +291,7 @@ TEST_CASE("Physical Attack Resolution")
 
   SECTION("Should impose minimum damage if the soak completely blocks the attack")
   {
-    auto damage_computation = combat::attack_declaration::declare().declared()
+    auto damage_computation = combat::attack_declaration::declare().defend()
         .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 2)
         .with_successes(5)
         .on_success();
@@ -309,7 +309,7 @@ TEST_CASE("Physical Attack Resolution")
 
   SECTION("Should compute body target if it wasn't specified already")
   {
-    auto damage_computation = combat::attack_declaration::declare().declared()
+    auto damage_computation = combat::attack_declaration::declare().defend()
         .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 2)
         .with_successes(5)
         .on_success();
@@ -320,7 +320,7 @@ TEST_CASE("Physical Attack Resolution")
 
   SECTION("Should not pass on hardness check if raw is low and there is no minimum damage")
   {
-    auto min_damage_computation = combat::attack_declaration::declare().declared()
+    auto min_damage_computation = combat::attack_declaration::declare().defend()
         .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 2)
         .with_successes(5)
         .on_success()
@@ -331,7 +331,7 @@ TEST_CASE("Physical Attack Resolution")
     CHECK(min_damage_computation.passes(5));
     CHECK(min_damage_computation.passes(15));
 
-    auto damage_computation = combat::attack_declaration::declare().declared()
+    auto damage_computation = combat::attack_declaration::declare().defend()
         .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 2)
         .with_successes(5)
         // 3 extra successes
@@ -347,7 +347,7 @@ TEST_CASE("Physical Attack Resolution")
 
   SECTION("Should take defender's soak if defender is specified")
   {
-    auto damage_computation = combat::attack_declaration::declare().declared()
+    auto damage_computation = combat::attack_declaration::declare().defend()
         .dodge(defense_character, value_calculator)
         .with_successes(8)
         .on_success().damage_type(combat::damage_type_enum::BASHING);
@@ -355,7 +355,7 @@ TEST_CASE("Physical Attack Resolution")
     CHECK(damage_computation.passes(value_calculator));
     CHECK(damage_computation.on_pass(value_calculator).attack_status()->post_soak_damage == 2);
 
-    auto fail_damage_computation = combat::attack_declaration::declare().declared()
+    auto fail_damage_computation = combat::attack_declaration::declare().defend()
         .dodge(defense_character, value_calculator)
         .with_successes(5)
         .on_success();
@@ -367,7 +367,7 @@ TEST_CASE("Physical Attack Resolution")
   SECTION("Final damage should take into account knockdown and knockback")
   {
     auto create_damage = []() {
-        return combat::attack_declaration::declare().declared()
+        return combat::attack_declaration::declare().defend()
         .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 2)
         .with_successes(5)
         .on_success()

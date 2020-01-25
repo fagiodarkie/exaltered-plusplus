@@ -12,7 +12,8 @@
 namespace combat {
 
   class attack_declaration;
-  class defense_declaration;
+  class pre_precision_defense_declaration;
+  class post_precision_defense_declaration;
   class precision_roll;
   class vd_application;
   class raw_damage_and_position_computation;
@@ -97,7 +98,7 @@ namespace combat {
   class attack_declaration : public combat_step
   {
     friend class precision_roll;
-    friend class defense_declaration;
+    friend class post_precision_defense_declaration;
 
   public:
     static attack_declaration declare();
@@ -110,16 +111,34 @@ namespace combat {
     attack_declaration& with_action_penalty(unsigned int vd_penalty);
     attack_declaration& attacker(std::shared_ptr<character::character> attacker);
 
-    defense_declaration declared() const;
+    pre_precision_defense_declaration defend() const;
+    precision_roll roll_precision() const;
 
   private:
 
     attack_declaration() : combat_step (std::make_shared<attack_descriptor>()) { }
   };
 
-  class defense_declaration : public combat_step
+  class post_precision_defense_declaration : public combat_step
   {
     friend class attack_declaration;
+    friend class precision_roll;
+
+  public:
+    std::vector<target_vd> possible_vds() const;
+
+    vd_application dodge(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator) const;
+    vd_application parry_with(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator, ability::ability_enum parry_ability) const;
+    vd_application defend_with_value(target_vd vd, unsigned int vd_value);
+
+  private:
+    post_precision_defense_declaration(std::shared_ptr<attack_descriptor> atk) : combat_step(atk) { }
+  };
+
+  class pre_precision_defense_declaration : public combat_step
+  {
+    friend class attack_declaration;
+    friend class precision_roll;
 
   public:
     std::vector<target_vd> possible_vds() const;
@@ -129,12 +148,14 @@ namespace combat {
     precision_roll defend_with_value(target_vd vd, unsigned int vd_value);
 
   private:
-    defense_declaration(std::shared_ptr<attack_descriptor> atk) : combat_step(atk) { }
+    pre_precision_defense_declaration(std::shared_ptr<attack_descriptor> atk) : combat_step(atk) { }
   };
 
   class precision_roll : public combat_step
   {
-    friend class defense_declaration;
+    friend class post_precision_defense_declaration;
+    friend class pre_precision_defense_declaration;
+    friend class attack_declaration;
     friend class vd_application;
     friend class outcome;
 
@@ -155,14 +176,19 @@ namespace combat {
 
     vd_application apply(std::shared_ptr<dice::abstract_dice_roller> dice_roller);
     vd_application with_successes(unsigned int successes);
+    post_precision_defense_declaration apply_and_defend(std::shared_ptr<dice::abstract_dice_roller> dice_roller);
+    post_precision_defense_declaration with_successes_and_defend(unsigned int successes);
 
   private:
     precision_roll(std::shared_ptr<attack_descriptor> atk) : combat_step(atk) { }
+
+    void apply_roll(std::shared_ptr<dice::abstract_dice_roller> dice_roller);
   };
 
   class vd_application : public combat_step
   {
     friend class precision_roll;
+    friend class post_precision_defense_declaration;
 
   public:
     bool hits() const;

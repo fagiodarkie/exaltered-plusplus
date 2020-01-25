@@ -54,12 +54,17 @@ namespace combat {
     return *this;
   }
 
-  defense_declaration attack_declaration::declared() const
+  pre_precision_defense_declaration attack_declaration::defend() const
   {
-    return defense_declaration (_atk);
+    return pre_precision_defense_declaration (_atk);
   }
 
-  std::vector<target_vd> defense_declaration::possible_vds() const
+  precision_roll attack_declaration::roll_precision() const
+  {
+    return precision_roll(_atk);
+  }
+
+  std::vector<target_vd> post_precision_defense_declaration::possible_vds() const
   {
     bool can_dodge = !(commons::contains(_atk->attack_attributes, attack_attribute::NON_DODGEABLE)),
         can_parry = !(commons::contains(_atk->attack_attributes, attack_attribute::NON_PARRYABLE));
@@ -71,7 +76,49 @@ namespace combat {
     return result;
   }
 
-  precision_roll defense_declaration::dodge(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator) const
+  vd_application post_precision_defense_declaration::dodge(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator) const
+  {
+    _atk->defender = c;
+    _atk->vd = target_vd::PHYSICAL_DODGE;
+    auto vd = calculator.compute_physical_vd(*c, ability::ability_enum::MELEE);
+    _atk->vd_value = vd.dodge_vd;
+    _atk->vd_balance = vd.dodge_balance;
+
+    return vd_application(_atk);
+  }
+
+  vd_application post_precision_defense_declaration::parry_with(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator, ability::ability_enum parry_ability) const
+  {
+    _atk->defender = c;
+    _atk->vd = target_vd::PHYSICAL_PARRY;
+    auto vd = calculator.compute_physical_vd(*c, parry_ability);
+    _atk->vd_value = vd.parry_vd;
+    _atk->vd_balance = vd.parry_balance;
+
+    return vd_application(_atk);
+  }
+
+  vd_application post_precision_defense_declaration::defend_with_value(target_vd vd, unsigned int vd_value)
+  {
+    _atk->vd = vd;
+    _atk->vd_value = vd_value;
+
+    return vd_application(_atk);
+  }
+
+  std::vector<target_vd> pre_precision_defense_declaration::possible_vds() const
+  {
+    bool can_dodge = !(commons::contains(_atk->attack_attributes, attack_attribute::NON_DODGEABLE)),
+        can_parry = !(commons::contains(_atk->attack_attributes, attack_attribute::NON_PARRYABLE));
+
+    std::vector<target_vd> result;
+    if (can_dodge) result.push_back(target_vd::PHYSICAL_DODGE);
+    if (can_parry) result.push_back(target_vd::PHYSICAL_PARRY);
+
+    return result;
+  }
+
+  precision_roll pre_precision_defense_declaration::dodge(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator) const
   {
     _atk->defender = c;
     _atk->vd = target_vd::PHYSICAL_DODGE;
@@ -82,7 +129,7 @@ namespace combat {
     return precision_roll(_atk);
   }
 
-  precision_roll defense_declaration::parry_with(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator, ability::ability_enum parry_ability) const
+  precision_roll pre_precision_defense_declaration::parry_with(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator, ability::ability_enum parry_ability) const
   {
     _atk->defender = c;
     _atk->vd = target_vd::PHYSICAL_PARRY;
@@ -93,14 +140,13 @@ namespace combat {
     return precision_roll(_atk);
   }
 
-  precision_roll defense_declaration::defend_with_value(target_vd vd, unsigned int vd_value)
+  precision_roll pre_precision_defense_declaration::defend_with_value(target_vd vd, unsigned int vd_value)
   {
     _atk->vd = vd;
     _atk->vd_value = vd_value;
 
     return precision_roll(_atk);
   }
-
 
   precision_roll& precision_roll::precision(unsigned int precision_dice)
   {
@@ -172,7 +218,7 @@ namespace combat {
     return _atk->precision_external_bonus - _atk->precision_external_malus;
   }
 
-  vd_application precision_roll::apply(std::shared_ptr<dice::abstract_dice_roller> dice_roller)
+  void precision_roll::apply_roll(std::shared_ptr<dice::abstract_dice_roller> dice_roller)
   {
     if (!_atk->precision_rolled)
       {
@@ -196,7 +242,11 @@ namespace combat {
         _atk->precision_rolled = true;
         _atk->precision_roll_result = dice::roll_result(roll_result);
       }
+  }
 
+  vd_application precision_roll::apply(std::shared_ptr<dice::abstract_dice_roller> dice_roller)
+  {
+    apply_roll(dice_roller);
     return vd_application(_atk);
   }
 
@@ -205,6 +255,19 @@ namespace combat {
     _atk->precision_rolled = true;
     _atk->precision_roll_result = successes;
     return vd_application(_atk);
+  }
+
+  post_precision_defense_declaration precision_roll::apply_and_defend(std::shared_ptr<dice::abstract_dice_roller> dice_roller)
+  {
+    apply_roll(dice_roller);
+    return post_precision_defense_declaration(_atk);
+  }
+
+  post_precision_defense_declaration precision_roll::with_successes_and_defend(unsigned int successes)
+  {
+    _atk->precision_rolled = true;
+    _atk->precision_roll_result = successes;
+    return post_precision_defense_declaration(_atk);
   }
 
   bool vd_application::hits() const
