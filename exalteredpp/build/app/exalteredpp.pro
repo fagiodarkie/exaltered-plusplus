@@ -114,7 +114,13 @@ SOURCES += \
     ../../src/qt/wizard/character_creation_wizard.cpp \
     ../../src/serialisation/filesystem_db.cpp \
     ../../src/serialisation/json_constants.cpp \
-    ../../thirdparty/darkstyle/DarkStyle.cpp
+    ../../thirdparty/darkstyle/DarkStyle.cpp \
+    ../../src/qt/wizard/attack_resolution_wizard.cpp \
+    ../../src/qt/wizard/attack_declaration_precision_page.cpp \
+    ../../src/qt/wizard/provide_defense_value_page.cpp \
+    ../../src/qt/wizard/final_damage_results_push_knock_page.cpp \
+    ../../src/qt/wizard/provide_balance_details_page.cpp \
+    ../../src/qt/wizard/attack_result_page.cpp
 
 HEADERS += \
     ../../headers/calculator/abstract_dice_thrower.h \
@@ -228,7 +234,13 @@ HEADERS += \
     ../../headers/serialisation/json_constants.h \
     ../../headers/test-case/db_abstraction_mock.h \
     ../../thirdparty/darkstyle/DarkStyle.h \
-    ../../thirdparty/serialisable/serialisable.hpp
+    ../../thirdparty/serialisable/serialisable.hpp \
+    ../../headers/qt/wizard/attack_resolution_wizard.h \
+    ../../headers/qt/wizard/attack_declaration_precision_page.h \
+    ../../headers/qt/wizard/provide_defense_value_page.h \
+    ../../headers/qt/wizard/final_damage_results_push_knock_page.h \
+    ../../headers/qt/wizard/provide_balance_details_page.h \
+    ../../headers/qt/wizard/attack_result_page.h
 
 CONFIG += mobility
 MOBILITY = 
