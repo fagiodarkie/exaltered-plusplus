@@ -3,6 +3,7 @@
 #include <QComboBox>
 #include <QWidget>
 #include <QLabel>
+#include <QPushButton>
 #include "character.h"
 #include "derived_value_calculator.h"
 
@@ -14,6 +15,9 @@ namespace qt {
     public:
       qdefense_values_screen(const std::shared_ptr<character::character> c, const calculator::derived_value_calculator& derived_values, QWidget *parent = nullptr);
 
+    signals:
+      void attack_wizard_invoked();
+
     private:
       void update_values();
 
@@ -21,6 +25,7 @@ namespace qt {
       const calculator::derived_value_calculator& _calculator;
 
       QComboBox *physical_parry_ability;
+      QPushButton *attack_wizard;
 
       QLabel *dodge_dv,
              *parry_dv,

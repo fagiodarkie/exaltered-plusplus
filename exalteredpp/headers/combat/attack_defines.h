@@ -2,6 +2,7 @@
 #define ATTACK_DEFINES_H
 
 #include "dice_roller/dice_roller.h"
+#include <map>
 
 namespace combat {
 
@@ -22,6 +23,28 @@ namespace combat {
     NO_ATTRIBUTE,
     CONCEDED,
     PERFECT
+  };
+
+  static std::vector<attack_attribute> ATTACK_ATTRIBUTES = {
+    attack_attribute::NON_PARRYABLE,
+    attack_attribute::NON_DODGEABLE,
+    attack_attribute::UNEXPECTED,
+    attack_attribute::COUNTERATTACK,
+    attack_attribute::POLARISED,
+    attack_attribute::WITH_MINIMUM,
+    attack_attribute::NO_ATTRIBUTE,
+    attack_attribute::CONCEDED,
+    attack_attribute::PERFECT
+  };
+
+  static std::map<attack_attribute, std::string> ATTACK_ATTRIBUTE_NAME = {
+    { attack_attribute::NON_PARRYABLE, "Non Parryable" },
+    { attack_attribute::NON_DODGEABLE, "Non Parryable" },
+    { attack_attribute::UNEXPECTED,    "Non Parryable" },
+    { attack_attribute::COUNTERATTACK, "Non Parryable" },
+    { attack_attribute::POLARISED,     "Non Parryable" },
+    { attack_attribute::WITH_MINIMUM,  "Non Parryable" },
+    { attack_attribute::NO_ATTRIBUTE,  "Non Parryable" }
   };
 
   enum class defense_attribute {
@@ -47,6 +70,19 @@ namespace combat {
     SPIRITUAL
   };
 
+  static std::vector<damage_type_enum> DAMAGES = {
+    damage_type_enum::BASHING,
+    damage_type_enum::LETHAL,
+    damage_type_enum::AGGRAVATED,
+    damage_type_enum::SPIRITUAL
+  };
+
+  static std::map<damage_type_enum, std::string> DAMAGE_NAME = {
+    { damage_type_enum::BASHING,    "Bashing" },
+    { damage_type_enum::LETHAL,     "Lethal" },
+    { damage_type_enum::AGGRAVATED, "Aggravated" },
+    { damage_type_enum::SPIRITUAL,  "Spiritual" }
+  };
 
   class body_part_roller
   {

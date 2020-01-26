@@ -61,7 +61,11 @@ namespace dice {
     unsigned int ten_rolled_value() const override { return ten_value; }
     unsigned int success(unsigned int die) const override
     {
-      return die >= threshold ? 1 : ten_rolled_value();
+      return die >= threshold
+          ? ( die == 10
+            ? ten_rolled_value()
+            : 1 )
+          : 0;
     }
 
     virtual ~exalt_10_rule() override {}

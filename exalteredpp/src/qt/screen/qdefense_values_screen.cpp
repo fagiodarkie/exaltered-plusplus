@@ -40,6 +40,9 @@ namespace qt {
       QFormLayout* phys_form = new QFormLayout, *mental_form = new QFormLayout;
       QHBoxLayout* parry_ability_selector = new QHBoxLayout;
 
+      attack_wizard = new QPushButton("Start Attack");
+      connect(attack_wizard, &QPushButton::clicked, this, &qdefense_values_screen::attack_wizard_invoked);
+
       parry_ability_selector->addWidget(new QLabel(PHYS_PARRY_ABILITY));
       parry_ability_selector->addWidget(physical_parry_ability);
       parry_ability_selector_widget->setLayout(parry_ability_selector);
@@ -65,9 +68,15 @@ namespace qt {
       dv_layout->addWidget(mental_form_widget);
       central_dv_widget->setLayout(dv_layout);
 
+      QVBoxLayout *buttons_layout = new QVBoxLayout;
+      buttons_layout->addWidget(attack_wizard);
+      QWidget* buttons = new QWidget;
+      buttons->setLayout(buttons_layout);
+
       layout::QBorderLayout *inner_layout = new layout::QBorderLayout;
       inner_layout->addWidget(parry_ability_selector_widget, layout::QBorderLayout::North);
       inner_layout->addWidget(central_dv_widget, layout::QBorderLayout::Center);
+      inner_layout->addWidget(buttons, layout::QBorderLayout::South);
       form_widget->setLayout(inner_layout);
 
       QScrollArea *scroll_area = new QScrollArea;

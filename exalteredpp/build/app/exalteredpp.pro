@@ -45,7 +45,6 @@ SOURCES += \
     ../../src/calculator/derived_value_calculator.cpp \
     ../../src/calculator/experience_purchase_cost_calculator.cpp \
     ../../src/calculator/worker/exalt_worker.cpp \
-    ../../src/combat/physical_attack.cpp \
     ../../src/combat/weapon.cpp \
     ../../src/errors/ability_not_found_exception.cpp \
     ../../src/errors/characternotfoundexception.cpp \
@@ -197,7 +196,6 @@ HEADERS += \
     ../../headers/model/virtues/virtues.h \
     ../../headers/model/managers/character_manager.h \
     ../../headers/model/text/character_text_constants.h \
-    ../../headers/qt-test/quick_chargen.h \
     ../../headers/qt/caste_style.h \
     ../../headers/qt/dependencies.h \
     ../../headers/qt/exalteredapp.h \

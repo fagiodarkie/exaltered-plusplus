@@ -3,6 +3,7 @@
 #include <QGridLayout>
 #include <QMenuBar>
 #include "caste_style.h"
+#include "dice_roller/dice_roller.h"
 #include <screen/qloadcharacterscreen.h>
 #include <screen/qcharacterattributes.h>
 
@@ -30,6 +31,13 @@ void ExalteredApp::load_vd_screen()
 {
   character_defenses_widget = new qdefense_values_screen(current_character, derived_values_calculator, this);
   setCentralWidget(character_defenses_widget);
+  connect(character_defenses_widget, &qdefense_values_screen::attack_wizard_invoked, this, &ExalteredApp::load_attack_wizard);
+}
+
+void ExalteredApp::load_attack_wizard()
+{
+  attack_wizard = new qt::wizard::attack_resolution_wizard(current_character, derived_values_calculator);
+  setCentralWidget(attack_wizard);
 }
 
 void ExalteredApp::load_essence_screen()
