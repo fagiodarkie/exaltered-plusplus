@@ -38,13 +38,15 @@ namespace combat {
   };
 
   static std::map<attack_attribute, std::string> ATTACK_ATTRIBUTE_NAME = {
-    { attack_attribute::NON_PARRYABLE, "Non Parryable" },
-    { attack_attribute::NON_DODGEABLE, "Non Parryable" },
-    { attack_attribute::UNEXPECTED,    "Non Parryable" },
-    { attack_attribute::COUNTERATTACK, "Non Parryable" },
-    { attack_attribute::POLARISED,     "Non Parryable" },
-    { attack_attribute::WITH_MINIMUM,  "Non Parryable" },
-    { attack_attribute::NO_ATTRIBUTE,  "Non Parryable" }
+    { attack_attribute::NON_PARRYABLE, "Non Parryable"  },
+    { attack_attribute::NON_DODGEABLE, "Non Dodgeable"  },
+    { attack_attribute::UNEXPECTED,    "Unexpected"     },
+    { attack_attribute::COUNTERATTACK, "Counterattack"  },
+    { attack_attribute::POLARISED,     "Polarised"      },
+    { attack_attribute::WITH_MINIMUM,  "With Minimum"   },
+    { attack_attribute::NO_ATTRIBUTE,  "No Damage Attribute"  },
+    { attack_attribute::CONCEDED,      "Conceded"       },
+    { attack_attribute::PERFECT,       "Perfect"        }
   };
 
   enum class defense_attribute {

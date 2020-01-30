@@ -230,7 +230,6 @@ HEADERS += \
     ../../headers/serialisation/db_abstraction.h \
     ../../headers/serialisation/filesystem_db.h \
     ../../headers/serialisation/json_constants.h \
-    ../../headers/test-case/db_abstraction_mock.h \
     ../../thirdparty/darkstyle/DarkStyle.h \
     ../../thirdparty/serialisable/serialisable.hpp \
     ../../headers/qt/wizard/attack_resolution_wizard.h \

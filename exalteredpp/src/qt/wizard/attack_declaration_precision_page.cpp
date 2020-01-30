@@ -23,6 +23,18 @@ namespace qt {
       external_malus_spin = new QSpinBox;
       external_malus_spin->setMinimum(0);
 
+      weapon_precision_spin = new QSpinBox;
+      weapon_precision_spin->setMinimum(0);
+
+      weapon_damage_spin = new QSpinBox;
+      weapon_damage_spin->setMinimum(0);
+
+      weapon_drill_spin = new QSpinBox;
+      weapon_drill_spin->setMinimum(0);
+
+      weapon_min_spin = new QSpinBox;
+      weapon_min_spin->setMinimum(0);
+
       weapon_damage_attr_box = new QComboBox;
       for (auto attribute: attribute::ATTRIBUTES)
         weapon_damage_attr_box->addItem(attribute::ATTRIBUTE_NAME.at(attribute).c_str(), static_cast<int>(attribute));
