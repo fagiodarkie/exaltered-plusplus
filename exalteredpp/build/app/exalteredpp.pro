@@ -87,6 +87,7 @@ SOURCES += \
     ../../src/qt/screen/qcharacterabilities.cpp \
     ../../src/qt/screen/qcharacterattributes.cpp \
     ../../src/qt/screen/qcharacterinfoscreen.cpp \
+    ../../src/qt/screen/qcharacterpdfscreen.cpp \
     ../../src/qt/screen/qdefense_values_screen.cpp \
     ../../src/qt/screen/qessence_values_screen.cpp \
     ../../src/qt/screen/qexperience_screen.cpp \
@@ -182,6 +183,7 @@ HEADERS += \
     ../../headers/qt/screen/qcharacterabilities.h \
     ../../headers/qt/screen/qcharacterattributes.h \
     ../../headers/qt/screen/qcharacterinfoscreen.h \
+    ../../headers/qt/screen/qcharacterpdf_screen.h \
     ../../headers/qt/screen/qdefense_values_screen.h \
     ../../headers/qt/screen/qessence_values_screen.h \
     ../../headers/qt/screen/qexperience_screen.h \

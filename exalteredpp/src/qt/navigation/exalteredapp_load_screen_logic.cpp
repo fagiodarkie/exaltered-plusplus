@@ -50,6 +50,12 @@ void ExalteredApp::load_experience_screen()
   setCentralWidget(character_experience_widget);
 }
 
+void ExalteredApp::load_pdf_screen()
+{
+    character_pdf_widget = new qcharacterpdf_screen(current_character, this);
+    setCentralWidget(character_pdf_widget);
+}
+
 void ExalteredApp::load_main_screen(std::shared_ptr<character::character> character)
 {
   current_character = character;

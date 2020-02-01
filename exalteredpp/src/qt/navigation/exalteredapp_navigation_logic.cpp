@@ -53,6 +53,11 @@ void ExalteredApp::load_menu()
   connect(load_exp_screen, &QAction::triggered, this, &ExalteredApp::load_experience_screen);
   load_exp_screen->setText("Experience Management");
   charMenu->addAction(load_exp_screen);
+
+  QAction *load_pdf_screen = new QAction(charMenu);
+  connect(load_pdf_screen, &QAction::triggered, this, &ExalteredApp::load_pdf_screen);
+  load_pdf_screen->setText("Create Character PDF");
+  charMenu->addAction(load_pdf_screen);
 }
 
 void ExalteredApp::clear_layout(QWidget* current_layout)
