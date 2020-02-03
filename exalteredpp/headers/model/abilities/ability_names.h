@@ -38,8 +38,8 @@ namespace ability
   static const std::list<ability_category> ABILITY_CATEGORIES = { COMBAT, SOCIAL, NARRATIVE };
 
   static const std::map<ability_category, std::string> ABILITY_CATEGORY_NAMES = {
-    { COMBAT,     ABILITY_CATEGORY_SOCIAL    },
-    { SOCIAL,     ABILITY_CATEGORY_COMBAT    },
+    { COMBAT,     ABILITY_CATEGORY_COMBAT    },
+    { SOCIAL,     ABILITY_CATEGORY_SOCIAL    },
     { NARRATIVE,  ABILITY_CATEGORY_NARRATIVE }
   };
 
