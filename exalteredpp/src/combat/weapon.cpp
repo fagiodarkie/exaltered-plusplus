@@ -65,7 +65,7 @@ namespace equip {
     return _damage_type;
   }
 
-  bool weapon::can_be_used_with(ability::ability_enum ability) const
+  bool weapon::can_be_used_with(ability::ability_name ability) const
   {
     return commons::contains(_possible_abilities, ability);
   }
@@ -105,7 +105,7 @@ namespace equip {
     return static_cast<unsigned char>(_attack_speed) + _im_bonus;
   }
 
-  std::vector<ability::ability_enum> weapon::relevant_abilities() const
+  std::vector<ability::ability_name> weapon::relevant_abilities() const
   {
     return _possible_abilities;
   }
@@ -184,13 +184,13 @@ namespace equip {
     return *this;
   }
 
-  weapon& weapon::use_with(ability::ability_enum ability)
+  weapon& weapon::use_with(ability::ability_name ability)
   {
     _possible_abilities.push_back(ability);
     return *this;
   }
 
-  weapon& weapon::do_not_use_with(ability::ability_enum ability)
+  weapon& weapon::do_not_use_with(ability::ability_name ability)
   {
     if (can_be_used_with(ability))
       _possible_abilities.erase(std::find(_possible_abilities.begin(), _possible_abilities.end(), ability));

@@ -37,6 +37,7 @@ namespace qt {
       QComboBox *weapon_damage_box, *weapon_precision_attr_box, *weapon_damage_attr_box, *weapon_ability_box;
       QVector<QCheckBox*> attribute_checkboxes;
 
+      void collect_weapon_and_attributes();
     };
 
 }

@@ -27,7 +27,7 @@ namespace equip {
     unsigned short int drill() const;
     float range() const;
     damage_type_enum damage_type() const;
-    bool can_be_used_with(ability::ability_enum ability) const;
+    bool can_be_used_with(ability::ability_name ability) const;
     bool is(attack_attribute attribute) const;
     bool requires_minimum_for(attribute::attribute_enum attribute) const;
     unsigned short int minimum_for(attribute::attribute_enum attribute) const;
@@ -35,7 +35,7 @@ namespace equip {
     attribute::attribute_enum damage_attribute() const;
     action_speed speed_range() const;
     unsigned short int attack_ticks() const;
-    std::vector<ability::ability_enum> relevant_abilities() const;
+    std::vector<ability::ability_name> relevant_abilities() const;
 
     weapon& with_precision(int precision);
     weapon& with_defense(int defense);
@@ -49,8 +49,8 @@ namespace equip {
     weapon& does_not_require(attribute::attribute_enum attribute);
     weapon& with(attack_attribute attribute);
     weapon& without(attack_attribute attribute);
-    weapon& use_with(ability::ability_enum ability);
-    weapon& do_not_use_with(ability::ability_enum ability);
+    weapon& use_with(ability::ability_name ability);
+    weapon& do_not_use_with(ability::ability_name ability);
     weapon& attacks_in_tempo(action_speed tempo);
     weapon& with_name(const std::string& name);
     weapon& requires_for_precision(attribute::attribute_enum precision_attribute);
@@ -64,7 +64,7 @@ namespace equip {
     unsigned short int  _drill, _min_damage;
     float _range;
     std::map<attribute::attribute_enum, unsigned short int> _minimums;
-    std::vector<ability::ability_enum> _possible_abilities;
+    std::vector<ability::ability_name> _possible_abilities;
     attribute::attribute_enum _precision_attribute, _damage_attribute;
     std::vector<attack_attribute> _weapon_attributes;
     action_speed _attack_speed;
