@@ -26,7 +26,7 @@ namespace qt {
     signals:
       void attack_selected(const equip::weapon& weapon, const std::vector<combat::attack_attribute>& attributes,
                            unsigned int internal_bonus, unsigned int internal_malus,
-                           unsigned int external_bonus, unsigned int external_malus);
+                           unsigned int external_bonus, unsigned int external_malus, combat::body_target target);
 
     private:
       equip::weapon _weapon;
@@ -34,7 +34,7 @@ namespace qt {
 
       QSpinBox *internal_bonus_spin, *external_bonus_spin, *internal_malus_spin, *external_malus_spin,
       *weapon_precision_spin, *weapon_damage_spin, *weapon_drill_spin, *weapon_min_spin;
-      QComboBox *weapon_damage_box, *weapon_precision_attr_box, *weapon_damage_attr_box, *weapon_ability_box;
+      QComboBox *weapon_damage_box, *weapon_precision_attr_box, *weapon_damage_attr_box, *weapon_ability_box, *body_target_box;
       QVector<QCheckBox*> attribute_checkboxes;
 
       void collect_weapon_and_attributes();

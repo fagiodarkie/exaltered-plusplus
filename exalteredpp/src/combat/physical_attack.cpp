@@ -16,7 +16,7 @@ namespace combat {
     return res;
   }
 
-  attack_declaration& attack_declaration::is(std::initializer_list<attack_attribute> attributes)
+  attack_declaration& attack_declaration::is(std::vector<attack_attribute> attributes)
   {
     _atk->attack_attributes = attributes;
     return *this;
@@ -197,7 +197,7 @@ namespace combat {
   precision_roll& precision_roll::target(body_target target)
   {
     _atk->target = target;
-    _atk->body_part_rolled = true;
+    _atk->body_part_rolled = (target != body_target::NO_TARGET);
     return *this;
   }
 
@@ -210,6 +210,20 @@ namespace combat {
 
   unsigned int precision_roll::pool() const
   {
+    if (_atk->precision_dice == 0 && _atk->attacker)
+      {
+        // compute precision based on attacker and weapon stats.
+        unsigned int attribute_prec = _atk->attacker->attribute(_atk->weapon.precision_attribute());
+
+        unsigned int best_ability = 0;
+        for (auto ability: _atk->weapon.relevant_abilities())
+          {
+            if (_atk->attacker->get(ability) > best_ability)
+              best_ability = _atk->attacker->get(ability);
+          }
+        _atk->precision_dice = attribute_prec + best_ability + _atk->weapon.precision_bonus();
+      }
+
     return _atk->precision_dice + _atk->precision_internal_bonus - _atk->precision_internal_malus;
   }
 
@@ -222,20 +236,6 @@ namespace combat {
   {
     if (!_atk->precision_rolled)
       {
-        if (_atk->precision_dice == 0 && _atk->attacker)
-          {
-            // compute precision based on attacker and weapon stats.
-            unsigned int attribute_prec = _atk->attacker->attribute(_atk->weapon.precision_attribute());
-
-            unsigned int best_ability = 0;
-            for (auto ability: _atk->weapon.relevant_abilities())
-              {
-                if (_atk->attacker->get(ability) > best_ability)
-                  best_ability = _atk->attacker->get(ability);
-              }
-            _atk->precision_dice = attribute_prec + best_ability + _atk->weapon.precision_bonus();
-          }
-
         auto precisionpool = dice::pool(pool());
         dice_roller->with_pool(precisionpool);
         unsigned int roll_result = dice_roller->throw_dice() + _atk->precision_external_bonus - _atk->precision_external_malus;

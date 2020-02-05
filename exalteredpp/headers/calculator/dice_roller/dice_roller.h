@@ -17,7 +17,7 @@ namespace dice {
 
   public:
 
-    dice_roller(unsigned int dice_number)
+    dice_roller(unsigned int dice_number = 0)
       : abstract_dice_roller (10, dice_number) { }
 
     unsigned int throw_dice() const

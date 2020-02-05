@@ -93,6 +93,10 @@ namespace combat {
     {
       return _atk;
     }
+
+    combat_step(combat_step& other) : _atk(other._atk) { }
+
+    virtual ~combat_step() {}
   };
 
   class attack_declaration : public combat_step
@@ -104,7 +108,7 @@ namespace combat {
     static attack_declaration declare();
     static attack_declaration declare_as(std::initializer_list<attack_attribute> attributes);
 
-    attack_declaration& is(std::initializer_list<attack_attribute> attributes);
+    attack_declaration& is(std::vector<attack_attribute> attributes);
     attack_declaration& is(attack_attribute attribute);
     attack_declaration& is_not(attack_attribute attribute);
     attack_declaration& with(const equip::weapon& w);

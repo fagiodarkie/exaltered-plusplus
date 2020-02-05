@@ -13,6 +13,30 @@ namespace combat {
     MENTAL_DODGE
   };
 
+  static std::vector<target_vd> VD_LIST {
+    target_vd::PHYSICAL_PARRY,
+    target_vd::PHYSICAL_DODGE,
+    target_vd::MENTAL_PARRY,
+    target_vd::MENTAL_DODGE
+  };
+
+  static std::vector<target_vd> PHYSICAL_VD_LIST {
+    target_vd::PHYSICAL_PARRY,
+    target_vd::PHYSICAL_DODGE
+  };
+
+  static std::vector<target_vd> SOCIAL_VD_LIST {
+    target_vd::MENTAL_PARRY,
+    target_vd::MENTAL_DODGE
+  };
+
+  static std::map<target_vd, std::string> VD_NAME {
+    { target_vd::PHYSICAL_PARRY, "Parry"},
+    { target_vd::PHYSICAL_DODGE, "Dodge"},
+    { target_vd::MENTAL_PARRY,   "Object"},
+    { target_vd::MENTAL_DODGE,   "Ignore"}
+  };
+
   enum class attack_attribute {
     NON_PARRYABLE,
     NON_DODGEABLE,
@@ -63,6 +87,26 @@ namespace combat {
     LEFT_LOWER,
     RIGHT_LOWER,
     NO_TARGET
+  };
+
+  static std::vector<body_target> BODY_TARGET_LIST {
+    body_target::VITAL_PART,
+    body_target::TRUNK,
+    body_target::LEFT_UPPER,
+    body_target::RIGHT_UPPER,
+    body_target::LEFT_LOWER,
+    body_target::RIGHT_LOWER,
+    body_target::NO_TARGET
+  };
+
+  static std::map<body_target, std::string> BODY_TARGET_NAME {
+    { body_target::VITAL_PART,  "Head" },
+    { body_target::TRUNK,       "Trunk" },
+    { body_target::LEFT_UPPER,  "Left Arm" },
+    { body_target::RIGHT_UPPER, "Right Arm" },
+    { body_target::LEFT_LOWER,  "Left Leg" },
+    { body_target::RIGHT_LOWER, "Right Leg" },
+    { body_target::NO_TARGET,   "No Target" }
   };
 
   enum class damage_type_enum {

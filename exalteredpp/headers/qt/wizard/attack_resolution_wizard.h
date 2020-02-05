@@ -13,6 +13,7 @@ namespace qt { namespace wizard {
 
 class attack_resolution_wizard : public QWidget
 {
+  Q_OBJECT
 public:
   attack_resolution_wizard(std::shared_ptr<character::character> character,
                            const calculator::derived_value_calculator& worker,
@@ -22,14 +23,17 @@ signals:
   void outcome(combat::outcome attack_outcome);
   void back_issued();
 
-
 private:
   void advance();
+  void advance_to_result();
   void cancel();
 
   void attack_with(const equip::weapon& weapon, const std::vector<combat::attack_attribute>& attributes,
                    unsigned int internal_bonus, unsigned int internal_malus,
-                   unsigned int external_bonus, unsigned int external_malus);
+                   unsigned int external_bonus, unsigned int external_malus, combat::body_target target);
+
+  void apply_defense_and_soak(combat::target_vd vd_type, unsigned int vd_value,
+                              unsigned int natural_soak, unsigned int armored_soak, unsigned int hardness);
 
   attack_declaration_precision_page *attack_declaration;
   provide_defense_value_page *defense_and_soak;
@@ -41,6 +45,7 @@ private:
   calculator::derived_value_calculator _worker;
   std::shared_ptr<dice::abstract_dice_roller> _dice_roller;
   std::shared_ptr<combat::combat_step> _step;
+  std::shared_ptr<combat::outcome> _outcome;
   equip::weapon _weapon;
 
   template<typename T>

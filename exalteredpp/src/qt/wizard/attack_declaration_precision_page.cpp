@@ -51,6 +51,11 @@ namespace qt {
       for (auto ability: c->abilities().keys())
         weapon_ability_box->addItem(ability.name().c_str(), ability.serialise().c_str());
 
+      body_target_box = new QComboBox;
+      for (auto body: combat::BODY_TARGET_LIST)
+        body_target_box->addItem(combat::BODY_TARGET_NAME.at(body).c_str(), static_cast<int>(body));
+      body_target_box->setCurrentText(combat::BODY_TARGET_NAME.at(combat::body_target::NO_TARGET).c_str());
+
       for (auto attribute: combat::ATTACK_ATTRIBUTES)
         {
           auto check = new QCheckBox;
@@ -76,6 +81,7 @@ namespace qt {
       attack_form->addRow("Internal Precision Malus:", internal_malus_spin);
       attack_form->addRow("External Precision Bonus:", external_bonus_spin);
       attack_form->addRow("External Precision Malus:", external_malus_spin);
+      attack_form->addRow("Body Target:", body_target_box);
       for (auto checkbox: attribute_checkboxes)
         attack_form->addRow(checkbox);
       QGroupBox *attack_group = new QGroupBox("Attack Stats");
@@ -119,7 +125,8 @@ namespace qt {
 
       emit attack_selected(created_weapon, attack_attributes,
                            internal_bonus_spin->value(), internal_malus_spin->value(),
-                           external_bonus_spin->value(), external_malus_spin->value());
+                           external_bonus_spin->value(), external_malus_spin->value(),
+                           static_cast<combat::body_target>(body_target_box->currentData().toInt()));
     }
 
   }
