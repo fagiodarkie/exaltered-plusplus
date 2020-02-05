@@ -29,18 +29,18 @@ namespace qt {
       else
         {
           QString target_hit = combat::BODY_TARGET_NAME.at(attack_outcome->target_hit()).c_str();
-          if (attack_outcome->final_damage() == 0)
+          if (attack_outcome->final_damage() > 0)
             result_copy = QString("The attack connected with the defender's %0, dealing %1 damage points.")
                 .arg(target_hit)
                 .arg(attack_outcome->final_damage());
           else
-            result_copy = QString("The attack connected with the defender's %0, but dealt no damage")
+            result_copy = QString("The attack connected with the defender's %0, but dealt no damage.")
                 .arg(target_hit);
 
           if (attack_outcome->was_knocked_down())
-            result_copy += "/r/nThe defender was knocked down by the force of the blow!";
+            result_copy += "\r\nThe defender was knocked down by the force of the blow!";
           else if (attack_outcome->was_pushed())
-            result_copy += QString("/r/nThe defender was pushed away %0 meters by the force of the blow!")
+            result_copy += QString("\r\nThe defender was pushed away %0 meters by the force of the blow!")
                 .arg(attack_outcome->meters_pushed());
         }
 

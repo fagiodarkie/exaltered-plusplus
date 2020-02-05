@@ -77,36 +77,34 @@ namespace qt { namespace wizard {
       if (!step_as<combat::vd_application>()->hits())
         {
           _outcome = std::make_shared<combat::outcome>(step_as<combat::vd_application>()->on_fail());
+          advance_to_result();
+          return;
         }
       else _step = std::make_shared<combat::raw_damage_and_position_computation>(step_as<combat::vd_application>()->on_success());
 
-      if (!_outcome && !step_as<combat::raw_damage_and_position_computation>()->passes(natural_soak, armored_soak))
+      if (!step_as<combat::raw_damage_and_position_computation>()->passes(natural_soak, armored_soak))
         {
           _outcome = std::make_shared<combat::outcome>(step_as<combat::raw_damage_and_position_computation>()->on_fail());
+          advance_to_result();
+          return;
         }
       else _step = std::make_shared<combat::post_soak_damage>(step_as<combat::raw_damage_and_position_computation>()->on_pass(natural_soak, armored_soak));
 
 
-      if (!_outcome && !step_as<combat::post_soak_damage>()->passes(hardness))
+      if (!step_as<combat::post_soak_damage>()->passes(hardness))
         {
           _outcome = std::make_shared<combat::outcome>(step_as<combat::post_soak_damage>()->on_fail());
-        }
-      else _step = std::make_shared<combat::post_hardness_damage>(step_as<combat::post_soak_damage>()->on_pass());
-
-      if (!_outcome)
-        {
-          _step = std::make_shared<combat::final_damage>(step_as<combat::post_hardness_damage>()->roll(_dice_roller));
-
-          auto final_damage_result = step_as<combat::final_damage>()->damage();
-          auto damage_pool = step_as<combat::final_damage>()->attack_status()->post_soak_damage;
-          final_damage->set_final_damage_stats(final_damage_result, damage_pool);
-
-          advance();
-        }
-      else
-        {
           advance_to_result();
+          return;
         }
+      else _step = std::make_shared<combat::final_damage>(step_as<combat::post_soak_damage>()->on_pass().roll(_dice_roller));
+
+
+      auto final_damage_result = step_as<combat::final_damage>()->damage();
+      auto damage_pool = step_as<combat::final_damage>()->attack_status()->post_soak_damage;
+      final_damage->set_final_damage_stats(final_damage_result, damage_pool);
+
+      advance();
 
     }
 
@@ -149,7 +147,7 @@ namespace qt { namespace wizard {
 
     void attack_resolution_wizard::advance_to_result()
     {
-      //result_page->set
+      result_page->with_outcome(_outcome);
       layout->setCurrentWidget(result_page);
     }
 

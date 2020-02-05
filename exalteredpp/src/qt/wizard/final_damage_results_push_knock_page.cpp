@@ -17,6 +17,7 @@ namespace qt {
       push_meters_spin->setMinimum(0);
 
       knockdown_radio = new QRadioButton("Knockdown", this);
+      knockdown_radio->setChecked(true);
       knockback_radio = new QRadioButton("Knockback", this);
 
       knock_him = new QCheckBox("Push the defender");
