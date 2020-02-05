@@ -20,8 +20,22 @@ namespace qt { namespace wizard {
       defense_and_soak->disable_back();
       connect(defense_and_soak, &provide_defense_value_page::defense_chosen, this, &attack_resolution_wizard::apply_defense_and_soak);
 
+      final_damage = new final_damage_results_push_knock_page;
+      final_damage->disable_back();
+      connect(final_damage, &final_damage_results_push_knock_page::knockback, this, &attack_resolution_wizard::knockback);
+      connect(final_damage, &final_damage_results_push_knock_page::knockdown, this, &attack_resolution_wizard::knockdown);
+      connect(final_damage, &final_damage_results_push_knock_page::no_knocking, this, &attack_resolution_wizard::no_knocking);
+
+      balance = new provide_balance_details_page;
+      balance->disable_back();
+      connect(balance, &provide_balance_details_page::balance_chosen, this, &attack_resolution_wizard::with_vd_balance);
+
+      result_page = new attack_result_page;
+      result_page->disable_back();
+      result_page->on_next_issued([this]() { advance(); });
+
       layout = new QStackedLayout;
-      QList<QWidget*> pages = { attack_declaration, defense_and_soak };
+      QList<QWidget*> pages = { attack_declaration, defense_and_soak, final_damage, balance, result_page };
 
       for (unsigned int i = 0; i < pages.size(); ++i)
         {
@@ -58,6 +72,8 @@ namespace qt { namespace wizard {
       _step = std::make_shared<combat::vd_application>(step_as<combat::precision_roll>()->apply_and_defend(_dice_roller)
                                                       .defend_with_value(vd_type, vd_value));
 
+      balance->remind_chosen_vd(vd_type);
+
       if (!step_as<combat::vd_application>()->hits())
         {
           _outcome = std::make_shared<combat::outcome>(step_as<combat::vd_application>()->on_fail());
@@ -81,7 +97,9 @@ namespace qt { namespace wizard {
         {
           _step = std::make_shared<combat::final_damage>(step_as<combat::post_hardness_damage>()->roll(_dice_roller));
 
-          // TODO info on final damage
+          auto final_damage_result = step_as<combat::final_damage>()->damage();
+          auto damage_pool = step_as<combat::final_damage>()->attack_status()->post_soak_damage;
+          final_damage->set_final_damage_stats(final_damage_result, damage_pool);
 
           advance();
         }
@@ -90,6 +108,30 @@ namespace qt { namespace wizard {
           advance_to_result();
         }
 
+    }
+
+    void attack_resolution_wizard::knockdown(unsigned int devoted_successes)
+    {
+      step_as<combat::final_damage>()->knockdown(devoted_successes);
+      advance();
+    }
+
+    void attack_resolution_wizard::knockback(unsigned int devoted_successes)
+    {
+      step_as<combat::final_damage>()->knockback_meters(devoted_successes);
+      advance();
+    }
+
+    void attack_resolution_wizard::no_knocking()
+    {
+      _outcome = std::make_shared<combat::outcome>(step_as<combat::final_damage>()->end_attack());
+      advance_to_result();
+    }
+
+    void attack_resolution_wizard::with_vd_balance(unsigned int balance)
+    {
+      _outcome = std::make_shared<combat::outcome>(step_as<combat::final_damage>()->with_balance(balance).end_attack());
+      advance_to_result();
     }
 
     void attack_resolution_wizard::cancel()
@@ -101,12 +143,13 @@ namespace qt { namespace wizard {
     {
       if (layout->currentWidget() != result_page)
         layout->setCurrentIndex(layout->currentIndex() + 1);
-      //else
-      //  emit outcome(result_page->outcome());
+      else
+        emit outcome(_outcome);
     }
 
     void attack_resolution_wizard::advance_to_result()
     {
+      //result_page->set
       layout->setCurrentWidget(result_page);
     }
 

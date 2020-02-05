@@ -20,7 +20,7 @@ public:
                            QWidget* parent = nullptr);
 
 signals:
-  void outcome(combat::outcome attack_outcome);
+  void outcome(std::shared_ptr<combat::outcome> attack_outcome);
   void back_issued();
 
 private:
@@ -34,6 +34,12 @@ private:
 
   void apply_defense_and_soak(combat::target_vd vd_type, unsigned int vd_value,
                               unsigned int natural_soak, unsigned int armored_soak, unsigned int hardness);
+
+  void knockdown(unsigned int devoted_successes);
+  void knockback(unsigned int devoted_successes);
+  void no_knocking();
+
+  void with_vd_balance(unsigned int balance);
 
   attack_declaration_precision_page *attack_declaration;
   provide_defense_value_page *defense_and_soak;

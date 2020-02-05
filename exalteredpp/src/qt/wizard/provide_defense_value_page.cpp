@@ -54,7 +54,7 @@ namespace qt {
       setLayout(outer);
 
       enable_next();
-      on_next_issued([this]() {this->on_defense_chosen(); });
+      on_next_issued([this]() { on_defense_chosen(); });
     }
 
     void provide_defense_value_page::attack_properties(unsigned int precision_pool, int external_bonus, combat::damage_type_enum damage_type, combat::body_target target)
