@@ -11,8 +11,9 @@
 #include "screen/qessence_values_screen.h"
 #include "screen/qwillpower_virtues_screen.h"
 #include "screen/qexperience_screen.h"
-#include "wizard/character_creation_wizard.h"
-#include "wizard/attack_resolution_wizard.h"
+#include "wizard/chargen/character_creation_wizard.h"
+#include "wizard/phys_attack/attack_resolution_wizard.h"
+#include "wizard/phys_defense/defense_resolution_wizard.h"
 
 #include "derived_value_calculator.h"
 
@@ -38,6 +39,7 @@ class ExalteredApp : public QMainWindow
     void        load_virtues_screen();
     void        load_experience_screen();
     void        load_attack_wizard();
+    void        load_defense_wizard();
 
   protected:
     void        init_load_character_screen();
@@ -60,6 +62,7 @@ class ExalteredApp : public QMainWindow
 
     qt::wizard::character_creation_wizard*      character_creation_wizard;
     qt::wizard::attack_resolution_wizard*       attack_wizard;
+    qt::wizard::defense_resolution_wizard*      defense_wizard;
 
     manager::character_manager&                 character_manager;
     calculator::derived_value_calculator&       derived_values_calculator;

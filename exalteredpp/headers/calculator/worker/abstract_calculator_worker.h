@@ -26,7 +26,7 @@ namespace calculator {
     {
     public:
 
-      virtual physical_defenses compute_physical_vd(const character::character& c, ability::ability_enum parry_ability) const = 0;
+      virtual physical_defenses compute_physical_vd(const character::character& c, ability::ability_name parry_ability) const = 0;
       virtual mental_defenses   compute_mental_vd(const character::character& c) const = 0;
       virtual soak_values       compute_soak_values(const character::character& c) const = 0;
 

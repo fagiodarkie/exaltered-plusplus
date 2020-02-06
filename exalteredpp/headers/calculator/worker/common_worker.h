@@ -12,7 +12,7 @@ namespace calculator {
     {
     public:
 
-      virtual physical_defenses compute_physical_vd(const character::character& c, ability::ability_enum parry_ability) const override
+      virtual physical_defenses compute_physical_vd(const character::character& c, ability::ability_name parry_ability) const override
       {
         physical_defenses result;
 
@@ -59,13 +59,13 @@ namespace calculator {
         return round<round_t>(result);
       }
 
-      virtual long int compute_parry_dv(const character::character& c, ability::ability_enum parry_ability) const
+      virtual long int compute_parry_dv(const character::character& c, ability::ability_name parry_ability) const
       {
         auto parry = _parry_dv(c, parry_ability);
         return round<round_t>(parry);
       }
 
-      virtual long int compute_heavy_parry_dv(const character::character& c, ability::ability_enum parry_ability) const
+      virtual long int compute_heavy_parry_dv(const character::character& c, ability::ability_name parry_ability) const
       {
         return round<round_t>(_heavy_parry_dv(c, parry_ability));
       }
@@ -251,16 +251,16 @@ namespace calculator {
       }
 
       // TODO parry computations must take into account weapon DV!
-      virtual double _parry_dv(const character::character& c, ability::ability_enum parry_ability) const
+      virtual double _parry_dv(const character::character& c, ability::ability_name parry_ability) const
       {
         auto att = half(c, attribute::attribute_enum::STRENGTH, attribute::attribute_enum::DEXTERITY);
         auto ab = c.get(parry_ability);
         return (ab + att) / 2;
       }
 
-      virtual double _heavy_parry_dv(const character::character& c, ability::ability_enum parry_ability) const
+      virtual double _heavy_parry_dv(const character::character& c, ability::ability_name parry_ability) const
       {
-        ability::ability_enum actual_ability = c.get(parry_ability) < c.get(ability::ability_enum::RESISTANCE) ? parry_ability : ability::ability_enum::RESISTANCE;
+        ability::ability_name actual_ability = c.get(parry_ability) < c.get(ability::ability_enum::RESISTANCE) ? parry_ability : ability::ability_enum::RESISTANCE;
         return half(c, attribute::attribute_enum::STRENGTH, actual_ability);
       }
 
@@ -350,12 +350,12 @@ namespace calculator {
         return 0;
       }
 
-      virtual double half(const character::character& c, attribute::attribute_enum attribute, ability::ability_enum ability) const
+      virtual double half(const character::character& c, attribute::attribute_enum attribute, ability::ability_name ability) const
       {
         return static_cast<double>(c.get(ability) + c.attribute(attribute)) / 2;
       }
 
-      virtual double half(const character::character& c, ability::ability_enum ability, attribute::attribute_enum attribute) const
+      virtual double half(const character::character& c, ability::ability_name ability, attribute::attribute_enum attribute) const
       {
         return half(c, attribute, ability);
       }
@@ -370,7 +370,7 @@ namespace calculator {
         return static_cast<double>(c.attribute(attribute)) / 2;
       }
 
-      virtual double half(const character::character& c, ability::ability_enum ability) const
+      virtual double half(const character::character& c, ability::ability_name ability) const
       {
         return static_cast<double>(c.get(ability)) / 2;
       }

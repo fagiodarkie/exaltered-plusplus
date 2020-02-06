@@ -104,23 +104,27 @@ SOURCES += \
     ../../src/qt/widget/session_experience_logger.cpp \
     ../../src/qt/widget/with_next_continue_buttons.cpp \
     ../../src/qt/widget/with_progress_bar.cpp \
-    ../../src/qt/wizard/ability_value_row.cpp \
-    ../../src/qt/wizard/attributes_priority_page.cpp \
-    ../../src/qt/wizard/character_creation_ability_values.cpp \
-    ../../src/qt/wizard/character_creation_attribute_points_page.cpp \
-    ../../src/qt/wizard/character_creation_name_type_page.cpp \
-    ../../src/qt/wizard/character_creation_persona.cpp \
-    ../../src/qt/wizard/character_creation_virtues_vice.cpp \
-    ../../src/qt/wizard/character_creation_wizard.cpp \
+    ../../src/qt/wizard/chargen/ability_value_row.cpp \
+    ../../src/qt/wizard/chargen/attributes_priority_page.cpp \
+    ../../src/qt/wizard/chargen/character_creation_ability_values.cpp \
+    ../../src/qt/wizard/chargen/character_creation_attribute_points_page.cpp \
+    ../../src/qt/wizard/chargen/character_creation_name_type_page.cpp \
+    ../../src/qt/wizard/chargen/character_creation_persona.cpp \
+    ../../src/qt/wizard/chargen/character_creation_virtues_vice.cpp \
+    ../../src/qt/wizard/chargen/character_creation_wizard.cpp \
+    ../../src/qt/wizard/phys_defense/attack_parameters_page.cpp \
+    ../../src/qt/wizard/phys_defense/defense_declaration_page.cpp \
+    ../../src/qt/wizard/phys_defense/defense_resolution_wizard.cpp \
+    ../../src/qt/wizard/phys_defense/final_damage_input_page.cpp \
     ../../src/serialisation/filesystem_db.cpp \
     ../../src/serialisation/json_constants.cpp \
     ../../thirdparty/darkstyle/DarkStyle.cpp \
-    ../../src/qt/wizard/attack_resolution_wizard.cpp \
-    ../../src/qt/wizard/attack_declaration_precision_page.cpp \
-    ../../src/qt/wizard/provide_defense_value_page.cpp \
-    ../../src/qt/wizard/final_damage_results_push_knock_page.cpp \
-    ../../src/qt/wizard/provide_balance_details_page.cpp \
-    ../../src/qt/wizard/attack_result_page.cpp
+    ../../src/qt/wizard/phys_attack/attack_resolution_wizard.cpp \
+    ../../src/qt/wizard/phys_attack/attack_declaration_precision_page.cpp \
+    ../../src/qt/wizard/phys_attack/provide_defense_value_page.cpp \
+    ../../src/qt/wizard/phys_attack/final_damage_results_push_knock_page.cpp \
+    ../../src/qt/wizard/phys_attack/provide_balance_details_page.cpp \
+    ../../src/qt/wizard/phys_attack/attack_result_page.cpp
 
 HEADERS += \
     ../../headers/calculator/abstract_dice_thrower.h \
@@ -220,25 +224,29 @@ HEADERS += \
     ../../headers/qt/widget/std_compatible.h \
     ../../headers/qt/widget/with_next_continue_buttons.h \
     ../../headers/qt/widget/with_progress_bar.h \
-    ../../headers/qt/wizard/ability_value_row.h \
-    ../../headers/qt/wizard/attributes_priority_page.h \
-    ../../headers/qt/wizard/character_creation_ability_values.h \
-    ../../headers/qt/wizard/character_creation_attribute_points_page.h \
-    ../../headers/qt/wizard/character_creation_name_type_page.h \
-    ../../headers/qt/wizard/character_creation_persona.h \
-    ../../headers/qt/wizard/character_creation_virtues_vice.h \
-    ../../headers/qt/wizard/character_creation_wizard.h \
+    ../../headers/qt/wizard/chargen/ability_value_row.h \
+    ../../headers/qt/wizard/chargen/attributes_priority_page.h \
+    ../../headers/qt/wizard/chargen/character_creation_ability_values.h \
+    ../../headers/qt/wizard/chargen/character_creation_attribute_points_page.h \
+    ../../headers/qt/wizard/chargen/character_creation_name_type_page.h \
+    ../../headers/qt/wizard/chargen/character_creation_persona.h \
+    ../../headers/qt/wizard/chargen/character_creation_virtues_vice.h \
+    ../../headers/qt/wizard/chargen/character_creation_wizard.h \
+    ../../headers/qt/wizard/phys_defense/attack_parameters_page.h \
+    ../../headers/qt/wizard/phys_defense/defense_declaration_page.h \
+    ../../headers/qt/wizard/phys_defense/defense_resolution_wizard.h \
+    ../../headers/qt/wizard/phys_defense/final_damage_input_page.h \
     ../../headers/serialisation/db_abstraction.h \
     ../../headers/serialisation/filesystem_db.h \
     ../../headers/serialisation/json_constants.h \
     ../../thirdparty/darkstyle/DarkStyle.h \
     ../../thirdparty/serialisable/serialisable.hpp \
-    ../../headers/qt/wizard/attack_resolution_wizard.h \
-    ../../headers/qt/wizard/attack_declaration_precision_page.h \
-    ../../headers/qt/wizard/provide_defense_value_page.h \
-    ../../headers/qt/wizard/final_damage_results_push_knock_page.h \
-    ../../headers/qt/wizard/provide_balance_details_page.h \
-    ../../headers/qt/wizard/attack_result_page.h
+    ../../headers/qt/wizard/phys_attack/attack_resolution_wizard.h \
+    ../../headers/qt/wizard/phys_attack/attack_declaration_precision_page.h \
+    ../../headers/qt/wizard/phys_attack/provide_defense_value_page.h \
+    ../../headers/qt/wizard/phys_attack/final_damage_results_push_knock_page.h \
+    ../../headers/qt/wizard/phys_attack/provide_balance_details_page.h \
+    ../../headers/qt/wizard/phys_attack/attack_result_page.h
 
 CONFIG += mobility
 MOBILITY = 
