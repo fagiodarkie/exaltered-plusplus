@@ -82,6 +82,7 @@ SOURCES += \
     ../../src/model/virtues/virtue.cpp \
     ../../src/model/virtues/virtues.cpp \
     ../../src/qt/caste_style.cpp \
+    ../../src/qt/dependencies.cpp \
     ../../src/qt/exalteredapp.cpp \
     ../../src/qt/layout/qborderlayout.cpp \
     ../../src/qt/main.cpp \

@@ -1,4 +1,5 @@
 #include "wizard/attack_resolution_wizard.h"
+#include "dependencies.h"
 
 namespace qt { namespace wizard {
     attack_resolution_wizard::attack_resolution_wizard(std::shared_ptr<character::character> character,
@@ -8,7 +9,7 @@ namespace qt { namespace wizard {
     {
       _step = std::make_shared<combat::attack_declaration>(combat::attack_declaration::declare().attacker(character));
 
-      _dice_roller = std::make_shared<dice::dice_roller<>>();
+      _dice_roller = dependency::dice_rollers::pool_roller(character->type());
       if (character::creation::character_type_model::get_by_character_type(character->type()).is_supernatural)
         _dice_roller = std::make_shared<dice::dice_roller<dice::no_brutal, dice::exalt_10_rule<>>>();
 
@@ -52,7 +53,7 @@ namespace qt { namespace wizard {
                      unsigned int external_bonus, unsigned int external_malus, combat::body_target target)
     {
       if (target == combat::body_target::NO_TARGET)
-        target = combat::body_part_roller().roll_body_part();
+        target = dependency::dice_rollers::body_part_roller()->roll_body_part();
 
       _step = std::make_shared<combat::precision_roll>(step_as<combat::attack_declaration>()->with(weapon).is(attributes).roll_precision()
                                  .bonus(external_bonus).malus(external_malus)
@@ -72,6 +73,7 @@ namespace qt { namespace wizard {
       _step = std::make_shared<combat::vd_application>(step_as<combat::precision_roll>()->apply_and_defend(_dice_roller)
                                                       .defend_with_value(vd_type, vd_value));
 
+      auto damage_type = _step->attack_status()->weapon.damage_type();
       balance->remind_chosen_vd(vd_type);
 
       if (!step_as<combat::vd_application>()->hits())
@@ -97,7 +99,7 @@ namespace qt { namespace wizard {
           advance_to_result();
           return;
         }
-      else _step = std::make_shared<combat::final_damage>(step_as<combat::post_soak_damage>()->on_pass().roll(_dice_roller));
+      else _step = std::make_shared<combat::final_damage>(step_as<combat::post_soak_damage>()->on_pass().roll(dependency::dice_rollers::damage_roller(damage_type)));
 
 
       auto final_damage_result = step_as<combat::final_damage>()->damage();
