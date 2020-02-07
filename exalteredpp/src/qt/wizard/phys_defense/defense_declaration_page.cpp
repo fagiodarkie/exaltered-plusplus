@@ -50,11 +50,9 @@ namespace qt { namespace wizard {
       vcenter->setAlignment(Qt::AlignTop);
       QWidget* center_w = new QWidget;
       center_w->setLayout(vcenter);
-      QScrollArea *scroll_w = new QScrollArea;
-      scroll_w->setWidget(center_w);
 
       outer->addWidget(_progress_bar,     layout::QBorderLayout::North);
-      outer->addWidget(scroll_w,          layout::QBorderLayout::Center);
+      outer->addWidget(center_w,          layout::QBorderLayout::Center);
       outer->addWidget(buttons_layout(),  layout::QBorderLayout::South);
       setLayout(outer);
 

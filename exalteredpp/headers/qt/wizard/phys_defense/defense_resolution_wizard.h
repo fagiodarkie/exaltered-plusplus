@@ -29,7 +29,6 @@ namespace qt { namespace wizard {
       void back_issued();
 
     private:
-
       void parry(int vd_modifier, const ability::ability_name& parry_ability, int weapon_defense, bool will_counter);
       void dodge(int vd_modifier);
 
@@ -57,6 +56,7 @@ namespace qt { namespace wizard {
       std::shared_ptr<combat::combat_step> _step;
       std::shared_ptr<combat::outcome> _outcome;
       bool _chose_to_counter;
+      combat::damage_type_enum _damage_type;
 
       template<typename T>
       typename std::enable_if<std::is_base_of<combat::combat_step, T>::value, std::shared_ptr<T>>::type

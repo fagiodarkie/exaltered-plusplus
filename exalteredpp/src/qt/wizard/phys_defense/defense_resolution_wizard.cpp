@@ -1,5 +1,7 @@
 #include "wizard/phys_defense/defense_resolution_wizard.h"
 
+#include "dependencies.h"
+
 namespace qt { namespace wizard {
 
 
@@ -18,11 +20,12 @@ namespace qt { namespace wizard {
 
       attack_parameters = new attack_parameters_page;
       attack_parameters->disable_back();
-      // connect
+      connect(attack_parameters, &attack_parameters_page::attack_parameters, this, &defense_resolution_wizard::with_precision);
 
       final_damage_input = new final_damage_input_page;
       final_damage_input->disable_back();
-      // connect
+      connect(final_damage_input, &final_damage_input_page::roll_damage, this, &defense_resolution_wizard::roll_final_damage);
+      connect(final_damage_input, &final_damage_input_page::with_damage, this, &defense_resolution_wizard::with_final_damage);
 
       final_damage = new final_damage_results_push_knock_page;
       final_damage->disable_back();
@@ -50,17 +53,62 @@ namespace qt { namespace wizard {
 
     void defense_resolution_wizard::with_precision(combat::body_target target, combat::damage_type_enum damage_type, unsigned int successes, unsigned int base_damage, unsigned int min_damage, unsigned int drill)
     {
+      _damage_type = damage_type;
 
+      if (target != combat::body_target::NO_TARGET)
+        _step = std::make_shared<combat::precision_roll>(step_as<combat::precision_roll>()->target(target));
+
+      _step = std::make_shared<combat::vd_application>(step_as<combat::precision_roll>()->with_successes(successes));
+
+      if (!step_as<combat::vd_application>()->hits())
+        {
+          _outcome = std::make_shared<combat::outcome>(step_as<combat::vd_application>()->on_fail());
+          advance_to_result();
+          return;
+        }
+      else _step = std::make_shared<combat::raw_damage_and_position_computation>(step_as<combat::vd_application>()->on_success()
+                                                                                 .base_damage(base_damage).damage_type(damage_type)
+                                                                                 .min_damage(min_damage).drill(drill));
+
+      if (!step_as<combat::raw_damage_and_position_computation>()->passes(_worker))
+        {
+          _outcome = std::make_shared<combat::outcome>(step_as<combat::raw_damage_and_position_computation>()->on_fail());
+          advance_to_result();
+          return;
+        }
+      else _step = std::make_shared<combat::post_soak_damage>(step_as<combat::raw_damage_and_position_computation>()->on_pass(_worker));
+
+
+      if (!step_as<combat::post_soak_damage>()->passes(_worker))
+        {
+          _outcome = std::make_shared<combat::outcome>(step_as<combat::post_soak_damage>()->on_fail());
+          advance_to_result();
+          return;
+        }
+      else _step = std::make_shared<combat::post_hardness_damage>(step_as<combat::post_soak_damage>()->on_pass());
+
+      unsigned int final_damage_pool = step_as<combat::post_hardness_damage>()->attack_status()->post_soak_damage;
+      final_damage_input->set_final_damage_pool(final_damage_pool);
+
+      advance();
     }
 
-    void defense_resolution_wizard::with_final_damage(unsigned int final_damage)
+    void defense_resolution_wizard::with_final_damage(unsigned int final_damage_value)
     {
+      _step = std::make_shared<combat::final_damage>(step_as<combat::post_hardness_damage>()->with_roll(final_damage_value));
 
+      final_damage->set_final_damage_stats(final_damage_value, _step->attack_status()->post_soak_damage);
+
+      advance();
     }
 
     void defense_resolution_wizard::roll_final_damage()
     {
+      _step = std::make_shared<combat::final_damage>(step_as<combat::post_hardness_damage>()->roll(dependency::dice_rollers::damage_roller(_damage_type)));
 
+      final_damage->set_final_damage_stats(step_as<combat::final_damage>()->damage(), _step->attack_status()->post_soak_damage);
+
+      advance();
     }
 
     void defense_resolution_wizard::dodge(int vd_modifier)
@@ -79,29 +127,36 @@ namespace qt { namespace wizard {
       advance();
     }
 
-    void defense_resolution_wizard::knockback(unsigned int devoted_successes)
-    {
-
-    }
-
     void defense_resolution_wizard::knockdown(unsigned int devoted_successes)
     {
+      _outcome = std::make_shared<combat::outcome>(step_as<combat::final_damage>()->knockdown(devoted_successes).end_attack());
+      advance_to_result();
+    }
 
+    void defense_resolution_wizard::knockback(unsigned int devoted_successes)
+    {
+      _outcome = std::make_shared<combat::outcome>(step_as<combat::final_damage>()->knockback_meters(devoted_successes).end_attack());
+      advance_to_result();
     }
 
     void defense_resolution_wizard::no_knocking()
     {
-
+      _outcome = std::make_shared<combat::outcome>(step_as<combat::final_damage>()->end_attack());
+      advance_to_result();
     }
 
     void defense_resolution_wizard::advance()
     {
-
+      if (layout->currentWidget() == result_page)
+        emit outcome(_outcome);
+      else
+        layout->setCurrentIndex(layout->currentIndex() + 1);
     }
 
     void defense_resolution_wizard::advance_to_result()
     {
-
+      result_page->with_outcome(_outcome);
+      layout -> setCurrentWidget(result_page);
     }
 
   }
