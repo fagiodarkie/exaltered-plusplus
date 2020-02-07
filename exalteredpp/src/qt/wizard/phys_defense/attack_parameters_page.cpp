@@ -4,7 +4,11 @@
 #include <QFormLayout>
 #include <QScrollArea>
 
+#include "label/interfacelabels.h"
+
 namespace qt { namespace wizard {
+
+    using namespace labels::wizards::physical_attack;
 
     attack_parameters_page::attack_parameters_page()
     {
@@ -27,13 +31,13 @@ namespace qt { namespace wizard {
       body_target_box->setCurrentText(combat::BODY_TARGET_NAME.at(combat::body_target::NO_TARGET).c_str());
 
       QFormLayout *vcenter = new QFormLayout;
-      vcenter->addWidget(new QLabel("Provide the basic information about the attack."));
-      vcenter->addRow("Precision roll result:", precision_result_box);
-      vcenter->addRow("Base damage (extra successes excluded):", base_damage_box);
-      vcenter->addRow("Weapon damage type:", damage_type_box);
-      vcenter->addRow("Minimum damage:", min_damage_box);
-      vcenter->addRow("Attack drill:", drill_box);
-      vcenter->addRow("Targeted body part:", body_target_box);
+      vcenter->addWidget(new QLabel(DEFENSE_PRECISION_SUMMARY));
+      vcenter->addRow(PRECISION_ROLL_RESULT, precision_result_box);
+      vcenter->addRow(ATTACK_FULL_BASE_DAMAGE, base_damage_box);
+      vcenter->addRow(WEAPON_DAMAGE_TYPE, damage_type_box);
+      vcenter->addRow(WEAPON_MIN_DAMAGE, min_damage_box);
+      vcenter->addRow(WEAPON_DRILL, drill_box);
+      vcenter->addRow(BODY_TARGET, body_target_box);
       QWidget* center_w = new QWidget;
       center_w->setLayout(vcenter);
       QScrollArea *scroll_w = new QScrollArea;

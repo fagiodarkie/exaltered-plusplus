@@ -40,9 +40,9 @@ namespace qt {
       QFormLayout* phys_form = new QFormLayout, *mental_form = new QFormLayout;
       QHBoxLayout* parry_ability_selector = new QHBoxLayout;
 
-      attack_wizard = new QPushButton("Start Attack");
+      attack_wizard = new QPushButton(ATTACK_BUTTON);
       connect(attack_wizard, &QPushButton::clicked, this, &qdefense_values_screen::attack_wizard_invoked);
-      defense_wizard = new QPushButton("Defend from Attack");
+      defense_wizard = new QPushButton(DEFEND_BUTTON);
       connect(defense_wizard, &QPushButton::clicked, this, &qdefense_values_screen::defense_wizard_invoked);
 
       parry_ability_selector->addWidget(new QLabel(PHYS_PARRY_ABILITY));
@@ -110,7 +110,7 @@ namespace qt {
       appearance_pdv  ->setText(QString::number(character_mvds.appearance_parry_vd));
       resilience      ->setText(QString::number(character_mvds.resilience));
 
-      natural_soak    ->setText(QString("%1U / %2L / %3A")
+      natural_soak    ->setText(QString(SOAK_TEMPLATE)
                         .arg(soaks.natural_soak[combat::damage_type_enum::BASHING])
                         .arg(soaks.natural_soak[combat::damage_type_enum::LETHAL])
                         .arg(soaks.natural_soak[combat::damage_type_enum::AGGRAVATED]));

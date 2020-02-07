@@ -77,6 +77,76 @@ namespace qt {
       static QString M_MANIPULATION_PDV = "Manipulation Parry DV";
       static QString M_APPEARANCE_PDV   = "Appearance Parry DV"  ;
       static QString M_RESILIENCE       = "Social Resilience"    ;
+
+      static QString DEFEND_BUTTON = "Defend from Attack";
+      static QString ATTACK_BUTTON = "Start Attack";
+      static QString SOAK_TEMPLATE = "%1U / %2L / %3A";
+    }
+
+    namespace wizards {
+
+      namespace physical_attack {
+        static QString WEAPON_PRECISION       = "Weapon Precision:";
+        static QString WEAPON_DAMAGE          = "Weapon Damage:";
+        static QString WEAPON_DEFENSE         = "Weapon Defense:";
+        static QString WEAPON_MIN_DAMAGE      = "Weapon Minimum Damage:";
+        static QString WEAPON_DRILL           = "Weapon Drill:"              ;
+        static QString WEAPON_ABILITY         = "Weapon Ability:"            ;
+        static QString WEAPON_PRECISION_ATTR  = "Weapon Precision Attribute:";
+        static QString WEAPON_DAMAGE_ATTR     = "Weapon Damage Attribute:"   ;
+        static QString WEAPON_DAMAGE_TYPE     = "Weapon Damage Type:"        ;
+        static QString WEAPON_STATS_TITLE     = "Weapon Stats";
+        static QString INTERNAL_PRECISION_BONUS = "Internal Precision Bonus:";
+        static QString INTERNAL_PRECISION_MALUS = "Internal Precision Malus:";
+        static QString EXTERNAL_PRECISION_BONUS = "External Precision Bonus:";
+        static QString EXTERNAL_PRECISION_MALUS = "External Precision Malus:";
+        static QString BODY_TARGET              = "Targeted body part:";
+        static QString ATTACK_STATS_TITLE       = "Attack Stats";
+
+        static QString VD_TYPE              = "VD Type"     ;
+        static QString VD_VALUE             = "VD Value"    ;
+        static QString NATURAL_SOAK         = "Natural Soak";
+        static QString ARMORED_SOAK         = "Armored Soak";
+        static QString HARDNESS             = "Hardness"    ;
+        static QString DEFENSE_VALUES_TITLE = "Defense Values";
+        static QString DEFENSE_ROLL_RECAP_TEMPLATE = "Rolling %0 dice with an external modifier of %1.\r\n"
+                                      "Damage type is %2: provide soaks relevant to this damage type.\r\n"
+                                      "If the roll passes, the hit will land on the target's %3.";
+
+        static QString BALANCE_RECAP_TEMPLATE = "The defender defended with his %0 vd. What is its balance?";
+
+        static QString KNOCKBACK        = "Knockback";
+        static QString KNOCKDOWN        = "Knockdown";
+        static QString PUSH_SWITCH      = "Push the defender";
+        static QString SPEND_SUCCESSES  = "Spend successes:";
+        static QString KNOCK_RECAP = "With a post-soak damage pool of %0 dice, a total of %1 successes were rolled for damage.\r\n"
+                                    "Do you wish to spend some to push back or knockdown your opponent?";
+
+        static QString ATTACK_RESULT_MISSED      = "The attack precision was lesser than the chosen VD: the attack was nullified.";
+        static QString ATTACK_RESULT_WITH_DAMAGE = "The attack connected with the defender's %0, dealing %1 damage points.";
+        static QString ATTACK_RESULT_NO_DAMAGE   = "The attack connected with the defender's %0, but dealt no damage.";
+        static QString ATTACK_RESULT_KNOCKDOWN   = "\r\nThe defender was knocked down by the force of the blow!";
+        static QString ATTACK_RESULT_KNOCKBACK   = "\r\nThe defender was pushed away %0 meters by the force of the blow!";
+        static QString ATTACK_RESULT_COUNTER     = "\r\nThe defender may counter the attack, if he so wishes.";
+
+        static QString DEFENSE_PRECISION_SUMMARY = "Provide the basic information about the attack.";
+        static QString PRECISION_ROLL_RESULT     = "Precision roll result:";
+        static QString ATTACK_FULL_BASE_DAMAGE   = "Base damage (extra successes excluded):";
+
+        static QString ROLL_DAMAGE_AUTOMATICALLY   = "Roll damage automatically";
+        static QString PROVIDE_DAMAGE_ROLL_RESULT  = "Provide the damage roll result";
+        static QString ROLLED_DAMAGE_RESULT        = "Provided damage:";
+        static QString FINAL_DAMAGE_SUMMARY = "The attacker passed through your defenses with a final damage pool of %0.\r\n"
+                              "Are you going to roll that pool automatically or will you provide the result yourself?";
+
+
+        static QString GOING_TO_COUNTER = "Counter after your parry";
+        static QString VD_MODIFIER      = "VD value modifier:";
+        static QString DEFENSE_VALUE_RECAP_TEMPLATE = "You're defending with your %0 vd, with a final value of %1.%2";
+        static QString COUNTER_SUMMARY              = "\r\nAfter the parry, if successful, you will attempt a counter.";
+
+      }
+
     }
 
     namespace creation_wizard {
