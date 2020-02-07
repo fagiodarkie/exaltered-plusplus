@@ -16,17 +16,17 @@ namespace qt {
                                                    const calculator::derived_value_calculator& derived_values,
                                                    QWidget *parent)
       : QWidget(parent), _character(c), _calculator(derived_values),
-        dodge_dv        (nullptr),
-        parry_dv        (nullptr),
-        heavy_parry_dv  (nullptr),
-        parry_balance   (nullptr),
-        dodge_balance   (nullptr),
-        mental_dodge_dv (nullptr),
-        charisma_pdv    (nullptr),
-        manipulation_pdv(nullptr),
-        appearance_pdv  (nullptr),
-        resilience      (nullptr),
-        natural_soak    (nullptr)
+        dodge_dv        (new QLabel),
+        parry_dv        (new QLabel),
+        heavy_parry_dv  (new QLabel),
+        parry_balance   (new QLabel),
+        dodge_balance   (new QLabel),
+        mental_dodge_dv (new QLabel),
+        charisma_pdv    (new QLabel),
+        manipulation_pdv(new QLabel),
+        appearance_pdv  (new QLabel),
+        resilience      (new QLabel),
+        natural_soak    (new QLabel)
     {
       physical_parry_ability = new QComboBox;
 
@@ -42,6 +42,8 @@ namespace qt {
 
       attack_wizard = new QPushButton("Start Attack");
       connect(attack_wizard, &QPushButton::clicked, this, &qdefense_values_screen::attack_wizard_invoked);
+      defense_wizard = new QPushButton("Defend from Attack");
+      connect(defense_wizard, &QPushButton::clicked, this, &qdefense_values_screen::defense_wizard_invoked);
 
       parry_ability_selector->addWidget(new QLabel(PHYS_PARRY_ABILITY));
       parry_ability_selector->addWidget(physical_parry_ability);
@@ -70,6 +72,7 @@ namespace qt {
 
       QVBoxLayout *buttons_layout = new QVBoxLayout;
       buttons_layout->addWidget(attack_wizard);
+      buttons_layout->addWidget(defense_wizard);
       QWidget* buttons = new QWidget;
       buttons->setLayout(buttons_layout);
 
@@ -91,21 +94,6 @@ namespace qt {
     {
       ability_enum ability = commons::reverse_search_in_map(ABILITIES, ABILITY_NAME, physical_parry_ability->currentText().toStdString());
 
-      if (dodge_dv == nullptr)
-        {
-          dodge_dv            = new QLabel;
-          parry_dv            = new QLabel;
-          heavy_parry_dv      = new QLabel;
-          parry_balance       = new QLabel;
-          dodge_balance       = new QLabel;
-          mental_dodge_dv     = new QLabel;
-          charisma_pdv        = new QLabel;
-          manipulation_pdv    = new QLabel;
-          appearance_pdv      = new QLabel;
-          resilience          = new QLabel;
-          natural_soak        = new QLabel;
-        }
-
       auto character_vds = _calculator.compute_physical_vd(*_character, ability);
       auto character_mvds = _calculator.compute_mental_vd(*_character);
       auto soaks = _calculator.compute_soak_values(*_character);
@@ -123,9 +111,9 @@ namespace qt {
       resilience      ->setText(QString::number(character_mvds.resilience));
 
       natural_soak    ->setText(QString("%1U / %2L / %3A")
-                              .arg(soaks.natural_soak[combat::damage_type_enum::BASHING])
-                              .arg(soaks.natural_soak[combat::damage_type_enum::LETHAL])
-                              .arg(soaks.natural_soak[combat::damage_type_enum::AGGRAVATED]));
+                        .arg(soaks.natural_soak[combat::damage_type_enum::BASHING])
+                        .arg(soaks.natural_soak[combat::damage_type_enum::LETHAL])
+                        .arg(soaks.natural_soak[combat::damage_type_enum::AGGRAVATED]));
     }
   }
 }

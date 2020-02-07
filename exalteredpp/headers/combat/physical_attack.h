@@ -151,8 +151,8 @@ namespace combat {
     pre_precision_defense_declaration(pre_precision_defense_declaration&& o) : combat_step(o._atk) { }
     pre_precision_defense_declaration(const pre_precision_defense_declaration& o) : combat_step(o._atk) { }
 
-    precision_roll dodge(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator) const;
-    precision_roll parry_with(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator, ability::ability_enum parry_ability) const;
+    precision_roll dodge(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator, int vd_modifier) const;
+    precision_roll parry_with(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator, const ability::ability_name& parry_ability, int weapon_defense, int vd_modifier) const;
     precision_roll defend_with_value(target_vd vd, unsigned int vd_value);
 
   private:

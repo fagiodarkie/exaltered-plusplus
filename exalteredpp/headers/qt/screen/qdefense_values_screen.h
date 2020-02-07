@@ -17,6 +17,7 @@ namespace qt {
 
     signals:
       void attack_wizard_invoked();
+      void defense_wizard_invoked();
 
     private:
       void update_values();
@@ -25,7 +26,7 @@ namespace qt {
       const calculator::derived_value_calculator& _calculator;
 
       QComboBox *physical_parry_ability;
-      QPushButton *attack_wizard;
+      QPushButton *attack_wizard, *defense_wizard;
 
       QLabel *dodge_dv,
              *parry_dv,

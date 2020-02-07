@@ -4,9 +4,9 @@ namespace calculator {
 
   derived_value_calculator::derived_value_calculator(worker_map workers) : calculator_workers(workers) { }
 
-  worker::physical_defenses derived_value_calculator::compute_physical_vd(const character::character& c, ability::ability_name parry_ability) const
+  worker::physical_defenses derived_value_calculator::compute_physical_vd(const character::character& c, ability::ability_name parry_ability, int weapon_defense_value) const
   {
-    return calculator_workers.at(c.type())->compute_physical_vd(c, parry_ability);
+    return calculator_workers.at(c.type())->compute_physical_vd(c, parry_ability, weapon_defense_value);
   }
 
   worker::soak_values derived_value_calculator::compute_soak_values(const character::character& c) const

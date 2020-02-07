@@ -13,7 +13,8 @@ namespace qt { namespace wizard {
 
       defense_declaration = new defense_declaration_page(_defender, _worker);
       defense_declaration->on_back_issued([this]() { emit back_issued(); });
-      connect(defense_declaration, &defense_declaration_page::defense_selected, this, &defense_resolution_wizard::chosen_vd);
+      connect(defense_declaration, &defense_declaration_page::parry, this, &defense_resolution_wizard::parry);
+      connect(defense_declaration, &defense_declaration_page::dodge, this, &defense_resolution_wizard::dodge);
 
       attack_parameters = new attack_parameters_page;
       attack_parameters->disable_back();
@@ -62,9 +63,20 @@ namespace qt { namespace wizard {
 
     }
 
-    void defense_resolution_wizard::chosen_vd(combat::target_vd vd, int vd_modifier, bool will_counter)
+    void defense_resolution_wizard::dodge(int vd_modifier)
     {
+      _chose_to_counter = false;
+      _step = std::make_shared<combat::precision_roll>(step_as<combat::pre_precision_defense_declaration>()->dodge(_defender, _worker, vd_modifier));
 
+      advance();
+    }
+
+    void defense_resolution_wizard::parry(int vd_modifier, const ability::ability_name& parry_ability, int weapon_defense, bool will_counter)
+    {
+      _chose_to_counter = will_counter;
+      _step = std::make_shared<combat::precision_roll>(step_as<combat::pre_precision_defense_declaration>()->parry_with(_defender, _worker, parry_ability, weapon_defense, vd_modifier));
+
+      advance();
     }
 
     void defense_resolution_wizard::knockback(unsigned int devoted_successes)

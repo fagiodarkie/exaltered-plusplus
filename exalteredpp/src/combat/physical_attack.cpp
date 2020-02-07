@@ -118,23 +118,23 @@ namespace combat {
     return result;
   }
 
-  precision_roll pre_precision_defense_declaration::dodge(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator) const
+  precision_roll pre_precision_defense_declaration::dodge(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator, int vd_modifier) const
   {
     _atk->defender = c;
     _atk->vd = target_vd::PHYSICAL_DODGE;
     auto vd = calculator.compute_physical_vd(*c, ability::ability_enum::MELEE);
-    _atk->vd_value = vd.dodge_vd;
+    _atk->vd_value = dice::pool(vd.dodge_vd + vd_modifier);
     _atk->vd_balance = vd.dodge_balance;
 
     return precision_roll(_atk);
   }
 
-  precision_roll pre_precision_defense_declaration::parry_with(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator, ability::ability_enum parry_ability) const
+  precision_roll pre_precision_defense_declaration::parry_with(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator, const ability::ability_name& parry_ability, int weapon_defense, int vd_modifier) const
   {
     _atk->defender = c;
     _atk->vd = target_vd::PHYSICAL_PARRY;
-    auto vd = calculator.compute_physical_vd(*c, parry_ability);
-    _atk->vd_value = vd.parry_vd;
+    auto vd = calculator.compute_physical_vd(*c, parry_ability, weapon_defense);
+    _atk->vd_value = dice::pool(vd.parry_vd + vd_modifier);
     _atk->vd_balance = vd.parry_balance;
 
     return precision_roll(_atk);

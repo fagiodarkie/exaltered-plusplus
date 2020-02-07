@@ -32,6 +32,7 @@ void ExalteredApp::load_vd_screen()
   character_defenses_widget = new qdefense_values_screen(current_character, derived_values_calculator, this);
   setCentralWidget(character_defenses_widget);
   connect(character_defenses_widget, &qdefense_values_screen::attack_wizard_invoked, this, &ExalteredApp::load_attack_wizard);
+  connect(character_defenses_widget, &qdefense_values_screen::defense_wizard_invoked, this, &ExalteredApp::load_defense_wizard);
 }
 
 void ExalteredApp::load_attack_wizard()

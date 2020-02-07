@@ -23,7 +23,8 @@ namespace qt { namespace wizard {
                                         QWidget *parent = nullptr);
 
     signals:
-      void defense_selected(combat::target_vd vd, int vd_value, bool will_counter);
+      void parry(int vd_modifier, const ability::ability_name& parry_ability, int weapon_defense, bool will_counter);
+      void dodge(int vd_modifier);
 
     private:
       void on_submit();
@@ -32,7 +33,7 @@ namespace qt { namespace wizard {
       QComboBox *defense_box, *parry_ability_box;
       QLabel *defense_info_label;
       QCheckBox *counter_after_parry;
-      QSpinBox *vd_value_modifier;
+      QSpinBox *vd_value_modifier, *weapon_defense_box;
       std::shared_ptr<character::character> _defender;
       calculator::derived_value_calculator _calculator;
       bool _countering;

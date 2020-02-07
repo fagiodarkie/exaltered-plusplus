@@ -30,7 +30,8 @@ namespace qt { namespace wizard {
 
     private:
 
-      void chosen_vd(combat::target_vd vd, int vd_modifier, bool will_counter);
+      void parry(int vd_modifier, const ability::ability_name& parry_ability, int weapon_defense, bool will_counter);
+      void dodge(int vd_modifier);
 
       void with_precision(combat::body_target target, combat::damage_type_enum damage_type,
                           unsigned int successes, unsigned int base_damage, unsigned int min_damage, unsigned int drill);
