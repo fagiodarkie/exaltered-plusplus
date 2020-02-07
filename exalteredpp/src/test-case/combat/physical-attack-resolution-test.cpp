@@ -239,6 +239,32 @@ TEST_CASE("Physical Attack Resolution")
     CHECK(vd_computation.hits());
   }
 
+  SECTION("Should also allow to specify defense after giving the attack stats")
+  {
+    auto outcome = combat::attack_declaration::declare()
+        .roll_precision().with_successes_and_defend(5)
+        .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 4);
+    CHECK(outcome.hits());
+
+    auto outcome_fail = combat::attack_declaration::declare()
+        .roll_precision().precision(3).apply_and_defend(roller)
+        .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 4);
+    CHECK(!outcome_fail.hits());
+  }
+
+  SECTION("Should allow to specify defender character")
+  {
+    auto dodge_outcome = combat::attack_declaration::declare()
+        .roll_precision().with_successes_and_defend(1)
+        .dodge(defense_character, value_calculator);
+    CHECK(!dodge_outcome.hits());
+
+    auto parry_outcome = combat::attack_declaration::declare()
+        .roll_precision().with_successes_and_defend(1)
+        .parry_with(defense_character, value_calculator, ability::ability_enum::MELEE);
+    CHECK(!parry_outcome.hits());
+  }
+
   SECTION("Should compute damage attribute if the attacker was not given")
   {
     auto damage_computation = combat::attack_declaration::declare().defend()
@@ -287,7 +313,6 @@ TEST_CASE("Physical Attack Resolution")
     CHECK(damage_computation.attack_status()->raw_damage() == 9);
     CHECK_FALSE(damage_computation.passes(10));
   }
-
 
   SECTION("Should impose minimum damage if the soak completely blocks the attack")
   {

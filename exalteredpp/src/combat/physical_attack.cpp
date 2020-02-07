@@ -87,12 +87,12 @@ namespace combat {
     return vd_application(_atk);
   }
 
-  vd_application post_precision_defense_declaration::parry_with(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator, ability::ability_enum parry_ability) const
+  vd_application post_precision_defense_declaration::parry_with(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator, ability::ability_name parry_ability, int weapon_defense, int vd_modifiers) const
   {
     _atk->defender = c;
     _atk->vd = target_vd::PHYSICAL_PARRY;
-    auto vd = calculator.compute_physical_vd(*c, parry_ability);
-    _atk->vd_value = vd.parry_vd;
+    auto vd = calculator.compute_physical_vd(*c, parry_ability, weapon_defense);
+    _atk->vd_value = dice::pool(vd.parry_vd + vd_modifiers);
     _atk->vd_balance = vd.parry_balance;
 
     return vd_application(_atk);

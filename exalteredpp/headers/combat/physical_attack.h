@@ -133,7 +133,7 @@ namespace combat {
     post_precision_defense_declaration(const post_precision_defense_declaration& o) : combat_step(o._atk) { }
 
     vd_application dodge(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator) const;
-    vd_application parry_with(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator, ability::ability_enum parry_ability) const;
+    vd_application parry_with(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator, ability::ability_name parry_ability, int weapon_defense = 0, int vd_modifiers = 0) const;
     vd_application defend_with_value(target_vd vd, unsigned int vd_value);
 
   private:
