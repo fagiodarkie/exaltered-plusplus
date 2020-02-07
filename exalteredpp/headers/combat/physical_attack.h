@@ -150,6 +150,7 @@ namespace combat {
 
     pre_precision_defense_declaration(pre_precision_defense_declaration&& o) : combat_step(o._atk) { }
     pre_precision_defense_declaration(const pre_precision_defense_declaration& o) : combat_step(o._atk) { }
+    void operator=(const pre_precision_defense_declaration& o) { _atk = o._atk; }
 
     precision_roll dodge(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator, int vd_modifier) const;
     precision_roll parry_with(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator, const ability::ability_name& parry_ability, int weapon_defense, int vd_modifier) const;
@@ -171,6 +172,7 @@ namespace combat {
 
     precision_roll(precision_roll&& o) : combat_step(o._atk) { }
     precision_roll(const precision_roll& o) : combat_step(o._atk) { }
+    void operator=(const precision_roll& o) { _atk = o._atk; }
 
     precision_roll& precision(unsigned int precision_dice);
     precision_roll& precision(attribute::attribute_enum attribute, const ability::ability_name& ability);
@@ -205,6 +207,7 @@ namespace combat {
 
     vd_application(vd_application&& o) : combat_step(o._atk) { }
     vd_application(const vd_application& o) : combat_step(o._atk) { }
+    void operator=(const vd_application& o) { _atk = o._atk; }
 
     bool hits() const;
     outcome on_fail() const;
@@ -256,6 +259,7 @@ namespace combat {
 
     raw_damage_and_position_computation(raw_damage_and_position_computation&& o) : combat_step(o._atk) { }
     raw_damage_and_position_computation(const raw_damage_and_position_computation& o) : combat_step(o._atk) { }
+    void operator=(const raw_damage_and_position_computation& o) { _atk = o._atk; }
 
     raw_damage_and_position_computation& base_damage(unsigned int basedamage);
     raw_damage_and_position_computation& min_damage(unsigned int basedamage);
@@ -285,6 +289,7 @@ namespace combat {
 
     post_soak_damage(post_soak_damage&& o) : combat_step(o._atk) { }
     post_soak_damage(const post_soak_damage& o) : combat_step(o._atk) { }
+    void operator=(const post_soak_damage& o) { _atk = o._atk; }
 
     bool passes (unsigned int hardness) const;
     bool passes(const calculator::derived_value_calculator& calculator) const;
@@ -303,6 +308,7 @@ namespace combat {
 
     post_hardness_damage(post_hardness_damage&& o) : combat_step(o._atk) { }
     post_hardness_damage(const post_hardness_damage& o) : combat_step(o._atk) { }
+    void operator=(const post_hardness_damage& o) { _atk = o._atk; }
 
     final_damage with_roll(unsigned int rolled_damage);
     final_damage roll(std::shared_ptr<dice::abstract_dice_roller> dice_roller);
@@ -319,6 +325,7 @@ namespace combat {
 
     final_damage(final_damage&& o) : combat_step(o._atk) { }
     final_damage(const final_damage& o) : combat_step(o._atk) { }
+    void operator=(const final_damage& o) { _atk = o._atk; }
 
     final_damage& knockback_meters(unsigned int successes);
     final_damage& knockdown(unsigned int successes);

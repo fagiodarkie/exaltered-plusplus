@@ -105,14 +105,14 @@ TEST_CASE("Physical Attack Resolution")
   SECTION("Should record defender when parrying and dodging")
   {
     auto dodge_precision = combat::attack_declaration::declare().defend()
-        .dodge(defense_character, value_calculator);
+        .dodge(defense_character, value_calculator, 0);
     REQUIRE(dodge_precision.attack_status()->defender);
     REQUIRE(dodge_precision.attack_status()->vd == combat::target_vd::PHYSICAL_DODGE);
     REQUIRE(dodge_precision.attack_status()->vd_value > 0);
     REQUIRE(dodge_precision.attack_status()->vd_balance > 0);
 
     auto parry_precision = combat::attack_declaration::declare().defend()
-        .parry_with(defense_character, value_calculator, ability::ability_enum::MELEE);
+        .parry_with(defense_character, value_calculator, ability::ability_enum::MELEE, 0, 0);
     REQUIRE(parry_precision.attack_status()->defender);
     REQUIRE(parry_precision.attack_status()->vd == combat::target_vd::PHYSICAL_PARRY);
     REQUIRE(parry_precision.attack_status()->vd_value > 0);
@@ -348,7 +348,7 @@ TEST_CASE("Physical Attack Resolution")
   SECTION("Should take defender's soak if defender is specified")
   {
     auto damage_computation = combat::attack_declaration::declare().defend()
-        .dodge(defense_character, value_calculator)
+        .dodge(defense_character, value_calculator, 0)
         .with_successes(8)
         .on_success().damage_type(combat::damage_type_enum::BASHING);
     // 4 extra successes, defender CON = 2 --> 2 bashing soak as he's mortal
@@ -356,7 +356,7 @@ TEST_CASE("Physical Attack Resolution")
     CHECK(damage_computation.on_pass(value_calculator).attack_status()->post_soak_damage == 2);
 
     auto fail_damage_computation = combat::attack_declaration::declare().defend()
-        .dodge(defense_character, value_calculator)
+        .dodge(defense_character, value_calculator, 0)
         .with_successes(5)
         .on_success();
     CHECK_FALSE(fail_damage_computation.passes(value_calculator));
