@@ -13,7 +13,7 @@ namespace ability
 {
   using namespace model::text::ability;
 
-  enum class ability_enum
+  enum class ability_enum : unsigned short int
   {
     MELEE = 0, ARCHERY, THROWN, MARTIAL_ARTS, WAR,
     TECHNOLOGY, PERFORMANCE, PRESENCE, RESISTANCE, INTEGRITY,
@@ -22,13 +22,23 @@ namespace ability
     MANEUVER, SOCIALISE, BUREAUCRACY, TEACHING
   };
 
-  static const std::list<ability_enum> ABILITIES = {
+  static const std::vector<ability_enum> ABILITIES = {
     ability_enum::MELEE,      ability_enum::ARCHERY,      ability_enum::THROWN,         ability_enum::MARTIAL_ARTS, ability_enum::WAR,
     ability_enum::TECHNOLOGY, ability_enum::PERFORMANCE,  ability_enum::PRESENCE,       ability_enum::RESISTANCE,   ability_enum::INTEGRITY,
     ability_enum::MEDITATION, ability_enum::MEDICINE,     ability_enum::INVESTIGATION,  ability_enum::ACADEMICS,    ability_enum::CRAFT,
     ability_enum::STEALTH,    ability_enum::AWARENESS,    ability_enum::DODGE,          ability_enum::ATHLETICS,    ability_enum::PRESTIDIGITATION,
     ability_enum::MANEUVER,   ability_enum::SOCIALISE,    ability_enum::BUREAUCRACY,    ability_enum::TEACHING
   };
+
+  ability_enum operator-(ability_enum a1, int diff)
+  {
+    return static_cast<ability_enum>((static_cast<unsigned short int>(a1) - diff) % ABILITIES.size() );
+  }
+
+  ability_enum operator+(ability_enum a1, int diff)
+  {
+    return static_cast<ability_enum>((static_cast<unsigned short int>(a1) + diff) % ABILITIES.size());
+  }
 
   enum ability_category
   {

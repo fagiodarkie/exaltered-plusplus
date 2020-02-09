@@ -6,7 +6,22 @@ namespace ability {
 
   void abilities::serialisation()
   {
-    synch(serialisation::json_constants::SLOT_ABILITIES, _abilities);
+    if (saving())
+      {
+        std::vector<ability> ab_vector;
+        for (auto abv: ABILITIES)
+          for (auto ab: _abilities[abv])
+            ab_vector.push_back(ab);
+        synch(serialisation::json_constants::SLOT_ABILITIES, ab_vector);
+      }
+    else
+      {
+        _abilities.clear();
+        std::vector<ability> ab_vector;
+        synch(serialisation::json_constants::SLOT_ABILITIES, ab_vector);
+        for (auto ab: ab_vector)
+          add(ab);
+      }
   }
 
   bool abilities::has(const ability_name &name) const
@@ -16,9 +31,10 @@ namespace ability {
 
   ability abilities::get(const ability_name& ab) const
   {
-    auto found_ability = std::find_if(_abilities.begin(), _abilities.end(), filter_ability_by_ability_name(ab));
+    auto found_ability = std::find_if(_abilities.at(ab.ability_type).begin(), _abilities.at(ab.ability_type).end(),
+        filter_ability_by_ability_name(ab));
 
-    if (found_ability == _abilities.end())
+    if (found_ability == _abilities.at(ab.ability_type).end())
       return ability();
 
     return *found_ability;
@@ -36,7 +52,8 @@ namespace ability {
     if (!has(ab))
       add(ability(ab));
 
-    return *std::find_if(_abilities.begin(), _abilities.end(), filter_ability_by_ability_name(ab));
+    return *std::find_if(_abilities[ab.ability_type].begin(), _abilities[ab.ability_type].end(),
+        filter_ability_by_ability_name(ab));
   }
 
   ability  abilities::get(ability_enum ab) const
@@ -56,14 +73,19 @@ namespace ability {
     return result;
   }
 
-  void abilities::add(ability&& ability)
+  void abilities::add(const ability& ability)
   {
     if (has(ability.name()))
       return;
 
-    _abilities.emplace_back(ability);
+    _abilities[ability.name().ability_type].emplace_back(ability);
     // keep the abilities sorted
-    std::sort(_abilities.begin(), _abilities.end(), ability_order_comparison);
+    std::sort(_abilities[ability.name().ability_type].begin(), _abilities[ability.name().ability_type].end(), ability_order_comparison);
+  }
+
+  void abilities::add(ability&& ability)
+  {
+    add(ability);
   }
 
   void abilities::remove(const ability_name& ability)
