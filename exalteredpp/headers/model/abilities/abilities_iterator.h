@@ -8,6 +8,7 @@
 
 namespace ability
 {
+  class abilities;
 
   template<typename ability_t, typename ability_map_t, typename ability_iter_t>
   class ability_iterator : public ability_iter_t
@@ -17,12 +18,12 @@ namespace ability
     typedef typename std::vector<ability_t>::difference_type _diff_type_;
 
   public:
+
+    friend class abilities;
+
     // constructors
     ability_iterator(ability_map_t& map)
-      : map_ref(map) { ptr = map.at(FIRST_ABILITY).begin(); }
-
-    ability_iterator(ability_map_t& map, ability_iter_t it)
-      : map_ref(map), ptr(it) { }
+      : map_ref(map) { ptr = map.at(_first_filled_ability()).begin(); }
 
     ability_iterator(const _self_type_& o) = default;
 
@@ -50,22 +51,24 @@ namespace ability
 
     inline _self_type_& operator++()
     {
-      return this->operator+=(1);
+      increase(ptr);
+      return *this;
     }
     inline _self_type_& operator--()
     {
-      return this->operator-=(1);
+      decrease(ptr);
+      return *this;
     }
     inline _self_type_ operator++(int)
     {
       auto tmp(*this);
-      this->operator+=(1);
+      increase(ptr);
       return tmp;
     }
     inline _self_type_ operator--(int)
     {
       auto tmp(*this);
-      this->operator-=(1);
+      decrease(ptr);
       return tmp;
     }
     inline _self_type_ operator+(_diff_type_& movement)
@@ -91,7 +94,8 @@ namespace ability
     // operators: access
     ability_t& operator*() { return *ptr; }
     const ability_t& operator*() const { return *ptr; }
-    ability_t operator->() { return *ptr; }
+    ability_iter_t& operator->() { return ptr; }
+    const ability_iter_t& operator->() const { return ptr; }
 
     // TODO make it dynamic
     static const ability_enum LAST_ABILITY = ability_enum::TEACHING,
@@ -140,31 +144,42 @@ namespace ability
     ability_iter_t ptr;
 
     ability_map_t& map_ref;
+
+    ability_enum _first_filled_ability() const
+    {
+      for (auto ability: ABILITIES)
+        if (map_ref.find(ability) != map_ref.end()
+            && !map_ref.at(ability).empty())
+          return ability;
+      return LAST_ABILITY;
+    }
+
+    ability_enum _next_filled_ability() const
+    {
+      auto cur_ability = ptr->name().ability_type;
+      if (cur_ability == LAST_ABILITY)
+        return LAST_ABILITY;
+
+      for (auto ability = std::find(ABILITIES.begin(), ABILITIES.end(), cur_ability) + 1; ability != LAST_ABILITY; ++ability)
+        if (map_ref.find(*ability) != map_ref.end()
+            && !map_ref.at(ability).empty())
+          return ability;
+      return LAST_ABILITY;
+    }
+
+    ability_enum _last_filled_ability() const
+    {
+      auto res = LAST_ABILITY;
+
+      for (auto ability: ABILITIES)
+        if (map_ref.find(ability) != map_ref.end()
+            && !map_ref.at(ability).empty())
+          res = ability;
+
+      return res;
+    }
   };
 
-//  template<typename ability_t, typename ability_map_t, typename ability_iter_t>
-//  class reverse_ability_iterator : public ability_iterator<ability_t, ability_map_t, ability_iter_t>
-//  {
-//  protected:
-//    typedef ability_iterator<ability_t, ability_map_t, ability_iter_t> _base_type_;
-//    typedef typename _base_type_::_diff_type_ _diff_type_;
-//    typedef typename _base_type_::_self_type_ _self_type_;
-//
-//  public:
-//    // iterator operators: arithmetic
-//    virtual _self_type_& operator+=(_diff_type_& movement)
-//    {
-//      return _base_type_::operator-=(movement);
-//    }
-//    virtual _self_type_& operator-=(_diff_type_& movement)
-//    {
-//      return _base_type_::operator+=(movement);
-//    }
-//    virtual _diff_type_ operator-(const _self_type_& o)
-//    {
-//      return -_base_type_::operator-(o);
-//    }
-//  };
 }
 
 #endif // ABILITIES_ITERATOR_H

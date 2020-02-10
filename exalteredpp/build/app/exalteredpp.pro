@@ -51,6 +51,7 @@ SOURCES += \
     ../../src/errors/invalid_parameter.cpp \
     ../../src/model/abilities/abilities.cpp \
     ../../src/model/abilities/ability.cpp \
+    ../../src/model/abilities/ability_names.cpp \
     ../../src/model/abilities/specialisation.cpp \
     ../../src/model/attributes/attributes.cpp \
     ../../src/model/character/character.cpp \

@@ -20,20 +20,20 @@ namespace ability
 
     typedef ability_iterator<ability, map_type, iter_type> iterator;
     typedef ability_iterator<ability, const map_type, const_iter_type> const_iterator;
-    //typedef reverse_ability_iterator<ability, map_type> reverse_iterator;
-    //typedef reverse_ability_iterator<const ability, const map_type> const_reverse_iterator;
 
-    iterator begin() { return iterator(_abilities, _abilities[iterator::FIRST_ABILITY].begin()); }
-    iterator end() { return iterator(_abilities, _abilities[iterator::LAST_ABILITY].end()); }
+    iterator begin() { return iterator(_abilities); }
+    iterator end() {
+      auto result = iterator(_abilities);
+      result.ptr = result.map_ref.at(result._last_filled_ability()).end();
+      return result;
+    }
 
-    const_iterator begin() const { return const_iterator(_abilities, _abilities.at(iterator::FIRST_ABILITY).begin()); }
-    const_iterator end()   const { return const_iterator(_abilities, _abilities.at(iterator::LAST_ABILITY).end()); }
-
-    //iterator begin() { return iterator(_abilities, _abilities[iterator::FIRST_ABILITY].begin()); }
-    //iterator end() { return iterator(_abilities, _abilities[iterator::LAST_ABILITY].end()); }
-    //
-    //iterator begin() { return iterator(_abilities, _abilities[iterator::FIRST_ABILITY].begin()); }
-    //iterator end() { return iterator(_abilities, _abilities[iterator::LAST_ABILITY].end()); }
+    const_iterator begin() const { return const_iterator(_abilities); }
+    const_iterator end()   const {
+      auto result = const_iterator(_abilities);
+      result.ptr = result.map_ref.at(result._last_filled_ability()).end();
+      return result;
+    }
 
     virtual void serialisation() override;
 
@@ -50,7 +50,7 @@ namespace ability
 
     unsigned long long size() const { return _abilities.size(); }
 
-    abilities with_type(ability_enum ability_type) const;
+    std::vector<ability> with_type(ability_enum ability_type) const;
 
     std::vector<ability_name> keys() const;
 
@@ -60,6 +60,17 @@ namespace ability
 
     map_type _abilities;
 
+    void _insert_in_vector(std::vector<ability>& v, const ability& new_ability);
+    void _remove_from_vector(std::vector<ability>& v, const std::string& name = ability_declination::NO_DECLINATION);
+    const_iter_type _find(const ability_name& ab) const;
+    iter_type _get(const ability_name& ab);
+    const_iter_type _find_in_vector(const std::vector<ability>& v, const std::string& name = ability_declination::NO_DECLINATION) const;
+    const_iter_type _find_in_vector(const std::vector<ability>& v, const std::string& name, int start, int end) const;
+    iter_type _get_in_vector(std::vector<ability>& v, const std::string& name = ability_declination::NO_DECLINATION) const;
+    iter_type _get_in_vector(std::vector<ability>& v, const std::string& name, int start, int end) const;
 
+    ability_enum _first_filled_ability() const;
+    ability_enum _last_filled_ability() const;
   };
+
 }

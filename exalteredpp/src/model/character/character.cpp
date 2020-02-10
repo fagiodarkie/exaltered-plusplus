@@ -123,7 +123,7 @@ namespace character
     return _abilities;
   }
 
-  ability::abilities character::abilities(ability::ability_enum ability_type) const
+  std::vector<ability::ability> character::abilities(ability::ability_enum ability_type) const
   {
     return _abilities.with_type(ability_type);
   }

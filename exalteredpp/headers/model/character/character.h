@@ -59,7 +59,7 @@ namespace character
       void add(ability::ability_name name, const ability::specialisation& specialisation);
       ability::abilities abilities() const;
       ability::abilities& abilities();
-      ability::abilities abilities(ability::ability_enum ability_type) const;
+      std::vector<ability::ability> abilities(ability::ability_enum ability_type) const;
 
       virtues::virtue   virtue(virtues::virtue_enum v) const;
       virtues::virtue&  virtue(virtues::virtue_enum v);

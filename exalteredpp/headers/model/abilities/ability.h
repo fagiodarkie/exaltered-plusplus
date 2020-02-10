@@ -64,18 +64,18 @@ namespace ability
 
   static auto ability_name_getter = [](const ability& ab) { return ab.name(); };
 
-  static auto filter_ability_by_name = [](const std::string& subability) {
-      return [subability](const ability& ab) { return ab.name().subability == subability; };
-    };
-
-  static auto filter_ability_by_ability_name = [](const ability_name& subability) {
-      return [subability](const ability& ab) { return ab.name() == subability; };
-    };
-
-  static auto filter_ability_by_ability_type = [](const ability_enum& type) {
-      return [type](const ability& ab) { return ab.name().ability_type == type; };
-    };
-
+  //static auto filter_ability_by_name = [](const std::string& subability) {
+  //    return [subability](const ability& ab) { return ab.name().subability == subability; };
+  //  };
+  //
+  //static auto filter_ability_by_ability_name = [](const ability_name& subability) {
+  //    return [subability](const ability& ab) { return ab.name() == subability; };
+  //  };
+  //
+  //static auto filter_ability_by_ability_type = [](const ability_enum& type) {
+  //    return [type](const ability& ab) { return ab.name().ability_type == type; };
+  //  };
+  //
   static auto ability_order_comparison = [](class ability ab1, class ability ab2) {
       return (ab1.name().ability_type < ab2.name().ability_type)
           || (ab1.name().ability_type == ab2.name().ability_type && ab1.name().subability < ab2.name().subability);

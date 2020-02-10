@@ -175,8 +175,8 @@ namespace qt { namespace widget {
 
     if (_character_reference)
       {
-        for (auto ability: _character_reference->abilities(_ability.ability_type).keys())
-          declination_selection->addItem(ability.subability.c_str());
+        for (auto ability: _character_reference->abilities(_ability.ability_type))
+          declination_selection->addItem(ability.name().subability.c_str());
 
         return;
       }
