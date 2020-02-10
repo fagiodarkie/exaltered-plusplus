@@ -30,21 +30,29 @@ namespace qt { namespace wizard {
 
       body_target_box->setCurrentText(combat::BODY_TARGET_NAME.at(combat::body_target::NO_TARGET).c_str());
 
-      QFormLayout *vcenter = new QFormLayout;
-      vcenter->addWidget(new QLabel(DEFENSE_PRECISION_SUMMARY));
-      vcenter->addRow(PRECISION_ROLL_RESULT, precision_result_box);
-      vcenter->addRow(ATTACK_FULL_BASE_DAMAGE, base_damage_box);
-      vcenter->addRow(WEAPON_DAMAGE_TYPE, damage_type_box);
-      vcenter->addRow(WEAPON_MIN_DAMAGE, min_damage_box);
-      vcenter->addRow(WEAPON_DRILL, drill_box);
-      vcenter->addRow(BODY_TARGET, body_target_box);
+      auto summary = new QLabel(DEFENSE_PRECISION_SUMMARY);
+
+      QFormLayout *form = new QFormLayout;
+      form->addRow(PRECISION_ROLL_RESULT, precision_result_box);
+      form->addRow(ATTACK_FULL_BASE_DAMAGE, base_damage_box);
+      form->addRow(WEAPON_DAMAGE_TYPE, damage_type_box);
+      form->addRow(WEAPON_MIN_DAMAGE, min_damage_box);
+      form->addRow(WEAPON_DRILL, drill_box);
+      form->addRow(BODY_TARGET, body_target_box);
       QWidget* center_w = new QWidget;
-      center_w->setLayout(vcenter);
+      center_w->setLayout(form);
       QScrollArea *scroll_w = new QScrollArea;
       scroll_w->setWidget(center_w);
 
+      QVBoxLayout *vcenter = new QVBoxLayout;
+      vcenter->setAlignment(Qt::AlignTop);
+      vcenter->addWidget(summary);
+      vcenter->addWidget(scroll_w);
+      QWidget* vwidget = new QWidget;
+      vwidget->setLayout(vcenter);
+
       outer->addWidget(_progress_bar,     layout::QBorderLayout::North);
-      outer->addWidget(scroll_w,          layout::QBorderLayout::Center);
+      outer->addWidget(vwidget,           layout::QBorderLayout::Center);
       outer->addWidget(buttons_layout(),  layout::QBorderLayout::South);
       setLayout(outer);
 

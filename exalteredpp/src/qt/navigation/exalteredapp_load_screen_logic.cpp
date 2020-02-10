@@ -46,7 +46,7 @@ void ExalteredApp::load_defense_wizard()
 {
   defense_wizard = new qt::wizard::defense_resolution_wizard(current_character, derived_values_calculator);
   setCentralWidget(defense_wizard);
-  connect(defense_wizard, &qt::wizard::defense_resolution_wizard::outcome, this, &ExalteredApp::load_vd_screen);
+  connect(defense_wizard, &qt::wizard::defense_resolution_wizard::outcome, this, &ExalteredApp::deal_damage);
 }
 
 void ExalteredApp::load_essence_screen()
@@ -91,4 +91,10 @@ void ExalteredApp::init_load_character_screen()
 
   connect(load_character_screen_widget, &qloadcharacterscreen::character_loaded, this, &ExalteredApp::load_main_screen);
   connect(load_character_screen_widget, &qloadcharacterscreen::character_create_issued, this, &ExalteredApp::load_creation_wizard_screen);
+}
+
+void ExalteredApp::deal_damage(std::shared_ptr<combat::outcome> outcome) {
+  current_character->health().deal_damage(outcome->final_damage());
+  character_manager.save_character(current_character);
+  load_vd_screen();
 }

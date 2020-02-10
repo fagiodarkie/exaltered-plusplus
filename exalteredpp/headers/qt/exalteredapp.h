@@ -41,6 +41,8 @@ class ExalteredApp : public QMainWindow
     void        load_attack_wizard();
     void        load_defense_wizard();
 
+    void        deal_damage(std::shared_ptr<combat::outcome> outcome);
+
   protected:
     void        init_load_character_screen();
     void        load_menu();
