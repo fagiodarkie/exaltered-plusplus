@@ -425,14 +425,16 @@ namespace combat {
 
   bool post_soak_damage::passes (unsigned int hardness) const
   {
-    return (_atk->post_soak_damage > hardness) || _atk->is_damage_from_minimum;
+    if (_atk->is_damage_from_minimum)
+      return true;
+    return _atk->post_soak_damage > hardness;
   }
 
-  bool post_soak_damage::passes(const calculator::derived_value_calculator&) const
+  bool post_soak_damage::passes(const calculator::derived_value_calculator& calculator) const
   {
-    // auto vds = calculator.compute_physical_vd(*_atk->defender, ability::ability_enum::MELEE);
+    auto vds = calculator.compute_soak_values(*_atk->defender);
     // there is no hardness yet in physical vds so we're skipping this as well
-    return true;
+    return passes(vds.hardness);
   }
 
   outcome post_soak_damage::on_fail() const

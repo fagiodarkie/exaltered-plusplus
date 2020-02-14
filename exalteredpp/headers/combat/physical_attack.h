@@ -21,7 +21,18 @@ namespace combat {
   class post_hardness_damage;
   class final_damage;
   class outcome;
-  
+
+#define STANDARD_CONSTRUCTORS(classname) public: \
+    classname(classname&& o) : combat_step(o._atk) { } \
+    classname(const classname& o) : combat_step(o._atk) { } \
+    void operator=(const classname& o) { _atk = o._atk; } \
+  private:\
+    classname(std::shared_ptr<attack_descriptor> atk) : combat_step(atk) { }
+
+
+
+
+
   class combat_step {
   protected:
     struct attack_descriptor
@@ -125,39 +136,28 @@ namespace combat {
   {
     friend class attack_declaration;
     friend class precision_roll;
+    STANDARD_CONSTRUCTORS(post_precision_defense_declaration)
 
   public:
     std::vector<target_vd> possible_vds() const;
 
-    post_precision_defense_declaration(post_precision_defense_declaration&& o) : combat_step(o._atk) { }
-    post_precision_defense_declaration(const post_precision_defense_declaration& o) : combat_step(o._atk) { }
-
     vd_application dodge(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator) const;
     vd_application parry_with(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator, ability::ability_name parry_ability, int weapon_defense = 0, int vd_modifiers = 0) const;
     vd_application defend_with_value(target_vd vd, unsigned int vd_value);
-
-  private:
-    post_precision_defense_declaration(std::shared_ptr<attack_descriptor> atk) : combat_step(atk) { }
   };
 
   class pre_precision_defense_declaration : public combat_step
   {
     friend class attack_declaration;
     friend class precision_roll;
+    STANDARD_CONSTRUCTORS(pre_precision_defense_declaration)
 
   public:
     std::vector<target_vd> possible_vds() const;
 
-    pre_precision_defense_declaration(pre_precision_defense_declaration&& o) : combat_step(o._atk) { }
-    pre_precision_defense_declaration(const pre_precision_defense_declaration& o) : combat_step(o._atk) { }
-    void operator=(const pre_precision_defense_declaration& o) { _atk = o._atk; }
-
     precision_roll dodge(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator, int vd_modifier) const;
     precision_roll parry_with(std::shared_ptr<character::character> c, const calculator::derived_value_calculator& calculator, const ability::ability_name& parry_ability, int weapon_defense, int vd_modifier) const;
     precision_roll defend_with_value(target_vd vd, unsigned int vd_value);
-
-  private:
-    pre_precision_defense_declaration(std::shared_ptr<attack_descriptor> atk) : combat_step(atk) { }
   };
 
   class precision_roll : public combat_step
@@ -168,11 +168,9 @@ namespace combat {
     friend class vd_application;
     friend class outcome;
 
-  public:
+    STANDARD_CONSTRUCTORS(precision_roll)
 
-    precision_roll(precision_roll&& o) : combat_step(o._atk) { }
-    precision_roll(const precision_roll& o) : combat_step(o._atk) { }
-    void operator=(const precision_roll& o) { _atk = o._atk; }
+  public:
 
     precision_roll& precision(unsigned int precision_dice);
     precision_roll& precision(attribute::attribute_enum attribute, const ability::ability_name& ability);
@@ -193,8 +191,6 @@ namespace combat {
     post_precision_defense_declaration with_successes_and_defend(unsigned int successes);
 
   private:
-    precision_roll(std::shared_ptr<attack_descriptor> atk) : combat_step(atk) { }
-
     void apply_roll(std::shared_ptr<dice::abstract_dice_roller> dice_roller);
   };
 
@@ -202,22 +198,15 @@ namespace combat {
   {
     friend class precision_roll;
     friend class post_precision_defense_declaration;
+    STANDARD_CONSTRUCTORS(vd_application)
 
   public:
-
-    vd_application(vd_application&& o) : combat_step(o._atk) { }
-    vd_application(const vd_application& o) : combat_step(o._atk) { }
-    void operator=(const vd_application& o) { _atk = o._atk; }
-
     bool hits() const;
     outcome on_fail() const;
     raw_damage_and_position_computation on_success() const;
 
     vd_application& bonus(unsigned int bonus_successes);
     vd_application& malus(unsigned int malus_successes);
-
-  private:
-    vd_application(std::shared_ptr<attack_descriptor> atk) : combat_step(atk) { }
   };
 
   class outcome
@@ -254,13 +243,9 @@ namespace combat {
   class raw_damage_and_position_computation : public combat_step
   {
     friend class vd_application;
+    STANDARD_CONSTRUCTORS(raw_damage_and_position_computation)
 
   public:
-
-    raw_damage_and_position_computation(raw_damage_and_position_computation&& o) : combat_step(o._atk) { }
-    raw_damage_and_position_computation(const raw_damage_and_position_computation& o) : combat_step(o._atk) { }
-    void operator=(const raw_damage_and_position_computation& o) { _atk = o._atk; }
-
     raw_damage_and_position_computation& base_damage(unsigned int basedamage);
     raw_damage_and_position_computation& min_damage(unsigned int basedamage);
     raw_damage_and_position_computation& damage_type(damage_type_enum damage_type);
@@ -278,54 +263,36 @@ namespace combat {
   private:
     void compute_post_soak_pool(unsigned int soak, unsigned int armored_soak = 0) const;
     void compute_post_soak_pool(const calculator::derived_value_calculator& calculator) const;
-    raw_damage_and_position_computation(std::shared_ptr<attack_descriptor> atk) : combat_step(atk) { }
   };
 
   class post_soak_damage : public combat_step
   {
     friend class raw_damage_and_position_computation;
+    STANDARD_CONSTRUCTORS(post_soak_damage)
 
   public:
-
-    post_soak_damage(post_soak_damage&& o) : combat_step(o._atk) { }
-    post_soak_damage(const post_soak_damage& o) : combat_step(o._atk) { }
-    void operator=(const post_soak_damage& o) { _atk = o._atk; }
-
-    bool passes (unsigned int hardness) const;
+    bool passes(unsigned int hardness) const;
     bool passes(const calculator::derived_value_calculator& calculator) const;
     outcome on_fail() const;
     post_hardness_damage on_pass() const;
-
-  private:
-    post_soak_damage(std::shared_ptr<attack_descriptor> atk) : combat_step(atk) { }
-
   };
 
   class post_hardness_damage : public combat_step
   {
     friend class post_soak_damage;
+    STANDARD_CONSTRUCTORS(post_hardness_damage)
+
   public:
-
-    post_hardness_damage(post_hardness_damage&& o) : combat_step(o._atk) { }
-    post_hardness_damage(const post_hardness_damage& o) : combat_step(o._atk) { }
-    void operator=(const post_hardness_damage& o) { _atk = o._atk; }
-
     final_damage with_roll(unsigned int rolled_damage);
     final_damage roll(std::shared_ptr<dice::abstract_dice_roller> dice_roller);
-
-  private:
-    post_hardness_damage(std::shared_ptr<attack_descriptor> atk) : combat_step(atk) { }
   };
 
   class final_damage : public combat_step
   {
     friend class post_hardness_damage;
+    STANDARD_CONSTRUCTORS(final_damage)
 
   public:
-
-    final_damage(final_damage&& o) : combat_step(o._atk) { }
-    final_damage(const final_damage& o) : combat_step(o._atk) { }
-    void operator=(const final_damage& o) { _atk = o._atk; }
 
     final_damage& knockback_meters(unsigned int successes);
     final_damage& knockdown(unsigned int successes);
@@ -333,10 +300,7 @@ namespace combat {
 
     unsigned int damage() const;
     outcome end_attack() const;
-
-  private:
-    final_damage(std::shared_ptr<attack_descriptor> atk) : combat_step(atk) { }  };
-
+  };
 }
 
 #endif // PHYSICAL_ATTACK_H

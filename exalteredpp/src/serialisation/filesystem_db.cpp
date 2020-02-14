@@ -42,6 +42,10 @@ namespace serialisation {
 
   void filesystem_db::remove_character(const std::string& character_id)
   {
+    if (!QFile::remove(QString(character_id.c_str()) + FILE_EXT))
+      {
+        qDebug("Failed to remove file %s", character_id.c_str());
+      }
     id_to_name.remove(character_id.c_str());
     save_character_map();
   }
