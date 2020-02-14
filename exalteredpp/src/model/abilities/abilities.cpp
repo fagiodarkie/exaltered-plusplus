@@ -1,8 +1,15 @@
 #include "abilities/abilities.h"
 #include "abilities/ability.h"
 #include "json_constants.h"
+#include <numeric>
 
 namespace ability {
+
+  abilities::abilities()
+  {
+    for (auto ab_enum : ABILITIES)
+      _abilities[ab_enum] = std::vector<ability>();
+  }
 
   void abilities::serialisation()
   {
@@ -22,6 +29,14 @@ namespace ability {
         for (auto ab: ab_vector)
           add(ab);
       }
+  }
+
+  unsigned int abilities:: size() const
+  {
+    return std::accumulate(_abilities.begin(), _abilities.end(), 0U, [](unsigned int sum, std::pair<ability_enum, std::vector<ability>> pair)
+      {
+        return sum + pair.second.size();
+      });
   }
 
   bool abilities::has(const ability_name &name) const
@@ -136,7 +151,7 @@ namespace ability {
     if (v.at(q).name().subability == name)
       return v.begin() + q;
 
-    if (v.at(q).name().subability < name)
+    if (v.at(q).name().subability > name)
       return _get_in_vector(v, name, start, q);
 
     return _get_in_vector(v, name, q + 1, end);

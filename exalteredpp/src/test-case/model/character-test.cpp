@@ -94,7 +94,7 @@ TEST_CASE("Character")
   {
     character::character sut = STANDARD_CHARACTER;
 
-    sut.set_vice(  virtues::vice_enum::ENVY, 3);
+    sut.set_vice(virtues::vice_enum::ENVY, 3);
     sut.virtue(virtues::virtue_enum::VALOR       ).set_value(1);
     sut.virtue(virtues::virtue_enum::COMPASSION  ).set_value(2);
     sut.virtue(virtues::virtue_enum::TEMPERANCE  ).set_value(3);

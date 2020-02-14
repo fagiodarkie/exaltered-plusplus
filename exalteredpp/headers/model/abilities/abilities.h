@@ -35,6 +35,7 @@ namespace ability
       return result;
     }
 
+    abilities();
     virtual void serialisation() override;
 
     ability get(const ability_name& ab) const;
@@ -48,7 +49,7 @@ namespace ability
     void add(const ability& ability);
     void remove(const ability_name& ability);
 
-    unsigned long long size() const { return _abilities.size(); }
+    unsigned int size() const;
 
     std::vector<ability> with_type(ability_enum ability_type) const;
 
