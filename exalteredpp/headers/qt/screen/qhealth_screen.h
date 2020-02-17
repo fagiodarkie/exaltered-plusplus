@@ -24,15 +24,13 @@ namespace qt { namespace screen {
       std::shared_ptr<character::character> _character;
       std::shared_ptr<manager::character_manager> _manager;
 
-      QPushButton *deal_heal_button;
-      QRadioButton *deal_radio, *heal_radio;
+      QPushButton *_deal_heal_button;
+      QRadioButton *_deal_radio, *_heal_radio;
       QSpinBox *_amount_box;
-      QLabel *_summary_label;
+      QLabel *_value_label, *_health_label;
 
       void on_deal_heal_switched();
       void on_deal_heal_issued();
-      void heal_issued();
-      void deal_issued();
     };
 }}
 #endif // QHEALTH_SCREEN_H

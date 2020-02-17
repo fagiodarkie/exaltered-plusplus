@@ -207,6 +207,7 @@ HEADERS += \
     ../../headers/qt/exalteredapp.h \
     ../../headers/qt/label/interfacelabels.h \
     ../../headers/qt/layout/layout_constants.h \
+    ../../headers/qt/layout/layout_helper_factories.h \
     ../../headers/qt/layout/qborderlayout.h \
     ../../headers/qt/screen/qcharacterabilities.h \
     ../../headers/qt/screen/qcharacterattributes.h \

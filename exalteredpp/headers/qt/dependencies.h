@@ -11,9 +11,9 @@
 
 namespace dependency {
   static serialisation::filesystem_db s_db_abstraction;
-  static manager::character_manager s_character_manager(s_db_abstraction);
+  static std::shared_ptr<manager::character_manager> s_character_manager = std::make_shared<manager::character_manager>(s_db_abstraction);
 
-  static calculator::derived_value_calculator derived_values(calculator::STANDARD_WORKER_MAP);
+  static std::shared_ptr<calculator::derived_value_calculator> derived_values = std::make_shared<calculator::derived_value_calculator>(calculator::STANDARD_WORKER_MAP);
 
   class dice_rollers {
 
