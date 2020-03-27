@@ -38,7 +38,6 @@ namespace qt {
              *charisma_pdv,
              *manipulation_pdv,
              *appearance_pdv,
-             *resilience,
 
              *natural_soak;
     };

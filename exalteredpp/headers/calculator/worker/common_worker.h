@@ -32,7 +32,9 @@ namespace calculator {
       {
         soak_values result;
 
-        result.hardness = 0;
+        result.hardness[combat::damage_type_enum::BASHING   ] = 0;
+        result.hardness[combat::damage_type_enum::LETHAL    ] = 0;
+        result.hardness[combat::damage_type_enum::AGGRAVATED] = 0;
         result.natural_soak[combat::damage_type_enum::BASHING   ] = compute_bashing_soak(c);
         result.natural_soak[combat::damage_type_enum::LETHAL    ] = compute_lethal_soak(c);
         result.natural_soak[combat::damage_type_enum::AGGRAVATED] = compute_aggravated_soak(c);
@@ -44,7 +46,6 @@ namespace calculator {
       {
         mental_defenses result;
 
-        result.resilience = compute_resilience(c);
         result.mental_dodge_vd = compute_mental_dodge_dv(c);
         result.charisma_parry_vd = compute_mental_parry_dv(c, attribute::attribute_enum::CHARISMA);
         result.manipulation_parry_vd = compute_mental_parry_dv(c, attribute::attribute_enum::MANIPULATION);
@@ -52,6 +53,40 @@ namespace calculator {
 
         return result;
       }
+
+      virtual mental_soak_values compute_mental_soak_values(const character::character& c) const override
+      {
+        mental_soak_values result;
+
+        for (auto emotion: character::social::BASE_EMOTIONS)
+          result.emotion_soaks[emotion] = 0;
+
+        unsigned int integrity = c.get(ability::ability_enum::INTEGRITY);
+        for (auto emotion: character::social::MIDDLE_EMOTIONS)
+          result.emotion_soaks[emotion] = integrity;
+
+        for (auto emotion: character::social::INTIMATE_EMOTIONS)
+          result.emotion_soaks[emotion] = integrity + 2 * c.virtue(character::social::VIRTUE_OF_EMOTION(emotion)).value();
+
+        result.serfdom_soaks[character::social::SUPERFICIAL] = 0;
+        result.serfdom_soaks[character::social::RELEVANT] = integrity;
+        result.serfdom_soaks[character::social::INTIMATE] = integrity + c.virtue(virtues::virtue_enum::COMPASSION).value() * 2;
+
+        result.motivation_soaks[character::social::SUPERFICIAL] = 0;
+        result.motivation_soaks[character::social::RELEVANT] = integrity;
+        result.motivation_soaks[character::social::INTIMATE] = integrity + c.virtue(virtues::virtue_enum::CONVINCTION).value() * 2;
+
+        result.illusion_soaks[character::social::SUPERFICIAL] = 0;
+        result.illusion_soaks[character::social::RELEVANT] = integrity;
+        result.illusion_soaks[character::social::INTIMATE] = integrity + c.virtue(virtues::virtue_enum::TEMPERANCE).value() * 2;
+
+        result.compulsion_soaks[character::social::SUPERFICIAL] = 0;
+        result.compulsion_soaks[character::social::RELEVANT] = integrity;
+        result.compulsion_soaks[character::social::INTIMATE] = integrity + c.virtue(virtues::virtue_enum::VALOR).value() * 2;
+
+        return result;
+      }
+
 
       virtual long int compute_dodge_dv(const character::character& c) const
       {
@@ -193,11 +228,6 @@ namespace calculator {
       virtual long int compute_parry_balance            (const character::character& c) const
       {
         return c.attribute(attribute::attribute_enum::CONSTITUTION) + compute_stance_bonus(c);
-      }
-
-      virtual long int compute_resilience               (const character::character& c) const
-      {
-        return round<round_t>(half(c, ability::ability_enum::INTEGRITY));
       }
 
       virtual unsigned int starting_essence                  (const character::creation::character_type& c) const override

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "character.h"
+#include "virtues/virtue_names.h"
 #include "combat/attack_defines.h"
 
 namespace calculator {
@@ -12,14 +13,18 @@ namespace calculator {
     };
 
     struct mental_defenses {
-      unsigned int mental_dodge_vd, charisma_parry_vd, manipulation_parry_vd, appearance_parry_vd,
-        resilience;
+      unsigned int mental_dodge_vd, charisma_parry_vd, manipulation_parry_vd, appearance_parry_vd;
     };
 
     struct soak_values {
-      unsigned int hardness;
+      std::map<combat::damage_type_enum, unsigned int> hardness;
       std::map<combat::damage_type_enum, unsigned int> natural_soak;
       std::map<combat::body_target, std::map<combat::damage_type_enum, unsigned int>> armored_soak;
+    };
+
+    struct mental_soak_values {
+      std::map<character::social::emotion, unsigned int> emotion_soaks;
+      std::map<character::social::social_degrees, unsigned int> motivation_soaks, serfdom_soaks, illusion_soaks, compulsion_soaks;
     };
 
     class abstract_calculator_worker
@@ -29,6 +34,7 @@ namespace calculator {
       virtual physical_defenses compute_physical_vd(const character::character& c, ability::ability_name parry_ability, int weapon_defense_value) const = 0;
       virtual mental_defenses   compute_mental_vd(const character::character& c) const = 0;
       virtual soak_values       compute_soak_values(const character::character& c) const = 0;
+      virtual worker::mental_soak_values compute_mental_soak_values(const character::character& c) const = 0;
 
       // Essence & Logos
       virtual long int compute_personal_essence         (const character::character& c) const = 0;

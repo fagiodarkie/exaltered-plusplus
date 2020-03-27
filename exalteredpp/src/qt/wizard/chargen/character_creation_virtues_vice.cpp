@@ -62,10 +62,6 @@ namespace qt {
         }
       virtuesbox->setLayout(virtues_form);
 
-      connect(virtue_type[VIRTUE_LIST.at(0)], &QComboBox::currentTextChanged, this, &character_creation_virtues_vice::choose_first_virtue_type);
-      connect(virtue_type[VIRTUE_LIST.at(1)], &QComboBox::currentTextChanged, this, &character_creation_virtues_vice::choose_second_virtue_type);
-      connect(virtue_type[VIRTUE_LIST.at(2)], &QComboBox::currentTextChanged, this, &character_creation_virtues_vice::choose_third_virtue_type);
-
       // fill vice
       {
         vice_selector = new QComboBox;
@@ -116,68 +112,8 @@ namespace qt {
       max_points_on_virtues = max_virtues;
       this->max_virtue_value = max_virtue_value;
 
-      choose_first_virtue_type();
       update_group_titles();
       update_button_status();
-    }
-
-    void character_creation_virtues_vice::choose_first_virtue_type()
-    {
-      update_scrollers(0);
-    }
-
-    void character_creation_virtues_vice::choose_second_virtue_type()
-    {
-       update_scrollers(1);
-    }
-
-    void character_creation_virtues_vice::choose_third_virtue_type()
-    {
-      update_scrollers(2);
-    }
-
-    void character_creation_virtues_vice::update_scrollers(int virtue_chosen)
-    {
-      virtue_enum selected_virtue = VIRTUE_LIST[virtue_chosen];
-      QString selected_text = virtue_type[selected_virtue]->currentText();
-
-      if (selected_text.isEmpty())
-        return;
-
-      virtue_rank selected_rank = commons::reverse_search_in_map(VIRTUE_RANK_LIST, RANK_NAME, selected_text.toStdString());
-      _virtues.value(selected_virtue).set_rank(selected_rank);
-
-      QList<QString> already_picked_ranks;
-      for (int i = 0; i <= virtue_chosen; ++i)
-        {
-          already_picked_ranks.append(RANK_NAME.at(_virtues[VIRTUE_LIST[i]].rank()).c_str());
-        }
-
-      if (virtue_chosen + 1 == VIRTUE_LIST.size())
-        return;
-
-      // curtail next selector
-      virtue_enum next_virtue = VIRTUE_LIST[virtue_chosen + 1];
-      QString currently_selected_next_virtue = virtue_type[next_virtue]->currentText();
-      virtue_type[next_virtue]->setEnabled(false);
-      virtue_type[next_virtue]->clear();
-      bool should_reselect_rank = true;
-      QList<QString> new_values;
-      for (auto rank: RANK_NAME)
-        if (!already_picked_ranks.contains(rank.second.c_str()))
-          {
-            new_values.append(rank.second.c_str());
-            // we are adding a new rank: is it the one that was previously selected?
-            should_reselect_rank &= (currently_selected_next_virtue != rank.second.c_str());
-          }
-
-      virtue_type[next_virtue]->addItems(new_values);
-      if (should_reselect_rank)
-        virtue_type[next_virtue]->setCurrentText(currently_selected_next_virtue);
-
-      virtue_type[next_virtue]->setEnabled(true);
-      update_scrollers(virtue_chosen + 1);
-
     }
 
     void character_creation_virtues_vice::update_button_status()

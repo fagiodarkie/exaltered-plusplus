@@ -6,8 +6,8 @@ namespace virtues {
 
   using namespace serialisation;
 
-  virtue::virtue(virtue_enum virtue_e, unsigned int value, virtue_rank rank)
-    : _virtue_type(virtue_e), _rank(rank), _value(value)
+  virtue::virtue(virtue_enum virtue_e, unsigned int value)
+    : _virtue_type(virtue_e), _value(value)
   { }
 
   virtue::virtue(const std::string& serialised_data)
@@ -18,16 +18,6 @@ namespace virtues {
   virtue_enum virtue::virtue_type() const
   {
     return _virtue_type;
-  }
-
-  virtue_rank virtue::rank() const
-  {
-    return static_cast<virtue_rank>(_rank);
-  }
-
-  void virtue::set_rank(virtue_rank rank)
-  {
-    _rank = rank;
   }
 
   unsigned int virtue::value() const
@@ -43,7 +33,6 @@ namespace virtues {
   void virtue::serialisation()
   {
     synch(json_constants::SLOT_NAME , _virtue_type);
-    synch(json_constants::SLOT_RANK , _rank);
     synch(json_constants::SLOT_VALUE, _value);
   }
 

@@ -19,6 +19,11 @@ namespace calculator {
     return calculator_workers.at(c.type())->compute_mental_vd(c);
   }
 
+  worker::mental_soak_values derived_value_calculator::compute_mental_soak_values(const character::character& c) const
+  {
+    return calculator_workers.at(c.type())->compute_mental_soak_values(c);
+  }
+
   long int derived_value_calculator::compute_persona(const character::character& c) const
   {
     return calculator_workers.at(c.type())->compute_persona(c);

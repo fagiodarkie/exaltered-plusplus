@@ -8,6 +8,10 @@
 namespace character {
   namespace social {
 
+    enum social_degrees {
+      SUPERFICIAL, RELEVANT, INTIMATE
+    };
+
     enum emotion {
       APPROVAL = 1, TRUST,        ADMIRATION,
       MELANCHOLY,   SADNESS,      GRIEF,

@@ -34,11 +34,7 @@ namespace qt {
       for (auto virtue: VIRTUE_LIST)
         {
           QLabel *valueLabel= new QLabel(QString::number(c->virtue(virtue).value()));
-          QLabel *typeLabel = new QLabel(VIRTUE_RANK_DESC(RANK_NAME.at(c->virtue(virtue).rank()).c_str()));
-          QHBoxLayout *virtue_spec = new QHBoxLayout;
-          virtue_spec->addWidget(valueLabel);
-          virtue_spec->addWidget(typeLabel);
-          virt_form->addRow(VIRTUE_NAME.at(virtue).c_str(), virtue_spec);
+          virt_form->addRow(VIRTUE_NAME.at(virtue).c_str(), valueLabel);
         }
 
       QString vice_label = SPECIFY_SUBLABEL(labels::creation_wizard::VICE_SELECTOR, VICE_NAME.at(c->vice()).c_str());

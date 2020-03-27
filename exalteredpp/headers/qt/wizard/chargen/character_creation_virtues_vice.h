@@ -43,11 +43,6 @@ namespace qt {
       QMap<virtues::virtue_enum, QLabel*> virtue_label;
       QMap<virtues::virtue_enum, QPushButton*> add_to_virtues_or_vice, remove_from_virtues_or_vice;
 
-      void choose_first_virtue_type();
-      void choose_second_virtue_type();
-      void choose_third_virtue_type();
-      void update_scrollers(int virtue_rank_chosen);
-
       bool is_virtue(QVariant variant) const;
       void update_label(virtues::virtue_enum virtue);
       void update_vice_label();

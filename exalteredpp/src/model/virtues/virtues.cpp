@@ -11,7 +11,7 @@ namespace virtues {
   {
     for (virtue_enum virtue_e: VIRTUE_LIST)
       {
-        push_back(virtue(virtue_e, 1, ADULT));
+        push_back(virtue(virtue_e, 1));
       }
   }
 

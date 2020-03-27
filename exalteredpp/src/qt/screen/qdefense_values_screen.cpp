@@ -25,7 +25,6 @@ namespace qt {
         charisma_pdv    (new QLabel),
         manipulation_pdv(new QLabel),
         appearance_pdv  (new QLabel),
-        resilience      (new QLabel),
         natural_soak    (new QLabel)
     {
       physical_parry_ability = new QComboBox;
@@ -64,7 +63,6 @@ namespace qt {
       mental_form->addRow(M_CHARISMA_PDV    , charisma_pdv);
       mental_form->addRow(M_MANIPULATION_PDV, manipulation_pdv);
       mental_form->addRow(M_APPEARANCE_PDV  , appearance_pdv);
-      mental_form->addRow(M_RESILIENCE      , resilience);
       mental_form_widget->setLayout(mental_form);
 
       QVBoxLayout *v_layout = new QVBoxLayout, *dv_layout = new QVBoxLayout;
@@ -110,7 +108,6 @@ namespace qt {
       charisma_pdv    ->setText(QString::number(character_mvds.charisma_parry_vd));
       manipulation_pdv->setText(QString::number(character_mvds.manipulation_parry_vd));
       appearance_pdv  ->setText(QString::number(character_mvds.appearance_parry_vd));
-      resilience      ->setText(QString::number(character_mvds.resilience));
 
       natural_soak    ->setText(QString(SOAK_TEMPLATE)
                         .arg(soaks.natural_soak[combat::damage_type_enum::BASHING])
