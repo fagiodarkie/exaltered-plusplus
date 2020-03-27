@@ -68,8 +68,8 @@ namespace character {
 
       character_type_model operator=(const character_type_model& o);
 
-      static const character_type_model MORTAL_TEST, MORTAL_EXTRA, MORTAL_HERO, TERRESTRIAL_EXALT,
-        SOLAR_EXALT, ABYSSAL_EXALT, INFERNAL_EXALT;
+      static const character_type_model MORTAL_TEST, MORTAL_EXTRA, MORTAL_HERO,
+        TERRESTRIAL_EXALT, SOLAR_EXALT, ABYSSAL_EXALT, INFERNAL_EXALT;
 
       unsigned int primary_category_attribute_value,
         secondary_category_attribute_value,

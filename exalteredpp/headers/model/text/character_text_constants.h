@@ -28,33 +28,39 @@ namespace model {
     namespace ability {
 
       static const std::string ABILITY_CATEGORY_SOCIAL       = "Social"   ;
-      static const std::string ABILITY_CATEGORY_COMBAT       = "Combat"   ;
-      static const std::string ABILITY_CATEGORY_NARRATIVE    = "Narrative";
+      static const std::string ABILITY_CATEGORY_PHYSICAL     = "Physical" ;
+      static const std::string ABILITY_CATEGORY_MENTAL       = "Mental"   ;
 
-      static const std::string ABILITY_MELEE             = "Melee"           ;
-      static const std::string ABILITY_ARCHERY           = "Archery"         ;
-      static const std::string ABILITY_THROWN            = "Thrown"          ;
-      static const std::string ABILITY_MARTIAL_ARTS      = "Martial Arts"    ;
-      static const std::string ABILITY_WAR               = "War"             ;
-      static const std::string ABILITY_TECHNOLOGY        = "Technology"      ;
-      static const std::string ABILITY_PERFORMANCE       = "Performance"     ;
-      static const std::string ABILITY_PRESENCE          = "Presence"        ;
-      static const std::string ABILITY_RESISTANCE        = "Resistance"      ;
-      static const std::string ABILITY_INTEGRITY         = "Integrity"       ;
-      static const std::string ABILITY_MEDITATION        = "Meditation"      ;
-      static const std::string ABILITY_ACADEMICS         = "Academics"       ;
-      static const std::string ABILITY_MEDICINE          = "Medicine"        ;
-      static const std::string ABILITY_INVESTIGATION     = "Investigation"   ;
-      static const std::string ABILITY_TEACHING          = "Teaching"        ;
-      static const std::string ABILITY_CRAFT             = "Craft"           ;
-      static const std::string ABILITY_STEALTH           = "Stealth"         ;
-      static const std::string ABILITY_AWARENESS         = "Awareness"       ;
-      static const std::string ABILITY_DODGE             = "Dodge"           ;
-      static const std::string ABILITY_ATHLETICS         = "Athletics"       ;
-      static const std::string ABILITY_PRESTIDIGITATION  = "Prestidigitation";
-      static const std::string ABILITY_MANEUVER          = "Maneuver"        ;
-      static const std::string ABILITY_SOCIALISE         = "Socialise"       ;
-      static const std::string ABILITY_BUREAUCRACY       = "Bureaucracy"     ;
+      static const std::string ABILITY_MELEE_LIGHT    = "Melee Light"   ;
+      static const std::string ABILITY_MELEE_MEDIUM   = "Melee Medium"  ;
+      static const std::string ABILITY_MELEE_HEAVY    = "Melee Heavy"   ;
+      static const std::string ABILITY_ARCHERY        = "Archery"       ;
+      static const std::string ABILITY_THROWN         = "Thrown"        ;
+      static const std::string ABILITY_MARTIAL_ARTS   = "Martial Arts"  ;
+      static const std::string ABILITY_WAR            = "Strategy"      ;
+      static const std::string ABILITY_TECHNOLOGY     = "Technology"    ;
+      static const std::string ABILITY_PERFORMANCE    = "Performance"   ;
+      static const std::string ABILITY_PRESENCE       = "Presence"      ;
+      static const std::string ABILITY_RESISTANCE     = "Resistance"    ;
+      static const std::string ABILITY_INTEGRITY      = "Integrity"     ;
+      static const std::string ABILITY_MEDITATION     = "Meditation"    ;
+      static const std::string ABILITY_ACADEMICS      = "Academics"     ;
+      static const std::string ABILITY_MEDICINE       = "Medicine"      ;
+      static const std::string ABILITY_LOGIC          = "Logic"         ;
+      static const std::string ABILITY_CRAFT          = "Craft"         ;
+      static const std::string ABILITY_STEALTH        = "Stealth"       ;
+      static const std::string ABILITY_AWARENESS      = "Awareness"     ;
+      static const std::string ABILITY_DODGE          = "Dodge"         ;
+      static const std::string ABILITY_ATHLETICS      = "Athletics"     ;
+      static const std::string ABILITY_MANEUVER       = "Maneuver"      ;
+      static const std::string ABILITY_INTIMIDATION   = "Intimidation"  ;
+      static const std::string ABILITY_INTENTIONS     = "Intentions"    ;
+      static const std::string ABILITY_EMPATHY        = "Empathy"       ;
+      static const std::string ABILITY_ECONOMY        = "Economy"       ;
+      static const std::string ABILITY_RELATIONS      = "Relations"     ;
+      static const std::string ABILITY_DIPLOMACY      = "Diplomacy"     ;
+      static const std::string ABILITY_POLITICS       = "Politics"      ;
+      static const std::string ABILITY_DECEIT         = "Deceit"        ;
 
     }
 

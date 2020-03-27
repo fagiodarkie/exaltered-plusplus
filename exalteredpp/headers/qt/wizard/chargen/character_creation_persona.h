@@ -38,10 +38,10 @@ namespace qt {
 
     void change_persona(const QString& specific, int delta);
     void change_emotion(int emotion_value, int delta);
+    void update_emotion(character::social::emotion emotion, unsigned int value);
 
     QLabel *summary;
-    QGroupBox* persona_box;
-    QMap<virtues::virtue_enum, QGroupBox*> emotions_of_virtue;
+    QGroupBox* persona_box, *emotions_box;
     QMap<character::social::emotion, QLabel*> label_of_emotion;
     QMap<QString, QLabel*> label_of_persona_specific;
     QMap<QString, QPushButton*> increase_specific, decrease_specific;

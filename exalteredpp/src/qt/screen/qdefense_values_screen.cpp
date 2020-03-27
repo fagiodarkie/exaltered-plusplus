@@ -30,7 +30,9 @@ namespace qt {
     {
       physical_parry_ability = new QComboBox;
 
-      QList<QString> parry_abilities = {ABILITY_NAME.at(ability_enum::MELEE).c_str(),
+      QList<QString> parry_abilities = {ABILITY_NAME.at(ability_enum::MELEE_LIGHT).c_str(),
+                                        ABILITY_NAME.at(ability_enum::MELEE_MEDIUM).c_str(),
+                                        ABILITY_NAME.at(ability_enum::MELEE_HEAVY).c_str(),
                                         ABILITY_NAME.at(ability_enum::MARTIAL_ARTS).c_str(),
                                         ABILITY_NAME.at(ability_enum::ATHLETICS).c_str()};
       physical_parry_ability->addItems(parry_abilities);

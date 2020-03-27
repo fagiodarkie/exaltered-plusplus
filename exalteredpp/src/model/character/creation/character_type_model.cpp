@@ -103,43 +103,43 @@ namespace character {
     }
 
     const character_type_model character_type_model::MORTAL_TEST(5, 4, 3,
-                                                       18, 3, 0, 0, 0, 0,
+                                                       10, 3, 0, 0, 0, 0,
                                                        0, 1, 1,
                                                        5, 3, 5,
                                                        7, 18, 0, false, character_type::TYPE_MORTAL_EXTRA);
 
     const character_type_model character_type_model::MORTAL_EXTRA(5, 4, 3,
-                                                       18, 3, 0, 0, 0, 0,
+                                                       22, 3, 5, 0, 0, 0,
                                                        0, 1, 1,
                                                        5, 3, 5,
                                                        7, 18, 0, false, character_type::TYPE_MORTAL_EXTRA);
 
     const character_type_model character_type_model::MORTAL_HERO(6, 5, 4,
-                                                       18, 3, 5, 10, 5, 0,
+                                                       22, 3, 5, 0, 1, 0,
                                                        0, 1, 1,
                                                        5, 4, 5,
                                                        7, 18, 0, false, character_type::TYPE_MORTAL_HERO);
 
     const character_type_model character_type_model::TERRESTRIAL_EXALT(8, 6, 4,
-                                                       28, 3, 5, 10, 5, 5,
+                                                       34, 3, 5, 12, 5, 5,
                                                        3, 2, 1,
                                                        5, 4, 5,
                                                        7, 10, 10, true, character_type::TYPE_TERRESTRIAL_EXALT);
 
     const character_type_model character_type_model::SOLAR_EXALT(8, 6, 4,
-                                                       28, 3, 5, 10, 5, 5,
+                                                       34, 3, 5, 12, 5, 5,
                                                        3, 2, 2,
                                                        5, 4, 5,
                                                        7, 10, 10, true, character_type::TYPE_SOLAR_EXALT);
 
     const character_type_model character_type_model::ABYSSAL_EXALT(8, 6, 4,
-                                                       28, 3, 5, 10, 5, 5,
+                                                       34, 3, 5, 12, 5, 5,
                                                        3, 2, 2,
                                                        5, 4, 5,
                                                        7, 10, 10, true, character_type::TYPE_ABYSSAL_EXALT);
 
     const character_type_model character_type_model::INFERNAL_EXALT(8, 6, 4,
-                                                       28, 3, 5, 10, 5, 0,
+                                                       34, 3, 5, 12, 5, 0,
                                                        3, 2, 2,
                                                        5, 4, 5,
                                                        7, 10, 10, true, character_type::TYPE_INFERNAL_EXALT);

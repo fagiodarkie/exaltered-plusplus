@@ -7,34 +7,39 @@ namespace character {
     using character::creation::character_type;
 
     std::vector<ability_enum> exalt_caste::_WARRIOR_CASTE = { ability_enum::WAR,
-                                                   ability_enum::MELEE,
-                                                   ability_enum::ARCHERY,
-                                                   ability_enum::THROWN,
-                                                   ability_enum::MARTIAL_ARTS },
+                                                              ability_enum::MELEE_HEAVY,
+                                                              ability_enum::MELEE_MEDIUM,
+                                                              ability_enum::ARCHERY,
+                                                              ability_enum::THROWN,
+                                                              ability_enum::MARTIAL_ARTS },
 
     exalt_caste::_PRIEST_CASTE = { ability_enum::PRESENCE,
                                    ability_enum::INTEGRITY,
                                    ability_enum::PERFORMANCE,
                                    ability_enum::RESISTANCE,
-                                   ability_enum::TECHNOLOGY },
+                                   ability_enum::EMPATHY,
+                                   ability_enum::INTIMIDATION },
 
-    exalt_caste::_SCIENTIST_CASTE = { ability_enum::INVESTIGATION,
+    exalt_caste::_SCIENTIST_CASTE = { ability_enum::LOGIC,
                                       ability_enum::ACADEMICS,
                                       ability_enum::MEDITATION,
                                       ability_enum::CRAFT,
-                                      ability_enum::MEDICINE },
+                                      ability_enum::MEDICINE,
+                                      ability_enum::TECHNOLOGY },
 
-    exalt_caste::_STEALTH_CASTE = { ability_enum::PRESTIDIGITATION,
+    exalt_caste::_STEALTH_CASTE = { ability_enum::DECEIT,
                                     ability_enum::ATHLETICS,
                                     ability_enum::DODGE,
                                     ability_enum::AWARENESS,
-                                    ability_enum::STEALTH },
+                                    ability_enum::STEALTH,
+                                    ability_enum::MELEE_LIGHT },
 
-    exalt_caste::_DIPLOMAT_CASTE = { ability_enum::SOCIALISE,
-                                     ability_enum::BUREAUCRACY,
+    exalt_caste::_DIPLOMAT_CASTE = { ability_enum::DIPLOMACY,
+                                     ability_enum::POLITICS,
                                      ability_enum::MANEUVER,
-                                     ability_enum::ACADEMICS,
-                                     ability_enum::TEACHING };
+                                     ability_enum::ECONOMY,
+                                     ability_enum::RELATIONS,
+                                     ability_enum::INTENTIONS };
 
     const std::map<caste, std::vector<ability_enum>> exalt_caste::ABILITIES_OF_CASTE = {
 
@@ -60,35 +65,40 @@ namespace character {
       { caste::MOONSHADOW,  _DIPLOMAT_CASTE },
       { caste::FIEND,       _DIPLOMAT_CASTE },
 
-      { caste::WATER,       { ability_enum::BUREAUCRACY,
-                              ability_enum::INVESTIGATION,
-                              ability_enum::PRESTIDIGITATION,
+      { caste::WATER,       { ability_enum::POLITICS,
+                              ability_enum::LOGIC,
+                              ability_enum::DECEIT,
                               ability_enum::MARTIAL_ARTS,
-                              ability_enum::MANEUVER } },
+                              ability_enum::MANEUVER,
+                              ability_enum::MELEE_LIGHT } },
 
       { caste::EARTH,       { ability_enum::AWARENESS,
                               ability_enum::CRAFT,
                               ability_enum::INTEGRITY,
                               ability_enum::RESISTANCE,
-                              ability_enum::WAR } },
+                              ability_enum::WAR,
+                              ability_enum::MELEE_HEAVY } },
 
       { caste::AIR,         { ability_enum::ACADEMICS,
                               ability_enum::MEDITATION,
                               ability_enum::STEALTH,
                               ability_enum::THROWN,
-                              ability_enum::TEACHING } },
+                              ability_enum::EMPATHY,
+                              ability_enum::INTENTIONS } },
 
       { caste::WOOD,        { ability_enum::ARCHERY,
                               ability_enum::MEDICINE,
                               ability_enum::PERFORMANCE,
-                              ability_enum::MANEUVER,
-                              ability_enum::TECHNOLOGY } },
+                              ability_enum::DIPLOMACY,
+                              ability_enum::TECHNOLOGY,
+                              ability_enum::ECONOMY } },
 
       { caste::FIRE,        { ability_enum::ATHLETICS,
                               ability_enum::DODGE,
-                              ability_enum::MELEE,
+                              ability_enum::MELEE_MEDIUM,
                               ability_enum::PRESENCE,
-                              ability_enum::SOCIALISE } }
+                              ability_enum::INTIMIDATION,
+                              ability_enum::RELATIONS } }
     };
 
     const std::map<character_type, std::vector<caste>> exalt_caste::CASTES_OF_EXALT_TYPE = {

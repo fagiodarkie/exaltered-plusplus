@@ -24,7 +24,7 @@ namespace qt {
       QVBoxLayout *specifics_and_emotions = new QVBoxLayout, *emotion_boxes = new QVBoxLayout;
 
       persona_box = new QGroupBox(social_labels::PERSONA_VALUE);
-      QGroupBox *emotion_bonuses = new QGroupBox(social_labels::EMOTION_BONUS_VALUE);
+      emotions_box = new QGroupBox(social_labels::EMOTION_BONUS_VALUE);
       QFormLayout *specifics_form = new QFormLayout;
       specifics_form->setSizeConstraint(QLayout::SetMinimumSize);
       specifics_and_emotions->setSizeConstraint(QLayout::SetMinimumSize);
@@ -54,11 +54,13 @@ namespace qt {
           buttons->addWidget(increase);
           specifics_form->addRow(label_of_persona_specific[specific], buttons);
         }
+
       persona_box->setLayout(specifics_form);
 
       for (virtues::virtue_enum virtue: virtues::VIRTUE_LIST)
         {
-          emotions_of_virtue[virtue] = new QGroupBox;
+          auto emotion_box = new QGroupBox;
+          emotion_box->setTitle(QString("Emotions of %1").arg(virtues::VIRTUE_NAME.at(virtue).c_str()));
           QFormLayout *emotions = new QFormLayout;
 
           for (character::social::emotion emotion: character::social::EMOTION_UNDER_VIRTUE.at(virtue))
@@ -82,14 +84,14 @@ namespace qt {
               emotions->addRow(label_of_emotion[emotion], buttons);
             }
 
-          emotions_of_virtue[virtue]->setLayout(emotions);
-          emotion_boxes->addWidget(emotions_of_virtue[virtue]);
+          emotion_box->setLayout(emotions);
+          emotion_boxes->addWidget(emotion_box);
         }
 
       emotion_boxes->setAlignment(Qt::AlignTop);
-      emotion_bonuses->setLayout(emotion_boxes);
+      emotions_box->setLayout(emotion_boxes);
       specifics_and_emotions->addWidget(persona_box);
-      specifics_and_emotions->addWidget(emotion_bonuses);
+      specifics_and_emotions->addWidget(emotions_box);
       central_persona->setLayout(specifics_and_emotions);
       QScrollArea *scroll = new QScrollArea;
       scroll->setWidget(central_persona);
@@ -115,16 +117,11 @@ namespace qt {
       persona_box->setTitle(QString("Persona values (%1 / %2 points spent)")
                             .arg(total_specifics).arg(_persona.get_persona()));
 
-      for (virtues::virtue_enum virtue: virtues::VIRTUE_LIST)
-        {
-          int spent_on_emotion = 0;
-          for (character::social::emotion emotion: character::social::EMOTION_UNDER_VIRTUE.at(virtue))
-            spent_on_emotion += _persona.get_emotion_bonus_for(emotion);
+      int spent_on_emotion = 0;
+      for (character::social::emotion emotion: character::social::BASE_EMOTIONS)
+        spent_on_emotion += _persona.get_emotion_bonus_for(emotion);
 
-          emotions_of_virtue[virtue]->setTitle(QString("Emotions of %1 (%2 / %3 points spent)")
-                                               .arg(virtues::VIRTUE_NAME.at(virtue).c_str())
-                                               .arg(spent_on_emotion).arg(_virtues.value(virtue).value()));
-        }
+      emotions_box->setTitle(QString("Emotions (%1 / %2 points spent").arg(spent_on_emotion).arg(_persona.get_emotions_specific() * 8));
     }
 
     void character_creation_persona::increase_issued()
@@ -155,8 +152,12 @@ namespace qt {
         }
       if (specific == social_labels::EMOTIONS_SPECIFIC)
         {
-          _persona.set_emotions_specific(_persona.get_emotions_specific() + delta);
+          unsigned int new_value = _persona.get_emotions_specific() + delta;
+          _persona.set_emotions_specific(new_value);
           specific_value = _persona.get_emotions_specific();
+
+          for (auto emotion: character::social::BASE_EMOTIONS)
+            update_emotion(emotion, new_value);
         }
       if (specific == social_labels::ILLUSIONS_SPECIFIC)
         {
@@ -179,11 +180,16 @@ namespace qt {
 
     }
 
+    void character_creation_persona::update_emotion(character::social::emotion emotion, unsigned int value)
+    {
+      _persona.set_base_emotion_bonus(emotion, value);
+      label_of_emotion[emotion]->setText(ATTRIBUTE_WITH_POINTS(character::social::NAME_OF_EMOTION.at(emotion).c_str(), value));
+    }
+
     void character_creation_persona::change_emotion(int emotion_value, int delta)
     {
       character::social::emotion emotion = static_cast<character::social::emotion>(emotion_value);
-      _persona.set_base_emotion_bonus(emotion, _persona.get_emotion_bonus_for(emotion) + delta);
-      label_of_emotion[emotion]->setText(ATTRIBUTE_WITH_POINTS(character::social::NAME_OF_EMOTION.at(emotion).c_str(), _persona.get_emotion_bonus_for(emotion)));
+      update_emotion(emotion, _persona.get_emotion_bonus_for(emotion) + delta);
       check_current_selection();
     }
 
@@ -209,22 +215,16 @@ namespace qt {
       increase_specific[social_labels::COMPULSIONS_SPECIFIC ]->setEnabled(can_up_specifics);
       increase_specific[social_labels::SERFDOM_SPECIFIC     ]->setEnabled(can_up_specifics);
 
-      QMap<virtues::virtue_enum, unsigned int> current_available;
-      bool chose_all_emotion_bonus = true;
+      unsigned int current_available_emotions = _persona.get_emotions_specific() * 8;
 
-      for (auto virtue: virtues::VIRTUE_LIST) {
-        current_available[virtue] = _virtues[virtue].value();
+      for (auto emotion: character::social::BASE_EMOTIONS)
+        current_available_emotions -= _persona.get_emotion_bonus_for(emotion);
 
-        for (auto emotion: character::social::EMOTION_UNDER_VIRTUE.at(virtue))
-          current_available[virtue] -= _persona.get_emotion_bonus_for(emotion);
-
-        if (chose_all_emotion_bonus && (current_available[virtue] > 0))
-          chose_all_emotion_bonus = false;
-      }
+      bool chose_all_emotion_bonus = (current_available_emotions == 0);
 
       for (auto emotion: character::social::BASE_EMOTIONS)
         {
-          increase_emotion_bonus[emotion]->setEnabled(current_available[character::social::VIRTUE_OF_EMOTION(emotion)] > 0);
+          increase_emotion_bonus[emotion]->setEnabled(!chose_all_emotion_bonus);
           decrease_emotion_bonus[emotion]->setEnabled(_persona.get_emotion_bonus_for(emotion) > 0);
         }
 

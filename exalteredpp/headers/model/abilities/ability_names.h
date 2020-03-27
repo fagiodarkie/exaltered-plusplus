@@ -15,19 +15,15 @@ namespace ability
 
   enum class ability_enum
   {
-    MELEE = 0, ARCHERY, THROWN, MARTIAL_ARTS, WAR,
-    TECHNOLOGY, PERFORMANCE, PRESENCE, RESISTANCE, INTEGRITY,
-    MEDITATION, MEDICINE, INVESTIGATION, ACADEMICS, CRAFT,
-    STEALTH, AWARENESS, DODGE, ATHLETICS, PRESTIDIGITATION,
-    MANEUVER, SOCIALISE, BUREAUCRACY, TEACHING
+    MELEE_LIGHT = 0, MELEE_MEDIUM, MELEE_HEAVY, ARCHERY, THROWN, MARTIAL_ARTS, RESISTANCE, STEALTH, DODGE, ATHLETICS,
+    WAR, TECHNOLOGY, MANEUVER, MEDITATION, MEDICINE, LOGIC, ACADEMICS, CRAFT, ECONOMY, AWARENESS,
+    PERFORMANCE, PRESENCE, DECEIT, POLITICS, DIPLOMACY, INTIMIDATION, INTEGRITY, RELATIONS, INTENTIONS, EMPATHY
   };
 
   static const std::list<ability_enum> ABILITIES = {
-    ability_enum::MELEE,      ability_enum::ARCHERY,      ability_enum::THROWN,         ability_enum::MARTIAL_ARTS, ability_enum::WAR,
-    ability_enum::TECHNOLOGY, ability_enum::PERFORMANCE,  ability_enum::PRESENCE,       ability_enum::RESISTANCE,   ability_enum::INTEGRITY,
-    ability_enum::MEDITATION, ability_enum::MEDICINE,     ability_enum::INVESTIGATION,  ability_enum::ACADEMICS,    ability_enum::CRAFT,
-    ability_enum::STEALTH,    ability_enum::AWARENESS,    ability_enum::DODGE,          ability_enum::ATHLETICS,    ability_enum::PRESTIDIGITATION,
-    ability_enum::MANEUVER,   ability_enum::SOCIALISE,    ability_enum::BUREAUCRACY,    ability_enum::TEACHING
+    ability_enum::MELEE_LIGHT, ability_enum::MELEE_MEDIUM, ability_enum::MELEE_HEAVY, ability_enum::ARCHERY, ability_enum::THROWN, ability_enum::MARTIAL_ARTS, ability_enum::RESISTANCE, ability_enum::STEALTH, ability_enum::DODGE, ability_enum::ATHLETICS,
+    ability_enum::WAR, ability_enum::TECHNOLOGY, ability_enum::MANEUVER, ability_enum::MEDITATION, ability_enum::MEDICINE, ability_enum::LOGIC, ability_enum::ACADEMICS, ability_enum::CRAFT, ability_enum::ECONOMY, ability_enum::AWARENESS,
+    ability_enum::PERFORMANCE, ability_enum::PRESENCE, ability_enum::DECEIT, ability_enum::POLITICS, ability_enum::DIPLOMACY, ability_enum::INTIMIDATION, ability_enum::INTEGRITY, ability_enum::RELATIONS, ability_enum::INTENTIONS, ability_enum::EMPATHY
   };
 
   enum ability_category
@@ -38,9 +34,9 @@ namespace ability
   static const std::list<ability_category> ABILITY_CATEGORIES = { COMBAT, SOCIAL, NARRATIVE };
 
   static const std::map<ability_category, std::string> ABILITY_CATEGORY_NAMES = {
-    { COMBAT,     ABILITY_CATEGORY_COMBAT    },
+    { COMBAT,     ABILITY_CATEGORY_PHYSICAL    },
     { SOCIAL,     ABILITY_CATEGORY_SOCIAL    },
-    { NARRATIVE,  ABILITY_CATEGORY_NARRATIVE }
+    { NARRATIVE,  ABILITY_CATEGORY_MENTAL }
   };
 
   static const std::list<ability_enum> ABILITY_WITH_SUB_ABILITIES = {
@@ -83,36 +79,42 @@ namespace ability
   }
 
   static const std::map<ability_enum, std::string> ABILITY_NAME {
-    { ability_enum::MELEE,            ABILITY_MELEE            },
-    { ability_enum::ARCHERY,          ABILITY_ARCHERY          },
-    { ability_enum::THROWN,           ABILITY_THROWN           },
-    { ability_enum::MARTIAL_ARTS,     ABILITY_MARTIAL_ARTS     },
-    { ability_enum::WAR,              ABILITY_WAR              },
-    { ability_enum::TECHNOLOGY,       ABILITY_TECHNOLOGY       },
-    { ability_enum::PERFORMANCE,      ABILITY_PERFORMANCE      },
-    { ability_enum::PRESENCE,         ABILITY_PRESENCE         },
-    { ability_enum::RESISTANCE,       ABILITY_RESISTANCE       },
-    { ability_enum::INTEGRITY,        ABILITY_INTEGRITY        },
-    { ability_enum::MEDITATION,       ABILITY_MEDITATION       },
-    { ability_enum::ACADEMICS,        ABILITY_ACADEMICS        },
-    { ability_enum::MEDICINE,         ABILITY_MEDICINE         },
-    { ability_enum::INVESTIGATION,    ABILITY_INVESTIGATION    },
-    { ability_enum::TEACHING,         ABILITY_TEACHING         },
-    { ability_enum::CRAFT,            ABILITY_CRAFT            },
-    { ability_enum::STEALTH,          ABILITY_STEALTH          },
-    { ability_enum::AWARENESS,        ABILITY_AWARENESS        },
-    { ability_enum::DODGE,            ABILITY_DODGE            },
-    { ability_enum::ATHLETICS,        ABILITY_ATHLETICS        },
-    { ability_enum::PRESTIDIGITATION, ABILITY_PRESTIDIGITATION },
-    { ability_enum::MANEUVER,         ABILITY_MANEUVER         },
-    { ability_enum::SOCIALISE,        ABILITY_SOCIALISE        },
-    { ability_enum::BUREAUCRACY,      ABILITY_BUREAUCRACY      }
+    { ability_enum::MELEE_LIGHT,      ABILITY_MELEE_LIGHT     },
+    { ability_enum::MELEE_MEDIUM,     ABILITY_MELEE_MEDIUM    },
+    { ability_enum::MELEE_HEAVY,      ABILITY_MELEE_HEAVY     },
+    { ability_enum::ARCHERY,          ABILITY_ARCHERY         },
+    { ability_enum::THROWN,           ABILITY_THROWN          },
+    { ability_enum::MARTIAL_ARTS,     ABILITY_MARTIAL_ARTS    },
+    { ability_enum::WAR,              ABILITY_WAR             },
+    { ability_enum::TECHNOLOGY,       ABILITY_TECHNOLOGY      },
+    { ability_enum::PERFORMANCE,      ABILITY_PERFORMANCE     },
+    { ability_enum::PRESENCE,         ABILITY_PRESENCE        },
+    { ability_enum::RESISTANCE,       ABILITY_RESISTANCE      },
+    { ability_enum::INTEGRITY,        ABILITY_INTEGRITY       },
+    { ability_enum::MEDITATION,       ABILITY_MEDITATION      },
+    { ability_enum::ACADEMICS,        ABILITY_ACADEMICS       },
+    { ability_enum::MEDICINE,         ABILITY_MEDICINE        },
+    { ability_enum::LOGIC,    ABILITY_LOGIC    },
+    { ability_enum::CRAFT,            ABILITY_CRAFT           },
+    { ability_enum::STEALTH,          ABILITY_STEALTH         },
+    { ability_enum::AWARENESS,        ABILITY_AWARENESS       },
+    { ability_enum::DODGE,            ABILITY_DODGE           },
+    { ability_enum::ATHLETICS,        ABILITY_ATHLETICS       },
+    { ability_enum::MANEUVER,         ABILITY_MANEUVER        },
+    { ability_enum::INTIMIDATION,     ABILITY_INTIMIDATION    },
+    { ability_enum::INTENTIONS,       ABILITY_INTENTIONS      },
+    { ability_enum::EMPATHY,          ABILITY_EMPATHY         },
+    { ability_enum::ECONOMY,          ABILITY_ECONOMY         },
+    { ability_enum::RELATIONS,        ABILITY_RELATIONS       },
+    { ability_enum::DIPLOMACY,        ABILITY_DIPLOMACY       },
+    { ability_enum::POLITICS,         ABILITY_POLITICS        },
+    { ability_enum::DECEIT,           ABILITY_DECEIT          }
   };
 
   static const std::map<ability_category, std::list<ability_enum>> ABILITIES_IN_CATEGORY {
-    { COMBAT,     { ability_enum::MELEE,      ability_enum::ARCHERY,      ability_enum::THROWN,   ability_enum::MARTIAL_ARTS, ability_enum::WAR,            ability_enum::RESISTANCE,   ability_enum::AWARENESS,        ability_enum::DODGE     } },
-    { NARRATIVE,  { ability_enum::TECHNOLOGY, ability_enum::MEDITATION,   ability_enum::MEDICINE, ability_enum::CRAFT,        ability_enum::STEALTH,        ability_enum::ATHLETICS,    ability_enum::PRESTIDIGITATION, ability_enum::MANEUVER  } },
-    { SOCIAL,     { ability_enum::ACADEMICS,  ability_enum::PERFORMANCE,  ability_enum::PRESENCE, ability_enum::INTEGRITY,    ability_enum::INVESTIGATION,  ability_enum::SOCIALISE,    ability_enum::BUREAUCRACY,      ability_enum::TEACHING  } }
+    { COMBAT,     { ability_enum::MELEE_LIGHT, ability_enum::MELEE_MEDIUM, ability_enum::MELEE_HEAVY, ability_enum::ARCHERY, ability_enum::THROWN, ability_enum::MARTIAL_ARTS, ability_enum::RESISTANCE, ability_enum::STEALTH, ability_enum::DODGE, ability_enum::ATHLETICS } },
+    { NARRATIVE,  { ability_enum::WAR, ability_enum::TECHNOLOGY, ability_enum::MANEUVER, ability_enum::MEDITATION, ability_enum::MEDICINE, ability_enum::LOGIC, ability_enum::ACADEMICS, ability_enum::CRAFT, ability_enum::ECONOMY, ability_enum::AWARENESS } },
+    { SOCIAL,     { ability_enum::PERFORMANCE, ability_enum::PRESENCE, ability_enum::DECEIT, ability_enum::POLITICS, ability_enum::DIPLOMACY, ability_enum::INTIMIDATION, ability_enum::INTEGRITY, ability_enum::RELATIONS, ability_enum::INTENTIONS, ability_enum::EMPATHY } }
   };
 
   static ability_category CATEGORY_OF_ABILITY(ability_enum ability)
@@ -166,3 +168,6 @@ namespace ability
   };
 
 }
+
+
+

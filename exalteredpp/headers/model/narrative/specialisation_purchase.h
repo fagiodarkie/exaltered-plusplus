@@ -11,7 +11,7 @@ namespace narrative {
   class specialisation_purchase : public abstract_purchase, public Serialisable
   {
   public:
-    specialisation_purchase(unsigned int amount = 0, ability::ability_name ability = ability::ability_enum::MELEE, const std::string& specialisation = "");
+    specialisation_purchase(unsigned int amount = 0, ability::ability_name ability = ability::ability_enum::MELEE_LIGHT, const std::string& specialisation = "");
 
     virtual void apply(std::shared_ptr<character::character> c) override;
 

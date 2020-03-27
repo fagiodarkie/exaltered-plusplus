@@ -148,9 +148,9 @@ namespace calculator {
       virtual unsigned int starting_willpower               (const character::character& c) const override
       {
         std::vector<unsigned int> virtue_values = { c.virtue(virtues::COMPASSION).value(),
-                                                    c.virtue(virtues::CONVINCTION) .value(),
-                                                    c.virtue(virtues::VALOR)       .value(),
-                                                    c.virtue(virtues::TEMPERANCE)  .value()};
+                                                    c.virtue(virtues::CONVINCTION).value(),
+                                                    c.virtue(virtues::VALOR)      .value(),
+                                                    c.virtue(virtues::TEMPERANCE) .value()};
 
         std::sort(virtue_values.begin(), virtue_values.end());
 
@@ -265,17 +265,17 @@ namespace calculator {
 
       virtual double _mental_dodge_dv(const character::character& c) const
       {
-        return half(c, attribute::attribute_enum::WITS, ability::ability_enum::INTEGRITY);
+        return half(c, attribute::attribute_enum::WITS, ability::ability_enum::MEDITATION);
       }
 
       virtual double _mental_parry_dv(const character::character& c, attribute::attribute_enum parry_attribute) const
       {
-        return half(c, attribute::attribute_enum::INTELLIGENCE, parry_attribute);
+        return half(c, parry_attribute, ability::ability_enum::INTEGRITY);
       }
 
-      virtual long int _persona                  (const character::creation::character_type& type, const attribute::attributes& attributes, const power::willpower& willpower, const power::essence& ) const
+      virtual long int _persona                  (const character::creation::character_type& type, const attribute::attributes& attributes, const power::willpower& willpower, const power::essence& essence) const
       {
-        unsigned int persona = willpower.permanent_willpower();
+        long int persona = essence.permanent_essence() * starting_logos(type);
 
         for (auto social_attribute : attribute::ATTRIBUTES_BY_CATEGORY.at(attribute::SOCIAL))
           persona += attributes.at(social_attribute);

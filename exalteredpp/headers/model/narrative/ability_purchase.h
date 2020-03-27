@@ -11,7 +11,7 @@ namespace narrative {
     class ability_purchase : public abstract_purchase, public Serialisable
     {
     public:
-      ability_purchase(ability::ability_name ability = ability::ability_enum::MELEE, unsigned int amount = 1);
+      ability_purchase(ability::ability_name ability = ability::ability_enum::MELEE_LIGHT, unsigned int amount = 1);
 
       ability::ability_name ability() const;
       unsigned int amount() const override;

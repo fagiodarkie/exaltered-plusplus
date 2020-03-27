@@ -80,7 +80,7 @@ namespace combat {
   {
     _atk->defender = c;
     _atk->vd = target_vd::PHYSICAL_DODGE;
-    auto vd = calculator.compute_physical_vd(*c, ability::ability_enum::MELEE);
+    auto vd = calculator.compute_physical_vd(*c, ability::ability_enum::MELEE_LIGHT);
     _atk->vd_value = vd.dodge_vd;
     _atk->vd_balance = vd.dodge_balance;
 
@@ -122,7 +122,7 @@ namespace combat {
   {
     _atk->defender = c;
     _atk->vd = target_vd::PHYSICAL_DODGE;
-    auto vd = calculator.compute_physical_vd(*c, ability::ability_enum::MELEE);
+    auto vd = calculator.compute_physical_vd(*c, ability::ability_enum::MELEE_LIGHT);
     _atk->vd_value = dice::pool(vd.dodge_vd + vd_modifier);
     _atk->vd_balance = vd.dodge_balance;
 
