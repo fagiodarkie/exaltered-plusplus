@@ -27,6 +27,12 @@ namespace qt {
 
       QComboBox *physical_parry_ability;
       QPushButton *attack_wizard, *defense_wizard;
+      QWidget *specifics_soaks_screen, *emotion_soaks_screen, *general_dv_screen;
+
+      QWidget* generate_dv_screen();
+      QWidget* generate_specifics_soaks_screen();
+      QWidget* generate_emotion_soaks_screen();
+
 
       QLabel *dodge_dv,
              *parry_dv,

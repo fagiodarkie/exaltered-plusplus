@@ -68,21 +68,21 @@ namespace calculator {
         for (auto emotion: character::social::INTIMATE_EMOTIONS)
           result.emotion_soaks[emotion] = integrity + 2 * c.virtue(character::social::VIRTUE_OF_EMOTION(emotion)).value();
 
-        result.serfdom_soaks[character::social::SUPERFICIAL] = 0;
-        result.serfdom_soaks[character::social::RELEVANT] = integrity;
-        result.serfdom_soaks[character::social::INTIMATE] = integrity + c.virtue(virtues::virtue_enum::COMPASSION).value() * 2;
+        result.specifics_soaks[character::social::SERFDOMS][character::social::SUPERFICIAL] = 0;
+        result.specifics_soaks[character::social::SERFDOMS][character::social::RELEVANT] = integrity;
+        result.specifics_soaks[character::social::SERFDOMS][character::social::INTIMATE] = integrity + c.virtue(virtues::virtue_enum::COMPASSION).value() * 2;
 
-        result.motivation_soaks[character::social::SUPERFICIAL] = 0;
-        result.motivation_soaks[character::social::RELEVANT] = integrity;
-        result.motivation_soaks[character::social::INTIMATE] = integrity + c.virtue(virtues::virtue_enum::CONVINCTION).value() * 2;
+        result.specifics_soaks[character::social::MOTIVATIONS][character::social::SUPERFICIAL] = 0;
+        result.specifics_soaks[character::social::MOTIVATIONS][character::social::RELEVANT] = integrity;
+        result.specifics_soaks[character::social::MOTIVATIONS][character::social::INTIMATE] = integrity + c.virtue(virtues::virtue_enum::CONVINCTION).value() * 2;
 
-        result.illusion_soaks[character::social::SUPERFICIAL] = 0;
-        result.illusion_soaks[character::social::RELEVANT] = integrity;
-        result.illusion_soaks[character::social::INTIMATE] = integrity + c.virtue(virtues::virtue_enum::TEMPERANCE).value() * 2;
+        result.specifics_soaks[character::social::ILLUSIONS][character::social::SUPERFICIAL] = 0;
+        result.specifics_soaks[character::social::ILLUSIONS][character::social::RELEVANT] = integrity;
+        result.specifics_soaks[character::social::ILLUSIONS][character::social::INTIMATE] = integrity + c.virtue(virtues::virtue_enum::TEMPERANCE).value() * 2;
 
-        result.compulsion_soaks[character::social::SUPERFICIAL] = 0;
-        result.compulsion_soaks[character::social::RELEVANT] = integrity;
-        result.compulsion_soaks[character::social::INTIMATE] = integrity + c.virtue(virtues::virtue_enum::VALOR).value() * 2;
+        result.specifics_soaks[character::social::COMPULSIONS][character::social::SUPERFICIAL] = 0;
+        result.specifics_soaks[character::social::COMPULSIONS][character::social::RELEVANT] = integrity;
+        result.specifics_soaks[character::social::COMPULSIONS][character::social::INTIMATE] = integrity + c.virtue(virtues::virtue_enum::VALOR).value() * 2;
 
         return result;
       }

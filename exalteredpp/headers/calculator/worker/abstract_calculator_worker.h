@@ -3,6 +3,7 @@
 #include "character.h"
 #include "virtues/virtue_names.h"
 #include "combat/attack_defines.h"
+#include "social/social_specifics.h"
 
 namespace calculator {
   namespace worker {
@@ -24,7 +25,7 @@ namespace calculator {
 
     struct mental_soak_values {
       std::map<character::social::emotion, unsigned int> emotion_soaks;
-      std::map<character::social::social_degrees, unsigned int> motivation_soaks, serfdom_soaks, illusion_soaks, compulsion_soaks;
+      std::map<character::social::specific, std::map<character::social::social_degrees, unsigned int>> specifics_soaks;
     };
 
     class abstract_calculator_worker

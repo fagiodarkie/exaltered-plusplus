@@ -21,7 +21,7 @@ namespace character {
       FRIGHT,       FEAR,         TERROR,
       INTEREST,     EXPECTATION,  HYPE,
       SERENITY,     JOY,          ECSTASY
-    };
+    };    
 
     static const std::map<emotion, std::string> NAME_OF_EMOTION = {
       { APPROVAL    , "Approval" },

@@ -3,8 +3,11 @@
 #include <QFormLayout>
 #include <QGroupBox>
 #include <QScrollArea>
+#include <QTabWidget>
 #include "layout/qborderlayout.h"
 #include "label/interfacelabels.h"
+#include "social/emotions_names.h"
+#include "social/social_specifics.h"
 
 namespace qt {
   namespace screen {
@@ -27,6 +30,36 @@ namespace qt {
         appearance_pdv  (new QLabel),
         natural_soak    (new QLabel)
     {
+      layout::QBorderLayout *outer = new layout::QBorderLayout;
+
+      general_dv_screen = generate_dv_screen();
+      specifics_soaks_screen = generate_specifics_soaks_screen();
+      emotion_soaks_screen = generate_emotion_soaks_screen();
+
+      QTabWidget *tabs = new QTabWidget;
+      tabs->addTab(general_dv_screen, "General VDs");
+      tabs->addTab(specifics_soaks_screen, "Social Specific Soaks");
+      tabs->addTab(emotion_soaks_screen, "Emotion Soaks");
+
+      outer->addWidget(tabs, layout::QBorderLayout::Center);
+
+      attack_wizard = new QPushButton(ATTACK_BUTTON);
+      connect(attack_wizard, &QPushButton::clicked, this, &qdefense_values_screen::attack_wizard_invoked);
+      defense_wizard = new QPushButton(DEFEND_BUTTON);
+      connect(defense_wizard, &QPushButton::clicked, this, &qdefense_values_screen::defense_wizard_invoked);
+
+      QVBoxLayout *buttons_layout = new QVBoxLayout;
+      buttons_layout->addWidget(attack_wizard);
+      buttons_layout->addWidget(defense_wizard);
+      QWidget* buttons = new QWidget;
+      buttons->setLayout(buttons_layout);
+      outer->addWidget(buttons, layout::QBorderLayout::South);
+
+      setLayout(outer);
+    }
+
+    QWidget* qdefense_values_screen::generate_dv_screen()
+    {
       physical_parry_ability = new QComboBox;
 
       QList<QString> parry_abilities = {ABILITY_NAME.at(ability_enum::MELEE_LIGHT).c_str(),
@@ -40,11 +73,6 @@ namespace qt {
       QGroupBox *phys_form_widget = new QGroupBox(PHYS_VDS), *mental_form_widget = new QGroupBox(MENTAL_VDS);
       QFormLayout* phys_form = new QFormLayout, *mental_form = new QFormLayout;
       QHBoxLayout* parry_ability_selector = new QHBoxLayout;
-
-      attack_wizard = new QPushButton(ATTACK_BUTTON);
-      connect(attack_wizard, &QPushButton::clicked, this, &qdefense_values_screen::attack_wizard_invoked);
-      defense_wizard = new QPushButton(DEFEND_BUTTON);
-      connect(defense_wizard, &QPushButton::clicked, this, &qdefense_values_screen::defense_wizard_invoked);
 
       parry_ability_selector->addWidget(new QLabel(PHYS_PARRY_ABILITY));
       parry_ability_selector->addWidget(physical_parry_ability);
@@ -70,16 +98,9 @@ namespace qt {
       dv_layout->addWidget(mental_form_widget);
       central_dv_widget->setLayout(dv_layout);
 
-      QVBoxLayout *buttons_layout = new QVBoxLayout;
-      buttons_layout->addWidget(attack_wizard);
-      buttons_layout->addWidget(defense_wizard);
-      QWidget* buttons = new QWidget;
-      buttons->setLayout(buttons_layout);
-
       layout::QBorderLayout *inner_layout = new layout::QBorderLayout;
       inner_layout->addWidget(parry_ability_selector_widget, layout::QBorderLayout::North);
       inner_layout->addWidget(central_dv_widget, layout::QBorderLayout::Center);
-      inner_layout->addWidget(buttons, layout::QBorderLayout::South);
       form_widget->setLayout(inner_layout);
 
       QScrollArea *scroll_area = new QScrollArea;
@@ -87,7 +108,78 @@ namespace qt {
       scroll_area->setWidget(form_widget);
 
       v_layout->addWidget(scroll_area);
-      setLayout(v_layout);
+
+      QWidget* result = new QWidget;
+      result->setLayout(v_layout);
+
+      return result;
+    }
+
+    QWidget* qdefense_values_screen::generate_emotion_soaks_screen()
+    {
+      auto social_soaks = _calculator.compute_mental_soak_values(*_character);
+
+      QGroupBox *outer_emotion_box = new QGroupBox("Emotions");
+      QVBoxLayout* emotions_list = new QVBoxLayout;
+      emotions_list->setAlignment(Qt::AlignTop);
+
+      auto valuelabel = [social_soaks](character::social::emotion e) {
+        return new QLabel(QString::number(social_soaks.emotion_soaks.at(e)));
+      };
+
+      for (auto emotion : character::social::BASE_EMOTIONS)
+        {
+          QGroupBox *emotion_box = new QGroupBox(character::social::NAME_OF_EMOTION.at(emotion).c_str());
+          QFormLayout *emotion_form = new QFormLayout;
+
+          auto middle = character::social::MIDDLE_EMOTION_GRADES.at(emotion),
+              intimate = character::social::INTIMATE_EMOTION_GRADES.at(emotion);
+
+          emotion_form->addRow(character::social::NAME_OF_EMOTION.at(emotion).c_str(), valuelabel(emotion));
+          emotion_form->addRow(character::social::NAME_OF_EMOTION.at(middle).c_str(), valuelabel(middle));
+          emotion_form->addRow(character::social::NAME_OF_EMOTION.at(intimate).c_str(), valuelabel(intimate));
+
+          emotion_box->setLayout(emotion_form);
+          emotions_list->addWidget(emotion_box);
+        }
+      outer_emotion_box->setLayout(emotions_list);
+
+      QScrollArea *scroll = new QScrollArea;
+      scroll->setWidget(outer_emotion_box);
+      return scroll;
+    }
+
+    QWidget* qdefense_values_screen::generate_specifics_soaks_screen()
+    {
+      auto social_soaks = _calculator.compute_mental_soak_values(*_character);
+
+      QGroupBox *outer_specific_box = new QGroupBox("Specifics");
+      QVBoxLayout* specific_list = new QVBoxLayout;
+      specific_list->setAlignment(Qt::AlignTop);
+
+      auto valuelabel = [social_soaks](character::social::specific e, character::social::social_degrees deg) {
+        return new QLabel(QString::number(social_soaks.specifics_soaks.at(e).at(deg)));
+      };
+
+      for (auto virtue : virtues::VIRTUE_LIST)
+        {
+          QGroupBox *specific_box = new QGroupBox();
+          QFormLayout *specific_form = new QFormLayout;
+          auto specific = character::social::SPECIFIC_UNDER_VIRTUE.at(virtue);
+
+          specific_form->addRow(character::social::NAME_OF_SPECIFIC_GRADE.at(specific).at(character::social::SUPERFICIAL).c_str(), valuelabel(specific, character::social::SUPERFICIAL));
+          specific_form->addRow(character::social::NAME_OF_SPECIFIC_GRADE.at(specific).at(character::social::RELEVANT).c_str(), valuelabel(specific, character::social::RELEVANT));
+          specific_form->addRow(character::social::NAME_OF_SPECIFIC_GRADE.at(specific).at(character::social::INTIMATE).c_str(), valuelabel(specific, character::social::INTIMATE));
+
+          specific_box->setLayout(specific_form);
+          specific_list->addWidget(specific_box);
+        }
+
+      outer_specific_box->setLayout(specific_list);
+
+      QScrollArea *scroll = new QScrollArea;
+      scroll->setWidget(outer_specific_box);
+      return scroll;
     }
 
     void qdefense_values_screen::update_values()
