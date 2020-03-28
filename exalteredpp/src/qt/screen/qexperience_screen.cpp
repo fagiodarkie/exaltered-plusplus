@@ -10,7 +10,7 @@
 namespace qt { namespace screen {
 
     qexperience_screen::qexperience_screen(std::shared_ptr<character::character> character,
-                                           manager::character_manager &ch_manager,
+                                           std::shared_ptr<manager::character_manager> &ch_manager,
                                            QWidget *parent) : QWidget(parent), _character(character), _character_manager(ch_manager)
     {
       open_logger = new QPushButton("Add session");
@@ -84,7 +84,7 @@ namespace qt { namespace screen {
       _purchase_logger->hide();
       _character->experience().purchase(purchase);
       purchase.purchase()->apply(_character);
-      _character_manager.save_character(_character);
+      _character_manager->save_character(_character);
 
       delete expenses->layout();
       update_status_label();
@@ -95,7 +95,7 @@ namespace qt { namespace screen {
     {
       _character->experience().award(new_awards);
 
-      _character_manager.save_character(_character);
+      _character_manager->save_character(_character);
 
       _logger->set_next_session_number(_character->experience().last_session() + 1);
       _logger->hide();

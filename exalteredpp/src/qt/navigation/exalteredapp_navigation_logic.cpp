@@ -41,7 +41,7 @@ void ExalteredApp::load_menu()
 
   QAction *load_essence_screen = new QAction(charMenu);
   connect(load_essence_screen, &QAction::triggered, this, &ExalteredApp::load_essence_screen);
-  load_essence_screen->setText("Essence and Khan");
+  load_essence_screen->setText("Essence");
   charMenu->addAction(load_essence_screen);
 
   QAction *load_virtues_screen = new QAction(charMenu);
@@ -51,8 +51,13 @@ void ExalteredApp::load_menu()
 
   QAction *load_exp_screen = new QAction(charMenu);
   connect(load_exp_screen, &QAction::triggered, this, &ExalteredApp::load_experience_screen);
-  load_exp_screen->setText("Experience Management");
+  load_exp_screen->setText("Experience");
   charMenu->addAction(load_exp_screen);
+
+  QAction *load_health_screen = new QAction(charMenu);
+  connect(load_health_screen, &QAction::triggered, this, &ExalteredApp::load_health_screen);
+  load_health_screen->setText("Health");
+  charMenu->addAction(load_health_screen);
 }
 
 void ExalteredApp::clear_layout(QWidget* current_layout)

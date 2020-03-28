@@ -4,6 +4,11 @@
 
 namespace qt {
   namespace labels {
+
+    static QString PARTIAL_OVER_TOTAL(int partial, int total) {
+      return QString("%1 / %2").arg(partial).arg(total);
+    }
+
     static QString LOAD_LABEL     = "Load";
     static QString SAVE_LABEL     = "Save";
     static QString NEW_LABEL      = "New";
@@ -25,6 +30,20 @@ namespace qt {
 
     namespace exalt_labels {
       static QString CASTE_ABILITIES = "Caste Abilities";
+    }
+
+    namespace health_labels {
+      static QString HEAL_DAMAGE        = "Heal Damage";
+      static QString DEAL_DAMAGE        = "Deal Damage";
+      static QString HEAL_CHARACTER     = "Heal %1";
+      static QString DAMAGE_CHARACTER   = "Deal Damage to %1";
+      static QString CURRENT_HEALTH     = "Current health:";
+      static QString PENALTY_SUMMARY    = "The damage penalty applies to VDs (external malus) and precision rolls (internal malus).\r\nThey also apply to action duration as additional ticks (in absolute value).";
+      static QString HURT_THRESHOLD     = "Hurt threshold (-2):";
+      static QString DYING_THRESHOLD    = "Dying threshold (-4):";
+      static QString HEAL_DAMAGE_VALUE  = "Health to be restored:";
+      static QString DEAL_DAMAGE_VALUE  = "Damage to be dealt:";
+      static QString HEALTH_TITLE       = "Health summary";
     }
 
     namespace social_labels {

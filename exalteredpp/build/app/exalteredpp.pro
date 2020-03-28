@@ -94,6 +94,7 @@ SOURCES += \
     ../../src/qt/screen/qdefense_values_screen.cpp \
     ../../src/qt/screen/qessence_values_screen.cpp \
     ../../src/qt/screen/qexperience_screen.cpp \
+    ../../src/qt/screen/qhealth_screen.cpp \
     ../../src/qt/screen/qloadcharacterscreen.cpp \
     ../../src/qt/screen/qwillpower_virtues_screen.cpp \
     ../../src/qt/widget/ability_declination_selector.cpp \
@@ -206,6 +207,7 @@ HEADERS += \
     ../../headers/qt/exalteredapp.h \
     ../../headers/qt/label/interfacelabels.h \
     ../../headers/qt/layout/layout_constants.h \
+    ../../headers/qt/layout/layout_helper_factories.h \
     ../../headers/qt/layout/qborderlayout.h \
     ../../headers/qt/screen/qcharacterabilities.h \
     ../../headers/qt/screen/qcharacterattributes.h \
@@ -213,6 +215,7 @@ HEADERS += \
     ../../headers/qt/screen/qdefense_values_screen.h \
     ../../headers/qt/screen/qessence_values_screen.h \
     ../../headers/qt/screen/qexperience_screen.h \
+    ../../headers/qt/screen/qhealth_screen.h \
     ../../headers/qt/screen/qloadcharacterscreen.h \
     ../../headers/qt/screen/qwillpower_virtues_screen.h \
     ../../headers/qt/widget/ability_declination_selector.h \

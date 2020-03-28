@@ -122,6 +122,19 @@ TEST_CASE("filesystem_db")
     REQUIRE(sut.character_list().size() == 2);
   }
 
+  SECTION("should remove a character by id")
+  {
+    QStringList character_files("*.dcg");
+    QDir directory;
+    auto new_char = sut.create_character("name", character::creation::TYPE_MORTAL_HERO, character::exalt::caste::NO_CASTE, attribute::attributes(), ability::abilities(), virtues::virtues(), power::essence(), power::willpower(), power::health(), power::logos());
+    sut.save_character(new_char);
+    REQUIRE(sut.character_list().size() == 1);
+    REQUIRE(directory.entryList(character_files).size() == 1);
+    sut.remove_character(new_char->id());
+    REQUIRE(sut.character_list().size() == 0);
+    REQUIRE(directory.entryList(character_files).size() == 0);
+  }
+
   // remove the filesystem_db character files
   QFile char_file("available_characters.json");
   if (char_file.exists())

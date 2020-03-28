@@ -87,6 +87,32 @@ TEST_CASE("Physical Attack Resolution")
     CHECK(commons::contains(vds, combat::target_vd::PHYSICAL_DODGE));
   }
 
+  SECTION("Should list possible vds after declaring precision as well.")
+  {
+    auto declaration = combat::attack_declaration::declare_as({ combat::attack_attribute::NON_DODGEABLE, combat::attack_attribute::NON_PARRYABLE }).roll_precision().with_successes_and_defend(3);
+
+    auto vds = declaration.possible_vds();
+    CHECK(vds.empty());
+
+    declaration = combat::attack_declaration::declare_as({ combat::attack_attribute::NON_DODGEABLE }).roll_precision().with_successes_and_defend(3);
+    vds = declaration.possible_vds();
+    CHECK_FALSE(vds.empty());
+    CHECK(commons::contains(vds, combat::target_vd::PHYSICAL_PARRY));
+    CHECK_FALSE(commons::contains(vds, combat::target_vd::PHYSICAL_DODGE));
+
+    declaration = combat::attack_declaration::declare_as({ combat::attack_attribute::NON_PARRYABLE }).roll_precision().with_successes_and_defend(3);
+    vds = declaration.possible_vds();
+    CHECK_FALSE(vds.empty());
+    CHECK_FALSE(commons::contains(vds, combat::target_vd::PHYSICAL_PARRY));
+    CHECK(commons::contains(vds, combat::target_vd::PHYSICAL_DODGE));
+
+    declaration = combat::attack_declaration::declare().roll_precision().with_successes_and_defend(3);
+    vds = declaration.possible_vds();
+    CHECK_FALSE(vds.empty());
+    CHECK(commons::contains(vds, combat::target_vd::PHYSICAL_PARRY));
+    CHECK(commons::contains(vds, combat::target_vd::PHYSICAL_DODGE));
+  }
+
   SECTION("Should take into account attack action penalty")
   {
     auto declaration = combat::attack_declaration::declare().with_action_penalty(3);
@@ -356,6 +382,22 @@ TEST_CASE("Physical Attack Resolution")
     CHECK(min_damage_computation.passes(5));
     CHECK(min_damage_computation.passes(15));
 
+    auto no_damage_computation = combat::attack_declaration::declare().defend()
+        .dodge(defense_character, value_calculator, 0)
+        .with_successes(5)
+        .on_success()
+        // passes with minimum damage
+        .on_pass(1);
+    CHECK_FALSE(no_damage_computation.passes(value_calculator));
+
+    auto def_damage_computation = combat::attack_declaration::declare().defend()
+        .dodge(defense_character, value_calculator, -3)
+        .with_successes(5)
+        .on_success()
+        // passes with minimum damage
+        .on_pass(1);
+    CHECK(def_damage_computation.passes(value_calculator));
+
     auto damage_computation = combat::attack_declaration::declare().defend()
         .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 2)
         .with_successes(5)
@@ -368,6 +410,8 @@ TEST_CASE("Physical Attack Resolution")
     CHECK(damage_computation.passes(0));
     CHECK(damage_computation.passes(5));
     CHECK_FALSE(damage_computation.passes(15));
+    CHECK(damage_computation.on_fail().was_hit());
+    CHECK(damage_computation.on_fail().final_damage() == 0);
   }
 
   SECTION("Should take defender's soak if defender is specified")
@@ -400,6 +444,15 @@ TEST_CASE("Physical Attack Resolution")
         .on_pass(15).on_pass().with_roll(10);
       };
 
+    auto create_damage_with_defender = [defense_character, value_calculator]() {
+        return combat::attack_declaration::declare().defend()
+        .dodge(defense_character, value_calculator, -10)
+        .with_successes(5)
+        .on_success()
+        .min_damage(10)
+        .on_pass(10).on_pass().with_roll(10);
+      };
+
     CHECK(create_damage().damage() == 10);
     // should not push when you're knocking back (and vice versa)
     CHECK_FALSE(create_damage().knockdown(5).knockback_meters(5).end_attack().was_pushed());
@@ -421,6 +474,17 @@ TEST_CASE("Physical Attack Resolution")
     CHECK(knockback_fail.final_damage() == 8);
 
     auto knockback_hit = create_damage().knockback_meters(8).with_balance(2).end_attack();
+    CHECK_FALSE(knockback_hit.was_knocked_down());
+    CHECK(knockback_hit.was_pushed());
+    CHECK(knockback_hit.meters_pushed() == 6);
+    CHECK(knockback_hit.final_damage() == 2);
+
+    auto knockdown_defender_hit = create_damage_with_defender().knockdown(5).with_balance(2).end_attack();
+    CHECK(knockdown_hit.was_knocked_down());
+    CHECK_FALSE(knockdown_hit.was_pushed());
+    CHECK(knockdown_hit.final_damage() == 5);
+
+    auto knockback_defender_hit = create_damage_with_defender().knockback_meters(8).with_balance(2).end_attack();
     CHECK_FALSE(knockback_hit.was_knocked_down());
     CHECK(knockback_hit.was_pushed());
     CHECK(knockback_hit.meters_pushed() == 6);

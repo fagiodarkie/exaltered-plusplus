@@ -11,6 +11,7 @@
 #include "screen/qessence_values_screen.h"
 #include "screen/qwillpower_virtues_screen.h"
 #include "screen/qexperience_screen.h"
+#include "screen/qhealth_screen.h"
 #include "wizard/chargen/character_creation_wizard.h"
 #include "wizard/phys_attack/attack_resolution_wizard.h"
 #include "wizard/phys_defense/defense_resolution_wizard.h"
@@ -24,8 +25,8 @@ class ExalteredApp : public QMainWindow
   Q_OBJECT
 
   public:
-    ExalteredApp(manager::character_manager& c_manager,
-                 calculator::derived_value_calculator& derived_values_calculator);
+    ExalteredApp(std::shared_ptr<manager::character_manager>& c_manager,
+                 std::shared_ptr<calculator::derived_value_calculator>& derived_values_calculator);
     ~ExalteredApp();
 
   public slots:
@@ -36,10 +37,13 @@ class ExalteredApp : public QMainWindow
     void        load_creation_wizard_screen();
     void        load_vd_screen();
     void        load_essence_screen();
+    void        load_health_screen();
     void        load_virtues_screen();
     void        load_experience_screen();
     void        load_attack_wizard();
     void        load_defense_wizard();
+
+    void        deal_damage(std::shared_ptr<combat::outcome> outcome);
 
   protected:
     void        init_load_character_screen();
@@ -59,12 +63,13 @@ class ExalteredApp : public QMainWindow
     qessence_values_screen*                     character_essence_widget;
     qwillpower_virtues_screen*                  character_virtues_widget;
     qexperience_screen*                         character_experience_widget;
+    qhealth_screen*                             character_health_widget;
 
     qt::wizard::character_creation_wizard*      character_creation_wizard;
     qt::wizard::attack_resolution_wizard*       attack_wizard;
     qt::wizard::defense_resolution_wizard*      defense_wizard;
 
-    manager::character_manager&                 character_manager;
-    calculator::derived_value_calculator&       derived_values_calculator;
+    std::shared_ptr<manager::character_manager>&                 character_manager;
+    std::shared_ptr<calculator::derived_value_calculator>&       derived_values_calculator;
     std::shared_ptr<character::character>       current_character;
 };

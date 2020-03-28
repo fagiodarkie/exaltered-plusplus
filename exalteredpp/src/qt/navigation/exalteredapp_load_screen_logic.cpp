@@ -11,7 +11,7 @@ using namespace qt::screen;
 
 void ExalteredApp::load_character_screen()
 {
-  character_info_screen_widget = new qcharacterinfoscreen(current_character, character_manager, this);
+  character_info_screen_widget = new qcharacterinfoscreen(current_character, *character_manager, this);
   setCentralWidget(character_info_screen_widget);
 }
 
@@ -29,7 +29,7 @@ void ExalteredApp::load_abilities_screen()
 
 void ExalteredApp::load_vd_screen()
 {
-  character_defenses_widget = new qdefense_values_screen(current_character, derived_values_calculator, this);
+  character_defenses_widget = new qdefense_values_screen(current_character, *derived_values_calculator, this);
   setCentralWidget(character_defenses_widget);
   connect(character_defenses_widget, &qdefense_values_screen::attack_wizard_invoked, this, &ExalteredApp::load_attack_wizard);
   connect(character_defenses_widget, &qdefense_values_screen::defense_wizard_invoked, this, &ExalteredApp::load_defense_wizard);
@@ -37,22 +37,28 @@ void ExalteredApp::load_vd_screen()
 
 void ExalteredApp::load_attack_wizard()
 {
-  attack_wizard = new qt::wizard::attack_resolution_wizard(current_character, derived_values_calculator);
+  attack_wizard = new qt::wizard::attack_resolution_wizard(current_character, *derived_values_calculator);
   setCentralWidget(attack_wizard);
   connect(attack_wizard, &qt::wizard::attack_resolution_wizard::outcome, this, &ExalteredApp::load_vd_screen);
 }
 
 void ExalteredApp::load_defense_wizard()
 {
-  defense_wizard = new qt::wizard::defense_resolution_wizard(current_character, derived_values_calculator);
+  defense_wizard = new qt::wizard::defense_resolution_wizard(current_character, *derived_values_calculator);
   setCentralWidget(defense_wizard);
-  connect(defense_wizard, &qt::wizard::defense_resolution_wizard::outcome, this, &ExalteredApp::load_vd_screen);
+  connect(defense_wizard, &qt::wizard::defense_resolution_wizard::outcome, this, &ExalteredApp::deal_damage);
 }
 
 void ExalteredApp::load_essence_screen()
 {
   character_essence_widget = new qessence_values_screen(current_character, this);
   setCentralWidget(character_essence_widget);
+}
+
+void ExalteredApp::load_health_screen()
+{
+  character_health_widget = new qhealth_screen(current_character, character_manager, this);
+  setCentralWidget(character_health_widget);
 }
 
 void ExalteredApp::load_virtues_screen()
@@ -71,14 +77,14 @@ void ExalteredApp::load_main_screen(std::shared_ptr<character::character> charac
 {
   current_character = character;
   qt::style::SET_CASTE(character->type());
-  character_manager.save_character(character);
+  character_manager->save_character(character);
   load_menu();
   load_character_screen();
 }
 
 void ExalteredApp::load_creation_wizard_screen()
 {
-  character_creation_wizard = new qt::wizard::character_creation_wizard(character_manager, derived_values_calculator, this);
+  character_creation_wizard = new qt::wizard::character_creation_wizard(*character_manager, *derived_values_calculator, this);
   connect(character_creation_wizard, &qt::wizard::character_creation_wizard::character_created, this, &ExalteredApp::load_main_screen);
   connect(character_creation_wizard, &qt::wizard::character_creation_wizard::back_issued, this, &ExalteredApp::init_load_character_screen);
   setCentralWidget(character_creation_wizard);
@@ -86,9 +92,15 @@ void ExalteredApp::load_creation_wizard_screen()
 
 void ExalteredApp::init_load_character_screen()
 {
-  load_character_screen_widget = new qloadcharacterscreen(character_manager, this);
+  load_character_screen_widget = new qloadcharacterscreen(*character_manager, this);
   setCentralWidget(load_character_screen_widget);
 
   connect(load_character_screen_widget, &qloadcharacterscreen::character_loaded, this, &ExalteredApp::load_main_screen);
   connect(load_character_screen_widget, &qloadcharacterscreen::character_create_issued, this, &ExalteredApp::load_creation_wizard_screen);
+}
+
+void ExalteredApp::deal_damage(std::shared_ptr<combat::outcome> outcome) {
+  current_character->health().deal_damage(outcome->final_damage());
+  character_manager->save_character(current_character);
+  load_vd_screen();
 }

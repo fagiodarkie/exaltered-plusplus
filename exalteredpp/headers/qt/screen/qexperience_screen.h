@@ -19,7 +19,7 @@ namespace qt { namespace screen {
       Q_OBJECT
     public:
       explicit qexperience_screen(std::shared_ptr<character::character> character,
-                                  manager::character_manager &ch_manager,
+                                  std::shared_ptr<manager::character_manager> &ch_manager,
                                   QWidget *parent = nullptr);
 
       ~qexperience_screen();
@@ -50,7 +50,7 @@ namespace qt { namespace screen {
       QLabel *status;
 
       std::shared_ptr<character::character> _character;
-      manager::character_manager _character_manager;
+      std::shared_ptr<manager::character_manager> _character_manager;
     };
 
 } }
