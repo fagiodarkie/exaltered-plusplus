@@ -170,27 +170,15 @@ namespace combat {
     return *this;
   }
 
-  precision_roll& precision_roll::bonus(unsigned int bonus_successes)
+  precision_roll& precision_roll::bonus(int bonus_successes)
   {
     _atk->precision_external_bonus = bonus_successes;
     return *this;
   }
 
-  precision_roll& precision_roll::malus(unsigned int malus_successes)
-  {
-    _atk->precision_external_malus = malus_successes;
-    return *this;
-  }
-
-  precision_roll& precision_roll::internal_bonus(unsigned int internal_bonus_dice)
+  precision_roll& precision_roll::internal_bonus(int internal_bonus_dice)
   {
     _atk->precision_internal_bonus = internal_bonus_dice;
-    return *this;
-  }
-
-  precision_roll& precision_roll::internal_malus(unsigned int internal_malus_dice)
-  {
-    _atk->precision_internal_malus = internal_malus_dice;
     return *this;
   }
 
@@ -224,12 +212,7 @@ namespace combat {
         _atk->precision_dice = attribute_prec + best_ability + _atk->weapon.precision_bonus();
       }
 
-    return _atk->precision_dice + _atk->precision_internal_bonus - _atk->precision_internal_malus;
-  }
-
-  int precision_roll::external_bonus() const
-  {
-    return _atk->precision_external_bonus - _atk->precision_external_malus;
+    return _atk->precision_dice + _atk->precision_internal_bonus;
   }
 
   void precision_roll::apply_roll(std::shared_ptr<dice::abstract_dice_roller> dice_roller)
@@ -238,7 +221,7 @@ namespace combat {
       {
         auto precisionpool = dice::pool(pool());
         dice_roller->with_pool(precisionpool);
-        unsigned int roll_result = dice_roller->throw_dice() + _atk->precision_external_bonus - _atk->precision_external_malus;
+        unsigned int roll_result = dice::pool(dice_roller->throw_dice() + _atk->precision_external_bonus);
         _atk->precision_rolled = true;
         _atk->precision_roll_result = dice::roll_result(roll_result);
       }
@@ -255,6 +238,11 @@ namespace combat {
     _atk->precision_rolled = true;
     _atk->precision_roll_result = successes;
     return vd_application(_atk);
+  }
+
+  int precision_roll::external_bonus() const
+  {
+    return _atk->precision_external_bonus;
   }
 
   post_precision_defense_declaration precision_roll::apply_and_defend(std::shared_ptr<dice::abstract_dice_roller> dice_roller)

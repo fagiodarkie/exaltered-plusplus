@@ -49,15 +49,13 @@ namespace qt { namespace wizard {
     }
 
     void attack_resolution_wizard::attack_with(const equip::weapon& weapon, const std::vector<combat::attack_attribute>& attributes,
-                     unsigned int internal_bonus, unsigned int internal_malus,
-                     unsigned int external_bonus, unsigned int external_malus, combat::body_target target)
+                     int internal_bonus, int external_bonus, combat::body_target target)
     {
       if (target == combat::body_target::NO_TARGET)
         target = dependency::dice_rollers::body_part_roller()->roll_body_part();
 
       _step = std::make_shared<combat::precision_roll>(step_as<combat::attack_declaration>()->with(weapon).is(attributes).roll_precision()
-                                 .bonus(external_bonus).malus(external_malus)
-                                 .internal_bonus(internal_bonus).internal_malus(internal_malus).target(target));
+                                 .bonus(external_bonus).internal_bonus(internal_bonus).target(target));
 
       auto pool = step_as<combat::precision_roll>()->pool();
       auto final_bonus = step_as<combat::precision_roll>()->external_bonus();

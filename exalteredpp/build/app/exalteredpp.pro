@@ -249,7 +249,8 @@ HEADERS += \
     ../../headers/qt/wizard/phys_attack/provide_defense_value_page.h \
     ../../headers/qt/wizard/phys_attack/final_damage_results_push_knock_page.h \
     ../../headers/qt/wizard/phys_attack/provide_balance_details_page.h \
-    ../../headers/qt/wizard/phys_attack/attack_result_page.h
+    ../../headers/qt/wizard/phys_attack/attack_result_page.h \
+    ../../headers/combat/mental_attack.h
 
 CONFIG += mobility
 MOBILITY = 

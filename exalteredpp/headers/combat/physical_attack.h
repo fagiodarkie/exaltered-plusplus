@@ -29,10 +29,6 @@ namespace combat {
   private:\
     classname(std::shared_ptr<attack_descriptor> atk) : combat_step(atk) { }
 
-
-
-
-
   class combat_step {
   protected:
     struct attack_descriptor
@@ -49,9 +45,7 @@ namespace combat {
       vd_balance = 0,
       damage_sacrificed = 0,
       precision_external_bonus = 0,
-      precision_external_malus = 0,
       precision_internal_bonus = 0,
-      precision_internal_malus = 0,
       soak = 0,
       armor_soak = 0,
 
@@ -175,10 +169,8 @@ namespace combat {
     precision_roll& precision(unsigned int precision_dice);
     precision_roll& precision(attribute::attribute_enum attribute, const ability::ability_name& ability);
     precision_roll& precision(attribute::attribute_enum attribute, const ability::ability_name& ability, const std::string& specialisation);
-    precision_roll& bonus(unsigned int bonus_successes);
-    precision_roll& malus(unsigned int malus_successes);
-    precision_roll& internal_bonus(unsigned int internal_bonus_dice);
-    precision_roll& internal_malus(unsigned int internal_malus_dice);
+    precision_roll& bonus(int bonus_successes);
+    precision_roll& internal_bonus(int internal_bonus_dice);
     precision_roll& target(body_target target);
     precision_roll& do_not_target();
 

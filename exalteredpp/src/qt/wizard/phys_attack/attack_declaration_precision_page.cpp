@@ -16,16 +16,8 @@ namespace qt {
       layout::QBorderLayout *outer = new layout::QBorderLayout;
 
       internal_bonus_spin = new QSpinBox;
-      internal_bonus_spin->setMinimum(0);
 
       external_bonus_spin = new QSpinBox;
-      external_bonus_spin->setMinimum(0);
-
-      internal_malus_spin = new QSpinBox;
-      internal_malus_spin->setMinimum(0);
-
-      external_malus_spin = new QSpinBox;
-      external_malus_spin->setMinimum(0);
 
       weapon_precision_spin = new QSpinBox;
       weapon_precision_spin->setMinimum(0);
@@ -82,9 +74,7 @@ namespace qt {
 
       QFormLayout *attack_form = new QFormLayout;
       attack_form->addRow(INTERNAL_PRECISION_BONUS, internal_bonus_spin);
-      attack_form->addRow(INTERNAL_PRECISION_MALUS, internal_malus_spin);
       attack_form->addRow(EXTERNAL_PRECISION_BONUS, external_bonus_spin);
-      attack_form->addRow(EXTERNAL_PRECISION_MALUS, external_malus_spin);
       attack_form->addRow(BODY_TARGET, body_target_box);
       for (auto checkbox: attribute_checkboxes)
         attack_form->addRow(checkbox);
@@ -128,8 +118,7 @@ namespace qt {
           attack_attributes.push_back(static_cast<combat::attack_attribute>(attack_check->property("attack_attribute").toInt()));
 
       emit attack_selected(created_weapon, attack_attributes,
-                           internal_bonus_spin->value(), internal_malus_spin->value(),
-                           external_bonus_spin->value(), external_malus_spin->value(),
+                           internal_bonus_spin->value(), external_bonus_spin->value(),
                            static_cast<combat::body_target>(body_target_box->currentData().toInt()));
     }
 

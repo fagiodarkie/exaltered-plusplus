@@ -29,8 +29,7 @@ private:
   void cancel();
 
   void attack_with(const equip::weapon& weapon, const std::vector<combat::attack_attribute>& attributes,
-                   unsigned int internal_bonus, unsigned int internal_malus,
-                   unsigned int external_bonus, unsigned int external_malus, combat::body_target target);
+                   int internal_bonus, int external_bonus, combat::body_target target);
 
   void apply_defense_and_soak(combat::target_vd vd_type, unsigned int vd_value,
                               unsigned int natural_soak, unsigned int armored_soak, unsigned int hardness);
