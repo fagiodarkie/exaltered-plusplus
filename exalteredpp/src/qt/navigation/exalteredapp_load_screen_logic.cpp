@@ -40,6 +40,7 @@ void ExalteredApp::load_attack_wizard()
   attack_wizard = new qt::wizard::attack_resolution_wizard(current_character, *derived_values_calculator);
   setCentralWidget(attack_wizard);
   connect(attack_wizard, &qt::wizard::attack_resolution_wizard::outcome, this, &ExalteredApp::load_vd_screen);
+  connect(attack_wizard, &qt::wizard::attack_resolution_wizard::back_issued, this, &ExalteredApp::load_vd_screen);
 }
 
 void ExalteredApp::load_defense_wizard()
@@ -47,6 +48,7 @@ void ExalteredApp::load_defense_wizard()
   defense_wizard = new qt::wizard::defense_resolution_wizard(current_character, *derived_values_calculator);
   setCentralWidget(defense_wizard);
   connect(defense_wizard, &qt::wizard::defense_resolution_wizard::outcome, this, &ExalteredApp::deal_damage);
+  connect(defense_wizard, &qt::wizard::defense_resolution_wizard::back_issued, this, &ExalteredApp::load_vd_screen);
 }
 
 void ExalteredApp::load_essence_screen()

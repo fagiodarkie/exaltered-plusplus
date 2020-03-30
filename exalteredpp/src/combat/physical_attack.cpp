@@ -433,7 +433,6 @@ namespace combat {
   bool post_soak_damage::passes(const calculator::derived_value_calculator& calculator) const
   {
     auto vds = calculator.compute_soak_values(*_atk->defender);
-    // there is no hardness yet in physical vds so we're skipping this as well
     return passes(vds.hardness.at(_atk->weapon.damage_type()));
   }
 
