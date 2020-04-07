@@ -3,6 +3,7 @@
 #include "abstract_calculator_worker.h"
 #include "rounding_type.h"
 #include <cmath>
+#include <algorithm>
 
 namespace calculator {
   namespace worker {
@@ -46,10 +47,10 @@ namespace calculator {
       {
         mental_defenses result;
 
-        result.mental_dodge_vd = compute_mental_dodge_dv(c);
-        result.charisma_parry_vd = compute_mental_parry_dv(c, attribute::attribute_enum::CHARISMA);
-        result.manipulation_parry_vd = compute_mental_parry_dv(c, attribute::attribute_enum::MANIPULATION);
-        result.appearance_parry_vd = compute_mental_parry_dv(c, attribute::attribute_enum::APPEARANCE);
+        result.mental_dodge_vd =        std::max(0UL, compute_mental_dodge_dv(c) - c.stress());
+        result.charisma_parry_vd =      std::max(0UL, compute_mental_parry_dv(c, attribute::attribute_enum::CHARISMA) - c.stress());
+        result.manipulation_parry_vd =  std::max(0UL, compute_mental_parry_dv(c, attribute::attribute_enum::MANIPULATION) - c.stress());
+        result.appearance_parry_vd =    std::max(0UL, compute_mental_parry_dv(c, attribute::attribute_enum::APPEARANCE) - c.stress());
 
         return result;
       }
@@ -68,21 +69,12 @@ namespace calculator {
         for (auto emotion: character::social::INTIMATE_EMOTIONS)
           result.emotion_soaks[emotion] = integrity + 2 * c.virtue(character::social::VIRTUE_OF_EMOTION(emotion)).value();
 
-        result.specifics_soaks[character::social::SERFDOMS][character::social::SUPERFICIAL] = 0;
-        result.specifics_soaks[character::social::SERFDOMS][character::social::RELEVANT] = integrity;
-        result.specifics_soaks[character::social::SERFDOMS][character::social::INTIMATE] = integrity + c.virtue(virtues::virtue_enum::COMPASSION).value() * 2;
-
-        result.specifics_soaks[character::social::MOTIVATIONS][character::social::SUPERFICIAL] = 0;
-        result.specifics_soaks[character::social::MOTIVATIONS][character::social::RELEVANT] = integrity;
-        result.specifics_soaks[character::social::MOTIVATIONS][character::social::INTIMATE] = integrity + c.virtue(virtues::virtue_enum::CONVINCTION).value() * 2;
-
-        result.specifics_soaks[character::social::ILLUSIONS][character::social::SUPERFICIAL] = 0;
-        result.specifics_soaks[character::social::ILLUSIONS][character::social::RELEVANT] = integrity;
-        result.specifics_soaks[character::social::ILLUSIONS][character::social::INTIMATE] = integrity + c.virtue(virtues::virtue_enum::TEMPERANCE).value() * 2;
-
-        result.specifics_soaks[character::social::COMPULSIONS][character::social::SUPERFICIAL] = 0;
-        result.specifics_soaks[character::social::COMPULSIONS][character::social::RELEVANT] = integrity;
-        result.specifics_soaks[character::social::COMPULSIONS][character::social::INTIMATE] = integrity + c.virtue(virtues::virtue_enum::VALOR).value() * 2;
+        for (auto specific: character::social::SPECIFIC_UNDER_VIRTUE)
+          {
+            result.specifics_soaks[specific.second][character::social::SUPERFICIAL] = 0;
+            result.specifics_soaks[specific.second][character::social::RELEVANT] = integrity;
+            result.specifics_soaks[specific.second][character::social::INTIMATE] = integrity + c.virtue(specific.first).value() * 2;
+          }
 
         return result;
       }
@@ -258,6 +250,11 @@ namespace calculator {
           case character::creation::TYPE_MORTAL_EXTRA:
             return 1;
           }
+      }
+
+      virtual unsigned int movement(const character::character& c) const override
+      {
+        return 5U + round<round_t>((c.attribute(attribute::attribute_enum::DEXTERITY) - compute_hindrance(c)) / 2);
       }
 
       virtual ~common_worker() override {}

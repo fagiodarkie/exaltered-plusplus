@@ -52,6 +52,9 @@ namespace calculator {
       virtual unsigned int starting_logos               (const character::creation::character_type& c) const = 0;
       virtual unsigned int starting_willpower           (const character::character& c) const = 0;
 
+      // dynamic values
+      virtual unsigned int movement   (const character::character& c) const = 0;
+
       virtual ~abstract_calculator_worker() {}
     };
   }

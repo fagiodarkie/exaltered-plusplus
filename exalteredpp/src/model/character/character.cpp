@@ -198,6 +198,22 @@ namespace character
     return _experience;
   }
 
+  unsigned int character::stress() const
+  {
+    return _stress_value;
+  }
+
+  void character::increase_stress()
+  {
+    ++_stress_value;
+  }
+
+  void character::rest(unsigned int restored_willpower)
+  {
+    _willpower.restore(restored_willpower);
+    _stress_value = 0;
+  }
+
   void character::serialisation()
   {
     synch(json_constants::SLOT_NAME , _name);

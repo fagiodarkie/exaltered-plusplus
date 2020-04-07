@@ -79,5 +79,10 @@ namespace calculator {
     return calculator_workers.at(c.type())->starting_willpower(c);
   }
 
+  unsigned int derived_value_calculator::movement (const character::character& c) const
+  {
+    return calculator_workers.at(c.type())->movement(c);
+  }
+
   derived_value_calculator::~derived_value_calculator() {}
 }

@@ -30,6 +30,13 @@ namespace combat {
     target_vd::MENTAL_DODGE
   };
 
+  enum class social_attack_outcome
+  {
+    SUFFER,
+    RESIST,
+    BUILD_UP_STRESS
+  };
+
   static std::map<target_vd, std::string> VD_NAME {
     { target_vd::PHYSICAL_PARRY, "Parry"},
     { target_vd::PHYSICAL_DODGE, "Dodge"},
@@ -46,7 +53,8 @@ namespace combat {
     WITH_MINIMUM,
     NO_ATTRIBUTE,
     CONCEDED,
-    PERFECT
+    PERFECT,
+    LONG_TERM
   };
 
   static std::vector<attack_attribute> ATTACK_ATTRIBUTES = {
@@ -61,6 +69,17 @@ namespace combat {
     attack_attribute::PERFECT
   };
 
+  static std::vector<attack_attribute> SOCIAL_ATTACK_ATTRIBUTES = {
+    attack_attribute::NON_PARRYABLE,
+    attack_attribute::NON_DODGEABLE,
+    attack_attribute::UNEXPECTED,
+    attack_attribute::COUNTERATTACK,
+    attack_attribute::POLARISED,
+    attack_attribute::CONCEDED,
+    attack_attribute::PERFECT,
+    attack_attribute::LONG_TERM
+  };
+
   static std::map<attack_attribute, std::string> ATTACK_ATTRIBUTE_NAME = {
     { attack_attribute::NON_PARRYABLE, "Non Parryable"  },
     { attack_attribute::NON_DODGEABLE, "Non Dodgeable"  },
@@ -70,7 +89,8 @@ namespace combat {
     { attack_attribute::WITH_MINIMUM,  "With Minimum"   },
     { attack_attribute::NO_ATTRIBUTE,  "No Damage Attribute"  },
     { attack_attribute::CONCEDED,      "Conceded"       },
-    { attack_attribute::PERFECT,       "Perfect"        }
+    { attack_attribute::PERFECT,       "Perfect"        },
+    { attack_attribute::LONG_TERM,     "Long-term"      }
   };
 
   enum class defense_attribute {

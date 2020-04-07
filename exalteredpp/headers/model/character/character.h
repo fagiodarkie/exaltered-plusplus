@@ -79,6 +79,10 @@ namespace character
       narrative::experience_cluster& experience();
       narrative::experience_cluster experience() const;
 
+      unsigned int stress() const;
+      void increase_stress();
+      void rest(unsigned int restored_willpower = 0);
+
       unsigned int id() const;
       exalt::caste caste() const;
 
@@ -100,6 +104,6 @@ namespace character
       power::willpower              _willpower;
       power::health                 _health;
       power::logos                  _logos;
-
+      unsigned int                  _stress_value;
     };
 }

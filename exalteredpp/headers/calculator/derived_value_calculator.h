@@ -33,7 +33,7 @@ namespace calculator {
     unsigned int starting_logos               (const character::creation::character_type& c) const override;
     unsigned int starting_willpower           (const character::character& c)                const override;
 
-
+    unsigned int movement (const character::character& c) const override;
   private:
     worker_map calculator_workers;
   };
