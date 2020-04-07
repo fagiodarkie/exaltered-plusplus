@@ -45,7 +45,6 @@ SOURCES += \
     ../../src/calculator/derived_value_calculator.cpp \
     ../../src/calculator/experience_purchase_cost_calculator.cpp \
     ../../src/calculator/worker/exalt_worker.cpp \
-    ../../src/combat/weapon.cpp \
     ../../src/errors/ability_not_found_exception.cpp \
     ../../src/errors/characternotfoundexception.cpp \
     ../../src/errors/invalid_parameter.cpp \
@@ -125,7 +124,11 @@ SOURCES += \
     ../../src/qt/wizard/phys_attack/provide_defense_value_page.cpp \
     ../../src/qt/wizard/phys_attack/final_damage_results_push_knock_page.cpp \
     ../../src/qt/wizard/phys_attack/provide_balance_details_page.cpp \
-    ../../src/qt/wizard/phys_attack/attack_result_page.cpp
+    ../../src/qt/wizard/phys_attack/attack_result_page.cpp \
+    ../../src/equipment/craft/material.cpp \
+    ../../src/equipment/weapon.cpp \
+    ../../src/equipment/craft/weapon_project.cpp
+
 
 HEADERS += \
     ../../headers/calculator/abstract_dice_thrower.h \
@@ -152,10 +155,7 @@ HEADERS += \
     ../../headers/calculator/worker/common_worker.h \
     ../../headers/calculator/worker/exalt_worker.h \
     ../../headers/calculator/worker/rounding_type.h \
-    ../../headers/combat/action_defines.h \
-    ../../headers/combat/attack_defines.h \
     ../../headers/combat/physical_attack.h \
-    ../../headers/combat/weapon.h \
     ../../headers/common/reverse_search.h \
     ../../headers/errors/ability_not_found_exception.h \
     ../../headers/errors/characternotfoundexception.h \
@@ -250,7 +250,10 @@ HEADERS += \
     ../../headers/qt/wizard/phys_attack/final_damage_results_push_knock_page.h \
     ../../headers/qt/wizard/phys_attack/provide_balance_details_page.h \
     ../../headers/qt/wizard/phys_attack/attack_result_page.h \
-    ../../headers/combat/mental_attack.h
+    ../../headers/combat/mental_attack.h \
+    ../../headers/equipment/craft/material.h \
+    ../../headers/equipment/weapon.h \
+    ../../headers/equipment/craft/weapon_project.h
 
 CONFIG += mobility
 MOBILITY = 

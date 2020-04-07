@@ -36,7 +36,7 @@ namespace combat {
     return *this;
   }
 
-  attack_declaration& attack_declaration::with(const equip::weapon& w)
+  attack_declaration& attack_declaration::with(const equipment::weapon& w)
   {
     _atk->weapon = w;
     return *this;

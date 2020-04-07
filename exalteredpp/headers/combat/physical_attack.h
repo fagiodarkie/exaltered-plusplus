@@ -2,7 +2,7 @@
 #define PHYSICAL_ATTACK_H
 
 #include "attack_defines.h"
-#include "weapon.h"
+#include "equipment/weapon.h"
 #include <vector>
 
 #include "character.h"
@@ -34,7 +34,7 @@ namespace combat {
     struct attack_descriptor
     {
       unsigned int action_penalty = 0;
-      equip::weapon weapon;
+      equipment::weapon weapon;
       std::vector<attack_attribute> attack_attributes;
       std::shared_ptr<character::character> attacker, defender;
       target_vd vd = target_vd::PHYSICAL_DODGE;
@@ -114,7 +114,7 @@ namespace combat {
     attack_declaration& is(std::vector<attack_attribute> attributes);
     attack_declaration& is(attack_attribute attribute);
     attack_declaration& is_not(attack_attribute attribute);
-    attack_declaration& with(const equip::weapon& w);
+    attack_declaration& with(const equipment::weapon& w);
     attack_declaration& with_action_penalty(unsigned int vd_penalty);
     attack_declaration& attacker(std::shared_ptr<character::character> attacker);
 

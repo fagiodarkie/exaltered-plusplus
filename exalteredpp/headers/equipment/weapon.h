@@ -1,17 +1,18 @@
 #ifndef WEAPON_H
 #define WEAPON_H
 
-#include "attack_defines.h"
-#include "action_defines.h"
+#include "combat/attack_defines.h"
 #include <map>
 #include <vector>
 #include "attributes/attribute_names.h"
 #include "abilities/ability_names.h"
+#include "craft/weapon_project.h"
+#include "craft/material.h"
 
-namespace equip {
+namespace equipment {
   using combat::damage_type_enum;
-  using combat::action_speed;
   using combat::attack_attribute;
+
   class weapon
   {
 
@@ -33,7 +34,6 @@ namespace equip {
     unsigned short int minimum_for(attribute::attribute_enum attribute) const;
     attribute::attribute_enum precision_attribute() const;
     attribute::attribute_enum damage_attribute() const;
-    action_speed speed_range() const;
     unsigned short int attack_ticks() const;
     std::vector<ability::ability_name> relevant_abilities() const;
 
@@ -51,7 +51,6 @@ namespace equip {
     weapon& without(attack_attribute attribute);
     weapon& use_with(ability::ability_name ability);
     weapon& do_not_use_with(ability::ability_name ability);
-    weapon& attacks_in_tempo(action_speed tempo);
     weapon& with_name(const std::string& name);
     weapon& requires_for_precision(attribute::attribute_enum precision_attribute);
     weapon& uses_for_damage(attribute::attribute_enum damage_attribute);
@@ -59,15 +58,8 @@ namespace equip {
   private:
 
     std::string _name;
-    damage_type_enum _damage_type;
-    int _precision_bonus, _defense_bonus, _base_damage, _im_bonus;
-    unsigned short int  _drill, _min_damage;
-    float _range;
-    std::map<attribute::attribute_enum, unsigned short int> _minimums;
-    std::vector<ability::ability_name> _possible_abilities;
-    attribute::attribute_enum _precision_attribute, _damage_attribute;
-    std::vector<attack_attribute> _weapon_attributes;
-    action_speed _attack_speed;
+    craft::weapon_project project;
+    std::vector<craft::material> materials;
   };
 }
 
