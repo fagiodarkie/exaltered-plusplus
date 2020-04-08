@@ -86,6 +86,7 @@ namespace equipment {
       weapon_project& with_range(float range, attack_type);
       weapon_project& requires_attribute(attribute::attribute_enum attribute,unsigned short int minimum = 1);
       weapon_project& does_not_require(attribute::attribute_enum attribute);
+      weapon_project& usually_attacks_with(attack_type default_attack);
       weapon_project& with(attack_attribute attribute);
       weapon_project& without(attack_attribute attribute);
       weapon_project& use_with(ability::ability_name ability);
@@ -98,6 +99,7 @@ namespace equipment {
 
       std::string _project_name;
       int _defense;
+      attack_type _default_attack;
       std::map<attack_type, attack_stat> _stats;
       std::vector<attack_attribute> _attributes;
       std::map<attribute::attribute_enum, unsigned short int> _minimums;
