@@ -4,9 +4,209 @@
 namespace equipment {
   namespace craft {
 
-    weapon_project::weapon_project()
-    {
+    attack_stat::attack_stat()
+      : _im(0), _precision(0), _damage(0), _range(0), _cadence(0),_minimum_damage(0), _drill(0),
+        _damage_type(damage_type_enum::BASHING),
+        _precision_attribute(attribute::attribute_enum::DEXTERITY), _damage_attribute(attribute::attribute_enum::STRENGTH) { }
 
+    attack_stat::attack_stat(int im, int precision, int damage, int range, int cadence, int min_damage, int drill,
+                damage_type_enum damage_type,
+                attribute::attribute_enum precision_attribute, attribute::attribute_enum damage_attribute)
+      : _im(im), _precision(precision), _damage(damage), _range(range), _cadence(cadence),_minimum_damage(min_damage), _drill(drill),
+        _damage_type(damage_type),
+        _precision_attribute(precision_attribute), _damage_attribute(damage_attribute) { }
+
+    const attack_stat attack_stat::IMPROVISED_BASH(8, -3, 0, 1, 2, 0, 0, damage_type_enum::BASHING, attribute::attribute_enum::DEXTERITY, attribute::attribute_enum::STRENGTH);
+    const attack_stat attack_stat::IMPROVISED_SLASH(5, -3, 0, 1, 3, 0, 0, damage_type_enum::LETHAL, attribute::attribute_enum::DEXTERITY, attribute::attribute_enum::STRENGTH);
+    const attack_stat attack_stat::IMPROVISED_THROW(5, -3, 0, 1, 2, 0, 0, damage_type_enum::BASHING, attribute::attribute_enum::DEXTERITY, attribute::attribute_enum::STRENGTH);
+    const attack_stat attack_stat::IMPROVISED_GRAPPLE(5, -3, -10, 1, 1, 0, 0, damage_type_enum::BASHING, attribute::attribute_enum::DEXTERITY, attribute::attribute_enum::STRENGTH);
+
+    weapon_project::weapon_project()
+      : _defense(0)
+    {
+      _stats[attack_type::BASH]     = attack_stat::IMPROVISED_BASH;
+      _stats[attack_type::SLASH]    = attack_stat::IMPROVISED_SLASH;
+      _stats[attack_type::THROW]    = attack_stat::IMPROVISED_THROW;
+      _stats[attack_type::GRAPPLE]  = attack_stat::IMPROVISED_GRAPPLE;
     }
+
+    std::string weapon_project::name() const
+    {
+      return _project_name;
+    }
+
+    int weapon_project::precision_bonus(attack_type a_type) const
+    {
+      return _stats.at(a_type)._precision;
+    }
+    int weapon_project::base_damage(attack_type a_type) const
+    {
+      return _stats.at(a_type)._damage;
+    }
+    int weapon_project::defense() const
+    {
+      return _defense;
+    }
+    int weapon_project::IM(attack_type a_type) const
+    {
+      return _stats.at(a_type)._im;
+    }
+    int weapon_project::minimum_damage(attack_type a_type) const
+    {
+      return _stats.at(a_type)._minimum_damage;
+    }
+    int weapon_project::drill(attack_type a_type) const
+    {
+      return _stats.at(a_type)._drill;
+    }
+    float weapon_project::range(attack_type a_type) const
+    {
+      return _stats.at(a_type)._range;
+    }
+    damage_type_enum weapon_project::damage_type(attack_type a_type) const
+    {
+      return _stats.at(a_type)._damage_type;
+    }
+    bool weapon_project::can_be_used_with(ability::ability_name ability) const
+    {
+      return commons::contains(_possible_abilities, ability);
+    }
+    bool weapon_project::is(attack_attribute attribute) const
+    {
+      return commons::contains(_weapon_attributes, attribute);
+    }
+    bool weapon_project::requires_minimum_for(attribute::attribute_enum attribute) const
+    {
+      return _minimums.find(attribute) != _minimums.end();
+    }
+    unsigned short int weapon_project::minimum_for(attribute::attribute_enum attribute) const
+    {
+      return requires_minimum_for(attribute) ? _minimums.at(attribute) : 0;
+    }
+    attribute::attribute_enum weapon_project::precision_attribute(attack_type a_type) const
+    {
+      return _stats.at(a_type)._precision_attribute;
+    }
+    attribute::attribute_enum weapon_project::damage_attribute(attack_type a_type) const
+    {
+      return _stats.at(a_type)._damage_attribute;
+    }
+    std::vector<ability::ability_name> weapon_project::relevant_abilities() const
+    {
+      return _possible_abilities;
+    }
+
+    weapon_project& weapon_project::with_precision(int precision, attack_type a_type)
+    {
+      _stats[a_type]._precision = precision;
+      return *this;
+    }
+
+    weapon_project& weapon_project::with_defense(int defense)
+    {
+      _defense = defense;
+      return *this;
+    }
+
+    weapon_project& weapon_project::with_im(int im, attack_type a_type)
+    {
+      _stats[a_type]._im = im;
+      return *this;
+    }
+
+    weapon_project& weapon_project::with_base_damage(int base_damage, attack_type a_type)
+    {
+      _stats[a_type]._damage = base_damage;
+      return *this;
+    }
+
+    weapon_project& weapon_project::with_damage_type(damage_type_enum damage_type, attack_type a_type)
+    {
+      _stats[a_type]._damage_type = damage_type;
+      return *this;
+    }
+
+    weapon_project& weapon_project::with_drill(unsigned short int drill, attack_type a_type)
+    {
+      _stats[a_type]._drill = drill;
+      return *this;
+    }
+
+    weapon_project& weapon_project::with_min_damage(unsigned short int min, attack_type a_type)
+    {
+      _stats[a_type]._minimum_damage = min;
+      return *this;
+    }
+
+    weapon_project& weapon_project::with_range(float range, attack_type a_type)
+    {
+      _stats[a_type]._range = range;
+      return *this;
+    }
+
+    weapon_project& weapon_project::requires_attribute(attribute::attribute_enum attribute, unsigned short int minimum)
+    {
+      _minimums[attribute] = minimum;
+      return *this;
+    }
+
+    weapon_project& weapon_project::does_not_require(attribute::attribute_enum attribute)
+    {
+      _minimums.erase(attribute);
+      return *this;
+    }
+
+    weapon_project& weapon_project::usually_attacks_with(attack_type default_attack)
+    {
+      _default_attack = default_attack;
+      return *this;
+    }
+
+    weapon_project& weapon_project::with(attack_attribute attribute)
+    {
+      if (!is(attribute))
+        _weapon_attributes.push_back(attribute);
+      return *this;
+    }
+
+    weapon_project& weapon_project::without(attack_attribute attribute)
+    {
+      if (is(attribute))
+        _weapon_attributes.erase(find(_weapon_attributes.begin(), _weapon_attributes.end(), attribute));
+      return *this;
+    }
+
+    weapon_project& weapon_project::use_with(ability::ability_name ability)
+    {
+      if (!can_be_used_with(ability))
+        _possible_abilities.push_back(ability);
+      return *this;
+    }
+
+    weapon_project& weapon_project::do_not_use_with(ability::ability_name ability)
+    {
+      if (can_be_used_with(ability))
+        _possible_abilities.erase(find(_possible_abilities.begin(), _possible_abilities.end(), ability));
+      return *this;
+    }
+
+    weapon_project& weapon_project::with_name(const std::string& name)
+    {
+      _project_name = name;
+      return *this;
+    }
+
+    weapon_project& weapon_project::requires_for_precision(attribute::attribute_enum precision_attribute, attack_type a_type)
+    {
+      _stats[a_type]._precision_attribute = precision_attribute;
+      return *this;
+    }
+
+    weapon_project& weapon_project::uses_for_damage(attribute::attribute_enum damage_attribute, attack_type a_type)
+    {
+      _stats[a_type]._damage_attribute = damage_attribute;
+      return *this;
+    }
+
   }
 }

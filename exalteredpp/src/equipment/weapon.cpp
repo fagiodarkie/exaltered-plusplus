@@ -1,8 +1,8 @@
-#include "combat/weapon.h"
+#include "equipment/weapon.h"
 
 #include "common/reverse_search.h"
 
-namespace equip {
+namespace equipment {
   weapon::weapon(const std::string& name)
     : _name(name),
       _damage_type(damage_type_enum::BASHING),

@@ -13,6 +13,10 @@ namespace equipment {
   using combat::damage_type_enum;
   using combat::attack_attribute;
 
+  class improvement {
+
+  };
+
   class weapon
   {
 
@@ -58,8 +62,9 @@ namespace equipment {
   private:
 
     std::string _name;
-    craft::weapon_project project;
-    std::vector<craft::material> materials;
+    craft::weapon_project _project;
+    std::vector<craft::material> _materials;
+    std::vector<improvement> _improvements;
   };
 }
 
