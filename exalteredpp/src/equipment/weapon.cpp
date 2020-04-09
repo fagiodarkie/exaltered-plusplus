@@ -4,18 +4,7 @@
 
 namespace equipment {
   weapon::weapon(const std::string& name)
-    : _name(name),
-      _damage_type(damage_type_enum::BASHING),
-      _precision_bonus(0),
-      _defense_bonus(0),
-      _base_damage(0),
-      _im_bonus(0),
-      _drill(0),
-      _min_damage(0),
-      _range(0),
-      _precision_attribute(attribute::attribute_enum::DEXTERITY),
-      _damage_attribute(attribute::attribute_enum::STRENGTH),
-      _attack_speed(action_speed::ANDANTE)
+    : _name(name)
   {
 
   }
@@ -25,200 +14,78 @@ namespace equipment {
     return _name;
   }
 
-  int weapon::precision_bonus() const
+  int weapon::precision_bonus(attack_type a_type) const
   {
-    return _precision_bonus;
+    return _project.precision_bonus(a_type);
   }
 
-  int weapon::base_damage() const
+  int weapon::base_damage(attack_type a_type) const
   {
-    return _base_damage;
+    return _project.base_damage(a_type);
   }
 
   int weapon::defense() const
   {
-    return _defense_bonus;
+    return _project.defense();
   }
 
-  int weapon::IM() const
+  int weapon::IM(attack_type a_type) const
   {
-    return _im_bonus;
+    return _project.IM(a_type);
   }
 
-  unsigned short int weapon::minimum_damage() const
+  unsigned short int weapon::minimum_damage(attack_type a_type) const
   {
-    return _min_damage;
+    return _project.minimum_damage(a_type);
   }
 
-  unsigned short int weapon::drill() const
+  unsigned short int weapon::drill(attack_type a_type) const
   {
-    return _drill;
+    return _project.drill(a_type);
   }
 
-  float weapon::range() const
+  float weapon::range(attack_type a_type) const
   {
-    return _range;
+    return _project.range(a_type);
   }
 
-  damage_type_enum weapon::damage_type() const
+  damage_type_enum weapon::damage_type(attack_type a_type) const
   {
-    return _damage_type;
+    return _project.damage_type(a_type);
   }
 
   bool weapon::can_be_used_with(ability::ability_name ability) const
   {
-    return commons::contains(_possible_abilities, ability);
+    return _project.can_be_used_with(ability);
   }
 
   bool weapon::is(attack_attribute attribute) const
   {
-    return commons::contains(_weapon_attributes, attribute);
+    return _project.is(attribute);
   }
 
   bool weapon::requires_minimum_for(attribute::attribute_enum attribute) const
   {
-    return _minimums.find(attribute) != _minimums.end();
+    return _project.requires_minimum_for(attribute);
   }
 
   unsigned short int weapon::minimum_for(attribute::attribute_enum attribute) const
   {
-    return requires_minimum_for(attribute) ? _minimums.at(attribute) : 0;
+    return _project.minimum_for(attribute);
   }
 
-  attribute::attribute_enum weapon::precision_attribute() const
+  attribute::attribute_enum weapon::precision_attribute(attack_type a_type) const
   {
-    return _precision_attribute;
+    return _project.precision_attribute(a_type);
   }
 
-  attribute::attribute_enum weapon::damage_attribute() const
+  attribute::attribute_enum weapon::damage_attribute(attack_type a_type) const
   {
-    return _damage_attribute;
-  }
-
-  action_speed weapon::speed_range() const
-  {
-    return _attack_speed;
-  }
-
-  unsigned short int weapon::attack_ticks() const
-  {
-    return static_cast<unsigned char>(_attack_speed) + _im_bonus;
+    return _project.damage_attribute(a_type);
   }
 
   std::vector<ability::ability_name> weapon::relevant_abilities() const
   {
-    return _possible_abilities;
+    return _project._possible_abilities();
   }
-
-  weapon& weapon::with_precision(int precision)
-  {
-    _precision_bonus = precision;
-    return *this;
-  }
-
-  weapon& weapon::with_defense(int defense)
-  {
-    _defense_bonus = defense;
-    return *this;
-  }
-
-  weapon& weapon::with_im(int im)
-  {
-    _im_bonus = im;
-    return *this;
-  }
-
-  weapon& weapon::with_base_damage(int base_damage)
-  {
-    _base_damage = base_damage;
-    return *this;
-  }
-
-  weapon& weapon::with_damage_type(damage_type_enum damage_type)
-  {
-    _damage_type = damage_type;
-    return *this;
-  }
-
-  weapon& weapon::with_drill(unsigned short int drill)
-  {
-    _drill = drill;
-    return *this;
-  }
-
-  weapon& weapon::with_min_damage(unsigned short int min)
-  {
-    _min_damage = min;
-    return *this;
-  }
-
-  weapon& weapon::with_range(float range)
-  {
-    _range = range;
-    return *this;
-  }
-
-  weapon& weapon::requires_attribute(attribute::attribute_enum attribute, unsigned short int minimum)
-  {
-    _minimums[attribute] = minimum;
-    return *this;
-  }
-
-  weapon& weapon::does_not_require(attribute::attribute_enum attribute)
-  {
-    if (requires_minimum_for(attribute))
-      _minimums.erase(attribute);
-    return *this;
-  }
-
-  weapon& weapon::with(attack_attribute attribute)
-  {
-    _weapon_attributes.push_back(attribute);
-    return *this;
-  }
-
-  weapon& weapon::without(attack_attribute attribute)
-  {
-    if (is(attribute))
-      _weapon_attributes.erase(std::find(_weapon_attributes.begin(), _weapon_attributes.end(), attribute));
-    return *this;
-  }
-
-  weapon& weapon::use_with(ability::ability_name ability)
-  {
-    _possible_abilities.push_back(ability);
-    return *this;
-  }
-
-  weapon& weapon::do_not_use_with(ability::ability_name ability)
-  {
-    if (can_be_used_with(ability))
-      _possible_abilities.erase(std::find(_possible_abilities.begin(), _possible_abilities.end(), ability));
-    return *this;
-  }
-
-  weapon& weapon::attacks_in_tempo(action_speed tempo)
-  {
-    _attack_speed = tempo;
-    return *this;
-  }
-
-  weapon& weapon::with_name(const std::string& name)
-  {
-    _name = name;
-    return *this;
-  }
-
-  weapon& weapon::requires_for_precision(attribute::attribute_enum precision_attribute)
-  {
-    _precision_attribute = precision_attribute;
-    return *this;
-  }
-
-  weapon& weapon::uses_for_damage(attribute::attribute_enum damage_attribute)
-  {
-    _damage_attribute = damage_attribute;
-    return *this;
-  }
-
 }

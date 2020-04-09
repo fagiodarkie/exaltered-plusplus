@@ -298,7 +298,7 @@ namespace combat {
   {
     if (!_atk->attacker)
       {
-        _atk->weapon.with_base_damage(basedamage);
+        //_atk->weapon.with_base_damage(basedamage);
       }
     return *this;
   }
@@ -307,7 +307,7 @@ namespace combat {
   {
     if (!_atk->attacker)
       {
-        _atk->weapon.with_min_damage(basedamage);
+        //_atk->weapon.with_min_damage(basedamage);
       }
     return *this;
   }
@@ -316,7 +316,7 @@ namespace combat {
   {
     if (!_atk->attacker)
       {
-        _atk->weapon.with_damage_type(damage_type);
+        //_atk->weapon.with_damage_type(damage_type);
       }
     return *this;
   }
@@ -334,7 +334,7 @@ namespace combat {
   {
     if (!_atk->attacker)
       {
-        _atk->weapon.with_drill(weapon_drill);
+        //_atk->weapon.with_drill(weapon_drill);
       }
     return *this;
   }

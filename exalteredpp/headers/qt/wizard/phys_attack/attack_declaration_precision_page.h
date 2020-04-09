@@ -24,11 +24,11 @@ namespace qt {
       explicit attack_declaration_precision_page(std::shared_ptr<character::character> c, QWidget *parent = nullptr);
 
     signals:
-      void attack_selected(const equip::weapon& weapon, const std::vector<combat::attack_attribute>& attributes,
+      void attack_selected(const equipment::weapon& weapon, const std::vector<combat::attack_attribute>& attributes,
                            int internal_bonus, int external_bonus, combat::body_target target);
 
     private:
-      equip::weapon _weapon;
+      equipment::weapon _weapon;
       std::vector<combat::attack_attribute> _additional_attributes;
 
       QSpinBox *internal_bonus_spin, *external_bonus_spin,

@@ -28,7 +28,7 @@ private:
   void advance_to_result();
   void cancel();
 
-  void attack_with(const equip::weapon& weapon, const std::vector<combat::attack_attribute>& attributes,
+  void attack_with(const equipment::weapon& weapon, const std::vector<combat::attack_attribute>& attributes,
                    int internal_bonus, int external_bonus, combat::body_target target);
 
   void apply_defense_and_soak(combat::target_vd vd_type, unsigned int vd_value,

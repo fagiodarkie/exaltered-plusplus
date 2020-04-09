@@ -100,7 +100,7 @@ namespace qt {
 
     void attack_declaration_precision_page::collect_weapon_and_attributes()
     {
-      equip::weapon created_weapon;
+      equipment::weapon created_weapon;
       ability::ability_name weapon_ability(ability::ability_enum::WAR);
       weapon_ability.deserialise(weapon_ability_box->currentData().toString().toStdString());
       created_weapon.with_precision(weapon_precision_spin->value())

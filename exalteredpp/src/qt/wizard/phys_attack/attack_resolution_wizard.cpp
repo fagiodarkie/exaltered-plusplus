@@ -48,7 +48,7 @@ namespace qt { namespace wizard {
       setLayout(layout);
     }
 
-    void attack_resolution_wizard::attack_with(const equip::weapon& weapon, const std::vector<combat::attack_attribute>& attributes,
+    void attack_resolution_wizard::attack_with(const equipment::weapon& weapon, const std::vector<combat::attack_attribute>& attributes,
                      int internal_bonus, int external_bonus, combat::body_target target)
     {
       if (target == combat::body_target::NO_TARGET)
