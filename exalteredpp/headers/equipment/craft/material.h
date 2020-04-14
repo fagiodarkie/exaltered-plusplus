@@ -46,10 +46,55 @@ namespace equipment {
     public:
       material();
 
+      material_category category() const;
+      void set_category(const material_category &category);
+
+      submaterial_category subcategory() const;
+      void set_subcategory(const submaterial_category &subcategory);
+
+      hardness hardness() const;
+      void set_hardness(const enum hardness &hardness);
+
+      std::string name() const;
+      void set_name(const std::string &name);
+
+      unsigned short craft_resistance() const;
+      void set_craft_resistance(unsigned short craft_resistance);
+
+      unsigned short cost() const;
+      void set_cost(unsigned short cost);
+
+      unsigned short availability() const;
+      void set_availability(unsigned short availability);
+
+      unsigned short tenaciousness() const;
+      void set_tenaciousness(unsigned short tenaciousness);
+
+      unsigned short break_point() const;
+      void set_break_point(unsigned short break_point);
+
+      unsigned short slots_taken() const;
+      void set_slots_taken(unsigned short slots_taken);
+
+      unsigned short minimum() const;
+      void set_minimum(unsigned short minimum);
+
+      void with_soak(combat::damage_type_enum damage, short int soak);
+      short int soak(combat::damage_type_enum damage) const;
+
+      void with_damage_bonus(combat::damage_type_enum damage, short int d_bonus);
+      short int damage_bonus(combat::damage_type_enum damage) const;
+
+      bool changes_damage_type() const;
+      void set_changes_damage_type(bool changes_damage_type);
+
+      combat::damage_type_enum overridden_damage_type() const;
+      void set_overridden_damage_type(const combat::damage_type_enum &overridden_damage_type);
+
     private:
       material_category _category;
       submaterial_category _subcategory;
-      hardness _hardness;
+      enum hardness _hardness;
       std::string _name;
 
       unsigned short int _craft_resistance, _cost, _availability, _tenaciousness, _break_point, _slots_taken, _minimum;

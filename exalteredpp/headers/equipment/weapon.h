@@ -8,15 +8,12 @@
 #include "abilities/ability_names.h"
 #include "craft/weapon_project.h"
 #include "craft/material.h"
+#include "craft/improvement.h"
 
 namespace equipment {
   using combat::damage_type_enum;
   using combat::attack_attribute;
   using craft::attack_type;
-
-  class improvement {
-
-  };
 
   class weapon
   {
@@ -41,13 +38,16 @@ namespace equipment {
     attribute::attribute_enum damage_attribute(attack_type = attack_type::DEFAULT) const;
     std::vector<ability::ability_name> relevant_abilities() const;
 
+    weapon& with_project(const craft::weapon_project& project);
+    weapon& with_material(const craft::material& material, unsigned int copies = 1);
+    weapon& with_improvement(craft::improvement_enum new_improvement);
 
   private:
 
     std::string _name;
     craft::weapon_project _project;
     std::vector<craft::material> _materials;
-    std::vector<improvement> _improvements;
+    std::vector<craft::improvement_enum> _improvements;
   };
 }
 

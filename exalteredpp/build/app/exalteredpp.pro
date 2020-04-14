@@ -157,6 +157,7 @@ HEADERS += \
     ../../headers/calculator/worker/rounding_type.h \
     ../../headers/combat/physical_attack.h \
     ../../headers/common/reverse_search.h \
+    ../../headers/equipment/craft/improvement.h \
     ../../headers/errors/ability_not_found_exception.h \
     ../../headers/errors/characternotfoundexception.h \
     ../../headers/errors/error_codes.h \

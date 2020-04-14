@@ -75,6 +75,7 @@ namespace equipment {
       attribute::attribute_enum precision_attribute(attack_type = attack_type::DEFAULT) const;
       attribute::attribute_enum damage_attribute(attack_type = attack_type::DEFAULT) const;
       std::vector<ability::ability_name> relevant_abilities() const;
+      unsigned short int total_slots() const;
 
       weapon_project& with_precision(int precision, attack_type);
       weapon_project& with_defense(int defense);
@@ -94,11 +95,13 @@ namespace equipment {
       weapon_project& with_name(const std::string& name);
       weapon_project& requires_for_precision(attribute::attribute_enum precision_attribute, attack_type);
       weapon_project& uses_for_damage(attribute::attribute_enum damage_attribute, attack_type);
+      weapon_project& with_slots(unsigned short int slot_number);
 
     private:
 
       std::string _project_name;
       int _defense;
+      unsigned short int _slots;
       attack_type _default_attack;
       std::map<attack_type, attack_stat> _stats;
       std::vector<attack_attribute> _attributes;

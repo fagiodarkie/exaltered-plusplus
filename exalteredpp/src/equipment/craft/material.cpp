@@ -5,8 +5,148 @@ namespace equipment {
   namespace craft {
 
     material::material()
+        : _category(material_category::METAL),
+        _subcategory(submaterial_category::COMMON_METAL),
+        _hardness(hardness::HARD),
+        _craft_resistance(0), _cost(0), _availability(0), _tenaciousness(0), _break_point(0), _slots_taken(1), _minimum(0),
+        _defense_bonus(0), _precision_bonus(0), _drill_bonus(0), _im_bonus(0), _changes_damage_type(false), _overridden_damage_type(combat::damage_type_enum::BASHING)
     {
+        for (auto damage: combat::DAMAGES)
+        {
+            _soak[damage] = 0;
+            _damage_bonus[damage] = 0;
+        }
 
+    };
+    
+    material_category material::category() const
+    {
+        return _category;
+    }
+    
+    void material::set_category(const material_category &category)
+    {
+        _category = category;
+    }
+    
+    submaterial_category material::subcategory() const
+    {
+        return _subcategory;
+    }
+    
+    void material::set_subcategory(const submaterial_category &subcategory)
+    {
+        _subcategory = subcategory;
+    }
+    
+    enum hardness material::hardness() const
+    {
+        return _hardness;
+    }
+    
+    void material::set_hardness(const enum hardness &hardness)
+    {
+        _hardness = hardness;
+    }
+    
+    std::string material::name() const
+    {
+        return _name;
+    }
+    
+    void material::set_name(const std::string &name)
+    {
+        _name = name;
+    }
+    
+    unsigned short material::craft_resistance() const
+    {
+        return _craft_resistance;
+    }
+    
+    void material::set_craft_resistance(unsigned short craft_resistance)
+    {
+        _craft_resistance = craft_resistance;
+    }
+    
+    unsigned short material::cost() const
+    {
+        return _cost;
+    }
+    
+    void material::set_cost(unsigned short cost)
+    {
+        _cost = cost;
+    }
+
+    unsigned short material::availability() const
+    {
+        return _availability;
+    }
+
+    void material::set_availability(unsigned short availability)
+    {
+        _availability = availability;
+    }
+
+    unsigned short material::tenaciousness() const
+    {
+        return _tenaciousness;
+    }
+
+    void material::set_tenaciousness(unsigned short tenaciousness)
+    {
+        _tenaciousness = tenaciousness;
+    }
+
+    unsigned short material::break_point() const
+    {
+        return _break_point;
+    }
+
+    void material::set_break_point(unsigned short break_point)
+    {
+        _break_point = break_point;
+    }
+
+    unsigned short material::slots_taken() const
+    {
+        return _slots_taken;
+    }
+
+    void material::set_slots_taken(unsigned short slots_taken)
+    {
+        _slots_taken = slots_taken;
+    }
+
+    unsigned short material::minimum() const
+    {
+        return _minimum;
+    }
+
+    void material::set_minimum(unsigned short minimum)
+    {
+        _minimum = minimum;
+    }
+
+    bool material::changes_damage_type() const
+    {
+        return _changes_damage_type;
+    }
+
+    void material::set_changes_damage_type(bool changes_damage_type)
+    {
+        _changes_damage_type = changes_damage_type;
+    }
+
+    combat::damage_type_enum material::overridden_damage_type() const
+    {
+        return _overridden_damage_type;
+    }
+
+    void material::set_overridden_damage_type(const combat::damage_type_enum &overridden_damage_type)
+    {
+        _overridden_damage_type = overridden_damage_type;
     }
   }
 }
