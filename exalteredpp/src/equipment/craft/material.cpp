@@ -148,5 +148,45 @@ namespace equipment {
     {
         _overridden_damage_type = overridden_damage_type;
     }
+    
+    short material::defense_bonus() const
+    {
+        return _defense_bonus;
+    }
+    
+    void material::setDefense_bonus(short defense_bonus)
+    {
+        _defense_bonus = defense_bonus;
+    }
+    
+    short material::precision_bonus() const
+    {
+        return _precision_bonus;
+    }
+    
+    void material::setPrecision_bonus(short precision_bonus)
+    {
+        _precision_bonus = precision_bonus;
+    }
+    
+    short material::drill_bonus() const
+    {
+        return _drill_bonus;
+    }
+    
+    void material::setDrill_bonus(short drill_bonus)
+    {
+        _drill_bonus = drill_bonus;
+    }
+    
+    short material::im_bonus() const
+    {
+        return _im_bonus;
+    }
+    
+    void material::setIm_bonus(short im_bonus)
+    {
+        _im_bonus = im_bonus;
+    }
   }
 }

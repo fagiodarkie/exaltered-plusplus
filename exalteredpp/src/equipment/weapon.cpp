@@ -1,8 +1,62 @@
 #include "equipment/weapon.h"
 
 #include "common/reverse_search.h"
+#include <numeric>
 
 namespace equipment {
+
+  int weapon::material_bonus(std::function<int (int, const craft::material &)> accumulator) const
+  {
+    return std::accumulate(_materials.begin(), _materials.end(), 0, accumulator);
+  }
+
+  bool weapon::material_bonus_any(std::function<bool (bool, const craft::material &)> accumulator) const
+  {
+    return std::accumulate(_materials.begin(), _materials.end(), false, accumulator);
+  }
+
+  const std::function<int(int, const craft::material&)> sum_material_precision = [](int s, const craft::material& material) {
+    return s + material.precision_bonus();
+  };
+
+  const std::function<int(int, const craft::material&)> sum_material_im= [](int s, const craft::material& material) {
+    return s + material.im_bonus();
+  };
+
+  const std::function<int(int, const craft::material&)> sum_material_defense= [](int s, const craft::material& material) {
+    return s + material.defense_bonus();
+  };
+
+  const std::function<int(int, const craft::material&)> sum_material_drill = [](int s, const craft::material& material) {
+    return s + material.drill_bonus();
+  };
+
+  const std::function<int(int, const craft::material&)> sum_material_slots = [](int s, const craft::material& material) {
+    return s + material.slots_taken();
+  };
+
+  const std::function<int(int, const craft::material&)> greater_material_min_damage = [](int s, const craft::material& material) {
+    return std::max(s, (int)material.minimum());
+  };
+
+  const std::function<bool(bool, const craft::material&)> any_material_damage_override = [](bool s, const craft::material& material) {
+    return s || material.changes_damage_type();
+  };
+
+  std::function<int(int, const craft::material&)> weapon::add_soak(damage_type_enum damage)
+  {
+    return [damage](int s, const craft::material& material) {
+        return s + material.soak(damage);
+      };
+  }
+
+  std::function<int(int, const craft::material&)> weapon::add_damage_bonus(damage_type_enum damage)
+  {
+    return [damage](int s, const craft::material& material) {
+        return s + material.damage_bonus(damage);
+      };
+  }
+
   weapon::weapon(const std::string& name)
     : _name(name)
   {
@@ -16,32 +70,32 @@ namespace equipment {
 
   int weapon::precision_bonus(attack_type a_type) const
   {
-    return _project.precision_bonus(a_type);
+    return _project.precision_bonus(a_type) + material_bonus(sum_material_precision);
   }
 
   int weapon::base_damage(attack_type a_type) const
   {
-    return _project.base_damage(a_type);
+    return _project.base_damage(a_type) + material_bonus(add_damage_bonus(_project.damage_type(a_type)));
   }
 
   int weapon::defense() const
   {
-    return _project.defense();
+    return _project.defense() + material_bonus(sum_material_defense);
   }
 
   int weapon::IM(attack_type a_type) const
   {
-    return _project.IM(a_type);
+    return _project.IM(a_type) + material_bonus(sum_material_im);
   }
 
   unsigned short int weapon::minimum_damage(attack_type a_type) const
   {
-    return _project.minimum_damage(a_type);
+    return _project.minimum_damage(a_type) + material_bonus(greater_material_min_damage);
   }
 
   unsigned short int weapon::drill(attack_type a_type) const
   {
-    return _project.drill(a_type);
+    return _project.drill(a_type) + material_bonus(sum_material_drill);
   }
 
   float weapon::range(attack_type a_type) const
@@ -86,6 +140,6 @@ namespace equipment {
 
   std::vector<ability::ability_name> weapon::relevant_abilities() const
   {
-    return _project._possible_abilities();
+    return _project.relevant_abilities();
   }
 }

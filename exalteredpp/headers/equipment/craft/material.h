@@ -91,6 +91,18 @@ namespace equipment {
       combat::damage_type_enum overridden_damage_type() const;
       void set_overridden_damage_type(const combat::damage_type_enum &overridden_damage_type);
 
+      short defense_bonus() const;
+      void set_defense_bonus(short defense_bonus);
+
+      short precision_bonus() const;
+      void set_precision_bonus(short precision_bonus);
+
+      short drill_bonus() const;
+      void set_drill_bonus(short drill_bonus);
+
+      short im_bonus() const;
+      void set_im_bonus(short im_bonus);
+
     private:
       material_category _category;
       submaterial_category _subcategory;

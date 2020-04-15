@@ -37,10 +37,16 @@ namespace equipment {
 
     int weapon_project::precision_bonus(attack_type a_type) const
     {
+      if (a_type == attack_type::DEFAULT)
+        a_type = _default_attack;
+
       return _stats.at(a_type)._precision;
     }
     int weapon_project::base_damage(attack_type a_type) const
     {
+      if (a_type == attack_type::DEFAULT)
+        a_type = _default_attack;
+
       return _stats.at(a_type)._damage;
     }
     int weapon_project::defense() const
@@ -49,22 +55,37 @@ namespace equipment {
     }
     int weapon_project::IM(attack_type a_type) const
     {
+      if (a_type == attack_type::DEFAULT)
+        a_type = _default_attack;
+
       return _stats.at(a_type)._im;
     }
     int weapon_project::minimum_damage(attack_type a_type) const
     {
+      if (a_type == attack_type::DEFAULT)
+        a_type = _default_attack;
+
       return _stats.at(a_type)._minimum_damage;
     }
     int weapon_project::drill(attack_type a_type) const
     {
+      if (a_type == attack_type::DEFAULT)
+        a_type = _default_attack;
+
       return _stats.at(a_type)._drill;
     }
     float weapon_project::range(attack_type a_type) const
     {
+      if (a_type == attack_type::DEFAULT)
+        a_type = _default_attack;
+
       return _stats.at(a_type)._range;
     }
     damage_type_enum weapon_project::damage_type(attack_type a_type) const
     {
+      if (a_type == attack_type::DEFAULT)
+        a_type = _default_attack;
+
       return _stats.at(a_type)._damage_type;
     }
     bool weapon_project::can_be_used_with(ability::ability_name ability) const
@@ -85,10 +106,16 @@ namespace equipment {
     }
     attribute::attribute_enum weapon_project::precision_attribute(attack_type a_type) const
     {
+      if (a_type == attack_type::DEFAULT)
+        a_type = _default_attack;
+
       return _stats.at(a_type)._precision_attribute;
     }
     attribute::attribute_enum weapon_project::damage_attribute(attack_type a_type) const
     {
+      if (a_type == attack_type::DEFAULT)
+        a_type = _default_attack;
+
       return _stats.at(a_type)._damage_attribute;
     }
     std::vector<ability::ability_name> weapon_project::relevant_abilities() const
@@ -110,36 +137,54 @@ namespace equipment {
 
     weapon_project& weapon_project::with_im(int im, attack_type a_type)
     {
+      if (a_type == attack_type::DEFAULT)
+        a_type = _default_attack;
+
       _stats[a_type]._im = im;
       return *this;
     }
 
     weapon_project& weapon_project::with_base_damage(int base_damage, attack_type a_type)
     {
+      if (a_type == attack_type::DEFAULT)
+        a_type = _default_attack;
+
       _stats[a_type]._damage = base_damage;
       return *this;
     }
 
     weapon_project& weapon_project::with_damage_type(damage_type_enum damage_type, attack_type a_type)
     {
+      if (a_type == attack_type::DEFAULT)
+        a_type = _default_attack;
+
       _stats[a_type]._damage_type = damage_type;
       return *this;
     }
 
     weapon_project& weapon_project::with_drill(unsigned short int drill, attack_type a_type)
     {
+      if (a_type == attack_type::DEFAULT)
+        a_type = _default_attack;
+
       _stats[a_type]._drill = drill;
       return *this;
     }
 
     weapon_project& weapon_project::with_min_damage(unsigned short int min, attack_type a_type)
     {
+      if (a_type == attack_type::DEFAULT)
+        a_type = _default_attack;
+
       _stats[a_type]._minimum_damage = min;
       return *this;
     }
 
     weapon_project& weapon_project::with_range(float range, attack_type a_type)
     {
+      if (a_type == attack_type::DEFAULT)
+        a_type = _default_attack;
+
       _stats[a_type]._range = range;
       return *this;
     }
@@ -198,12 +243,18 @@ namespace equipment {
 
     weapon_project& weapon_project::requires_for_precision(attribute::attribute_enum precision_attribute, attack_type a_type)
     {
+      if (a_type == attack_type::DEFAULT)
+        a_type = _default_attack;
+
       _stats[a_type]._precision_attribute = precision_attribute;
       return *this;
     }
 
     weapon_project& weapon_project::uses_for_damage(attribute::attribute_enum damage_attribute, attack_type a_type)
     {
+      if (a_type == attack_type::DEFAULT)
+        a_type = _default_attack;
+
       _stats[a_type]._damage_attribute = damage_attribute;
       return *this;
     }
