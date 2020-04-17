@@ -142,4 +142,9 @@ namespace equipment {
   {
     return _project.relevant_abilities();
   }
+
+  void weapon::serialisation()
+  {
+
+  }
 }

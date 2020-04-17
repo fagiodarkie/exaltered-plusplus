@@ -58,6 +58,7 @@ SOURCES += \
     ../../src/model/character/exalt/exalt_caste.cpp \
     ../../src/model/character/exalt/exalt_caste_abilities.cpp \
     ../../src/model/managers/character_manager.cpp \
+    ../../src/model/managers/equipment_manager.cpp \
     ../../src/model/narrative/ability_purchase.cpp \
     ../../src/model/narrative/attribute_purchase.cpp \
     ../../src/model/narrative/background_purchase.cpp \
@@ -157,6 +158,7 @@ HEADERS += \
     ../../headers/calculator/worker/rounding_type.h \
     ../../headers/combat/physical_attack.h \
     ../../headers/common/reverse_search.h \
+    ../../headers/common/serialisable_map.h \
     ../../headers/equipment/craft/improvement.h \
     ../../headers/errors/ability_not_found_exception.h \
     ../../headers/errors/characternotfoundexception.h \
@@ -174,6 +176,7 @@ HEADERS += \
     ../../headers/model/character/creation/character_creation_configuration.h \
     ../../headers/model/character/creation/character_type_model.h \
     ../../headers/model/character/exalt/exalt_caste.h \
+    ../../headers/model/managers/equipment_manager.h \
     ../../headers/model/narrative/ability_purchase.h \
     ../../headers/model/narrative/abstract_purchase.h \
     ../../headers/model/narrative/attribute_purchase.h \

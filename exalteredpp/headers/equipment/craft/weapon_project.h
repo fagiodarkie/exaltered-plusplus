@@ -1,10 +1,12 @@
 #ifndef WEAPON_PROJECT_H
 #define WEAPON_PROJECT_H
 
+#include "../thirdparty/serialisable/serialisable.hpp"
 #include "combat/attack_defines.h"
 #include "attributes/attribute_names.h"
 #include "abilities/ability_names.h"
 #include "abilities/specialisation.h"
+#include "common/serialisable_map.h"
 #include "material.h"
 
 namespace equipment {
@@ -34,9 +36,7 @@ namespace equipment {
       DEFAULT
     };
 
-
-
-    class attack_stat
+    class attack_stat : public Serialisable
     {
     public:
 
@@ -51,9 +51,11 @@ namespace equipment {
       damage_type_enum _damage_type;
       attribute::attribute_enum _precision_attribute, _damage_attribute;
       std::vector<note> _notes;
+
+      void serialisation() override;
     };
 
-    class weapon_project
+    class weapon_project : public Serialisable
     {
     public:
 
@@ -97,17 +99,19 @@ namespace equipment {
       weapon_project& uses_for_damage(attribute::attribute_enum damage_attribute, attack_type);
       weapon_project& with_slots(unsigned short int slot_number);
 
+      void serialisation() override;
+
     private:
 
       std::string _project_name;
       int _defense;
       unsigned short int _slots;
       attack_type _default_attack;
-      std::map<attack_type, attack_stat> _stats;
+      serialisable_int_map<attack_stat> _stats;
       std::vector<attack_attribute> _attributes;
-      std::map<attribute::attribute_enum, unsigned short int> _minimums;
+      serialisable_int_map<unsigned short int> _minimums;
       std::vector<ability::ability_name> _possible_abilities;
-      std::vector<attack_attribute> _weapon_attributes;
+      std::vector<note> _weapon_notes;
 
     };
   }

@@ -76,3 +76,31 @@ const std::string serialisation::json_constants::SLOT_AWARDS          = "awards"
 const std::string serialisation::json_constants::SLOT_SPECIALISATION  = "specialisation";
 const std::string serialisation::json_constants::SLOT_SESSION         = "session";
 const std::string serialisation::json_constants::SLOT_DESCRIPTION     = "description";
+
+const std::string serialisation::json_constants::SLOT_WEAPONS         = "weapons";
+const std::string serialisation::json_constants::SLOT_MATERIALS       = "materials";
+const std::string serialisation::json_constants::SLOT_WEAPON_PROJECTS = "projects";
+
+const std::string serialisation::json_constants::SLOT_CRAFT_MATERIAL_CATEGORY               = "category";
+const std::string serialisation::json_constants::SLOT_CRAFT_MATERIAL_SUBCATEGORY            = "subcategory";
+const std::string serialisation::json_constants::SLOT_CRAFT_MATERIAL_HARDNESS               = "hardness";
+const std::string serialisation::json_constants::SLOT_CRAFT_MATERIAL_CRAFT_RESISTANCE       = "craft_resistance";
+const std::string serialisation::json_constants::SLOT_CRAFT_MATERIAL_COST                   = "cost";
+const std::string serialisation::json_constants::SLOT_CRAFT_MATERIAL_AVAILABILITY           = "availability";
+const std::string serialisation::json_constants::SLOT_CRAFT_MATERIAL_TENACIOUSNESS          = "tenaciousness";
+const std::string serialisation::json_constants::SLOT_CRAFT_MATERIAL_BREAKPOINT             = "break_point";
+const std::string serialisation::json_constants::SLOT_CRAFT_MATERIAL_SLOTS                  = "slots";
+const std::string serialisation::json_constants::SLOT_CRAFT_MATERIAL_MIN_DAMAGE             = "min_damage";
+const std::string serialisation::json_constants::SLOT_CRAFT_MATERIAL_DEFENSE_BONUS          = "defense_bonus";
+const std::string serialisation::json_constants::SLOT_CRAFT_MATERIAL_PRECISION_BONUS        = "precision_bouns";
+const std::string serialisation::json_constants::SLOT_CRAFT_MATERIAL_DRILL_BONUS            = "drill_bonus";
+const std::string serialisation::json_constants::SLOT_CRAFT_MATERIAL_IM_BONUS               = "im_bonus";
+const std::string serialisation::json_constants::SLOT_CRAFT_MATERIAL_CHANGES_DAMAGE_TYPE    = "changes_damage_type";
+const std::string serialisation::json_constants::SLOT_CRAFT_MATERIAL_OVERRIDDEN_DAMAGE_TYPE = "overridden_damage_type";
+
+const std::string serialisation::json_constants::SLOT_CRAFT_STATS_GENERIC    = "stats";
+const std::string serialisation::json_constants::SLOT_CRAFT_DEFAULT_ATTACK   = "default_attack";
+const std::string serialisation::json_constants::SLOT_CRAFT_STATS_MINIMUMS   = "minimum_attributes";
+const std::string serialisation::json_constants::SLOT_CRAFT_STATS_ABILITIES  = "abilities";
+const std::string serialisation::json_constants::SLOT_CRAFT_STATS_NOTES      = "notes";
+const std::string serialisation::json_constants::SLOT_CRAFT_STATS_ATTRIBUTES = "attack_attributes";

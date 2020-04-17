@@ -80,5 +80,34 @@ namespace serialisation
     static const std::string SLOT_SPECIALISATION      ;
     static const std::string SLOT_SESSION             ;
     static const std::string SLOT_DESCRIPTION         ;
+
+    static const std::string SLOT_WEAPONS        ;
+    static const std::string SLOT_MATERIALS      ;
+    static const std::string SLOT_WEAPON_PROJECTS;
+
+    static const std::string SLOT_CRAFT_MATERIAL_CATEGORY         ;
+    static const std::string SLOT_CRAFT_MATERIAL_SUBCATEGORY      ;
+    static const std::string SLOT_CRAFT_MATERIAL_HARDNESS         ;
+    static const std::string SLOT_CRAFT_MATERIAL_CRAFT_RESISTANCE ;
+    static const std::string SLOT_CRAFT_MATERIAL_COST             ;
+    static const std::string SLOT_CRAFT_MATERIAL_AVAILABILITY     ;
+    static const std::string SLOT_CRAFT_MATERIAL_TENACIOUSNESS    ;
+    static const std::string SLOT_CRAFT_MATERIAL_BREAKPOINT       ;
+    static const std::string SLOT_CRAFT_MATERIAL_SLOTS            ;
+    static const std::string SLOT_CRAFT_MATERIAL_MIN_DAMAGE       ;
+    static const std::string SLOT_CRAFT_MATERIAL_DEFENSE_BONUS    ;
+    static const std::string SLOT_CRAFT_MATERIAL_PRECISION_BONUS  ;
+    static const std::string SLOT_CRAFT_MATERIAL_DRILL_BONUS      ;
+    static const std::string SLOT_CRAFT_MATERIAL_IM_BONUS         ;
+    static const std::string SLOT_CRAFT_MATERIAL_CHANGES_DAMAGE_TYPE;
+    static const std::string SLOT_CRAFT_MATERIAL_OVERRIDDEN_DAMAGE_TYPE;
+    static const std::string SLOT_CRAFT_STATS_GENERIC  ;
+    static const std::string SLOT_CRAFT_DEFAULT_ATTACK ;
+    static const std::string SLOT_CRAFT_STATS_MINIMUMS ;
+    static const std::string SLOT_CRAFT_STATS_ABILITIES;
+    static const std::string SLOT_CRAFT_STATS_NOTES;
+    static const std::string SLOT_CRAFT_STATS_ATTRIBUTES;
+
+
   };
 }

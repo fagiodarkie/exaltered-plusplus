@@ -339,6 +339,19 @@ protected:
                 return preferencesSaving_;
         }
 
+        std::vector<std::string> objectKeys() const
+        {
+            std::vector<std::string> result;
+            if (preferencesJson_->type() != JSONtype::OBJECT)
+                return result;
+
+            for (auto pair: preferencesJson_->getObject())
+                {
+                    result.push_back(pair.first);
+                }
+            return result;
+        }
+
         /*!
         * \brief Saves or loads a string value
         * \param The name of the value in the output/input file
@@ -539,6 +552,33 @@ protected:
                                         filled.serialisation();
                                         filled.preferencesJson_.reset();
                                 }
+                        } else return false;
+                }
+                return true;
+        }
+
+        /*!
+        * \brief Saves or loads a vector of enums or integers
+        * \param The name of the value in the output/input file
+        * \param Reference to the vector
+        * \return false if the value was absent while reading, true otherwise
+        */
+        template<typename T>
+        typename std::enable_if<std::is_enum<T>::value || std::is_integral<T>::value, bool>::type
+        synch(const std::string& key, std::vector<T>& value) {
+                if (preferencesSaving_) {
+                        auto making = std::make_shared<JSONarray>();
+                        for (auto val: value) {
+                            making->getVector().push_back(std::make_shared<JSONint>(val));
+                        }
+                        preferencesJson_->getObject()[key] = making;
+                } else {
+                        value.clear();
+                        auto found = preferencesJson_->getObject().find(key);
+                        if (found != preferencesJson_->getObject().end()) {
+                            for (auto json: found->second->getVector()) {
+                                value.push_back((T)json->getInt());
+                            }
                         } else return false;
                 }
                 return true;

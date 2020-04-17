@@ -1,5 +1,6 @@
 #include "equipment/craft/material.h"
 
+#include "serialisation/json_constants.h"
 
 namespace equipment {
   namespace craft {
@@ -18,6 +19,28 @@ namespace equipment {
         }
 
     };
+
+    void material::serialisation()
+    {
+      synch(serialisation::json_constants::SLOT_CRAFT_MATERIAL_CATEGORY              , _category);
+      synch(serialisation::json_constants::SLOT_CRAFT_MATERIAL_SUBCATEGORY           , _subcategory);
+      synch(serialisation::json_constants::SLOT_CRAFT_MATERIAL_HARDNESS              , _hardness);
+      synch(serialisation::json_constants::SLOT_CRAFT_MATERIAL_CRAFT_RESISTANCE      , _craft_resistance);
+      synch(serialisation::json_constants::SLOT_CRAFT_MATERIAL_COST                  , _cost);
+      synch(serialisation::json_constants::SLOT_CRAFT_MATERIAL_AVAILABILITY          , _availability);
+      synch(serialisation::json_constants::SLOT_CRAFT_MATERIAL_TENACIOUSNESS         , _tenaciousness);
+      synch(serialisation::json_constants::SLOT_CRAFT_MATERIAL_BREAKPOINT            , _break_point);
+      synch(serialisation::json_constants::SLOT_CRAFT_MATERIAL_SLOTS                 , _slots_taken);
+      synch(serialisation::json_constants::SLOT_CRAFT_MATERIAL_MIN_DAMAGE            , _minimum);
+      synch(serialisation::json_constants::SLOT_CRAFT_MATERIAL_DEFENSE_BONUS         , _defense_bonus);
+      synch(serialisation::json_constants::SLOT_CRAFT_MATERIAL_PRECISION_BONUS       , _precision_bonus);
+      synch(serialisation::json_constants::SLOT_CRAFT_MATERIAL_DRILL_BONUS           , _drill_bonus);
+      synch(serialisation::json_constants::SLOT_CRAFT_MATERIAL_IM_BONUS              , _im_bonus);
+      synch(serialisation::json_constants::SLOT_CRAFT_MATERIAL_CHANGES_DAMAGE_TYPE   , _changes_damage_type);
+      synch(serialisation::json_constants::SLOT_CRAFT_MATERIAL_OVERRIDDEN_DAMAGE_TYPE, _overridden_damage_type);
+
+      synch(serialisation::json_constants::SLOT_NAME, _name);
+    }
     
     material_category material::category() const
     {
@@ -154,7 +177,7 @@ namespace equipment {
         return _defense_bonus;
     }
     
-    void material::setDefense_bonus(short defense_bonus)
+    void material::set_defense_bonus(short defense_bonus)
     {
         _defense_bonus = defense_bonus;
     }
@@ -164,7 +187,7 @@ namespace equipment {
         return _precision_bonus;
     }
     
-    void material::setPrecision_bonus(short precision_bonus)
+    void material::set_precision_bonus(short precision_bonus)
     {
         _precision_bonus = precision_bonus;
     }
@@ -174,7 +197,7 @@ namespace equipment {
         return _drill_bonus;
     }
     
-    void material::setDrill_bonus(short drill_bonus)
+    void material::set_drill_bonus(short drill_bonus)
     {
         _drill_bonus = drill_bonus;
     }
@@ -184,7 +207,7 @@ namespace equipment {
         return _im_bonus;
     }
     
-    void material::setIm_bonus(short im_bonus)
+    void material::set_im_bonus(short im_bonus)
     {
         _im_bonus = im_bonus;
     }

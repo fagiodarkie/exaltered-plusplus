@@ -1,5 +1,6 @@
 #include "equipment/craft/weapon_project.h"
 
+#include "serialisation/json_constants.h"
 
 namespace equipment {
   namespace craft {
@@ -16,6 +17,11 @@ namespace equipment {
         _damage_type(damage_type),
         _precision_attribute(precision_attribute), _damage_attribute(damage_attribute) { }
 
+    void attack_stat::serialisation()
+    {
+
+    }
+
     const attack_stat attack_stat::IMPROVISED_BASH(8, -3, 0, 1, 2, 0, 0, damage_type_enum::BASHING, attribute::attribute_enum::DEXTERITY, attribute::attribute_enum::STRENGTH);
     const attack_stat attack_stat::IMPROVISED_SLASH(5, -3, 0, 1, 3, 0, 0, damage_type_enum::LETHAL, attribute::attribute_enum::DEXTERITY, attribute::attribute_enum::STRENGTH);
     const attack_stat attack_stat::IMPROVISED_THROW(5, -3, 0, 1, 2, 0, 0, damage_type_enum::BASHING, attribute::attribute_enum::DEXTERITY, attribute::attribute_enum::STRENGTH);
@@ -24,10 +30,10 @@ namespace equipment {
     weapon_project::weapon_project()
       : _defense(0)
     {
-      _stats[attack_type::BASH]     = attack_stat::IMPROVISED_BASH;
-      _stats[attack_type::SLASH]    = attack_stat::IMPROVISED_SLASH;
-      _stats[attack_type::THROW]    = attack_stat::IMPROVISED_THROW;
-      _stats[attack_type::GRAPPLE]  = attack_stat::IMPROVISED_GRAPPLE;
+      _stats[(int)attack_type::BASH]     = attack_stat::IMPROVISED_BASH;
+      _stats[(int)attack_type::SLASH]    = attack_stat::IMPROVISED_SLASH;
+      _stats[(int)attack_type::THROW]    = attack_stat::IMPROVISED_THROW;
+      _stats[(int)attack_type::GRAPPLE]  = attack_stat::IMPROVISED_GRAPPLE;
     }
 
     std::string weapon_project::name() const
@@ -40,14 +46,14 @@ namespace equipment {
       if (a_type == attack_type::DEFAULT)
         a_type = _default_attack;
 
-      return _stats.at(a_type)._precision;
+      return _stats.at((int)a_type)._precision;
     }
     int weapon_project::base_damage(attack_type a_type) const
     {
       if (a_type == attack_type::DEFAULT)
         a_type = _default_attack;
 
-      return _stats.at(a_type)._damage;
+      return _stats.at((int)a_type)._damage;
     }
     int weapon_project::defense() const
     {
@@ -58,35 +64,35 @@ namespace equipment {
       if (a_type == attack_type::DEFAULT)
         a_type = _default_attack;
 
-      return _stats.at(a_type)._im;
+      return _stats.at((int)a_type)._im;
     }
     int weapon_project::minimum_damage(attack_type a_type) const
     {
       if (a_type == attack_type::DEFAULT)
         a_type = _default_attack;
 
-      return _stats.at(a_type)._minimum_damage;
+      return _stats.at((int)a_type)._minimum_damage;
     }
     int weapon_project::drill(attack_type a_type) const
     {
       if (a_type == attack_type::DEFAULT)
         a_type = _default_attack;
 
-      return _stats.at(a_type)._drill;
+      return _stats.at((int)a_type)._drill;
     }
     float weapon_project::range(attack_type a_type) const
     {
       if (a_type == attack_type::DEFAULT)
         a_type = _default_attack;
 
-      return _stats.at(a_type)._range;
+      return _stats.at((int)a_type)._range;
     }
     damage_type_enum weapon_project::damage_type(attack_type a_type) const
     {
       if (a_type == attack_type::DEFAULT)
         a_type = _default_attack;
 
-      return _stats.at(a_type)._damage_type;
+      return _stats.at((int)a_type)._damage_type;
     }
     bool weapon_project::can_be_used_with(ability::ability_name ability) const
     {
@@ -94,29 +100,29 @@ namespace equipment {
     }
     bool weapon_project::is(attack_attribute attribute) const
     {
-      return commons::contains(_weapon_attributes, attribute);
+      return commons::contains(_attributes, attribute);
     }
     bool weapon_project::requires_minimum_for(attribute::attribute_enum attribute) const
     {
-      return _minimums.find(attribute) != _minimums.end();
+      return _minimums.find((int)attribute) != _minimums.end();
     }
     unsigned short int weapon_project::minimum_for(attribute::attribute_enum attribute) const
     {
-      return requires_minimum_for(attribute) ? _minimums.at(attribute) : 0;
+      return requires_minimum_for(attribute) ? _minimums.at((int)attribute) : 0;
     }
     attribute::attribute_enum weapon_project::precision_attribute(attack_type a_type) const
     {
       if (a_type == attack_type::DEFAULT)
         a_type = _default_attack;
 
-      return _stats.at(a_type)._precision_attribute;
+      return _stats.at((int)a_type)._precision_attribute;
     }
     attribute::attribute_enum weapon_project::damage_attribute(attack_type a_type) const
     {
       if (a_type == attack_type::DEFAULT)
         a_type = _default_attack;
 
-      return _stats.at(a_type)._damage_attribute;
+      return _stats.at((int)a_type)._damage_attribute;
     }
     std::vector<ability::ability_name> weapon_project::relevant_abilities() const
     {
@@ -125,7 +131,7 @@ namespace equipment {
 
     weapon_project& weapon_project::with_precision(int precision, attack_type a_type)
     {
-      _stats[a_type]._precision = precision;
+      _stats[(int)a_type]._precision = precision;
       return *this;
     }
 
@@ -140,7 +146,7 @@ namespace equipment {
       if (a_type == attack_type::DEFAULT)
         a_type = _default_attack;
 
-      _stats[a_type]._im = im;
+      _stats[(int)a_type]._im = im;
       return *this;
     }
 
@@ -149,7 +155,7 @@ namespace equipment {
       if (a_type == attack_type::DEFAULT)
         a_type = _default_attack;
 
-      _stats[a_type]._damage = base_damage;
+      _stats[(int)a_type]._damage = base_damage;
       return *this;
     }
 
@@ -158,7 +164,7 @@ namespace equipment {
       if (a_type == attack_type::DEFAULT)
         a_type = _default_attack;
 
-      _stats[a_type]._damage_type = damage_type;
+      _stats[(int)a_type]._damage_type = damage_type;
       return *this;
     }
 
@@ -167,7 +173,7 @@ namespace equipment {
       if (a_type == attack_type::DEFAULT)
         a_type = _default_attack;
 
-      _stats[a_type]._drill = drill;
+      _stats[(int)a_type]._drill = drill;
       return *this;
     }
 
@@ -176,7 +182,7 @@ namespace equipment {
       if (a_type == attack_type::DEFAULT)
         a_type = _default_attack;
 
-      _stats[a_type]._minimum_damage = min;
+      _stats[(int)a_type]._minimum_damage = min;
       return *this;
     }
 
@@ -185,19 +191,19 @@ namespace equipment {
       if (a_type == attack_type::DEFAULT)
         a_type = _default_attack;
 
-      _stats[a_type]._range = range;
+      _stats[(int)a_type]._range = range;
       return *this;
     }
 
     weapon_project& weapon_project::requires_attribute(attribute::attribute_enum attribute, unsigned short int minimum)
     {
-      _minimums[attribute] = minimum;
+      _minimums[(int)attribute] = minimum;
       return *this;
     }
 
     weapon_project& weapon_project::does_not_require(attribute::attribute_enum attribute)
     {
-      _minimums.erase(attribute);
+      _minimums.erase((int)attribute);
       return *this;
     }
 
@@ -210,14 +216,14 @@ namespace equipment {
     weapon_project& weapon_project::with(attack_attribute attribute)
     {
       if (!is(attribute))
-        _weapon_attributes.push_back(attribute);
+        _attributes.push_back(attribute);
       return *this;
     }
 
     weapon_project& weapon_project::without(attack_attribute attribute)
     {
       if (is(attribute))
-        _weapon_attributes.erase(find(_weapon_attributes.begin(), _weapon_attributes.end(), attribute));
+        _attributes.erase(find(_attributes.begin(), _attributes.end(), attribute));
       return *this;
     }
 
@@ -246,7 +252,7 @@ namespace equipment {
       if (a_type == attack_type::DEFAULT)
         a_type = _default_attack;
 
-      _stats[a_type]._precision_attribute = precision_attribute;
+      _stats[(int)a_type]._precision_attribute = precision_attribute;
       return *this;
     }
 
@@ -255,8 +261,21 @@ namespace equipment {
       if (a_type == attack_type::DEFAULT)
         a_type = _default_attack;
 
-      _stats[a_type]._damage_attribute = damage_attribute;
+      _stats[(int)a_type]._damage_attribute = damage_attribute;
       return *this;
+    }
+
+    void weapon_project::serialisation()
+    {
+      synch(serialisation::json_constants::SLOT_NAME,                         _project_name);
+      synch(serialisation::json_constants::SLOT_CRAFT_MATERIAL_DEFENSE_BONUS, _defense);
+      synch(serialisation::json_constants::SLOT_CRAFT_MATERIAL_SLOTS,         _slots);
+      synch(serialisation::json_constants::SLOT_CRAFT_DEFAULT_ATTACK,         _default_attack);
+      synch(serialisation::json_constants::SLOT_CRAFT_STATS_GENERIC,          _stats);
+      synch(serialisation::json_constants::SLOT_CRAFT_STATS_ATTRIBUTES,       _attributes);
+      synch(serialisation::json_constants::SLOT_CRAFT_STATS_MINIMUMS,         _minimums);
+      synch(serialisation::json_constants::SLOT_CRAFT_STATS_ABILITIES,        _possible_abilities);
+      synch(serialisation::json_constants::SLOT_CRAFT_STATS_NOTES,            _weapon_notes);
     }
 
   }

@@ -6,6 +6,7 @@
 #include <vector>
 #include <functional>
 
+#include "../thirdparty/serialisable/serialisable.hpp"
 #include "attributes/attribute_names.h"
 #include "abilities/ability_names.h"
 #include "craft/weapon_project.h"
@@ -17,7 +18,7 @@ namespace equipment {
   using combat::attack_attribute;
   using craft::attack_type;
 
-  class weapon
+  class weapon : public Serialisable
   {
 
   public:
@@ -43,6 +44,8 @@ namespace equipment {
     weapon& with_project(const craft::weapon_project& project);
     weapon& with_material(const craft::material& material, unsigned int copies = 1);
     weapon& with_improvement(craft::improvement_enum new_improvement);
+
+    void serialisation() override;
 
   private:
 

@@ -1,6 +1,8 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
 
+#include "../thirdparty/serialisable/serialisable.hpp"
+
 #include "combat/attack_defines.h"
 #include <string>
 #include <map>
@@ -41,7 +43,7 @@ namespace equipment {
       HARD
     };
 
-    class material
+    class material : public Serialisable
     {
     public:
       material();
@@ -102,6 +104,8 @@ namespace equipment {
 
       short im_bonus() const;
       void set_im_bonus(short im_bonus);
+
+      void serialisation() override;
 
     private:
       material_category _category;
