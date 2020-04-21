@@ -22,6 +22,9 @@ namespace equipment {
   {
 
   public:
+
+    static const unsigned short MAX_IMPROVEMENT_SLOT = 5;
+
     weapon(const std::string& name = "");
 
     std::string name() const;
@@ -42,8 +45,10 @@ namespace equipment {
     std::vector<ability::ability_name> relevant_abilities() const;
 
     weapon& with_project(const craft::weapon_project& project);
+    weapon& remove_material(const std::string& material);
     weapon& with_material(const craft::material& material, unsigned int copies = 1);
-    weapon& with_improvement(craft::improvement_enum new_improvement);
+    weapon& remove_improvement(craft::improvement_enum new_improvement);
+    weapon& with_improvement(craft::improvement_enum new_improvement, unsigned int copies = 1);
 
     void serialisation() override;
 

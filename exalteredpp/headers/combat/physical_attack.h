@@ -35,6 +35,7 @@ namespace combat {
     {
       unsigned int action_penalty = 0;
       equipment::weapon weapon;
+      equipment::craft::weapon_project weapon_project;
       std::vector<attack_attribute> attack_attributes;
       std::shared_ptr<character::character> attacker, defender;
       target_vd vd = target_vd::PHYSICAL_DODGE;

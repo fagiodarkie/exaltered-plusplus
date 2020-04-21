@@ -101,9 +101,10 @@ namespace qt {
     void attack_declaration_precision_page::collect_weapon_and_attributes()
     {
       equipment::weapon created_weapon;
+      equipment::craft::weapon_project weapon_project;
       ability::ability_name weapon_ability(ability::ability_enum::WAR);
       weapon_ability.deserialise(weapon_ability_box->currentData().toString().toStdString());
-      created_weapon.with_precision(weapon_precision_spin->value())
+      weapon_project.with_precision(weapon_precision_spin->value())
           .with_base_damage(weapon_damage_spin->value())
           .with_min_damage(weapon_min_spin->value())
           .with_drill(weapon_drill_spin->value())
@@ -111,6 +112,8 @@ namespace qt {
           .requires_for_precision(static_cast<attribute::attribute_enum>(weapon_precision_attr_box->currentData().toInt()))
           .uses_for_damage(static_cast<attribute::attribute_enum>(weapon_damage_attr_box->currentData().toInt()))
           .with_damage_type(static_cast<combat::damage_type_enum>(weapon_damage_box->currentData().toInt()));
+
+      created_weapon.with_project(weapon_project);
 
       std::vector<combat::attack_attribute> attack_attributes;
       for (auto attack_check: attribute_checkboxes)

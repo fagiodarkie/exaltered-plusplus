@@ -128,6 +128,10 @@ namespace equipment {
     {
       return _possible_abilities;
     }
+    unsigned short weapon_project::total_slots() const
+    {
+      return _slots;
+    }
 
     weapon_project& weapon_project::with_precision(int precision, attack_type a_type)
     {
@@ -262,6 +266,12 @@ namespace equipment {
         a_type = _default_attack;
 
       _stats[(int)a_type]._damage_attribute = damage_attribute;
+      return *this;
+    }
+
+    weapon_project& weapon_project::with_slots(unsigned short slot_number)
+    {
+      _slots = slot_number;
       return *this;
     }
 

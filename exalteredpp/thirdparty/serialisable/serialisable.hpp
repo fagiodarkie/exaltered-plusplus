@@ -569,7 +569,7 @@ protected:
                 if (preferencesSaving_) {
                         auto making = std::make_shared<JSONarray>();
                         for (auto val: value) {
-                            making->getVector().push_back(std::make_shared<JSONint>(val));
+                            making->getVector().push_back(std::make_shared<JSONint>((std::underlying_type_t<T>)val));
                         }
                         preferencesJson_->getObject()[key] = making;
                 } else {

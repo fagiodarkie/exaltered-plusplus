@@ -25,7 +25,7 @@ public:
           {
             T newValue;
             synch(key, newValue);
-            this->operator[](stoi(key.c_str())) = newValue;
+            this->operator[](std::stoi(key.c_str())) = newValue;
           }
       }
   }

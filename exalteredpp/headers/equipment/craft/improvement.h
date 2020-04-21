@@ -23,7 +23,7 @@ namespace equipment {
       MIN_DAMAGE
     };
 
-    std::vector<improvement_enum> IMPROVEMENTS =
+    static std::vector<improvement_enum> IMPROVEMENTS =
     {
       improvement_enum::PRECISION,
       improvement_enum::DEFENSE,
@@ -39,7 +39,7 @@ namespace equipment {
       improvement_enum::MIN_DAMAGE
     };
 
-    std::map<improvement_enum, std::string> IMPROVEMENT_NAME = {
+    static std::map<improvement_enum, std::string> IMPROVEMENT_NAME = {
       { improvement_enum::PRECISION,                "Increase Precision (1 point)"},
       { improvement_enum::DEFENSE,                  "Increase Defense (1 point)"},
       { improvement_enum::REDUCE_MINIMUM_ATTRIBUTE, "Reduce Minimum Attribute (1 point)"},
@@ -54,7 +54,7 @@ namespace equipment {
       { improvement_enum::MIN_DAMAGE,               "Increase Minimum Damage (1 point)"}
     };
 
-    std::map<improvement_enum, unsigned short int> IMPROVEMENT_MAKE_SIZE = {
+    static std::map<improvement_enum, unsigned short int> IMPROVEMENT_MAKE_SIZE = {
       { improvement_enum::PRECISION,                1},
       { improvement_enum::DEFENSE,                  2},
       { improvement_enum::REDUCE_MINIMUM_ATTRIBUTE, 3},

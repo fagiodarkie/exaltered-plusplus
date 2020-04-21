@@ -2,6 +2,7 @@
 
 #include "common/reverse_search.h"
 #include <numeric>
+#include <cmath>
 
 namespace equipment {
 
@@ -15,31 +16,31 @@ namespace equipment {
     return std::accumulate(_materials.begin(), _materials.end(), false, accumulator);
   }
 
-  const std::function<int(int, const craft::material&)> sum_material_precision = [](int s, const craft::material& material) {
+  const std::function<int(int, const craft::material&)> weapon::sum_material_precision = [](int s, const craft::material& material) {
     return s + material.precision_bonus();
   };
 
-  const std::function<int(int, const craft::material&)> sum_material_im= [](int s, const craft::material& material) {
+  const std::function<int(int, const craft::material&)> weapon::sum_material_im= [](int s, const craft::material& material) {
     return s + material.im_bonus();
   };
 
-  const std::function<int(int, const craft::material&)> sum_material_defense= [](int s, const craft::material& material) {
+  const std::function<int(int, const craft::material&)> weapon::sum_material_defense= [](int s, const craft::material& material) {
     return s + material.defense_bonus();
   };
 
-  const std::function<int(int, const craft::material&)> sum_material_drill = [](int s, const craft::material& material) {
+  const std::function<int(int, const craft::material&)> weapon::sum_material_drill = [](int s, const craft::material& material) {
     return s + material.drill_bonus();
   };
 
-  const std::function<int(int, const craft::material&)> sum_material_slots = [](int s, const craft::material& material) {
+  const std::function<int(int, const craft::material&)> weapon::sum_material_slots = [](int s, const craft::material& material) {
     return s + material.slots_taken();
   };
 
-  const std::function<int(int, const craft::material&)> greater_material_min_damage = [](int s, const craft::material& material) {
+  const std::function<int(int, const craft::material&)> weapon::greater_material_min_damage = [](int s, const craft::material& material) {
     return std::max(s, (int)material.minimum());
   };
 
-  const std::function<bool(bool, const craft::material&)> any_material_damage_override = [](bool s, const craft::material& material) {
+  const std::function<bool(bool, const craft::material&)> weapon::any_material_damage_override = [](bool s, const craft::material& material) {
     return s || material.changes_damage_type();
   };
 
@@ -147,4 +148,69 @@ namespace equipment {
   {
 
   }
+
+  weapon& weapon::with_project(const craft::weapon_project& project)
+  {
+    _project = project;
+    return *this;
+  }
+
+  weapon& weapon::with_material(const craft::material& material, unsigned int copies)
+  {
+    remove_material(material.name());
+
+    int remaining_slots = _project.total_slots() - material_bonus(sum_material_slots);
+
+    int actual_copies = std::min((int)copies, remaining_slots / material.slots_taken());
+    while (actual_copies > 0)
+      {
+        _materials.push_back(material);
+        --actual_copies;
+      }
+
+    return *this;
+  }
+
+  weapon& weapon::remove_material(const std::string& material)
+  {
+    for (auto m = _materials.begin(); m != _materials.end();)
+      if (m->name() == material)
+        _materials.erase(m);
+      else
+        ++m;
+
+    return *this;
+  }
+
+  weapon& weapon::with_improvement(craft::improvement_enum new_improvement, unsigned int copies)
+  {
+    remove_improvement(new_improvement);
+
+    int remaining_slots = MAX_IMPROVEMENT_SLOT - std::accumulate(_improvements.begin(), _improvements.end(), 0, [](int sum, craft::improvement_enum impr)
+      {
+        return sum + craft::IMPROVEMENT_MAKE_SIZE.at(impr);
+      });
+
+    int actual_copies = std::min((int)copies, remaining_slots / craft::IMPROVEMENT_MAKE_SIZE.at(new_improvement));
+    while (actual_copies > 0)
+      {
+        _improvements.push_back(new_improvement);
+        --actual_copies;
+      }
+
+    return *this;
+  }
+
+  weapon& weapon::remove_improvement(craft::improvement_enum new_improvement)
+  {
+
+    for (auto m = _improvements.begin(); m != _improvements.end();)
+      if (*m == new_improvement)
+        _improvements.erase(m);
+      else
+        ++m;
+
+    return *this;
+  }
+
 }

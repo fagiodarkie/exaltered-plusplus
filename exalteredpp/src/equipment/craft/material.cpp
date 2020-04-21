@@ -211,5 +211,25 @@ namespace equipment {
     {
         _im_bonus = im_bonus;
     }
+
+    void material::with_soak(combat::damage_type_enum damage, short int soak)
+    {
+      _soak[damage] = soak;
+    }
+
+    short int material::soak(combat::damage_type_enum damage) const
+    {
+      return _soak.at(damage);
+    }
+
+    void material::with_damage_bonus(combat::damage_type_enum damage, short int d_bonus)
+    {
+      _damage_bonus[damage] = d_bonus;
+    }
+
+    short int material::damage_bonus(combat::damage_type_enum damage) const
+    {
+      return _damage_bonus.at(damage);
+    }
   }
 }

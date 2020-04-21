@@ -127,7 +127,7 @@ namespace ability
     ability_enum ability_type;
     std::string subability;
 
-    ability_name(ability_enum ab, std::string dec = ability_declination::NO_DECLINATION)
+    ability_name(ability_enum ab = ability_enum::CRAFT, std::string dec = ability_declination::NO_DECLINATION)
       : ability_type(ab), subability(dec) {}
 
     ability_name(const ability_name& other)

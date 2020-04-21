@@ -59,6 +59,8 @@ namespace equipment {
     {
     public:
 
+      static const unsigned short STANDARD_WEAPON_SLOTS = 3, HEAVY_WEAPON_SLOTS = 4;
+
       weapon_project();
 
       std::string name() const;
@@ -79,24 +81,24 @@ namespace equipment {
       std::vector<ability::ability_name> relevant_abilities() const;
       unsigned short int total_slots() const;
 
-      weapon_project& with_precision(int precision, attack_type);
+      weapon_project& with_precision(int precision, attack_type = attack_type::DEFAULT);
       weapon_project& with_defense(int defense);
-      weapon_project& with_im(int im, attack_type);
-      weapon_project& with_base_damage(int base_damage, attack_type);
-      weapon_project& with_damage_type(damage_type_enum damage_type, attack_type);
-      weapon_project& with_drill(unsigned short int drill, attack_type);
-      weapon_project& with_min_damage(unsigned short int min, attack_type);
-      weapon_project& with_range(float range, attack_type);
+      weapon_project& with_im(int im, attack_type = attack_type::DEFAULT);
+      weapon_project& with_base_damage(int base_damage, attack_type = attack_type::DEFAULT);
+      weapon_project& with_damage_type(damage_type_enum damage_type, attack_type = attack_type::DEFAULT);
+      weapon_project& with_drill(unsigned short int drill, attack_type = attack_type::DEFAULT);
+      weapon_project& with_min_damage(unsigned short int min, attack_type = attack_type::DEFAULT);
+      weapon_project& with_range(float range, attack_type = attack_type::DEFAULT);
       weapon_project& requires_attribute(attribute::attribute_enum attribute,unsigned short int minimum = 1);
       weapon_project& does_not_require(attribute::attribute_enum attribute);
-      weapon_project& usually_attacks_with(attack_type default_attack);
+      weapon_project& usually_attacks_with(attack_type default_attack = attack_type::DEFAULT);
       weapon_project& with(attack_attribute attribute);
       weapon_project& without(attack_attribute attribute);
       weapon_project& use_with(ability::ability_name ability);
       weapon_project& do_not_use_with(ability::ability_name ability);
       weapon_project& with_name(const std::string& name);
-      weapon_project& requires_for_precision(attribute::attribute_enum precision_attribute, attack_type);
-      weapon_project& uses_for_damage(attribute::attribute_enum damage_attribute, attack_type);
+      weapon_project& requires_for_precision(attribute::attribute_enum precision_attribute, attack_type = attack_type::DEFAULT);
+      weapon_project& uses_for_damage(attribute::attribute_enum damage_attribute, attack_type = attack_type::DEFAULT);
       weapon_project& with_slots(unsigned short int slot_number);
 
       void serialisation() override;
