@@ -298,16 +298,16 @@ namespace combat {
   {
     if (!_atk->attacker)
       {
-        _atk->weapon_project.with_base_damage(basedamage);
+        _atk->base_damage = basedamage;
       }
     return *this;
   }
 
-  raw_damage_and_position_computation& raw_damage_and_position_computation::min_damage(unsigned int basedamage)
+  raw_damage_and_position_computation& raw_damage_and_position_computation::min_damage(unsigned int mindamage)
   {
     if (!_atk->attacker)
       {
-        _atk->weapon_project.with_min_damage(basedamage);
+        _atk->min_damage = mindamage;
       }
     return *this;
   }
@@ -316,7 +316,7 @@ namespace combat {
   {
     if (!_atk->attacker)
       {
-        _atk->weapon_project.with_damage_type(damage_type);
+        _atk->dmg_type = damage_type;
       }
     return *this;
   }
@@ -334,7 +334,7 @@ namespace combat {
   {
     if (!_atk->attacker)
       {
-        _atk->weapon_project.with_drill(weapon_drill);
+        _atk->atk_drill = weapon_drill;
       }
     return *this;
   }
@@ -353,8 +353,8 @@ namespace combat {
   void raw_damage_and_position_computation::compute_post_soak_pool(unsigned int soak, unsigned int armored_soak) const
   {
     unsigned int raw_damage = _atk->raw_damage();
-    unsigned int final_soak = soak + dice::pool(armored_soak - _atk->weapon.drill());
-    unsigned int raw = dice::pool(raw_damage - final_soak), min = _atk->weapon.minimum_damage();
+    unsigned int final_soak = soak + dice::pool(armored_soak - _atk->drill());
+    unsigned int raw = dice::pool(raw_damage - final_soak), min = _atk->minimum_damage();
 
     _atk->post_soak_damage = std::max(raw, min);
     _atk->is_damage_from_minimum = raw < min;
@@ -366,11 +366,11 @@ namespace combat {
     unsigned int raw_damage = _atk->raw_damage();
 
     auto soak = calculator.compute_soak_values(*_atk->defender);
-    unsigned int natural_soak_value = soak.natural_soak[_atk->weapon.damage_type()];
+    unsigned int natural_soak_value = soak.natural_soak[_atk->damage_type()];
 
     // TODO when armor and equipment are added. Right now armored soak is 0.
-    unsigned int final_soak = natural_soak_value + dice::pool(0 - _atk->weapon.drill());
-    unsigned int raw = dice::pool(raw_damage - final_soak), min = _atk->weapon.minimum_damage();
+    unsigned int final_soak = natural_soak_value + dice::pool(0 - _atk->drill());
+    unsigned int raw = dice::pool(raw_damage - final_soak), min = _atk->minimum_damage();
 
     _atk->post_soak_damage = std::max(raw, min);
     _atk->is_damage_from_minimum = raw < min;
@@ -421,7 +421,7 @@ namespace combat {
   bool post_soak_damage::passes(const calculator::derived_value_calculator& calculator) const
   {
     auto vds = calculator.compute_soak_values(*_atk->defender);
-    return passes(vds.hardness.at(_atk->weapon.damage_type()));
+    return passes(vds.hardness.at(_atk->damage_type()));
   }
 
   outcome post_soak_damage::on_fail() const

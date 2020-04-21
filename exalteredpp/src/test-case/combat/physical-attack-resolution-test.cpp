@@ -16,17 +16,20 @@ TEST_CASE("Physical Attack Resolution")
   attack_character->set(attribute::attribute_enum::CONSTITUTION, 2);
   attack_character->set(ability::ability_enum::DODGE, 4);
   attack_character->set(ability::ability_enum::THROWN, 3);
-  attack_character->set(ability::ability_enum::MELEE, 3);
+  attack_character->set(ability::ability_enum::MELEE_LIGHT, 3);
 
   auto defense_character = std::make_shared<character::character>(attack_character->serialise());
 
-  equip::weapon attack_weapon;
-  attack_weapon.use_with(ability::ability_enum::THROWN)
+  equipment::weapon attack_weapon;
+  equipment::craft::weapon_project project;
+  project.use_with(ability::ability_enum::THROWN)
       .with_precision(5)
       .with_base_damage(3)
       .with_damage_type(combat::damage_type_enum::LETHAL)
       .uses_for_damage(attribute::attribute_enum::STRENGTH)
       .requires_for_precision(attribute::attribute_enum::DEXTERITY);
+
+  attack_weapon.with_project(project);
 
   calculator::derived_value_calculator::worker_map worker_map = {
     { character::creation::TYPE_MORTAL_HERO, std::make_shared<calculator::worker::human_worker>() }
@@ -39,7 +42,8 @@ TEST_CASE("Physical Attack Resolution")
   SECTION("Declaration should take into account both and only weapon and attack attributes")
   {
     auto declaration = combat::attack_declaration::declare_as({ combat::attack_attribute::UNEXPECTED });
-    attack_weapon.with(combat::attack_attribute::WITH_MINIMUM);
+    project.with(combat::attack_attribute::WITH_MINIMUM);
+    attack_weapon.with_project(project);
     declaration.is(combat::attack_attribute::POLARISED);
 
     CHECK(commons::contains(declaration.attack_status()->attack_attributes, combat::attack_attribute::UNEXPECTED));
@@ -138,7 +142,7 @@ TEST_CASE("Physical Attack Resolution")
     REQUIRE(dodge_precision.attack_status()->vd_balance > 0);
 
     auto parry_precision = combat::attack_declaration::declare().defend()
-        .parry_with(defense_character, value_calculator, ability::ability_enum::MELEE, 0, 0);
+        .parry_with(defense_character, value_calculator, ability::ability_enum::MELEE_LIGHT, 0, 0);
     REQUIRE(parry_precision.attack_status()->defender);
     REQUIRE(parry_precision.attack_status()->vd == combat::target_vd::PHYSICAL_PARRY);
     REQUIRE(parry_precision.attack_status()->vd_value > 0);
@@ -151,7 +155,7 @@ TEST_CASE("Physical Attack Resolution")
     auto vd_comparison_failure = combat::attack_declaration::declare()
         .defend()
         .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 10)
-        .precision(10).internal_malus(3).malus(2)
+        .precision(10).internal_bonus(-3).bonus(-2)
         .apply(roller);
     REQUIRE_FALSE(vd_comparison_failure.hits());
   }
@@ -245,8 +249,7 @@ TEST_CASE("Physical Attack Resolution")
   {
     auto precision = combat::attack_declaration::declare().defend()
         .defend_with_value(combat::target_vd::PHYSICAL_DODGE, 2)
-        .bonus(3).malus(5)
-        .internal_bonus(4).internal_malus(2).precision(8);
+        .bonus(-2).internal_bonus(2).precision(8);
     // 3 - 5 = -2
     CHECK(precision.external_bonus() == -2);
     // 8 + 4 - 2 = 10
@@ -287,7 +290,7 @@ TEST_CASE("Physical Attack Resolution")
 
     auto parry_outcome = combat::attack_declaration::declare()
         .roll_precision().with_successes_and_defend(1)
-        .parry_with(defense_character, value_calculator, ability::ability_enum::MELEE);
+        .parry_with(defense_character, value_calculator, ability::ability_enum::MELEE_LIGHT);
     CHECK(!parry_outcome.hits());
   }
 

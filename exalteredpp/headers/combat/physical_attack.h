@@ -35,10 +35,11 @@ namespace combat {
     {
       unsigned int action_penalty = 0;
       equipment::weapon weapon;
-      equipment::craft::weapon_project weapon_project;
       std::vector<attack_attribute> attack_attributes;
       std::shared_ptr<character::character> attacker, defender;
       target_vd vd = target_vd::PHYSICAL_DODGE;
+
+      combat::damage_type_enum dmg_type;
 
       int
       // info for attacker
@@ -52,8 +53,10 @@ namespace combat {
 
       // info for defender
       precision_roll_result = 0,
-      bonus_damage = 0,
+      base_damage = 0,
+      min_damage = 0,
       damage_attribute = 0,
+      atk_drill = 0,
 
       // info for everybody
       precision_dice = 0,
@@ -88,6 +91,21 @@ namespace combat {
 
         return raw_damage_dice + attribute + weapon.base_damage();
       }
+
+      unsigned int drill() const {
+        return attacker ? weapon.drill() : atk_drill;
+      }
+
+      unsigned int minimum_damage() const {
+        return attacker ? weapon.minimum_damage() : min_damage;
+      }
+
+      damage_type_enum damage_type()
+      {
+        return attacker ? weapon.damage_type() : dmg_type;
+      }
+
+
 
     };
 

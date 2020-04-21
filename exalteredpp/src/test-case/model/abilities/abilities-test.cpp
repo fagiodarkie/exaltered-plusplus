@@ -25,7 +25,7 @@ TEST_CASE("Abilities")
     ability::abilities sut;
     sut.add(ability::ability(ability::ability_enum::WAR, 2));
     sut.add(ability::ability(ability::ability_name(ability::ability_enum::WAR, "longterm"), 2));
-    sut.add(ability::ability(ability::ability_enum::TEACHING, 2));
+    sut.add(ability::ability(ability::ability_enum::THROWN, 2));
     sut.add(ability::ability(ability::ability_enum::MEDICINE, 2));
     REQUIRE(sut.size() == 4);
     REQUIRE(sut.with_type(ability::ability_enum::WAR).size() == 2);
@@ -47,7 +47,7 @@ TEST_CASE("Abilities")
     ability::abilities sut;
     sut.add(ability::ability(ability::ability_enum::WAR, 2));
     sut.add(ability::ability(ability::ability_name(ability::ability_enum::WAR, "longterm"), 2));
-    sut.add(ability::ability(ability::ability_enum::TEACHING, 2));
+    sut.add(ability::ability(ability::ability_enum::THROWN, 2));
     sut.add(ability::ability(ability::ability_enum::MEDICINE, 2));
 
     REQUIRE(sut.size() == 4);
@@ -57,7 +57,7 @@ TEST_CASE("Abilities")
     REQUIRE_FALSE(sut.has(ability::ability_enum::WAR));
     REQUIRE(sut.has(ability::ability_name(ability::ability_enum::WAR, "longterm")));
 
-    sut.remove(ability::ability_enum::MELEE);
+    sut.remove(ability::ability_enum::MELEE_LIGHT);
     REQUIRE(sut.size() == 3);
 
     sut.remove(ability::ability_name(ability::ability_enum::WAR, "longterm"));
@@ -69,16 +69,16 @@ TEST_CASE("Abilities")
     ability::abilities sut;
     sut.add(ability::ability(ability::ability_enum::WAR, 2));
     sut.add(ability::ability(ability::ability_name(ability::ability_enum::WAR, "longterm"), 2));
-    sut.add(ability::ability(ability::ability_enum::TEACHING, 2));
+    sut.add(ability::ability(ability::ability_enum::THROWN, 2));
     sut.add(ability::ability(ability::ability_enum::MEDICINE, 2));
 
     auto res = sut.keys();
     REQUIRE(res.size() == 4);
     REQUIRE(std::find(res.begin(), res.end(), ability::ability_enum::WAR) != res.end());
-    REQUIRE(std::find(res.begin(), res.end(), ability::ability_enum::TEACHING) != res.end());
+    REQUIRE(std::find(res.begin(), res.end(), ability::ability_enum::THROWN) != res.end());
     REQUIRE(std::find(res.begin(), res.end(), ability::ability_enum::MEDICINE) != res.end());
     REQUIRE(std::find(res.begin(), res.end(), ability::ability_name(ability::ability_enum::WAR, "longterm")) != res.end());
-    REQUIRE(std::find(res.begin(), res.end(), ability::ability_enum::MELEE) == res.end());
+    REQUIRE(std::find(res.begin(), res.end(), ability::ability_enum::MELEE_LIGHT) == res.end());
   }
 
   SECTION("should create correctly from JSON")

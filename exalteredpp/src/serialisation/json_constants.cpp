@@ -80,7 +80,7 @@ const std::string serialisation::json_constants::SLOT_DESCRIPTION     = "descrip
 const std::string serialisation::json_constants::SLOT_WEAPONS         = "weapons";
 const std::string serialisation::json_constants::SLOT_MATERIALS       = "materials";
 const std::string serialisation::json_constants::SLOT_WEAPON_PROJECTS = "projects";
-
+const std::string serialisation::json_constants::SLOT_IMPROVEMENTS    = "improvements";
 const std::string serialisation::json_constants::SLOT_CRAFT_MATERIAL_CATEGORY               = "category";
 const std::string serialisation::json_constants::SLOT_CRAFT_MATERIAL_SUBCATEGORY            = "subcategory";
 const std::string serialisation::json_constants::SLOT_CRAFT_MATERIAL_HARDNESS               = "hardness";

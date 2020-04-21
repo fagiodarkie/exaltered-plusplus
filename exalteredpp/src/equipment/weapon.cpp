@@ -146,7 +146,10 @@ namespace equipment {
 
   void weapon::serialisation()
   {
-
+    synch(serialisation::json_constants::SLOT_NAME, _name);
+    synch(serialisation::json_constants::SLOT_WEAPON_PROJECTS, _project);
+    synch(serialisation::json_constants::SLOT_MATERIALS, _materials);
+    synch(serialisation::json_constants::SLOT_IMPROVEMENTS, _improvements);
   }
 
   weapon& weapon::with_project(const craft::weapon_project& project)

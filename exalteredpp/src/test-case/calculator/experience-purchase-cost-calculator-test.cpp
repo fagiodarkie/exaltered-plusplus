@@ -2,7 +2,6 @@
 
 #include "experience_purchase_cost_calculator.h"
 
-
 #include "narrative/experience.h"
 #include "narrative/attribute_purchase.h"
 #include "narrative/ability_purchase.h"
@@ -37,14 +36,14 @@ TEST_CASE("Experience Purchase Cost Calculator")
     auto techcost = calculator::purchase_cost_calculator::cost_of(narrative::ABILITY,
                      std::make_shared<narrative::ability_purchase>(ability::ability_name(ability::ability_enum::TECHNOLOGY, ability::ability_declination::WOOD_TECH), 4)).for_who(mortal);
     auto meleecost = calculator::purchase_cost_calculator::cost_of(narrative::ABILITY,
-                     std::make_shared<narrative::ability_purchase>(ability::ability_enum::MELEE, 1)).for_who(mortal);
+                     std::make_shared<narrative::ability_purchase>(ability::ability_enum::MELEE_LIGHT, 1)).for_who(mortal);
 
     auto warcost2 = calculator::purchase_cost_calculator::cost_of(narrative::ABILITY,
                      std::make_shared<narrative::ability_purchase>(ability::ability_enum::WAR, 4)).for_who(mortal);
     auto techcost2 = calculator::purchase_cost_calculator::cost_of(narrative::ABILITY,
                      std::make_shared<narrative::ability_purchase>(ability::ability_name(ability::ability_enum::TECHNOLOGY, ability::ability_declination::WOOD_TECH), 5)).for_who(mortal);
     auto meleecost2 = calculator::purchase_cost_calculator::cost_of(narrative::ABILITY,
-                     std::make_shared<narrative::ability_purchase>(ability::ability_enum::MELEE, 2)).for_who(mortal);
+                     std::make_shared<narrative::ability_purchase>(ability::ability_enum::MELEE_LIGHT, 2)).for_who(mortal);
     // normal
     REQUIRE(warcost == 4);
     // favorite

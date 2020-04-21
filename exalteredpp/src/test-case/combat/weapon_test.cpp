@@ -1,14 +1,15 @@
 #include "../thirdparty/catch/catch.hpp"
 
-#include "combat/weapon.h"
+#include "equipment/weapon.h"
 
 TEST_CASE("Weapon")
 {
-  equip::weapon sut;
+  equipment::weapon sut;
+  equipment::craft::weapon_project wp;
 
   SECTION("Should build with fluent APIs correctly")
   {
-    sut.with(combat::attack_attribute::WITH_MINIMUM)
+    wp.with(combat::attack_attribute::WITH_MINIMUM)
         .with_im(3)
         .with_name("axe")
         .with_drill(2)
@@ -21,9 +22,9 @@ TEST_CASE("Weapon")
         .with_min_damage(2)
         .with_base_damage(7)
         .with_damage_type(combat::damage_type_enum::LETHAL)
-        .use_with(ability::ability_enum::MELEE)
-        .attacks_in_tempo(combat::action_speed::ADAGIO);
+        .use_with(ability::ability_enum::MELEE_LIGHT);
 
+    sut.with_project(wp);
     CHECK(sut.is(combat::attack_attribute::WITH_MINIMUM));
     CHECK(sut.IM() == 3);
     CHECK(sut.name() == "axe");
@@ -37,13 +38,12 @@ TEST_CASE("Weapon")
     CHECK(sut.minimum_damage() == 2);
     CHECK(sut.base_damage() == 7);
     CHECK(sut.damage_type() == combat::damage_type_enum::LETHAL);
-    CHECK(sut.can_be_used_with(ability::ability_enum::MELEE));
-    CHECK(sut.speed_range() == combat::action_speed::ADAGIO);
+    CHECK(sut.can_be_used_with(ability::ability_enum::MELEE_LIGHT));
   }
 
   SECTION("Should add / remove minimum, abilities and combat attributes")
   {
-    sut .use_with(ability::ability_enum::MELEE)
+    wp .use_with(ability::ability_enum::MELEE_LIGHT)
         .use_with(ability::ability_enum::THROWN)
         .use_with(ability::ability_enum::ATHLETICS)
         .requires_attribute(attribute::attribute_enum::STRENGTH, 2)
@@ -51,7 +51,9 @@ TEST_CASE("Weapon")
         .with(combat::attack_attribute::WITH_MINIMUM)
         .with(combat::attack_attribute::NO_ATTRIBUTE);
 
-    CHECK(sut.can_be_used_with(ability::ability_enum::MELEE));
+    sut.with_project(wp);
+
+    CHECK(sut.can_be_used_with(ability::ability_enum::MELEE_LIGHT));
     CHECK(sut.can_be_used_with(ability::ability_enum::THROWN));
     CHECK(sut.can_be_used_with(ability::ability_enum::ATHLETICS));
     CHECK(sut.requires_minimum_for(attribute::attribute_enum::STRENGTH));
@@ -59,11 +61,13 @@ TEST_CASE("Weapon")
     CHECK(sut.is(combat::attack_attribute::WITH_MINIMUM));
     CHECK(sut.is(combat::attack_attribute::NO_ATTRIBUTE));
 
-    sut.does_not_require(attribute::attribute_enum::DEXTERITY)
+    wp.does_not_require(attribute::attribute_enum::DEXTERITY)
         .do_not_use_with(ability::ability_enum::ATHLETICS)
         .without(combat::attack_attribute::NO_ATTRIBUTE);
 
-    CHECK(sut.can_be_used_with(ability::ability_enum::MELEE));
+    sut.with_project(wp);
+
+    CHECK(sut.can_be_used_with(ability::ability_enum::MELEE_LIGHT));
     CHECK(sut.can_be_used_with(ability::ability_enum::THROWN));
     CHECK_FALSE(sut.can_be_used_with(ability::ability_enum::ATHLETICS));
     CHECK(sut.requires_minimum_for(attribute::attribute_enum::STRENGTH));
@@ -72,9 +76,4 @@ TEST_CASE("Weapon")
     CHECK_FALSE(sut.is(combat::attack_attribute::NO_ATTRIBUTE));
   }
 
-  SECTION("Should compute actual ticks")
-  {
-    sut.attacks_in_tempo(combat::action_speed::ADAGIO).with_im(5);
-    REQUIRE(sut.attack_ticks() == (int)combat::action_speed::ADAGIO + 5);
-  }
 }

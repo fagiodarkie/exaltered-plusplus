@@ -34,13 +34,13 @@ TEST_CASE("Character")
     character::character sut = STANDARD_CHARACTER;
     sut.set(ability::ability_name(ability::ability_enum::CRAFT, "new_ability"), 1);
     sut.set(ability::ability_enum::WAR, 0);
-    sut.set(ability::ability_enum::MELEE, 5);
+    sut.set(ability::ability_enum::THROWN, 5);
     REQUIRE(sut.get(ability::ability_enum::WAR).name().name() == "War");
     REQUIRE(sut.get(ability::ability_enum::WAR).name().subability == ability::ability_declination::NO_DECLINATION);
     REQUIRE(sut.get(ability::ability_enum::WAR).value() == 0);
     REQUIRE(sut.get(ability::ability_enum::CRAFT, "new_ability").name().subability == "new_ability");
     REQUIRE(sut.get(ability::ability_enum::CRAFT, "new_ability").value() == 1);
-    REQUIRE(sut.get(ability::ability_enum::MELEE).value() == 5);
+    REQUIRE(sut.get(ability::ability_enum::THROWN).value() == 5);
   }
 
   SECTION("should retrieve caste correctly")

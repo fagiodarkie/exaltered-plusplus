@@ -84,6 +84,7 @@ namespace serialisation
     static const std::string SLOT_WEAPONS        ;
     static const std::string SLOT_MATERIALS      ;
     static const std::string SLOT_WEAPON_PROJECTS;
+    static const std::string SLOT_IMPROVEMENTS   ;
 
     static const std::string SLOT_CRAFT_MATERIAL_CATEGORY         ;
     static const std::string SLOT_CRAFT_MATERIAL_SUBCATEGORY      ;
