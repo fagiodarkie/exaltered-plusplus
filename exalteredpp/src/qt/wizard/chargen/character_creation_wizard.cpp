@@ -140,7 +140,7 @@ namespace qt {
     void character_creation_wizard::load_virtues(const virtues::virtues &virtues)
     {
       character_virtues = virtues;
-      persona.set_persona(calculator.compute_persona(new_character_type, attributes, willpower, essence));
+      persona.set_persona(calculator.compute_persona(new_character_type, attributes, logos, essence));
 
       persona_page->set_current_persona(virtues, persona, character_model, attributes);
 

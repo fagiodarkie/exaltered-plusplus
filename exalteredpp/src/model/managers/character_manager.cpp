@@ -39,7 +39,6 @@ namespace manager {
                                                   virtues,
                                                   essence, willpower, health, logos);
 
-    final_character->logos().set_logos(calculator.starting_logos(type));
     final_character->essence().set_khan(calculator.starting_khan(type));
     final_character->essence().set_permanent_essence(calculator.starting_essence(type));
     final_character->essence().set_celestial_portion(calculator.compute_celestial_portion(*final_character));
