@@ -26,7 +26,8 @@ namespace character
       _essence(essence),
       _willpower(willpower),
       _health(health),
-      _logos(logos)
+      _logos(logos),
+      _stress_value(0)
   { };
 
   character::character(const std::string& serialised_data)
@@ -229,6 +230,7 @@ namespace character
     synch(json_constants::SLOT_WILLPOWER, _willpower);
     synch(json_constants::SLOT_ESSENCE  , _essence  );
     synch(json_constants::SLOT_LOGOS    , _logos    );
+    synch(json_constants::SLOT_STRESS   , _stress_value);
   }
 
   unsigned int character::id() const

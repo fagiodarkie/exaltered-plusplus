@@ -15,6 +15,7 @@ namespace serialisation
     static const std::string SLOT_CASTE;
     static const std::string SLOT_FAVOURITE;
     static const std::string SLOT_RANK;
+    static const std::string SLOT_STRESS;
 
     static const std::string SLOT_VIRTUES;
     static const std::string SLOT_VICE_ID;

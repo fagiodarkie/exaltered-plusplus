@@ -44,6 +44,7 @@ namespace equipment {
     attribute::attribute_enum damage_attribute(attack_type = attack_type::DEFAULT) const;
     std::vector<ability::ability_name> relevant_abilities() const;
 
+    weapon& with_name(const std::string& name);
     weapon& with_project(const craft::weapon_project& project);
     weapon& remove_material(const std::string& material);
     weapon& with_material(const craft::material& material, unsigned int copies = 1);

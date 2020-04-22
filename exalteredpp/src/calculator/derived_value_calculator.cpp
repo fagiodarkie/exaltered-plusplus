@@ -29,9 +29,9 @@ namespace calculator {
     return calculator_workers.at(c.type())->compute_persona(c);
   }
 
-  long int derived_value_calculator::compute_persona                  (const character::creation::character_type& type, const attribute::attributes& attributes, const power::willpower& willpower, const power::essence& essence) const
+  long int derived_value_calculator::compute_persona                  (const character::creation::character_type& type, const attribute::attributes& attributes, const power::logos& logos, const power::essence& essence) const
   {
-    return calculator_workers.at(type)->compute_persona(type, attributes, willpower, essence);
+    return calculator_workers.at(type)->compute_persona(type, attributes, logos, essence);
   }
 
   long int derived_value_calculator::compute_personal_essence         (const character::character& c) const

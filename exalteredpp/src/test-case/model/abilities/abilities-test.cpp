@@ -91,7 +91,7 @@ TEST_CASE("Abilities")
     ability::abilities sut;
     sut.deserialise(stub.serialise());
 
-    REQUIRE(sut[ability::ability_enum::WAR].name().name() == "War");
+    REQUIRE(sut[ability::ability_enum::WAR].name().name() == "Strategy");
     REQUIRE(sut[ability::ability_enum::WAR].specialisations().size() == 1);
   }
 }

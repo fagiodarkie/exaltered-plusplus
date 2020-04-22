@@ -216,4 +216,10 @@ namespace equipment {
     return *this;
   }
 
+  weapon& weapon::with_name(const std::string& name)
+  {
+    _name = name;
+    return *this;
+  }
+
 }

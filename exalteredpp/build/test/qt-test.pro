@@ -52,6 +52,10 @@ HEADERS += \
     ../../headers/combat/attack_defines.h \
     ../../headers/combat/physical_attack.h \
     ../../headers/common/reverse_search.h \
+    ../../headers/equipment/craft/improvement.h \
+    ../../headers/equipment/craft/material.h \
+    ../../headers/equipment/craft/weapon_project.h \
+    ../../headers/equipment/weapon.h \
     ../../headers/errors/ability_not_found_exception.h \
     ../../headers/errors/characternotfoundexception.h \
     ../../headers/errors/error_codes.h \
@@ -120,6 +124,9 @@ SOURCES += \
     ../../src/calculator/experience_purchase_cost_calculator.cpp \
     ../../src/calculator/worker/exalt_worker.cpp \
     ../../src/combat/physical_attack.cpp \
+    ../../src/equipment/craft/material.cpp \
+    ../../src/equipment/craft/weapon_project.cpp \
+    ../../src/equipment/weapon.cpp \
     ../../src/errors/ability_not_found_exception.cpp \
     ../../src/errors/characternotfoundexception.cpp \
     ../../src/errors/invalid_parameter.cpp \

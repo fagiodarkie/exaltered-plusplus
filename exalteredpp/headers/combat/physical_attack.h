@@ -84,12 +84,12 @@ namespace combat {
       {
         bool attribute_forbidden = commons::contains(attack_attributes, attack_attribute::NO_ATTRIBUTE)
             || weapon.is(attack_attribute::NO_ATTRIBUTE);
-        unsigned int attribute = attribute_forbidden
+        unsigned int attribute_and_damage = attribute_forbidden
             ? 0
-            : attacker ? attacker->attribute(weapon.damage_attribute())
-                       : damage_attribute;
+            : attacker ? attacker->attribute(weapon.damage_attribute()) + weapon.base_damage()
+                       : damage_attribute + base_damage;
 
-        return raw_damage_dice + attribute + weapon.base_damage();
+        return raw_damage_dice + attribute_and_damage;
       }
 
       unsigned int drill() const {

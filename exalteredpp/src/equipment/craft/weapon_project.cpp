@@ -28,7 +28,7 @@ namespace equipment {
     const attack_stat attack_stat::IMPROVISED_GRAPPLE(5, -3, -10, 1, 1, 0, 0, damage_type_enum::BASHING, attribute::attribute_enum::DEXTERITY, attribute::attribute_enum::STRENGTH);
 
     weapon_project::weapon_project()
-      : _defense(0)
+      : _defense(0), _default_attack(attack_type::BASH)
     {
       _stats[(int)attack_type::BASH]     = attack_stat::IMPROVISED_BASH;
       _stats[(int)attack_type::SLASH]    = attack_stat::IMPROVISED_SLASH;
@@ -135,6 +135,9 @@ namespace equipment {
 
     weapon_project& weapon_project::with_precision(int precision, attack_type a_type)
     {
+      if (a_type == attack_type::DEFAULT)
+        a_type = _default_attack;
+
       _stats[(int)a_type]._precision = precision;
       return *this;
     }

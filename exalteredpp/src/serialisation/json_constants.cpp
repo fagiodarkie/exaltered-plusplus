@@ -5,6 +5,7 @@ const std::string serialisation::json_constants::SLOT_NAME                = "nam
 const std::string serialisation::json_constants::SLOT_VALUE               = "value";
 const std::string serialisation::json_constants::SLOT_FAVOURITE           = "favourite";
 const std::string serialisation::json_constants::SLOT_RANK                = "rank";
+const std::string serialisation::json_constants::SLOT_STRESS              = "stress";
 
 
 const std::string serialisation::json_constants::SLOT_ATTRIBUTES          = "attributes";

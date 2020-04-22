@@ -109,12 +109,12 @@ namespace calculator {
 
       virtual long int compute_persona(const character::character& c) const override
       {
-        return _persona(c.type(), c.attributes(), c.willpower(), c.essence());
+        return _persona(c.type(), c.attributes(), c.logos(), c.essence());
       }
 
-      virtual long int compute_persona                  (const character::creation::character_type& type, const attribute::attributes& attributes, const power::willpower& willpower, const power::essence& essence) const override
+      virtual long int compute_persona                  (const character::creation::character_type& type, const attribute::attributes& attributes, const power::logos& logos, const power::essence& essence) const override
       {
-        return _persona(type, attributes, willpower, essence);
+        return _persona(type, attributes, logos, essence);
       }
 
       virtual long int compute_bashing_soak             (const character::character& c)  const
@@ -300,9 +300,9 @@ namespace calculator {
         return half(c, parry_attribute, ability::ability_enum::INTEGRITY);
       }
 
-      virtual long int _persona                  (const character::creation::character_type& type, const attribute::attributes& attributes, const power::willpower& willpower, const power::essence& essence) const
+      virtual long int _persona                  (const character::creation::character_type& type, const attribute::attributes& attributes, const power::logos& logos, const power::essence& essence) const
       {
-        long int persona = essence.permanent_essence() * starting_logos(type);
+        long int persona = essence.permanent_essence() * logos.get_logos();
 
         for (auto social_attribute : attribute::ATTRIBUTES_BY_CATEGORY.at(attribute::SOCIAL))
           persona += attributes.at(social_attribute);

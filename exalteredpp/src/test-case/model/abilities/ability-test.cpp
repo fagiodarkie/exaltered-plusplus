@@ -13,7 +13,7 @@ TEST_CASE("Ability")
   SECTION("should create new ability correctly (name and value constructor)")
   {
     ability::ability sut(ability::ability_enum::WAR, 1);
-    REQUIRE(sut.name().name() == "War");
+    REQUIRE(sut.name().name() == "Strategy");
     REQUIRE(1 == (int)sut);
   }
 

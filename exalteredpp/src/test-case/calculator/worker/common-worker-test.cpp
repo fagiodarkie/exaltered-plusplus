@@ -75,6 +75,7 @@ TEST_CASE("exalt worker")
     test_character.set(attribute::attribute_enum::APPEARANCE, 1);
     test_character.willpower().set_permanent_willpower(5);
     test_character.essence().set_permanent_essence(5);
+    test_character.logos().set_logos(2);
     test_character.set(ability::ability_enum::MELEE_LIGHT, 3);
     test_character.set(ability::ability_enum::DODGE, 3);
 
@@ -83,8 +84,8 @@ TEST_CASE("exalt worker")
     // same for dodge, (4 + 3) / 2 = 4
     REQUIRE(sut.compute_dodge_dv(test_character) == 4);
 
-    // persona should be 20 as essence is 5 and willpower is 5, even if APPEARANCE is 1
-    REQUIRE(sut.compute_persona(test_character.type(), test_character.attributes(), test_character.willpower(), test_character.essence()) == 20);
+    // persona should be 21 as essence is 5 and logos is 2
+    REQUIRE(sut.compute_persona(test_character.type(), test_character.attributes(), test_character.logos(), test_character.essence()) == 21);
   }
 
 }

@@ -25,11 +25,15 @@ TEST_CASE("Derived Value Calculator")
   (*character)[ability::ability_enum::DODGE] = 2;
   (*character)[ability::ability_enum::RESISTANCE] = 3;
   (*character)[ability::ability_enum::INTEGRITY] = 3;
+  (*character)[ability::ability_enum::MEDITATION] = 3;
   character->virtue(virtues::COMPASSION).set_value(2);
   character->virtue(virtues::VALOR).set_value(2);
   character->virtue(virtues::CONVINCTION).set_value(3);
   character->virtue(virtues::TEMPERANCE).set_value(3);
   character->willpower().set_permanent_willpower(5);
+  character->essence().set_permanent_essence(1);
+  character->logos().set_logos(1);
+  character->rest();
 
   SECTION("should compute values for a mortal")
   {
@@ -50,8 +54,8 @@ TEST_CASE("Derived Value Calculator")
     CHECK(mental_defenses.manipulation_parry_vd == 2);
     CHECK(mental_defenses.appearance_parry_vd == 2);
     auto persona = sut.compute_persona(*character);
-    CHECK(persona == 11);
-    CHECK(sut.compute_persona(character->type(), character->attributes(), character->willpower(), character->essence()) == 11);
+    CHECK(persona == 7);
+    CHECK(sut.compute_persona(character->type(), character->attributes(), character->logos(), character->essence()) == 7);
     CHECK(sut.compute_life_points(*character) == 14);
     CHECK_NOTHROW(sut.compute_personal_essence(*character));
     CHECK_NOTHROW(sut.compute_peripheral_essence(*character));
@@ -67,6 +71,7 @@ TEST_CASE("Derived Value Calculator")
   {
     character->set_type(character::creation::TYPE_SOLAR_EXALT);
     character->essence().set_permanent_essence(5);
+    character->logos().set_logos(2);
     character->set(ability::ability_enum::MELEE_LIGHT, 3);
     auto phys_defenses = sut.compute_physical_vd(*character, ability::ability_enum::MELEE_LIGHT);
     auto soaks = sut.compute_soak_values(*character);
@@ -82,6 +87,6 @@ TEST_CASE("Derived Value Calculator")
     CHECK(mental_defenses.manipulation_parry_vd == 3);
     CHECK(mental_defenses.appearance_parry_vd == 3);
     auto persona = sut.compute_persona(*character);
-    CHECK(persona == 14 );
+    CHECK(persona == 16 );
   }
 }

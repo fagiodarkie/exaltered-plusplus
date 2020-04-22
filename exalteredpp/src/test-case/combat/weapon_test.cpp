@@ -24,7 +24,8 @@ TEST_CASE("Weapon")
         .with_damage_type(combat::damage_type_enum::LETHAL)
         .use_with(ability::ability_enum::MELEE_LIGHT);
 
-    sut.with_project(wp);
+    sut.with_name("axe")
+        .with_project(wp);
     CHECK(sut.is(combat::attack_attribute::WITH_MINIMUM));
     CHECK(sut.IM() == 3);
     CHECK(sut.name() == "axe");

@@ -18,7 +18,7 @@ namespace calculator {
     virtual worker::soak_values       compute_soak_values(const character::character& c) const override;
     virtual worker::mental_soak_values compute_mental_soak_values(const character::character& c) const override;
 
-    virtual long int compute_persona                  (const character::creation::character_type& type, const attribute::attributes& attribute, const power::willpower& willpower, const power::essence& essence) const override;
+    virtual long int compute_persona                  (const character::creation::character_type& type, const attribute::attributes& attribute, const power::logos& logos, const power::essence& essence) const override;
     virtual long int compute_persona                  (const character::character& c) const override;
 
     virtual ~derived_value_calculator() override;
