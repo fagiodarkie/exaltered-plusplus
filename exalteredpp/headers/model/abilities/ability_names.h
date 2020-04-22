@@ -26,6 +26,10 @@ namespace ability
     ability_enum::PERFORMANCE, ability_enum::PRESENCE, ability_enum::DECEIT, ability_enum::POLITICS, ability_enum::DIPLOMACY, ability_enum::INTIMIDATION, ability_enum::INTEGRITY, ability_enum::RELATIONS, ability_enum::INTENTIONS, ability_enum::EMPATHY
   };
 
+  static const std::list<ability_enum> COMBAT_ABILITIES = {
+    ability_enum::MELEE_LIGHT, ability_enum::MELEE_MEDIUM, ability_enum::MELEE_HEAVY, ability_enum::ARCHERY, ability_enum::THROWN, ability_enum::MARTIAL_ARTS, ability_enum::ATHLETICS, ability_enum::AWARENESS, ability_enum::MEDICINE, ability_enum::CRAFT, ability_enum::TECHNOLOGY, ability_enum::PERFORMANCE
+  };
+
   enum ability_category
   {
     COMBAT, SOCIAL, NARRATIVE

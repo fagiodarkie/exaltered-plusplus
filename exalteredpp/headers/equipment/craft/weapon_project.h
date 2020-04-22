@@ -7,6 +7,7 @@
 #include "abilities/ability_names.h"
 #include "abilities/specialisation.h"
 #include "common/serialisable_map.h"
+#include "craft_defines.h"
 #include "material.h"
 
 namespace equipment {
@@ -14,27 +15,6 @@ namespace equipment {
 
     using combat::damage_type_enum;
     using combat::attack_attribute;
-
-    enum class note
-    {
-      FIREARM,
-      MINIMUM
-    };
-
-    enum class attack_type
-    {
-      PUNCH,
-      KICK,
-      GRAPPLE,
-      BASH,
-      SLASH,
-      THROW,
-      FIRE,
-      TWO_HAND_BASH,
-      TWO_HAND_SLASH,
-      SPECIAL,
-      DEFAULT
-    };
 
     class attack_stat : public Serialisable
     {

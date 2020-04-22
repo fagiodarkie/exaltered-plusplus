@@ -113,6 +113,7 @@ SOURCES += \
     ../../src/qt/wizard/chargen/character_creation_persona.cpp \
     ../../src/qt/wizard/chargen/character_creation_virtues_vice.cpp \
     ../../src/qt/wizard/chargen/character_creation_wizard.cpp \
+    ../../src/qt/wizard/crafting/new_weapon_project.cpp \
     ../../src/qt/wizard/phys_defense/attack_parameters_page.cpp \
     ../../src/qt/wizard/phys_defense/defense_declaration_page.cpp \
     ../../src/qt/wizard/phys_defense/defense_resolution_wizard.cpp \
@@ -159,6 +160,7 @@ HEADERS += \
     ../../headers/combat/physical_attack.h \
     ../../headers/common/reverse_search.h \
     ../../headers/common/serialisable_map.h \
+    ../../headers/equipment/craft/craft_defines.h \
     ../../headers/equipment/craft/improvement.h \
     ../../headers/errors/ability_not_found_exception.h \
     ../../headers/errors/characternotfoundexception.h \
@@ -239,6 +241,7 @@ HEADERS += \
     ../../headers/qt/wizard/chargen/character_creation_persona.h \
     ../../headers/qt/wizard/chargen/character_creation_virtues_vice.h \
     ../../headers/qt/wizard/chargen/character_creation_wizard.h \
+    ../../headers/qt/wizard/crafting/new_weapon_project.h \
     ../../headers/qt/wizard/phys_defense/attack_parameters_page.h \
     ../../headers/qt/wizard/phys_defense/defense_declaration_page.h \
     ../../headers/qt/wizard/phys_defense/defense_resolution_wizard.h \
