@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <QSpinBox>
 #include <QWidget>
+#include <QLineEdit>
 
 #include "managers/equipment_manager.h"
 
@@ -27,15 +28,25 @@ namespace qt {
 
       equipment::craft::weapon_project _project;
       std::vector<combat::attack_attribute> _additional_attributes;
+      QVector<equipment::craft::attack_type> _attack_types;
 
-      QPushButton *attacks_chosen, *project_finished;
+      equipment::craft::attack_type current_attack_type() const;
+
+      QPushButton *attacks_chosen, *project_finished, *return_to_attack_definition;
 
       QLineEdit *project_name;
       QSpinBox *weapon_precision_spin, *weapon_damage_spin, *weapon_drill_spin, *weapon_min_spin;
-      QComboBox *weapon_damage_box, *weapon_precision_attr_box, *weapon_damage_attr_box, *weapon_ability_box, *body_target_box, *current_attack_info;
+      QComboBox *weapon_damage_box, *weapon_precision_attr_box, *weapon_damage_attr_box,
+        *weapon_ability_box, *body_target_box, *current_attack_info, *default_attack;
       QVector<QCheckBox*> note_checkboxes, attack_type_checkboxes;
+      QWidget *attack_stat_screen, *attack_types_screen;
 
       static const QString SELECTED_ENUM;
+
+      void init_members();
+
+      QWidget* compose_stat_screen();
+      QWidget* compose_attack_types_screen();
 
     };
   }

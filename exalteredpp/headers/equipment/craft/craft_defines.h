@@ -30,7 +30,7 @@ namespace equipment {
       DEFAULT
     };
 
-    std::vector<attack_type> ATTACK_TYPES = {
+    static const std::vector<attack_type> ATTACK_TYPES = {
       attack_type::PUNCH,
       attack_type::KICK,
       attack_type::GRAPPLE,
@@ -43,7 +43,7 @@ namespace equipment {
       attack_type::SPECIAL
     };
 
-    std::map<attack_type, std::string> ATTACK_TYPE_NAMES = {
+    static const std::map<attack_type, std::string> ATTACK_TYPE_NAMES = {
       { attack_type::PUNCH,          "Punch" },
       { attack_type::KICK,           "Kick" },
       { attack_type::GRAPPLE,        "Grapple" },
