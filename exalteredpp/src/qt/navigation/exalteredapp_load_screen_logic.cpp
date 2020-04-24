@@ -92,6 +92,13 @@ void ExalteredApp::load_creation_wizard_screen()
   setCentralWidget(character_creation_wizard);
 }
 
+void ExalteredApp::load_craft_wizard()
+{
+  crafting_widget = new qcraftingscreen(equip_manager);
+  connect(crafting_widget, &qcraftingscreen::back_issued, this, &ExalteredApp::init_load_character_screen);
+  setCentralWidget(crafting_widget);
+}
+
 void ExalteredApp::init_load_character_screen()
 {
   load_character_screen_widget = new qloadcharacterscreen(*character_manager, this);
@@ -99,6 +106,7 @@ void ExalteredApp::init_load_character_screen()
 
   connect(load_character_screen_widget, &qloadcharacterscreen::character_loaded, this, &ExalteredApp::load_main_screen);
   connect(load_character_screen_widget, &qloadcharacterscreen::character_create_issued, this, &ExalteredApp::load_creation_wizard_screen);
+  connect(load_character_screen_widget, &qloadcharacterscreen::craft_requested, this, &ExalteredApp::load_craft_wizard);
 }
 
 void ExalteredApp::deal_damage(std::shared_ptr<combat::outcome> outcome) {

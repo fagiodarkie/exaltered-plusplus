@@ -17,9 +17,24 @@ namespace equipment {
         _damage_type(damage_type),
         _precision_attribute(precision_attribute), _damage_attribute(damage_attribute) { }
 
+    attack_stat::attack_stat(const attack_stat& o)
+      : _im(o._im), _precision(o._precision), _damage(o._damage), _range(o._range), _cadence(o._cadence),
+        _minimum_damage(o._minimum_damage), _drill(o._drill), _damage_type(o._damage_type),
+        _precision_attribute(o._precision_attribute), _damage_attribute(o._damage_attribute), _notes(o._notes) { }
+
     void attack_stat::serialisation()
     {
-
+      synch(serialisation::json_constants::SLOT_CRAFT_IM_BONUS, _im);
+      synch(serialisation::json_constants::SLOT_CRAFT_PRECISION_BONUS, _precision);
+      synch(serialisation::json_constants::SLOT_CRAFT_STATS_DAMAGE_BONUS, _damage);
+      synch(serialisation::json_constants::SLOT_CRAFT_STATS_RANGE, _range);
+      synch(serialisation::json_constants::SLOT_CRAFT_STATS_CADENCE, _cadence);
+      synch(serialisation::json_constants::SLOT_CRAFT_MIN_DAMAGE, _minimum_damage);
+      synch(serialisation::json_constants::SLOT_CRAFT_DRILL_BONUS, _drill);
+      synch(serialisation::json_constants::SLOT_CRAFT_STATS_DAMAGE_TYPE, _damage_type);
+      synch(serialisation::json_constants::SLOT_CRAFT_STATS_PRECISION_ATTRIBUTE, _precision_attribute);
+      synch(serialisation::json_constants::SLOT_CRAFT_STATS_DAMAGE_ATTRIBUTE, _damage_attribute);
+      synch(serialisation::json_constants::SLOT_CRAFT_STATS_NOTES, _notes);
     }
 
     const attack_stat attack_stat::IMPROVISED_BASH(8, -3, 0, 1, 2, 0, 0, damage_type_enum::BASHING, attribute::attribute_enum::DEXTERITY, attribute::attribute_enum::STRENGTH);
@@ -28,13 +43,11 @@ namespace equipment {
     const attack_stat attack_stat::IMPROVISED_GRAPPLE(5, -3, -10, 1, 1, 0, 0, damage_type_enum::BASHING, attribute::attribute_enum::DEXTERITY, attribute::attribute_enum::STRENGTH);
 
     weapon_project::weapon_project()
-      : _defense(0), _default_attack(attack_type::BASH)
-    {
-      _stats[(int)attack_type::BASH]     = attack_stat::IMPROVISED_BASH;
-      _stats[(int)attack_type::SLASH]    = attack_stat::IMPROVISED_SLASH;
-      _stats[(int)attack_type::THROW]    = attack_stat::IMPROVISED_THROW;
-      _stats[(int)attack_type::GRAPPLE]  = attack_stat::IMPROVISED_GRAPPLE;
-    }
+      : _defense(0), _default_attack(attack_type::BASH) { }
+
+    weapon_project::weapon_project(const weapon_project& o)
+      : _project_name(o._project_name), _defense(o._defense), _slots(o._slots), _default_attack(o._default_attack),
+        _stats(o._stats), _attributes(o._attributes), _minimums(o._minimums), _possible_abilities(o._possible_abilities), _weapon_notes(o._weapon_notes) { }
 
     std::string weapon_project::name() const
     {
@@ -131,6 +144,15 @@ namespace equipment {
     unsigned short weapon_project::total_slots() const
     {
       return _slots;
+    }
+
+    weapon_project& weapon_project::with_stat(const attack_stat& stat, attack_type a_type)
+    {
+      if (a_type == attack_type::DEFAULT)
+        a_type = _default_attack;
+
+      _stats[(int)a_type] = stat;
+      return *this;
     }
 
     weapon_project& weapon_project::with_precision(int precision, attack_type a_type)
@@ -281,8 +303,8 @@ namespace equipment {
     void weapon_project::serialisation()
     {
       synch(serialisation::json_constants::SLOT_NAME,                         _project_name);
-      synch(serialisation::json_constants::SLOT_CRAFT_MATERIAL_DEFENSE_BONUS, _defense);
-      synch(serialisation::json_constants::SLOT_CRAFT_MATERIAL_SLOTS,         _slots);
+      synch(serialisation::json_constants::SLOT_CRAFT_DEFENSE_BONUS,          _defense);
+      synch(serialisation::json_constants::SLOT_CRAFT_SLOTS,                  _slots);
       synch(serialisation::json_constants::SLOT_CRAFT_DEFAULT_ATTACK,         _default_attack);
       synch(serialisation::json_constants::SLOT_CRAFT_STATS_GENERIC,          _stats);
       synch(serialisation::json_constants::SLOT_CRAFT_STATS_ATTRIBUTES,       _attributes);

@@ -21,6 +21,22 @@ namespace manager {
         synch(serialisation::json_constants::SLOT_WEAPON_PROJECTS, wprojs);
         synch(serialisation::json_constants::SLOT_MATERIALS, mats);
       }
+    else
+      {
+        std::vector<craft::material> mats;
+        std::vector<craft::weapon_project> wep_proj;
+        std::vector<class weapon> weps;
+        synch(serialisation::json_constants::SLOT_WEAPONS, weps);
+        synch(serialisation::json_constants::SLOT_WEAPON_PROJECTS, wep_proj);
+        synch(serialisation::json_constants::SLOT_MATERIALS, mats);
+
+        for (auto m: mats)
+          add_material(m);
+        for (auto w: weps)
+          add_weapon(w);
+        for (auto wp: wep_proj)
+          add_project(wp);
+      }
   }
 
   std::vector<craft::weapon_project> equipment_manager::projects() const
@@ -67,16 +83,19 @@ namespace manager {
   void equipment_manager::add_material(const craft::material& m)
   {
     _materials[m.name()] = m;
+    save(EQUIPMENT_SAVE_FILE);
   }
 
   void equipment_manager::add_project(const craft::weapon_project& p)
   {
     _projects[p.name()] = p;
+    save(EQUIPMENT_SAVE_FILE);
   }
 
   void equipment_manager::add_weapon(const class weapon& w)
   {
     _weapons[w.name()] = w;
+    save(EQUIPMENT_SAVE_FILE);
   }
 
 }

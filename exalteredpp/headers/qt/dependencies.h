@@ -2,6 +2,7 @@
 
 #include "filesystem_db.h"
 #include "managers/character_manager.h"
+#include "managers/equipment_manager.h"
 
 #include "derived_value_definitions.h"
 #include "derived_value_calculator.h"
@@ -14,6 +15,8 @@ namespace dependency {
   static std::shared_ptr<manager::character_manager> s_character_manager = std::make_shared<manager::character_manager>(s_db_abstraction);
 
   static std::shared_ptr<calculator::derived_value_calculator> derived_values = std::make_shared<calculator::derived_value_calculator>(calculator::STANDARD_WORKER_MAP);
+
+  static std::shared_ptr<manager::equipment_manager> s_equipment_manager = std::make_shared<manager::equipment_manager>();
 
   class dice_rollers {
 

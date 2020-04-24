@@ -25,6 +25,8 @@ namespace equipment {
                   damage_type_enum damage_type,
                   attribute::attribute_enum precision_attribute, attribute::attribute_enum damage_attribute);
 
+      attack_stat(const attack_stat& o);
+
       static const attack_stat IMPROVISED_BASH, IMPROVISED_SLASH, IMPROVISED_THROW, IMPROVISED_GRAPPLE;
 
       int _im, _precision, _damage, _range, _cadence, _minimum_damage, _drill;
@@ -42,6 +44,7 @@ namespace equipment {
       static const unsigned short STANDARD_WEAPON_SLOTS = 3, HEAVY_WEAPON_SLOTS = 4;
 
       weapon_project();
+      weapon_project(const weapon_project& o);
 
       std::string name() const;
       int precision_bonus(attack_type = attack_type::DEFAULT) const;
@@ -61,6 +64,7 @@ namespace equipment {
       std::vector<ability::ability_name> relevant_abilities() const;
       unsigned short int total_slots() const;
 
+      weapon_project& with_stat(const attack_stat& stat, attack_type atk);
       weapon_project& with_precision(int precision, attack_type = attack_type::DEFAULT);
       weapon_project& with_defense(int defense);
       weapon_project& with_im(int im, attack_type = attack_type::DEFAULT);

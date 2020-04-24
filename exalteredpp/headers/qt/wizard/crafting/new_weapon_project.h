@@ -6,7 +6,10 @@
 #include <QPushButton>
 #include <QSpinBox>
 #include <QWidget>
+#include <QStackedLayout>
+#include <QTabWidget>
 #include <QLineEdit>
+#include "weapon_project_stat_widget.h"
 
 #include "managers/equipment_manager.h"
 
@@ -16,34 +19,39 @@ namespace qt {
     {
       Q_OBJECT
     public:
-      explicit new_weapon_project(std::shared_ptr<manager::equipment_manager>, QWidget *parent = nullptr);
+      explicit new_weapon_project(QWidget *parent = nullptr);
 
+      void reset();
+
+    signals:
+      void project_created(const equipment::craft::weapon_project& new_project);
+      void canceled_project();
 
     private:
 
-      std::shared_ptr<manager::equipment_manager> equip_manager;
-
-      void on_attacks_chosen();
-      void submit_project();
-
       equipment::craft::weapon_project _project;
-      std::vector<combat::attack_attribute> _additional_attributes;
       QVector<equipment::craft::attack_type> _attack_types;
 
       equipment::craft::attack_type current_attack_type() const;
 
-      QPushButton *attacks_chosen, *project_finished, *return_to_attack_definition;
+      QPushButton *attacks_chosen, *project_finished, *return_to_attack_definition, *back_to_craft_menu;
 
       QLineEdit *project_name;
-      QSpinBox *weapon_precision_spin, *weapon_damage_spin, *weapon_drill_spin, *weapon_min_spin;
-      QComboBox *weapon_damage_box, *weapon_precision_attr_box, *weapon_damage_attr_box,
-        *weapon_ability_box, *body_target_box, *current_attack_info, *default_attack;
-      QVector<QCheckBox*> note_checkboxes, attack_type_checkboxes;
+      QComboBox *weapon_ability_box, *current_attack_info, *default_attack;
+      QVector<QCheckBox*> attack_type_checkboxes;
       QWidget *attack_stat_screen, *attack_types_screen;
+      QStackedLayout *all_screens;
+      QTabWidget *tabs;
+
+      QMap<equipment::craft::attack_type, weapon_project_stat_widget*> stat_widgets;
 
       static const QString SELECTED_ENUM;
 
       void init_members();
+      void check_name_attacks_valid();
+      void name_chosen();
+      void load_name_screen();
+      void submit_project();
 
       QWidget* compose_stat_screen();
       QWidget* compose_attack_types_screen();

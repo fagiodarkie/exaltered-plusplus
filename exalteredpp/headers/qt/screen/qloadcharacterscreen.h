@@ -27,12 +27,13 @@ namespace qt
     signals:
         void character_create_issued();
         void character_loaded(std::shared_ptr<character::character> character);
+        void craft_requested();
 
     private:
         void init();
 
         QList<QPair<QRadioButton*, QString>> character_buttons;
-        QPushButton *load_character_button, *new_character_button;
+        QPushButton *load_character_button, *new_character_button, *craft_button;
         manager::character_manager& character_manager;
 
         QString detect_selected_character_id() const;

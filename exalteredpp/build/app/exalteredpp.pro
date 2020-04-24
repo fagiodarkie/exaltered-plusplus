@@ -91,6 +91,7 @@ SOURCES += \
     ../../src/qt/screen/qcharacterabilities.cpp \
     ../../src/qt/screen/qcharacterattributes.cpp \
     ../../src/qt/screen/qcharacterinfoscreen.cpp \
+    ../../src/qt/screen/qcraftingscreen.cpp \
     ../../src/qt/screen/qdefense_values_screen.cpp \
     ../../src/qt/screen/qessence_values_screen.cpp \
     ../../src/qt/screen/qexperience_screen.cpp \
@@ -114,6 +115,7 @@ SOURCES += \
     ../../src/qt/wizard/chargen/character_creation_virtues_vice.cpp \
     ../../src/qt/wizard/chargen/character_creation_wizard.cpp \
     ../../src/qt/wizard/crafting/new_weapon_project.cpp \
+    ../../src/qt/wizard/crafting/weapon_project_stat_widget.cpp \
     ../../src/qt/wizard/phys_defense/attack_parameters_page.cpp \
     ../../src/qt/wizard/phys_defense/defense_declaration_page.cpp \
     ../../src/qt/wizard/phys_defense/defense_resolution_wizard.cpp \
@@ -218,6 +220,7 @@ HEADERS += \
     ../../headers/qt/screen/qcharacterabilities.h \
     ../../headers/qt/screen/qcharacterattributes.h \
     ../../headers/qt/screen/qcharacterinfoscreen.h \
+    ../../headers/qt/screen/qcraftingscreen.h \
     ../../headers/qt/screen/qdefense_values_screen.h \
     ../../headers/qt/screen/qessence_values_screen.h \
     ../../headers/qt/screen/qexperience_screen.h \
@@ -242,6 +245,7 @@ HEADERS += \
     ../../headers/qt/wizard/chargen/character_creation_virtues_vice.h \
     ../../headers/qt/wizard/chargen/character_creation_wizard.h \
     ../../headers/qt/wizard/crafting/new_weapon_project.h \
+    ../../headers/qt/wizard/crafting/weapon_project_stat_widget.h \
     ../../headers/qt/wizard/phys_defense/attack_parameters_page.h \
     ../../headers/qt/wizard/phys_defense/defense_declaration_page.h \
     ../../headers/qt/wizard/phys_defense/defense_resolution_wizard.h \

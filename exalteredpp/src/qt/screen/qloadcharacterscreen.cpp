@@ -56,9 +56,15 @@ namespace qt {
       new_character_button->setEnabled(true);
       connect(new_character_button, &QPushButton::clicked, this, &qloadcharacterscreen::create_new_character);
 
+      craft_button = new QPushButton(this);
+      craft_button->setText("Craft");
+      craft_button->setEnabled(true);
+      connect(craft_button, &QPushButton::clicked, [this]() { emit craft_requested(); });
+
       QVBoxLayout *buttons_layout = new QVBoxLayout(this);
       buttons_layout->addWidget(new_character_button);
       buttons_layout->addWidget(load_character_button);
+      buttons_layout->addWidget(craft_button);
       QWidget *south_widget = new QWidget(this);
       south_widget->setLayout(buttons_layout);
 
