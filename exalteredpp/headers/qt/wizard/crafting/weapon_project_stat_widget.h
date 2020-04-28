@@ -20,7 +20,7 @@ namespace qt {
 
     private:
 
-      QSpinBox *weapon_precision_spin, *weapon_damage_spin, *weapon_drill_spin, *weapon_min_spin, *weapon_im_spin, *weapon_range_spin;
+      QSpinBox *weapon_precision_spin, *weapon_damage_spin, *weapon_drill_spin, *weapon_min_spin, *weapon_im_spin, *weapon_range_spin, *weapon_cadence_spin;
       QComboBox *weapon_damage_box, *weapon_precision_attr_box, *weapon_damage_attr_box;
       QVector<QCheckBox*> note_checkboxes;
     };

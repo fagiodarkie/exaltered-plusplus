@@ -72,6 +72,14 @@ namespace equipment {
     {
       return _defense;
     }
+    int weapon_project::hindrance() const
+    {
+      return _hindrance;
+    }
+    int weapon_project::bulk() const
+    {
+      return _bulk;
+    }
     int weapon_project::IM(attack_type a_type) const
     {
       if (a_type == attack_type::DEFAULT)
@@ -167,6 +175,18 @@ namespace equipment {
     weapon_project& weapon_project::with_defense(int defense)
     {
       _defense = defense;
+      return *this;
+    }
+
+    weapon_project& weapon_project::with_hindrance(int hindrance)
+    {
+      _hindrance = hindrance;
+      return *this;
+    }
+
+    weapon_project& weapon_project::with_bulk(int bulk)
+    {
+      _bulk = bulk;
       return *this;
     }
 
@@ -311,6 +331,8 @@ namespace equipment {
       synch(serialisation::json_constants::SLOT_CRAFT_STATS_MINIMUMS,         _minimums);
       synch(serialisation::json_constants::SLOT_CRAFT_STATS_ABILITIES,        _possible_abilities);
       synch(serialisation::json_constants::SLOT_CRAFT_STATS_NOTES,            _weapon_notes);
+      synch(serialisation::json_constants::SLOT_CRAFT_BULK,                   _bulk);
+      synch(serialisation::json_constants::SLOT_CRAFT_HINDRANCE,              _hindrance);
     }
 
   }

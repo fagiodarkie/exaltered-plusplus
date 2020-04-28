@@ -50,6 +50,8 @@ namespace equipment {
       int precision_bonus(attack_type = attack_type::DEFAULT) const;
       int base_damage(attack_type = attack_type::DEFAULT) const;
       int defense() const;
+      int hindrance() const;
+      int bulk() const;
       int IM(attack_type = attack_type::DEFAULT) const;
       int minimum_damage(attack_type = attack_type::DEFAULT) const;
       int drill(attack_type = attack_type::DEFAULT) const;
@@ -67,6 +69,8 @@ namespace equipment {
       weapon_project& with_stat(const attack_stat& stat, attack_type atk);
       weapon_project& with_precision(int precision, attack_type = attack_type::DEFAULT);
       weapon_project& with_defense(int defense);
+      weapon_project& with_hindrance(int hindrance);
+      weapon_project& with_bulk(int bulk);
       weapon_project& with_im(int im, attack_type = attack_type::DEFAULT);
       weapon_project& with_base_damage(int base_damage, attack_type = attack_type::DEFAULT);
       weapon_project& with_damage_type(damage_type_enum damage_type, attack_type = attack_type::DEFAULT);
@@ -90,7 +94,7 @@ namespace equipment {
     private:
 
       std::string _project_name;
-      int _defense;
+      int _defense, _hindrance, _bulk;
       unsigned short int _slots;
       attack_type _default_attack;
       serialisable_int_map<attack_stat> _stats;

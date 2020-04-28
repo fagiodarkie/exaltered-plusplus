@@ -112,3 +112,7 @@ const std::string serialisation::json_constants::SLOT_CRAFT_STATS_MINIMUMS   = "
 const std::string serialisation::json_constants::SLOT_CRAFT_STATS_ABILITIES  = "abilities";
 const std::string serialisation::json_constants::SLOT_CRAFT_STATS_NOTES      = "notes";
 const std::string serialisation::json_constants::SLOT_CRAFT_STATS_ATTRIBUTES = "attack_attributes";
+const std::string serialisation::json_constants::SLOT_CRAFT_HINDRANCE        = "hindrance";
+const std::string serialisation::json_constants::SLOT_CRAFT_BULK             = "bulk";
+
+

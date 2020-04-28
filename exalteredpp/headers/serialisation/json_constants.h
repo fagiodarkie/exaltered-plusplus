@@ -116,6 +116,8 @@ namespace serialisation
     static const std::string SLOT_CRAFT_STATS_ABILITIES;
     static const std::string SLOT_CRAFT_STATS_NOTES;
     static const std::string SLOT_CRAFT_STATS_ATTRIBUTES;
+    static const std::string SLOT_CRAFT_HINDRANCE         ;
+    static const std::string SLOT_CRAFT_BULK              ;
 
 
   };
