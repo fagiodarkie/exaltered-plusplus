@@ -202,6 +202,7 @@ public:
                                 indent(out, depth);
                                 indent(out, depth);
                                 it->write(out, depth + 1);
+                                out.put(',');
                         }
                         out.put('\n');
                         indent(out, depth);
@@ -300,7 +301,29 @@ public:
                                 if (letter == '{') {
                                         in.unget();
                                         retval->getVector().push_back(parseJSON(in));
-                                } else break;
+                                } else if (letter == '-' || (letter >= '0' && letter <= '9')) {
+                                    std::string asString;
+                                    asString.push_back(letter);
+                                    bool hasDecimal = false;
+                                    do {
+                                            letter = in.get();
+                                            if (!hasDecimal && letter == '.')
+                                                    hasDecimal = true;
+                                            asString.push_back(letter);
+                                    } while (letter == '-' || letter == 'E' || letter == 'e' || letter == ',' || letter == '.' || (letter >= '0' && letter <= '9'));
+                                    in.unget();
+                                    std::stringstream parsing(asString);
+                                    if (hasDecimal) {
+                                            double number;
+                                            parsing >> number;
+                                            retval->getVector().emplace_back(std::make_shared<JSONdouble>(number));
+                                    }
+                                    else {
+                                            int64_t number;
+                                            parsing >> number;
+                                            retval->getVector().emplace_back(std::make_shared<JSONint>(number));
+                                    }
+                            } else break;
                         } while (letter != ']');
                         return retval;
                 } else {
@@ -564,12 +587,27 @@ protected:
         * \return false if the value was absent while reading, true otherwise
         */
         template<typename T>
-        typename std::enable_if<std::is_enum<T>::value || std::is_integral<T>::value, bool>::type
+        typename std::enable_if<std::is_integral<T>::value, bool>::type
         synch(const std::string& key, std::vector<T>& value) {
+
+
+          /*
+                if (preferencesSaving_) {
+                        preferencesJson_->getObject()[key] = std::make_shared<JSONint>(int64_t(value));
+                }
+                else {
+                        auto found = preferencesJson_->getObject().find(key);
+                        if (found != preferencesJson_->getObject().end()) {
+                                value = T(found->second->getInt());
+                        } return false;
+                }
+
+           * */
+
                 if (preferencesSaving_) {
                         auto making = std::make_shared<JSONarray>();
                         for (auto val: value) {
-                            making->getVector().push_back(std::make_shared<JSONint>((std::underlying_type_t<T>)val));
+                            making->getVector().push_back(std::make_shared<JSONint>(val));
                         }
                         preferencesJson_->getObject()[key] = making;
                 } else {

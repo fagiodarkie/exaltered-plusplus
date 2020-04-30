@@ -114,6 +114,7 @@ namespace qt {
         static const QString WEAPON_BULK            = "Weapon Bulk:";
         static const QString WEAPON_DAMAGE          = "Weapon Damage:";
         static const QString WEAPON_DEFENSE         = "Weapon Defense:";
+        static const QString WEAPON_RANGE           = "Weapon Range:";
         static const QString WEAPON_MIN_DAMAGE      = "Weapon Minimum Damage:";
         static const QString WEAPON_DRILL           = "Weapon Drill:"              ;
         static const QString WEAPON_ABILITY         = "Weapon Ability:"            ;
@@ -176,15 +177,14 @@ namespace qt {
     }
 
     namespace craft_wizard {
-      static const QString PROJECT_FINISHED = "Submit project";
-      static const QString ATTACKS_CHOSEN = "Attacks chosen";
-
-      static const QString PROJECT_NAME = "Project name";
-      static const QString ATTACKS = "Attacks";
-      static const QString DEFAULT_ATTACK = "Default attack:";
-      static const QString STATS = "General stats";
-
-      static const QString MINIMUMS_GROUP = "Minimums";
+      static const QString PROJECT_FINISHED   = "Submit project";
+      static const QString ATTACKS_CHOSEN     = "Attacks chosen";
+      static const QString PROJECT_NAME       = "Project name";
+      static const QString ATTACKS            = "Attacks";
+      static const QString DEFAULT_ATTACK     = "Default attack:";
+      static const QString STATS              = "General stats";
+      static const QString HEAVY_WEAPON_CHECK = "Heavy weapon";
+      static const QString MINIMUMS_GROUP     = "Minimums";
     }
 
     namespace creation_wizard {

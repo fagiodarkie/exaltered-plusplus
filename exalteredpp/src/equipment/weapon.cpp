@@ -3,6 +3,7 @@
 #include "common/reverse_search.h"
 #include <numeric>
 #include <cmath>
+#include "serialisation_utils.h"
 
 namespace equipment {
 
@@ -149,7 +150,8 @@ namespace equipment {
     synch(serialisation::json_constants::SLOT_NAME, _name);
     synch(serialisation::json_constants::SLOT_WEAPON_PROJECTS, _project);
     synch(serialisation::json_constants::SLOT_MATERIALS, _materials);
-    synch(serialisation::json_constants::SLOT_IMPROVEMENTS, _improvements);
+
+    SYNCH_ENUM_VECTOR(craft::improvement_enum, serialisation::json_constants::SLOT_IMPROVEMENTS, _improvements)
   }
 
   weapon& weapon::with_project(const craft::weapon_project& project)

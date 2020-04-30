@@ -41,8 +41,9 @@ namespace qt {
       QVector<QCheckBox*> attack_type_checkboxes;
       QWidget *attack_stat_screen, *attack_types_screen;
       QStackedLayout *all_screens;
-      QSpinBox *weapon_hindrance, *weapon_bulk;
+      QSpinBox *weapon_hindrance, *weapon_bulk, *weapon_defense;
       QTabWidget *tabs;
+      QCheckBox *is_heavy_weapon;
 
       QMap<equipment::craft::attack_type, weapon_project_stat_widget*> stat_widgets;
       QMap<attribute::attribute_enum, QSpinBox*> attr_minimum;

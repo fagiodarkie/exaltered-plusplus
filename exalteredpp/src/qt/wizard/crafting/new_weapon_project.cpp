@@ -56,6 +56,11 @@ namespace qt {
       default_attack = new QComboBox;
       weapon_hindrance = new QSpinBox;
       weapon_bulk = new QSpinBox;
+      weapon_defense = new QSpinBox;
+
+      weapon_defense->setMinimum(-99);
+
+      is_heavy_weapon = new QCheckBox(labels::craft_wizard::HEAVY_WEAPON_CHECK);
 
       for (auto attack_type: equipment::craft::ATTACK_TYPES)
         {
@@ -111,6 +116,8 @@ namespace qt {
 
       weapon_hindrance->setValue(0);
       weapon_bulk->setValue(0);
+      weapon_defense->setValue(0);
+      is_heavy_weapon->setChecked(false);
 
       _attack_types.clear();
       current_attack_info->clear();
@@ -156,10 +163,13 @@ namespace qt {
       tabs->addTab(new weapon_project_stat_widget, "temp"); // for sizing purposes.
 
       QFormLayout *weapon_form = new QFormLayout;
-      weapon_form->addRow(WEAPON_ABILITY   , weapon_ability_box);
+      weapon_form->addRow(WEAPON_ABILITY,   weapon_ability_box);
       weapon_form->addRow(WEAPON_HINDRANCE, weapon_hindrance);
-      weapon_form->addRow(WEAPON_BULK, weapon_bulk);
+      weapon_form->addRow(WEAPON_BULK,      weapon_bulk);
+      weapon_form->addRow(WEAPON_DEFENSE,   weapon_defense);
       weapon_form->addRow(labels::craft_wizard::DEFAULT_ATTACK, default_attack);
+
+      weapon_form->addWidget(is_heavy_weapon);
 
       QGroupBox *minimums_group = new QGroupBox(labels::craft_wizard::MINIMUMS_GROUP);
 
@@ -170,7 +180,7 @@ namespace qt {
           int column = 0;
           for (auto att: attribute::ATTRIBUTES_BY_CATEGORY.at(att_cat))
             {
-              grid->addWidget(layout::form_row(label(attribute::ATTRIBUTE_NAME.at(att)), attr_minimum[att]), row, column);
+              grid->addWidget(layout::form_row(label(attribute::ATTRIBUTE_NAME.at(att)), attr_minimum[att]), column, row);
               ++column;
             }
           ++row;
@@ -207,7 +217,13 @@ namespace qt {
       ability::ability_name weapon_ability(ability::ability_enum::WAR);
       weapon_ability.deserialise(weapon_ability_box->currentData().toString().toStdString());
       weapon_project.with_name(project_name->text().toStdString())
+          .with_hindrance(weapon_hindrance->value())
+          .with_bulk(weapon_bulk->value())
+          .with_defense(weapon_defense->value())
           .usually_attacks_with(static_cast<equipment::craft::attack_type>(default_attack->currentData().toInt()))
+          .with_slots(is_heavy_weapon->isChecked()
+                      ? equipment::craft::weapon_project::HEAVY_WEAPON_SLOTS
+                      : equipment::craft::weapon_project::STANDARD_WEAPON_SLOTS)
           .use_with(weapon_ability);
 
       for (auto atk: stat_widgets.keys())
@@ -217,11 +233,6 @@ namespace qt {
         if (attr_minimum[attr]->value() > 0)
           weapon_project.requires_attribute(attr, attr_minimum[attr]->value());
 
-      if (weapon_hindrance->value() > 0)
-        weapon_project.with_hindrance(weapon_hindrance->value());
-
-      if (weapon_bulk->value() > 0)
-        weapon_project.with_bulk(weapon_bulk->value());
 
       emit project_created(weapon_project);
     }

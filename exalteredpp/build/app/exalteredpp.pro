@@ -45,6 +45,8 @@ SOURCES += \
     ../../src/calculator/derived_value_calculator.cpp \
     ../../src/calculator/experience_purchase_cost_calculator.cpp \
     ../../src/calculator/worker/exalt_worker.cpp \
+    ../../src/equipment/craft/attack_stat.cpp \
+    ../../src/equipment/craft/attack_stat_collection.cpp \
     ../../src/errors/ability_not_found_exception.cpp \
     ../../src/errors/characternotfoundexception.cpp \
     ../../src/errors/invalid_parameter.cpp \
@@ -162,6 +164,8 @@ HEADERS += \
     ../../headers/combat/physical_attack.h \
     ../../headers/common/reverse_search.h \
     ../../headers/common/serialisable_map.h \
+    ../../headers/equipment/craft/attack_stat.h \
+    ../../headers/equipment/craft/attack_stat_collection.h \
     ../../headers/equipment/craft/craft_defines.h \
     ../../headers/equipment/craft/improvement.h \
     ../../headers/errors/ability_not_found_exception.h \
@@ -253,6 +257,7 @@ HEADERS += \
     ../../headers/serialisation/db_abstraction.h \
     ../../headers/serialisation/filesystem_db.h \
     ../../headers/serialisation/json_constants.h \
+    ../../headers/serialisation/serialisation_utils.h \
     ../../thirdparty/darkstyle/DarkStyle.h \
     ../../thirdparty/serialisable/serialisable.hpp \
     ../../headers/qt/wizard/phys_attack/attack_resolution_wizard.h \

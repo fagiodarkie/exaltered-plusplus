@@ -50,6 +50,7 @@ namespace qt {
       weapon_form->addRow(WEAPON_DAMAGE        , weapon_damage_spin);
       weapon_form->addRow(WEAPON_MIN_DAMAGE    , weapon_min_spin);
       weapon_form->addRow(WEAPON_CADENCE       , weapon_cadence_spin);
+      weapon_form->addRow(WEAPON_RANGE         , weapon_range_spin);
       weapon_form->addRow(WEAPON_DRILL         , weapon_drill_spin);
       weapon_form->addRow(WEAPON_PRECISION_ATTR, weapon_precision_attr_box);
       weapon_form->addRow(WEAPON_DAMAGE_ATTR   , weapon_damage_attr_box);
