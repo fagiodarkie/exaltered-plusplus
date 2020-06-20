@@ -22,67 +22,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-CONFIG += c++17
+CONFIG += c++14
 
 INCLUDEPATH += ../../headers \
-    ../../headers/model \
-    ../../headers/model/character \
     ../../headers/serialisation \
     ../../headers/qt \
-    ../../headers/errors \
-    ../../headers/calculator
+    ../../../core/exalteredpp/headers \
+    ../../../core/exalteredpp/headers/model \
+    ../../../core/exalteredpp/headers/model/character \
+    ../../../core/exalteredpp/headers/serialisation
+
+LIBS += ../../../core/exalteredpp/libdivinegames-core.a
 
 SOURCES += \
-    ../../src/calculator/dice_roller/dice_roller_options.cpp \
-    ../../src/combat/physical_attack.cpp \
-    ../../src/calculator/cost_worker/ability_cost_worker.cpp \
-    ../../src/calculator/cost_worker/attribute_cost_worker.cpp \
-    ../../src/calculator/cost_worker/essence_cost_worker.cpp \
-    ../../src/calculator/cost_worker/specialisation_cost_worker.cpp \
-    ../../src/calculator/cost_worker/vice_cost_worker.cpp \
-    ../../src/calculator/cost_worker/virtue_cost_worker.cpp \
-    ../../src/calculator/cost_worker/willpower_cost_worker.cpp \
-    ../../src/calculator/derived_value_calculator.cpp \
-    ../../src/calculator/experience_purchase_cost_calculator.cpp \
-    ../../src/calculator/worker/exalt_worker.cpp \
-    ../../src/equipment/craft/attack_stat.cpp \
-    ../../src/equipment/craft/attack_stat_collection.cpp \
-    ../../src/errors/ability_not_found_exception.cpp \
-    ../../src/errors/characternotfoundexception.cpp \
-    ../../src/errors/invalid_parameter.cpp \
-    ../../src/model/abilities/abilities.cpp \
-    ../../src/model/abilities/ability.cpp \
-    ../../src/model/abilities/specialisation.cpp \
-    ../../src/model/attributes/attributes.cpp \
-    ../../src/model/character/character.cpp \
-    ../../src/model/character/creation/character_creation_configuration.cpp \
-    ../../src/model/character/creation/character_type_model.cpp \
-    ../../src/model/character/exalt/exalt_caste.cpp \
-    ../../src/model/character/exalt/exalt_caste_abilities.cpp \
-    ../../src/model/managers/character_manager.cpp \
-    ../../src/model/managers/equipment_manager.cpp \
-    ../../src/model/narrative/ability_purchase.cpp \
-    ../../src/model/narrative/attribute_purchase.cpp \
-    ../../src/model/narrative/background_purchase.cpp \
-    ../../src/model/narrative/backgrounds.cpp \
-    ../../src/model/narrative/charm_purchase.cpp \
-    ../../src/model/narrative/essence_purchase.cpp \
-    ../../src/model/narrative/experience.cpp \
-    ../../src/model/narrative/experience_award.cpp \
-    ../../src/model/narrative/experience_cluster.cpp \
-    ../../src/model/narrative/session_awards.cpp \
-    ../../src/model/narrative/specialisation_purchase.cpp \
-    ../../src/model/narrative/vice_purchase.cpp \
-    ../../src/model/narrative/virtue_purchase.cpp \
-    ../../src/model/narrative/willpower_purchase.cpp \
-    ../../src/model/power/essence.cpp \
-    ../../src/model/power/health.cpp \
-    ../../src/model/power/logos.cpp \
-    ../../src/model/power/willpower.cpp \
-    ../../src/model/social/persona.cpp \
-    ../../src/model/social/philosophy.cpp \
-    ../../src/model/virtues/virtue.cpp \
-    ../../src/model/virtues/virtues.cpp \
     ../../src/qt/caste_style.cpp \
     ../../src/qt/dependencies.cpp \
     ../../src/qt/exalteredapp.cpp \
@@ -123,97 +75,16 @@ SOURCES += \
     ../../src/qt/wizard/phys_defense/defense_resolution_wizard.cpp \
     ../../src/qt/wizard/phys_defense/final_damage_input_page.cpp \
     ../../src/serialisation/filesystem_db.cpp \
-    ../../src/serialisation/json_constants.cpp \
     ../../thirdparty/darkstyle/DarkStyle.cpp \
     ../../src/qt/wizard/phys_attack/attack_resolution_wizard.cpp \
     ../../src/qt/wizard/phys_attack/attack_declaration_precision_page.cpp \
     ../../src/qt/wizard/phys_attack/provide_defense_value_page.cpp \
     ../../src/qt/wizard/phys_attack/final_damage_results_push_knock_page.cpp \
     ../../src/qt/wizard/phys_attack/provide_balance_details_page.cpp \
-    ../../src/qt/wizard/phys_attack/attack_result_page.cpp \
-    ../../src/equipment/craft/material.cpp \
-    ../../src/equipment/weapon.cpp \
-    ../../src/equipment/craft/weapon_project.cpp
+    ../../src/qt/wizard/phys_attack/attack_result_page.cpp
 
 
 HEADERS += \
-    ../../headers/calculator/abstract_dice_thrower.h \
-    ../../headers/combat/attack_defines.h \
-    ../../headers/combat/physical_attack.h \
-    ../../headers/calculator/cost_worker/ability_cost_worker.h \
-    ../../headers/calculator/cost_worker/abstract_cost_worker.h \
-    ../../headers/calculator/cost_worker/attribute_cost_worker.h \
-    ../../headers/calculator/cost_worker/essence_cost_worker.h \
-    ../../headers/calculator/cost_worker/specialisation_cost_worker.h \
-    ../../headers/calculator/cost_worker/vice_cost_worker.h \
-    ../../headers/calculator/cost_worker/virtue_cost_worker.h \
-    ../../headers/calculator/cost_worker/willpower_cost_worker.h \
-    ../../headers/calculator/derived_value_calculator.h \
-    ../../headers/calculator/derived_value_definitions.h \
-    ../../headers/calculator/dice_roller/abstract_dice_roller.h \
-    ../../headers/calculator/dice_roller/dice_roller.h \
-    ../../headers/calculator/dice_roller/dice_roller_options.h \
-    ../../headers/calculator/dice_thrower.h \
-    ../../headers/calculator/dice_thrower/abstract_dice_roller.h \
-    ../../headers/calculator/dice_thrower/dice_roller_options.h \
-    ../../headers/calculator/experience_purchase_cost_calculator.h \
-    ../../headers/calculator/worker/abstract_calculator_worker.h \
-    ../../headers/calculator/worker/common_worker.h \
-    ../../headers/calculator/worker/exalt_worker.h \
-    ../../headers/calculator/worker/rounding_type.h \
-    ../../headers/combat/physical_attack.h \
-    ../../headers/common/reverse_search.h \
-    ../../headers/common/serialisable_map.h \
-    ../../headers/equipment/craft/attack_stat.h \
-    ../../headers/equipment/craft/attack_stat_collection.h \
-    ../../headers/equipment/craft/craft_defines.h \
-    ../../headers/equipment/craft/improvement.h \
-    ../../headers/errors/ability_not_found_exception.h \
-    ../../headers/errors/characternotfoundexception.h \
-    ../../headers/errors/error_codes.h \
-    ../../headers/errors/invalid_parameter.h \
-    ../../headers/model/abilities/ability_names.h \
-    ../../headers/model/behavioral/name_value_pair.h \
-    ../../headers/model/abilities/abilities.h \
-    ../../headers/model/abilities/ability.h \
-    ../../headers/model/abilities/ability.h \
-    ../../headers/model/abilities/specialisation.h \
-    ../../headers/model/attributes/attribute_names.h \
-    ../../headers/model/attributes/attributes.h \
-    ../../headers/model/character/character.h \
-    ../../headers/model/character/creation/character_creation_configuration.h \
-    ../../headers/model/character/creation/character_type_model.h \
-    ../../headers/model/character/exalt/exalt_caste.h \
-    ../../headers/model/managers/equipment_manager.h \
-    ../../headers/model/narrative/ability_purchase.h \
-    ../../headers/model/narrative/abstract_purchase.h \
-    ../../headers/model/narrative/attribute_purchase.h \
-    ../../headers/model/narrative/background_purchase.h \
-    ../../headers/model/narrative/backgrounds.h \
-    ../../headers/model/narrative/charm_purchase.h \
-    ../../headers/model/narrative/essence_purchase.h \
-    ../../headers/model/narrative/experience.h \
-    ../../headers/model/narrative/experience_award.h \
-    ../../headers/model/narrative/experience_cluster.h \
-    ../../headers/model/narrative/experience_defines.h \
-    ../../headers/model/narrative/session_awards.h \
-    ../../headers/model/narrative/specialisation_purchase.h \
-    ../../headers/model/narrative/vice_purchase.h \
-    ../../headers/model/narrative/virtue_purchase.h \
-    ../../headers/model/narrative/willpower_purchase.h \
-    ../../headers/model/power/essence.h \
-    ../../headers/model/power/health.h \
-    ../../headers/model/power/logos.h \
-    ../../headers/model/power/willpower.h \
-    ../../headers/model/social/emotions_names.h \
-    ../../headers/model/social/persona.h \
-    ../../headers/model/social/philosophy.h \
-    ../../headers/model/social/social_specifics.h \
-    ../../headers/model/virtues/virtue.h \
-    ../../headers/model/virtues/virtue_names.h \
-    ../../headers/model/virtues/virtues.h \
-    ../../headers/model/managers/character_manager.h \
-    ../../headers/model/text/character_text_constants.h \
     ../../headers/qt/caste_style.h \
     ../../headers/qt/dependencies.h \
     ../../headers/qt/exalteredapp.h \
@@ -254,22 +125,14 @@ HEADERS += \
     ../../headers/qt/wizard/phys_defense/defense_declaration_page.h \
     ../../headers/qt/wizard/phys_defense/defense_resolution_wizard.h \
     ../../headers/qt/wizard/phys_defense/final_damage_input_page.h \
-    ../../headers/serialisation/db_abstraction.h \
     ../../headers/serialisation/filesystem_db.h \
-    ../../headers/serialisation/json_constants.h \
-    ../../headers/serialisation/serialisation_utils.h \
     ../../thirdparty/darkstyle/DarkStyle.h \
-    ../../thirdparty/serialisable/serialisable.hpp \
     ../../headers/qt/wizard/phys_attack/attack_resolution_wizard.h \
     ../../headers/qt/wizard/phys_attack/attack_declaration_precision_page.h \
     ../../headers/qt/wizard/phys_attack/provide_defense_value_page.h \
     ../../headers/qt/wizard/phys_attack/final_damage_results_push_knock_page.h \
     ../../headers/qt/wizard/phys_attack/provide_balance_details_page.h \
-    ../../headers/qt/wizard/phys_attack/attack_result_page.h \
-    ../../headers/combat/mental_attack.h \
-    ../../headers/equipment/craft/material.h \
-    ../../headers/equipment/weapon.h \
-    ../../headers/equipment/craft/weapon_project.h
+    ../../headers/qt/wizard/phys_attack/attack_result_page.h
 
 CONFIG += mobility
 MOBILITY = 
