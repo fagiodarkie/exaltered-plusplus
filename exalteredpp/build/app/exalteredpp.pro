@@ -28,6 +28,8 @@ INCLUDEPATH += ../../headers \
     ../../headers/serialisation \
     ../../headers/qt \
     ../../../core/exalteredpp/headers \
+    ../../../core/exalteredpp/headers/calculator \
+    ../../../core/exalteredpp/headers/combat \
     ../../../core/exalteredpp/headers/model \
     ../../../core/exalteredpp/headers/model/character \
     ../../../core/exalteredpp/headers/serialisation
