@@ -27,14 +27,15 @@ CONFIG += c++14
 INCLUDEPATH += ../../headers \
     ../../headers/serialisation \
     ../../headers/qt \
-    ../../../core/exalteredpp/headers \
-    ../../../core/exalteredpp/headers/calculator \
-    ../../../core/exalteredpp/headers/combat \
-    ../../../core/exalteredpp/headers/model \
-    ../../../core/exalteredpp/headers/model/character \
-    ../../../core/exalteredpp/headers/serialisation
+    ../../../core/core/headers \
+    ../../../core/core/headers/calculator \
+    ../../../core/core/headers/combat \
+    ../../../core/core/headers/errors \
+    ../../../core/core/headers/model \
+    ../../../core/core/headers/model/character \
+    ../../../core/core/headers/serialisation
 
-LIBS += ../../../core/exalteredpp/libdivinegames-core.a
+LIBS += ../../../core/core/libdivinegames-core.a
 
 SOURCES += \
     ../../src/qt/caste_style.cpp \
