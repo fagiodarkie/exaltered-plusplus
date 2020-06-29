@@ -84,7 +84,9 @@ SOURCES += \
     ../../src/qt/wizard/phys_attack/provide_defense_value_page.cpp \
     ../../src/qt/wizard/phys_attack/final_damage_results_push_knock_page.cpp \
     ../../src/qt/wizard/phys_attack/provide_balance_details_page.cpp \
-    ../../src/qt/wizard/phys_attack/attack_result_page.cpp
+    ../../src/qt/wizard/phys_attack/attack_result_page.cpp \
+    ../../src/qt/wizard/crafting/view_edit_craft_items.cpp \
+    ../../src/qt/wizard/crafting/material_edit_screen.cpp
 
 
 HEADERS += \
@@ -135,7 +137,9 @@ HEADERS += \
     ../../headers/qt/wizard/phys_attack/provide_defense_value_page.h \
     ../../headers/qt/wizard/phys_attack/final_damage_results_push_knock_page.h \
     ../../headers/qt/wizard/phys_attack/provide_balance_details_page.h \
-    ../../headers/qt/wizard/phys_attack/attack_result_page.h
+    ../../headers/qt/wizard/phys_attack/attack_result_page.h \
+    ../../headers/qt/wizard/crafting/view_edit_craft_items.h \
+    ../../headers/qt/wizard/crafting/material_edit_screen.h
 
 CONFIG += mobility
 MOBILITY = 

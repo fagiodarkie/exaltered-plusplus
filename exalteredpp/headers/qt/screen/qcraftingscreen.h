@@ -3,8 +3,10 @@
 
 #include <QWidget>
 #include <QPushButton>
+#include <QComboBox>
 
 #include "wizard/crafting/new_weapon_project.h"
+#include "wizard/crafting/view_edit_craft_items.h"
 
 namespace qt {
   namespace screen {
@@ -18,9 +20,12 @@ namespace qt {
       void back_issued();
 
     private:
-      QPushButton *new_weapon_project, *new_armor_project, *new_material, *new_standard_weapon, *back;
+      QPushButton *new_weapon_project, *new_armor_project, *new_material, *new_standard_weapon,
+        *list_weapon_project, *list_armor_project, *list_material, *list_standard_weapon,
+        *back;
 
       wizard::new_weapon_project *new_weapon_project_widget;
+      wizard::view_edit_craft_items *view_items;
       std::shared_ptr<manager::equipment_manager> equip_manager;
       QWidget* buttons_widget;
 
@@ -28,6 +33,16 @@ namespace qt {
 
       void load_buttons_screen();
       void load_weapon_project();
+
+      void show_materials();
+      void create_material();
+
+      void on_edit_issued(const QString& item_name, wizard::view_edit_craft_items::item_mode item_type);
+
+      inline void setCurrentWidget(QWidget* w)
+      {
+        ((QStackedLayout*)layout())->setCurrentWidget(w);
+      }
     };
 
   }

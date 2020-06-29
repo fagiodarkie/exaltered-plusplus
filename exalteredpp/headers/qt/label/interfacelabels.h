@@ -17,6 +17,7 @@ namespace qt {
     static const QString CANCEL_LABEL   = "Cancel";
     static const QString APP_TITLE      = "Divine Games";
     static const QString BACK_LABEL     = "Back";
+    static const QString EDIT_LABEL     = "Edit";
     static const QString BACK_TO_MENU_LABEL = "Back to menu";
 
     namespace info_labels {
