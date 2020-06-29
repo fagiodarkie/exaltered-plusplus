@@ -27,6 +27,7 @@ namespace qt {
 
       new_weapon_project_widget = new wizard::new_weapon_project;
       material_edit_screen = new wizard::material_edit_screen;
+      view_items = new wizard::view_edit_craft_items;
 
       connect(new_weapon_project, &QPushButton::clicked, this, &qcraftingscreen::load_weapon_project);
       connect(new_weapon_project_widget, &wizard::new_weapon_project::project_created, this, &qcraftingscreen::on_project_created);
@@ -41,6 +42,7 @@ namespace qt {
       QVBoxLayout *buttons_layout = new QVBoxLayout;
       buttons_layout->addWidget(new_weapon_project);
       buttons_layout->addWidget(new_armor_project);
+      buttons_layout->addWidget(list_material);
       buttons_layout->addWidget(new_material);
       buttons_layout->addWidget(new_standard_weapon);
       buttons_layout->addWidget(back);
