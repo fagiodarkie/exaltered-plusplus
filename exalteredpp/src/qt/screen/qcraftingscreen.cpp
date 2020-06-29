@@ -26,6 +26,7 @@ namespace qt {
       back = new QPushButton(labels::BACK_LABEL);
 
       new_weapon_project_widget = new wizard::new_weapon_project;
+      material_edit_screen = new wizard::material_edit_screen;
 
       connect(new_weapon_project, &QPushButton::clicked, this, &qcraftingscreen::load_weapon_project);
       connect(new_weapon_project_widget, &wizard::new_weapon_project::project_created, this, &qcraftingscreen::on_project_created);
@@ -33,6 +34,9 @@ namespace qt {
 
       connect(list_material, &QPushButton::clicked, this, &qcraftingscreen::show_materials);
       connect(view_items, &wizard::view_edit_craft_items::edit_request, this, &qcraftingscreen::on_edit_issued);
+
+      connect(material_edit_screen, &wizard::material_edit_screen::back_issued, this, &qcraftingscreen::load_buttons_screen);
+      connect(view_items, &wizard::view_edit_craft_items::back_issued, this, &qcraftingscreen::load_buttons_screen);
 
       QVBoxLayout *buttons_layout = new QVBoxLayout;
       buttons_layout->addWidget(new_weapon_project);
@@ -48,6 +52,7 @@ namespace qt {
       stack->addWidget(buttons_widget);
       stack->addWidget(new_weapon_project_widget);
       stack->addWidget(view_items);
+      stack->addWidget(material_edit_screen);
 
       setLayout(stack);
       load_buttons_screen();
@@ -87,6 +92,12 @@ namespace qt {
         case wizard::view_edit_craft_items::item_mode::material:
           {
             equipment::craft::material old_material = equip_manager->get_material(item_name.toStdString());
+            material_edit_screen->with_material(old_material);
+            setCurrentWidget(material_edit_screen);
+            break;
+          }
+        default:
+          {
 
           }
         }

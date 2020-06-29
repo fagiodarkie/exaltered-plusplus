@@ -7,6 +7,7 @@
 
 #include "wizard/crafting/new_weapon_project.h"
 #include "wizard/crafting/view_edit_craft_items.h"
+#include "wizard/crafting/material_edit_screen.h"
 
 namespace qt {
   namespace screen {
@@ -26,6 +27,7 @@ namespace qt {
 
       wizard::new_weapon_project *new_weapon_project_widget;
       wizard::view_edit_craft_items *view_items;
+      wizard::material_edit_screen *material_edit_screen;
       std::shared_ptr<manager::equipment_manager> equip_manager;
       QWidget* buttons_widget;
 
