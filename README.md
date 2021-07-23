@@ -1,6 +1,6 @@
 # Exaltered++
 
-![travis badge](https://travis-ci.com/fagiodarkie/exaltered-plusplus.svg?branch=master)
+![travis badge](https://travis-ci.com/fagiodarkie/exaltered-plusplus.svg?branch=master) 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d22865588f5247489ed9a134c4400ed7)](https://app.codacy.com/app/fagiodarkie/exaltered-plusplus?utm_source=github.com&utm_medium=referral&utm_content=fagiodarkie/exaltered-plusplus&utm_campaign=Badge_Grade_Dashboard)
 [![BCH compliance](https://bettercodehub.com/edge/badge/fagiodarkie/exaltered-plusplus?branch=master)](https://bettercodehub.com/)
 [![codecov](https://codecov.io/gh/fagiodarkie/exaltered-plusplus/branch/master/graph/badge.svg)](https://codecov.io/gh/fagiodarkie/exaltered-plusplus)
