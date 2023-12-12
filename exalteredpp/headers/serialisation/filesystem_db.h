@@ -1,6 +1,7 @@
 #pragma once
 
 #include "db_abstraction.h"
+#include <memory>
 #include <QMap>
 
 namespace serialisation {

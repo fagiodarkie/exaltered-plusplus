@@ -24,7 +24,7 @@ namespace serialisation {
           QString serialised_characters = map_file.readAll();
           map_file.close();
           QJsonDocument json_character = QJsonDocument::fromJson(serialised_characters.toUtf8());
-          for (QString char_id : json_character.object().keys())
+          for (const QString& char_id : json_character.object().keys())
             {
               id_to_name.insert(char_id, json_character.object().value(char_id).toString());
             }
@@ -90,7 +90,7 @@ namespace serialisation {
     unsigned int id = 0;
 
     int start_size = QString("character_").size();
-    for (auto char_id: id_to_name.keys())
+    for (const auto& char_id: id_to_name.keys())
       {
         unsigned int new_id = static_cast<unsigned int>(char_id.mid(start_size, char_id.size() - start_size).toInt());
         if (new_id > id)
@@ -104,7 +104,7 @@ namespace serialisation {
   std::vector<std::string> filesystem_db::character_list()
   {
     std::vector<std::string> result;
-    for (auto name: id_to_name.keys())
+    for (const auto& name: id_to_name.keys())
       {
         result.push_back(name.toStdString());
       }

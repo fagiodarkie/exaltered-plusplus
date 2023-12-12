@@ -22,7 +22,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-CONFIG += c++14
+CONFIG += c++17
 
 INCLUDEPATH += ../../headers \
     ../../headers/serialisation \
@@ -35,7 +35,7 @@ INCLUDEPATH += ../../headers \
     ../../../core/core/headers/model/character \
     ../../../core/core/headers/serialisation
 
-LIBS += ../../../core/core/libdivinegames-core.a
+LIBS += -L$$PWD/../../../core/core -ldivinegames-core
 
 SOURCES += \
     ../../src/qt/caste_style.cpp \
@@ -141,15 +141,17 @@ HEADERS += \
     ../../headers/qt/wizard/crafting/view_edit_craft_items.h \
     ../../headers/qt/wizard/crafting/material_edit_screen.h
 
+
 CONFIG += mobility
 MOBILITY = 
 
 debug {
-    QMAKE_CXXFLAGS += --coverage -O0
-    QMAKE_LFLAGS += --coverage
+    QMAKE_CXXFLAGS += -O0
+#QMAKE_LFLAGS +=
 }
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
